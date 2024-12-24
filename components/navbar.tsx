@@ -170,7 +170,7 @@ export default function Navbar() {
                 </a>
                 <img
                   className="bg-accent-bg/20 h-10 w-10 rounded-full"
-                  src="https://prasadreddy03.vercel.app/profile.png"
+                  src="https://api.dicebear.com/9.x/adventurer/svg?seed=Brian"
                   alt="avatar"
                 />
                 <LogoutButton />
