@@ -50,7 +50,7 @@ export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="max-h-[91vh] block w-full fixed top-16 left-0 z-[39] lg:hidden bg-primary-bg supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] overflow-y-auto pt-4 pb-4 px-4"
+          className="max-h-[91vh] no_scrollbar block w-full fixed top-16 left-0 z-[39] lg:hidden bg-primary-bg supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] overflow-y-auto pt-4 pb-4 px-4"
         >
           {/* Navbar Links */}
           <motion.nav
@@ -186,7 +186,7 @@ export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
                           How's startup built
                         </h4>
                         <p className="text-xs text-secondary-text group-hover/menu-item:text-primary-text/80 mb-1 transition-all ease-out duration-200">
-                          startups are definetly not gonna be a walk on moon
+                          startups are definetly not gonna be walk on moon
                           typeshit and shittty
                         </p>
                         <p className="text-primary-text group-hover/menu-item:text-accent-text transition-all ease-out duration-200 cursor-pointer text-xs font-thin leading-snug flex items-center justify-center">
@@ -209,7 +209,7 @@ export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
                           New biz master plan
                         </h4>
                         <p className="text-xs text-secondary-text group-hover/menu-item:text-primary-text/80 mb-1 transition-all ease-out duration-200">
-                          how a small enterprise business can be scaled into
+                          how a small enterprise bizz can be scaled into
                           large enterprises
                         </p>
                         <p className="text-primary-text group-hover/menu-item:text-accent-text transition-all ease-out duration-200 cursor-pointer text-xs font-thin leading-snug flex items-center justify-center">

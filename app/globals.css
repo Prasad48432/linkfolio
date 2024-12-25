@@ -49,3 +49,11 @@ body {
   --tw-border-opacity: 1;
   border-color: #121212;
 }
+
+.no_scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.no_scrollbar::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
