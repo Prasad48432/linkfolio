@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { FlipWords } from "@/components/flipwords";
 import Image from "next/image";
 import { Spotlight } from "@/components/spotlight";
@@ -6,7 +6,7 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import MobileNavbar from "@/components/mobilenavbar";
 import Navbar from "@/components/navbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const imageUrls = [
   {
@@ -32,17 +32,32 @@ const imageUrls = [
 ];
 
 export default function Home() {
-    const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+  
+  useEffect(() => {
+    // Add or remove the `overflow-hidden` class on the <body> tag
+    if (isNavbarOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    // Cleanup function to remove the class if the component unmounts
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [isNavbarOpen]);
   return (
-    <div
-      className="w-full h-full flex flex-col antialiased"
-    >
+    <div className="w-full h-full flex flex-col antialiased">
       <Navbar isNavbarOpen={isNavbarOpen} setIsNavbarOpen={setIsNavbarOpen} />
       <MobileNavbar isOpen={isNavbarOpen} />
       {/* <Spotlight  className="left-[24rem] -top-[9.25rem] "/> */}
-      <main style={{
-        overflow: isNavbarOpen ? "hidden" : "auto"
-      }} className="relative min-h-screen">
+      <main
+        style={{
+          overflow: isNavbarOpen ? "hidden" : "auto",
+        }}
+        className="relative min-h-screen"
+      >
         <div className="relative -mt-[65px]">
           <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20 pt-8 pb-10 md:pt-16 overflow-hidden">
             <div className="relative">
@@ -108,7 +123,11 @@ export default function Home() {
                         href="https://supabase.com/dashboard"
                       >
                         <span className="truncate flex items-center justify-center">
-                          Create your <span className="hidden md:block ml-1 mr-1">linkfolio</span> page
+                          Create your{" "}
+                          <span className="hidden md:block ml-1 mr-1">
+                            linkfolio
+                          </span>{" "}
+                          page
                         </span>
                       </a>
                       <a

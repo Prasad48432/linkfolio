@@ -50,7 +50,7 @@ export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="max-h-screen block lg:hidden bg-primary-bg supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] overflow-y-auto pt-4 pb-4 px-4"
+          className="max-h-[91vh] block w-full fixed top-16 left-0 z-[39] lg:hidden bg-primary-bg supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] overflow-y-auto pt-4 pb-4 px-4"
         >
           {/* Navbar Links */}
           <motion.nav
@@ -245,7 +245,7 @@ export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
             {navItems.map((item, index) => (
               <motion.div
                 key={item.id}
-                className="border-b border-secondary-border transform-none"
+                className={`border-b border-secondary-border transform-none`}
                 custom={2 + index}
                 variants={staggerVariants}
               >
@@ -257,6 +257,18 @@ export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
                 </a>
               </motion.div>
             ))}
+            <motion.div
+              className={`transform-none w-full flex gap-2 items-center justify-center`}
+              custom={5}
+              variants={staggerVariants}
+            >
+              <p className="mt-4 text-sm font-normal w-1/2 h-8 px-4 py-2 border bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0">
+                Dashboard
+              </p>
+              <p className="mt-4 text-sm font-normal w-1/2 h-8 px-4 py-2 border bg-[#ff0000] hover:bg-[#ff1a1a] border-[#ff3333] hover:border-[#ff4d4d] text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0">
+                Logout
+              </p>
+            </motion.div>
           </motion.nav>
         </motion.div>
       )}

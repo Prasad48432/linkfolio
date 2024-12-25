@@ -48,7 +48,9 @@ export default function Navbar({
         style={{
           background: isNavbarOpen ? "#121212" : "transparent",
         }}
-        className="relative z-40 border-brdr border-b backdrop-blur-sm transition-opacity"
+        className={`${
+          isNavbarOpen ? "border-none" : "border-b"
+        } relative z-40 border-brdr backdrop-blur-sm transition-opacity shadow-lg shadow-primary-bg/80`}
       >
         <div className="relative flex justify-between h-16 mx-auto lg:container lg:px-16 xl:px-20">
           <div className="flex items-center px-6 lg:px-0 flex-1 sm:items-stretch justify-between">
@@ -147,59 +149,59 @@ export default function Navbar({
                 <div className="absolute left-0 top-full flex justify-center" />
               </nav>
             </div>
-            {loading ? (
-              <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
+              {loading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              </div>
-            ) : !user ? (
-              <div className="flex items-center gap-2">
-                <a
-                  data-size="tiny"
-                  type="button"
-                  className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
-                  href="/login"
-                >
-                  <span className="truncate">Sign in</span>
-                </a>
-                <a
-                  data-size="tiny"
-                  type="button"
-                  className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
-                  href="/register"
-                >
-                  <span className="truncate">Create your page</span>
-                </a>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <a
-                  data-size="tiny"
-                  type="button"
-                  className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
-                  href="/dashboard"
-                >
-                  <span className="truncate">Dashboard</span>
-                </a>
-                <img
-                  className="bg-accent-bg/20 h-8 md:h-10 w-8 md:w-10 rounded-full"
-                  src="https://api.dicebear.com/9.x/adventurer/svg?seed=Brian"
-                  alt="avatar"
-                />
-                <motion.div
-                  className="block lg:hidden cursor-pointer text-primary-text"
-                  onClick={() => setIsNavbarOpen(!isNavbarOpen)}
-                  initial={{ rotate: 0 }}
-                  animate={{ rotate: isNavbarOpen ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {isNavbarOpen ? (
-                    <X className="h-6 w-6" /> // Cross icon
-                  ) : (
-                    <Menu className="h-6 w-6" /> // Menu icon
-                  )}
-                </motion.div>
-              </div>
-            )}
+              ) : !user ? (
+                <>
+                  <a
+                    data-size="tiny"
+                    type="button"
+                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                    href="/login"
+                  >
+                    <span className="truncate">Sign in</span>
+                  </a>
+                  <a
+                    data-size="tiny"
+                    type="button"
+                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                    href="/register"
+                  >
+                    <span className="truncate">Create your page</span>
+                  </a>
+                </>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <a
+                    data-size="tiny"
+                    type="button"
+                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                    href="/dashboard"
+                  >
+                    <span className="truncate">Dashboard</span>
+                  </a>
+                  <img
+                    className="bg-accent-bg/20 h-8 md:h-10 w-8 md:w-10 rounded-full"
+                    src="https://api.dicebear.com/9.x/adventurer/svg?seed=Brian"
+                    alt="avatar"
+                  />
+                </div>
+              )}
+              <motion.div
+                className="block lg:hidden cursor-pointer text-primary-text"
+                onClick={() => setIsNavbarOpen(!isNavbarOpen)}
+                initial={{ rotate: 0 }}
+                animate={{ rotate: isNavbarOpen ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {isNavbarOpen ? (
+                  <X className="h-6 w-6" /> // Cross icon
+                ) : (
+                  <Menu className="h-6 w-6" /> // Menu icon
+                )}
+              </motion.div>
+            </div>
           </div>
         </div>
       </nav>
