@@ -56,62 +56,80 @@ export default function Register() {
 
   return (
     <main className="flex justify-center items-center min-h-screen">
-      <div className="w-[380px] border rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-semibold text-center mb-4">Register</h2>
-        <p className="text-center text-gray-600 mb-6">Register for a new account</p>
-        
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-4">
-          <div className="flex flex-col">
-            <label htmlFor="email" className="text-sm font-medium mb-2">Email</label>
+      <div className="w-[380px] p-6">
+        <h2 className="text-3xl font-semiboldtext-accent-text">Get started</h2>
+        <p className="text-base text-secondary-text mt-1">
+          Create a new account
+        </p>
+
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="flex flex-col gap-4 mt-4"
+        >
+          <div>
+            <label className="block text-sm font-medium text-secondary-text">
+              Email
+            </label>
             <input
               {...form.register("email")}
-              id="email"
-              type="email"
-              className="p-2 border rounded-md"
+              className="w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md mt-1"
+              placeholder="you@example.com"
             />
             {form.formState.errors.email && (
-              <span className="text-red-500 text-xs mt-1">{form.formState.errors.email?.message}</span>
+              <span className="text-red-500 text-xs mt-1">
+                {form.formState.errors.email?.message}
+              </span>
             )}
           </div>
 
-          <div className="flex flex-col">
-            <label htmlFor="password" className="text-sm font-medium mb-2">Password</label>
+          <div>
+            <label className="block text-sm font-medium text-secondary-text">
+              Password
+            </label>
             <input
               {...form.register("password")}
-              id="password"
               type="password"
-              className="p-2 border rounded-md"
+              className="w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md mt-1"
+              placeholder="Enter your password"
             />
             {form.formState.errors.password && (
-              <span className="text-red-500 text-xs mt-1">{form.formState.errors.password?.message}</span>
+              <span className="text-red-500 text-xs mt-1">
+                {form.formState.errors.password?.message}
+              </span>
             )}
           </div>
 
-          <div className="flex flex-col">
-            <label htmlFor="passwordConfirm" className="text-sm font-medium mb-2">Password Confirm</label>
+          <div>
+            <label className="block text-sm font-medium text-secondary-text">
+              Confirm your password
+            </label>
             <input
               {...form.register("passwordConfirm")}
-              id="passwordConfirm"
               type="password"
-              className="p-2 border rounded-md"
+              className="w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md mt-1"
+              placeholder="Confirm your password"
             />
             {form.formState.errors.passwordConfirm && (
-              <span className="text-red-500 text-xs mt-1">{form.formState.errors.passwordConfirm?.message}</span>
+              <span className="text-red-500 text-xs mt-1">
+                {form.formState.errors.passwordConfirm?.message}
+              </span>
             )}
           </div>
 
-          {serverError && <p className="text-red-500 text-sm mt-2">{serverError}</p>}
+          {serverError && (
+            <p className="text-red-500 text-sm">{serverError}</p>
+          )}
 
           <button
             type="submit"
-            className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md flex items-center justify-center"
             disabled={isLoading}
+            className="relative mt-1 cursor-pointer space-x-2 text-center font-thin ease-out duration-200 rounded-md outline-none transition-all outline-0 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder w-full flex items-center justify-center text-base px-4 py-2 h-[42px]"
           >
             {isLoading ? (
-              <>
+              <p className="text-primary-text/80 flex items-center justify-center">
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Please wait
-              </>
+                Please wait...
+              </p>
             ) : (
               "Register"
             )}
@@ -119,9 +137,9 @@ export default function Register() {
         </form>
 
         <div className="flex flex-col gap-2 mt-6 text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-secondary-text">
             Already have an account?{" "}
-            <Link href="/login" className="text-blue-500 underline">
+            <Link href="/login" className="text-accent-text underline">
               Login
             </Link>
           </p>

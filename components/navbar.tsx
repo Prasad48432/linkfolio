@@ -9,8 +9,15 @@ import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { Loader2 } from "lucide-react";
 import LogoutButton from "@/app/dashboard/LogoutButton";
+import { Menu, X } from "lucide-react";
 
-export default function Navbar() {
+export default function Navbar({
+  isNavbarOpen,
+  setIsNavbarOpen,
+}: {
+  isNavbarOpen: boolean;
+  setIsNavbarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [user, setUser] = useState<User | null>(null); // Explicitly define the state type
   const [loading, setLoading] = useState(true);
 
@@ -36,8 +43,13 @@ export default function Navbar() {
 
   return (
     <div className="sticky top-0 z-40 transform">
-      <div className="absolute inset-0 h-full w-full bg-primary-bg/90 dark:bg-primary-bg/95 !opacity-100 transition-opacity"></div>
-      <nav className="relative z-40 border-brdr border-b backdrop-blur-sm transition-opacity">
+      <div className="absolute inset-0 h-full w-full bg-primary-bg/90 !opacity-100 transition-opacity"></div>
+      <nav
+        style={{
+          background: isNavbarOpen ? "#121212" : "transparent",
+        }}
+        className="relative z-40 border-brdr border-b backdrop-blur-sm transition-opacity"
+      >
         <div className="relative flex justify-between h-16 mx-auto lg:container lg:px-16 xl:px-20">
           <div className="flex items-center px-6 lg:px-0 flex-1 sm:items-stretch justify-between">
             <div className="flex items-center">
@@ -169,11 +181,23 @@ export default function Navbar() {
                   <span className="truncate">Dashboard</span>
                 </a>
                 <img
-                  className="bg-accent-bg/20 h-10 w-10 rounded-full"
+                  className="bg-accent-bg/20 h-8 md:h-10 w-8 md:w-10 rounded-full"
                   src="https://api.dicebear.com/9.x/adventurer/svg?seed=Brian"
                   alt="avatar"
                 />
-                <LogoutButton />
+                <motion.div
+                  className="block lg:hidden cursor-pointer text-primary-text"
+                  onClick={() => setIsNavbarOpen(!isNavbarOpen)}
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: isNavbarOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {isNavbarOpen ? (
+                    <X className="h-6 w-6" /> // Cross icon
+                  ) : (
+                    <Menu className="h-6 w-6" /> // Menu icon
+                  )}
+                </motion.div>
               </div>
             )}
           </div>

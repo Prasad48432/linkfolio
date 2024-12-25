@@ -38,7 +38,7 @@ export default function GoogleSignin() {
       type="button"
       onClick={signInWithGoogle}
       disabled={isGoogleLoading}
-      className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+      className="relative cursor-pointer space-x-2 text-center font-thin ease-out duration-200 rounded-md outline-none transition-all outline-0 border bg-secondary-bg hover:bg-secondary-selection text-primary-text border-secondary-border hover:border-secondary-strongerborder w-full flex items-center justify-center text-base px-4 py-2 h-[42px]"
     >
       {isGoogleLoading ? (
         <Loader2 className="mr-2 h-4 w-4 animate-spin" />

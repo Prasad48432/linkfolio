@@ -10,6 +10,7 @@ import { passwordSchema } from "@/validation/passwordSchema";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import GoogleSignin from "./GoogleSignin";
+import { toast } from "sonner";
 
 // Form schema validation
 const formSchema = z.object({
@@ -43,7 +44,14 @@ export default function LoginForm() {
       if (response.error) {
         setServerError(response.message);
       } else {
-        // Redirect to the dashboard page
+        toast.success("Login successful", {
+          duration: 1500,
+          style: {
+            background: "#1a1a1a",
+            color: "#89e15a",
+            border: "1px solid #363636",
+          },
+        });
         router.push("/dashboard");
       }
     } catch (error) {
@@ -58,20 +66,24 @@ export default function LoginForm() {
 
   return (
     <main className="flex justify-center items-center min-h-screen">
-      <div className="w-[380px] p-4 bg-white shadow-md rounded-lg">
-        <h2 className="text-xl font-semibold">Login</h2>
-        <p className="text-sm text-gray-500">Login to your account</p>
+      <div className="w-[380px] p-4">
+        <h2 className="text-3xl font-semiboldtext-accent-text">Welcome back</h2>
+        <p className="text-base text-secondary-text mt-1">
+          Login to your account
+        </p>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
           className="flex flex-col gap-4 mt-4"
         >
           <div>
-            <label className="block text-sm font-medium">Email</label>
+            <label className="block text-sm font-medium text-secondary-text">
+              Email
+            </label>
             <input
               {...form.register("email")}
               type="email"
-              className="w-full p-2 border border-gray-300 rounded-md mt-1"
-              placeholder="Enter your email"
+              className="w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md mt-1"
+              placeholder="you@example.com"
             />
             {form.formState.errors.email && (
               <p className="text-red-500 text-sm mt-1">
@@ -81,11 +93,13 @@ export default function LoginForm() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Password</label>
+            <label className="block text-sm font-medium text-secondary-text">
+              Password
+            </label>
             <input
               {...form.register("password")}
               type="password"
-              className="w-full p-2 border border-gray-300 rounded-md mt-1"
+              className="w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md mt-1"
               placeholder="Enter your password"
             />
             {form.formState.errors.password && (
@@ -96,36 +110,38 @@ export default function LoginForm() {
           </div>
 
           {serverError && (
-            <p className="text-red-500 text-sm mt-2">{serverError}</p>
+            <p className="text-red-500 text-sm">{serverError}</p>
           )}
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center p-2 bg-blue-600 text-white rounded-md mt-4"
             disabled={isLoading}
+            className="relative mt-1 cursor-pointer space-x-2 text-center font-thin ease-out duration-200 rounded-md outline-none transition-all outline-0 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder w-full flex items-center justify-center text-base px-4 py-2 h-[42px]"
           >
             {isLoading ? (
-              <>
+              <p className="text-primary-text/80 flex items-center justify-center">
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Please wait
-              </>
+                Please wait...
+              </p>
             ) : (
               "Login"
             )}
           </button>
           <GoogleSignin />
         </form>
-        <div className="mt-4 text-center text-sm text-gray-500">
+        <div className="mt-4 text-center text-sm text-secondary-text">
           Don't have an account?{" "}
-          <Link href="/register" className="underline text-blue-600">
+          <Link href="/register" className="underline text-accent-text">
             Register
           </Link>
         </div>
-        <div className="mt-2 text-center text-sm text-gray-500">
+        <div className="mt-2 text-center text-sm text-secondary-text">
           Forgot password?{" "}
           <Link
-            href={`/forgot-password${email ? `?email=${encodeURIComponent(email)}` : ""}`}
-            className="underline text-blue-600"
+            href={`/forgot-password${
+              email ? `?email=${encodeURIComponent(email)}` : ""
+            }`}
+            className="underline text-accent-text"
           >
             Reset my password
           </Link>
@@ -134,4 +150,3 @@ export default function LoginForm() {
     </main>
   );
 }
-

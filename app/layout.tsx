@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Rubik } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
+import Navbar from "@/components/navbar";
+import MobileNavbar from "@/components/mobilenavbar";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -11,7 +14,6 @@ const rubik = Rubik({
   variable: "--font-rubik",
   subsets: ["latin"],
 });
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,9 +27,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${bricolage.variable} ${rubik.variable} antialiased`}
-      >
+      <body className={`${bricolage.variable} ${rubik.variable} antialiased`}>
+        <Toaster richColors position="top-center" />
         {children}
       </body>
     </html>

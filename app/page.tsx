@@ -1,9 +1,12 @@
-import Navbar from "@/components/navbar";
+'use client';
 import { FlipWords } from "@/components/flipwords";
 import Image from "next/image";
 import { Spotlight } from "@/components/spotlight";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
+import MobileNavbar from "@/components/mobilenavbar";
+import Navbar from "@/components/navbar";
+import { useState } from "react";
 
 const imageUrls = [
   {
@@ -28,14 +31,18 @@ const imageUrls = [
   },
 ];
 
-export default async function Home() {
+export default function Home() {
+    const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   return (
     <div
       className="w-full h-full flex flex-col antialiased"
     >
-      <Navbar />
-      <Spotlight  className="left-[24rem] -top-[9.25rem] "/>
-      <main className="relative min-h-screen">
+      <Navbar isNavbarOpen={isNavbarOpen} setIsNavbarOpen={setIsNavbarOpen} />
+      <MobileNavbar isOpen={isNavbarOpen} />
+      {/* <Spotlight  className="left-[24rem] -top-[9.25rem] "/> */}
+      <main style={{
+        overflow: isNavbarOpen ? "hidden" : "auto"
+      }} className="relative min-h-screen">
         <div className="relative -mt-[65px]">
           <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20 pt-8 pb-10 md:pt-16 overflow-hidden">
             <div className="relative">
@@ -76,7 +83,7 @@ export default async function Home() {
                         </div>
                       </div>
                       <h1
-                        className={`bricolage text-foreground font-extrabold text-4xl lg:text-7xl tracking-tight`}
+                        className={`bricolage text-foreground font-extrabold text-3xl lg:text-7xl tracking-tight`}
                       >
                         <span className="block text-primary-text lg:mb-2">
                           The spotlight your
@@ -97,20 +104,20 @@ export default async function Home() {
                       <a
                         data-size="medium"
                         type="button"
-                        className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border bg-accent-bg hover:bg-accent-bg/80 text-primary-text border-accent-border hover:border-accent-strongerborder  text-sm px-4 py-2 h-[38px]"
+                        className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border bg-accent-bg hover:bg-accent-bg/80 text-primary-text border-accent-border hover:border-accent-strongerborder text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 h-[38px]"
                         href="https://supabase.com/dashboard"
                       >
-                        <span className="truncate">
-                          Create your linkfolio page
+                        <span className="truncate flex items-center justify-center">
+                          Create your <span className="hidden md:block ml-1 mr-1">linkfolio</span> page
                         </span>
                       </a>
                       <a
                         data-size="medium"
                         type="button"
-                        className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-foreground bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-sm px-4 py-2 h-[38px]"
+                        className="inline-flex relative justify-center cursor-pointer items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-foreground bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 h-[38px]"
                         href="/contact/sales"
                       >
-                        <span className="truncate">Know how this works</span>
+                        <span className="truncate">Check live demo</span>
                       </a>
                     </div>
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-2">
@@ -119,7 +126,7 @@ export default async function Home() {
                           <div
                             title={image.name}
                             key={index}
-                            className="avatar w-12 h-12 opacity-90"
+                            className="avatar w-10 md:w-12 h-10 md:h-12 opacity-90"
                           >
                             <Image
                               src={image.photourl ? image.photourl : "/man.png"}
@@ -140,7 +147,7 @@ export default async function Home() {
                             readOnly
                           />
                         </div>
-                        <div className="text-base text-primarytext">
+                        <div className="text-xs md:text-sm text-primarytext">
                           <span className="font-semibold  mr-1">290</span>
                           <span className="opacity-70">
                             Entrepreneurs joined!
@@ -154,18 +161,18 @@ export default async function Home() {
             </div>
           </div>
           <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20 pt-8 pb-10 md:pt-16 grid grid-cols-4 gap-4 w-full">
-            <div className="col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
           </div>
         </div>
       </main>
