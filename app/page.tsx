@@ -131,7 +131,7 @@ export default function Home() {
                       <a
                         data-size="medium"
                         type="button"
-                        className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border bg-accent-bg hover:bg-accent-bg/80 text-primary-text border-accent-border hover:border-accent-strongerborder text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 h-[38px]"
+                        className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 h-[38px]"
                         href="https://supabase.com/dashboard"
                       >
                         <span className="truncate flex items-center justify-center">

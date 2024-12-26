@@ -13,6 +13,7 @@ import Link from "next/link";
 const formSchema = z
   .object({
     email: z.string().email(),
+    fullname: z.string().min(1, "Full name is required"),
   })
   .and(passwordMatchSchema);
 
@@ -27,6 +28,7 @@ export default function Register() {
       email: "",
       password: "",
       passwordConfirm: "",
+      fullname: "",
     },
   });
 
@@ -39,6 +41,7 @@ export default function Register() {
         email: data.email,
         password: data.password,
         passwordConfirm: data.passwordConfirm,
+        fullname: data.fullname, 
       });
 
       if (response.error) {
@@ -66,6 +69,22 @@ export default function Register() {
           onSubmit={form.handleSubmit(handleSubmit)}
           className="flex flex-col gap-4 mt-4"
         >
+          <div>
+            <label className="block text-sm font-medium text-secondary-text">
+              Full Name
+            </label>
+            <input
+              {...form.register("fullname")}
+              className="w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md mt-1"
+              placeholder="Enter your full name"
+            />
+            {form.formState.errors.fullname && (
+              <span className="text-red-500 text-xs mt-1">
+                {form.formState.errors.fullname?.message}
+              </span>
+            )}
+          </div>
+
           <div>
             <label className="block text-sm font-medium text-secondary-text">
               Email
@@ -116,9 +135,7 @@ export default function Register() {
             )}
           </div>
 
-          {serverError && (
-            <p className="text-red-500 text-sm">{serverError}</p>
-          )}
+          {serverError && <p className="text-red-500 text-sm">{serverError}</p>}
 
           <button
             type="submit"

@@ -97,7 +97,7 @@ export default function MobileNavbar({
             animate="visible"
           >
             <motion.div
-              className="border-b border-secondary-border transform-none w-full"
+              className="border-b border-secondary-border/50 transform-none w-full"
               custom={0}
               variants={staggerVariants}
             >
@@ -122,7 +122,7 @@ export default function MobileNavbar({
                 >
                   <div className="flex flex-col items-start justify-start gap-3 w-full py-4 px-2">
                     <div className="flex items-center justify-center gap-2 cursor-pointer group/menu-item">
-                      <p className="group h-10 w-10 flex items-center justify-center rounded-md border bg-secondary-bg border-secondary-border group-hover/menu-item:border-secondary-strongerborder transition-all ease-out duration-200">
+                      <p className="group h-10 w-10 flex items-center justify-center rounded-md border bg-secondary-bg border-secondary-border/50 group-hover/menu-item:border-secondary-strongerborder transition-all ease-out duration-200">
                         <PiRocketLaunch
                           size={25}
                           className="text-[#b7b7b7] group-hover/menu-item:text-primary-text transition-all ease-out duration-200"
@@ -139,7 +139,7 @@ export default function MobileNavbar({
                       </div>
                     </div>
                     <div className="flex items-center justify-center gap-2 cursor-pointer group/menu-item">
-                      <p className="h-10 w-10 flex items-center justify-center rounded-md border bg-secondary-bg border-secondary-border group-hover/menu-item:border-secondary-strongerborder transition-all ease-out duration-200">
+                      <p className="h-10 w-10 flex items-center justify-center rounded-md border bg-secondary-bg border-secondary-border/50 group-hover/menu-item:border-secondary-strongerborder transition-all ease-out duration-200">
                         <BiLink
                           size={25}
                           className="text-[#b7b7b7] group-hover/menu-item:text-primary-text transition-all ease-out duration-200"
@@ -156,7 +156,7 @@ export default function MobileNavbar({
                       </div>
                     </div>
                     <div className="flex items-center justify-center gap-2 cursor-pointer group/menu-item">
-                      <p className="h-10 w-10 flex items-center justify-center rounded-md border bg-secondary-bg border-secondary-border group-hover/menu-item:border-secondary-strongerborder transition-all ease-out duration-200">
+                      <p className="h-10 w-10 flex items-center justify-center rounded-md border bg-secondary-bg border-secondary-border/50 group-hover/menu-item:border-secondary-strongerborder transition-all ease-out duration-200">
                         <PiCubeLight
                           size={25}
                           className="text-[#b7b7b7] group-hover/menu-item:text-primary-text transition-all ease-out duration-200"
@@ -197,7 +197,7 @@ export default function MobileNavbar({
             </motion.div>
 
             <motion.div
-              className="border-b border-secondary-border transform-none w-full"
+              className="border-b border-secondary-border/50 transform-none w-full"
               custom={1}
               variants={staggerVariants}
             >
@@ -294,7 +294,7 @@ export default function MobileNavbar({
             {navItems.map((item, index) => (
               <motion.div
                 key={item.id}
-                className={`border-b border-secondary-border transform-none`}
+                className={`border-b border-secondary-border/50 transform-none`}
                 custom={2 + index}
                 variants={staggerVariants}
               >
@@ -317,13 +317,13 @@ export default function MobileNavbar({
                 <>
                   <a
                     href="/dashboard"
-                    className="mt-4 cursor-pointer text-sm font-normal w-1/2 h-8 px-4 py-2 border bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
+                    className="mt-4 cursor-pointer text-sm font-thin w-1/2 h-8 px-4 py-2 border bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
                   >
                     Dashboard
                   </a>
                   <p
                     onClick={() => logout()}
-                    className="mt-4 cursor-pointer text-sm font-normal w-1/2 h-8 px-4 py-2 border bg-[#ff0000] hover:bg-[#ff1a1a] border-[#ff3333] hover:border-[#ff4d4d] text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
+                    className="mt-4 cursor-pointer text-sm font-thin w-1/2 h-8 px-4 py-2 border bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
                   >
                     Logout
                   </p>

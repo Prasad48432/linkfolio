@@ -41,10 +41,12 @@ export const registerUser = async ({
   email,
   password,
   passwordConfirm,
+  fullname,
 }: {
   email: string;
   password: string;
   passwordConfirm: string;
+  fullname: string
 }) => {
   const newUserSchema = z
     .object({
@@ -61,16 +63,38 @@ export const registerUser = async ({
   if (!newUserValidation.success) {
     return {
       error: true,
-      message: newUserValidation.error.issues[0]?.message ?? "An error occured",
+      message: newUserValidation.error.issues[0]?.message ?? "An error occurred",
     };
   }
 
-  // supabase authentication from here
   const supabase = createClient();
+
+  const avatarUrls = [
+    "https://api.dicebear.com/9.x/adventurer/svg?seed=Liam",
+    "https://api.dicebear.com/9.x/adventurer/svg?seed=Ryker",
+    "https://api.dicebear.com/9.x/adventurer/svg?seed=Caleb",
+    "https://api.dicebear.com/9.x/adventurer/svg?seed=Eliza",
+    "https://api.dicebear.com/9.x/adventurer/svg?seed=Nolan",
+    "https://api.dicebear.com/9.x/adventurer/svg?seed=Maria",
+    "https://api.dicebear.com/9.x/adventurer/svg?seed=Liliana",
+    "https://api.dicebear.com/9.x/adventurer/svg?seed=George",
+    "https://api.dicebear.com/9.x/adventurer/svg?seed=Emery",
+    "https://api.dicebear.com/9.x/adventurer/svg?seed=Kimberly",
+  ];
+
+  // Select a random avatar URL
+  const randomAvatarUrl = avatarUrls[Math.floor(Math.random() * avatarUrls.length)];
 
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: {
+        full_name: fullname,
+        email: email,
+        avatar_url: randomAvatarUrl,
+      },
+    },
   });
 
   if (error) {
@@ -80,6 +104,7 @@ export const registerUser = async ({
     };
   }
 
+  // Handle case where the user already exists
   if (data.user && data.user.identities && data.user.identities.length === 0) {
     return {
       error: true,
@@ -87,7 +112,6 @@ export const registerUser = async ({
     };
   }
 
-  // User successfully created
   return {
     success: true,
     message: "Check your email for the confirmation link",

@@ -50,7 +50,8 @@ const Example = () => {
       .getSession()
       .then(({ data }) => {
         if (data.session) {
-          setUser(data.session.user); // Set user if logged in
+          setUser(data.session.user);
+          console.log(data.session.user); // Set user if logged in
         } else {
           setUser(null); // Set user to null if not logged in
         }
@@ -151,7 +152,7 @@ const Option = ({
   title,
   selected,
   setSelected,
-  open
+  open,
 }: {
   Icon: IconType;
   title: string;
@@ -203,7 +204,7 @@ const TitleSection = ({
     <div className="mb-3 border-b border-secondary-border pb-3">
       <div className="flex cursor-pointer items-center justify-between rounded-md transition-colors hover:bg-secondary-bg">
         <div className="flex items-center gap-2">
-          <Logo />
+          <Logo user={user} />
           {open && (
             <motion.div
               layout
@@ -211,13 +212,15 @@ const TitleSection = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.125 }}
             >
-                {loading ? (
-                  <div className="flex items-center gap-2">
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  </div>
-                ) : (
-                  <span className="block text-xs font-semibold truncate w-[80%]">{user?.email}</span>
-                )}
+              {loading ? (
+                <div className="flex items-center gap-2">
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                </div>
+              ) : (
+                <span className="block text-xs font-semibold truncate w-[80%]">
+                  {user?.email}
+                </span>
+              )}
               <span className="block text-xs text-slate-500">Pro Plan</span>
             </motion.div>
           )}
@@ -228,30 +231,14 @@ const TitleSection = ({
   );
 };
 
-const Logo = () => {
+const Logo = ({ user }: { user: User | null }) => {
   // Temp logo from https://logoipsum.com/
   return (
     <motion.div
       layout
-      className="grid size-10 shrink-0 place-content-center rounded-md bg-indigo-600"
+      className="flex h-12 w-12 place-content-center rounded-md"
     >
-      <svg
-        width="24"
-        height="auto"
-        viewBox="0 0 50 39"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="fill-slate-50"
-      >
-        <path
-          d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z"
-          stopColor="#000000"
-        ></path>
-        <path
-          d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z"
-          stopColor="#000000"
-        ></path>
-      </svg>
+      <img className="rounded-md" referrerPolicy="no-referrer" src={user?.identities?.[0]?.identity_data?.avatar_url} alt="User Avatar" />
     </motion.div>
   );
 };

@@ -11,6 +11,7 @@ import { Loader2 } from "lucide-react";
 import LogoutButton from "@/app/dashboard/LogoutButton";
 import { Menu, X } from "lucide-react";
 import useWindowSize from "@/app/hooks/useWindowSize";
+import { logout } from "@/app/dashboard/action";
 
 export default function Navbar({
   isNavbarOpen,
@@ -192,10 +193,17 @@ export default function Navbar({
                   >
                     <span className="truncate">Dashboard</span>
                   </a>
+                  <p
+                    onClick={() => logout()}
+                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                  >
+                    <span className="truncate">Logout</span>
+                  </p>
                   <img
                     className="bg-accent-bg/20 h-8 md:h-10 w-8 md:w-10 rounded-full"
-                    src="https://api.dicebear.com/9.x/adventurer/svg?seed=Brian"
-                    alt="avatar"
+                    referrerPolicy="no-referrer"
+                    src={user?.identities?.[0]?.identity_data?.avatar_url}
+                    alt="User Avatar"
                   />
                 </div>
               )}
