@@ -65,89 +65,137 @@ export default function LoginForm() {
   const email = form.getValues("email");
 
   return (
-    <main className="flex justify-center items-center min-h-screen">
-      <div className="w-[380px] p-4">
-        <img className="w-[124px] h-[24px] mb-2" src="headerlogo.png" />
-        <h2 className="text-3xl font-semiboldtext-accent-text text-center">
-          Welcome back
-        </h2>
-        <p className="text-base text-secondary-text mt-1 text-center">
-          Login to your account
-        </p>
-        <form
-          onSubmit={form.handleSubmit(handleSubmit)}
-          className="flex flex-col gap-4 mt-4"
-        >
-          <div>
-            <label className="block text-sm font-medium text-secondary-text">
-              Email
-            </label>
-            <input
-              {...form.register("email")}
-              type="email"
-              className="w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md mt-1"
-              placeholder="you@example.com"
-            />
-            {form.formState.errors.email && (
-              <p className="text-red-500 text-sm mt-1">
-                {form.formState.errors.email.message}
+    <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col flex-1 bg-alternative">
+        <div className="flex flex-1">
+          <main className="flex flex-col bg-primary-bg items-center flex-1 flex-shrink-0 px-5 pt-16 pb-8 border-r bg-studio border-secondary-border">
+            <div className="w-full xl:w-[70%] p-4">
+              <img
+                className="w-[124px] h-[24px] mb-2 -ml-1"
+                src="headerlogo.png"
+              />
+              <p className="text-base text-secondary-text mt-1">
+                Login to your account
               </p>
-            )}
-          </div>
+              <form
+                onSubmit={form.handleSubmit(handleSubmit)}
+                className="flex flex-col gap-4 mt-4"
+              >
+                <div>
+                  <label className="block text-sm font-medium text-secondary-text">
+                    Email
+                  </label>
+                  <input
+                    {...form.register("email")}
+                    type="email"
+                    className="w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md mt-1"
+                    placeholder="you@example.com"
+                  />
+                  {form.formState.errors.email && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {form.formState.errors.email.message}
+                    </p>
+                  )}
+                </div>
 
-          <div>
-            <label className="block text-sm font-medium text-secondary-text">
-              Password
-            </label>
-            <input
-              {...form.register("password")}
-              type="password"
-              className="w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md mt-1"
-              placeholder="Enter your password"
-            />
-            {form.formState.errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {form.formState.errors.password.message}
-              </p>
-            )}
-          </div>
+                <div>
+                  <label className="block text-sm font-medium text-secondary-text">
+                    Password
+                  </label>
+                  <input
+                    {...form.register("password")}
+                    type="password"
+                    className="w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md mt-1"
+                    placeholder="Enter your password"
+                  />
+                  {form.formState.errors.password && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {form.formState.errors.password.message}
+                    </p>
+                  )}
+                </div>
 
-          {serverError && <p className="text-red-500 text-sm">{serverError}</p>}
+                {serverError && (
+                  <p className="text-red-500 text-sm">{serverError}</p>
+                )}
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="relative mt-1 cursor-pointer space-x-2 text-center font-thin ease-out duration-200 rounded-md outline-none transition-all outline-0 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder w-full flex items-center justify-center text-base px-4 py-2 h-[42px]"
-          >
-            {isLoading ? (
-              <p className="text-primary-text/80 flex items-center justify-center">
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Please wait...
-              </p>
-            ) : (
-              "Login"
-            )}
-          </button>
-          <GoogleSignin />
-        </form>
-        <div className="mt-4 text-center text-sm text-secondary-text">
-          Don't have an account?{" "}
-          <Link href="/register" className="underline text-accent-text">
-            Register
-          </Link>
-        </div>
-        <div className="mt-2 text-center text-sm text-secondary-text">
-          Forgot password?{" "}
-          <Link
-            href={`/forgot-password${
-              email ? `?email=${encodeURIComponent(email)}` : ""
-            }`}
-            className="underline text-accent-text"
-          >
-            Reset my password
-          </Link>
+                <div className="flex items-end justify-between">
+                  <div className="flex items-center">
+                    <input
+                      id="link-checkbox"
+                      type="checkbox"
+                      value=""
+                      className="w-3 h-3 text-accent-text bg-secondary-bg border-secondary-border rounded focus:ring-accent-border"
+                    />
+                    <label
+                      htmlFor="link-checkbox"
+                      className="ms-1 text-xs font-normal text-primary-text"
+                    >
+                      Remember me
+                    </label>
+                  </div>
+                  <Link
+                    href={`/forgot-password${
+                      email ? `?email=${encodeURIComponent(email)}` : ""
+                    }`}
+                    className="text-xs font-normal text-accent-text underline cursor-pointer"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="relative mt-1 cursor-pointer space-x-2 text-center font-thin ease-out duration-200 rounded-md outline-none transition-all outline-0 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder w-full flex items-center justify-center text-base px-4 py-2 h-[42px]"
+                >
+                  {isLoading ? (
+                    <p className="text-primary-text/80 flex items-center justify-center">
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Please wait...
+                    </p>
+                  ) : (
+                    "Login"
+                  )}
+                </button>
+                <div className="flex items-center space-x-2">
+                  <hr className="flex-grow border-t border-secondary-border" />
+                  <span className="text-primary-text">OR</span>
+                  <hr className="flex-grow border-t border-secondary-border" />
+                </div>
+
+                <GoogleSignin />
+              </form>
+              <div className="mt-8 text-center text-sm text-secondary-text">
+                Don't have an account?{" "}
+                <Link href="/register" className="underline text-accent-text">
+                  Register
+                </Link>
+              </div>
+              <div className="text-center mt-8">
+                <p className="text-xs text-secondary-text/80 sm:mx-auto sm:max-w-sm">
+                  By continuing, you agree to Linkfolio's{" "}
+                  <a className="underline hover:text-primary-text/70" href="#">
+                    Terms of Service
+                  </a>{" "}
+                  and{" "}
+                  <a className="underline hover:text-primary-text/70" href="#">
+                    Privacy Policy
+                  </a>
+                  , and to receive periodic emails with updates.
+                </p>
+              </div>
+            </div>
+          </main>
+          <aside className="flex-col items-center justify-center flex-1 flex-shrink hidden basis-1/4 xl:flex">
+            <div className="h-screen w-full dark:bg-black bg-white  dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative flex items-center justify-center">
+              {/* Radial gradient for the container to give a faded look */}
+              <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+              <img className="w-[80%] animate-slideIn " src="headerlogo.png" />
+            </div>
+          </aside>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

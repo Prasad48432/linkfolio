@@ -48,10 +48,10 @@ export default function ForgotPassword() {
   };
 
   return (
-    <main className="flex justify-center items-center min-h-screen">
-      <div className="w-[380px] bg-white shadow-md p-6 rounded-md">
+    <main className="flex justify-center items-center min-h-screen bg-primary-bg">
+      <div className="w-[380px] shadow-md p-6 rounded-md">
         <h2 className="text-2xl font-bold mb-4">Password Reset</h2>
-        <p className="mb-6 text-sm text-gray-600">
+        <p className="mb-6 text-sm text-primary-text">
           Enter your email address to reset your password
         </p>
 
@@ -67,7 +67,7 @@ export default function ForgotPassword() {
               {...form.register("email")}
               type="email"
               id="email"
-              className="border rounded-md p-2 text-sm"
+              className="p-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md"
             />
             {form.formState.errors.email && (
               <span className="text-red-500 text-xs">
@@ -82,7 +82,7 @@ export default function ForgotPassword() {
 
           <button
             type="submit"
-            className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="bg-accent-bg text-primary-text p-2 rounded-md hover:bg-acccent-selection disabled:bg-gray-400 disabled:cursor-not-allowed"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -91,21 +91,21 @@ export default function ForgotPassword() {
                 Please wait
               </>
             ) : (
-              "Forget password"
+              "Send email"
             )}
           </button>
         </form>
 
-        <div className="mt-4 text-center text-sm text-gray-600">
+        <div className="mt-4 text-center text-sm text-secondary-text">
           <div>
             Remember your password?{" "}
-            <Link href="/login" className="text-blue-500 underline">
+            <Link href="/login" className="text-accent-text underline">
               Login
             </Link>
           </div>
           <div>
             Don't have an account?{" "}
-            <Link href="/register" className="text-blue-500 underline">
+            <Link href="/register" className="text-accent-text underline">
               Register
             </Link>
           </div>
