@@ -67,8 +67,11 @@ export default function LoginForm() {
   return (
     <main className="flex justify-center items-center min-h-screen">
       <div className="w-[380px] p-4">
-        <h2 className="text-3xl font-semiboldtext-accent-text">Welcome back</h2>
-        <p className="text-base text-secondary-text mt-1">
+        <img className="w-[124px] h-[24px] mb-2" src="headerlogo.png" />
+        <h2 className="text-3xl font-semiboldtext-accent-text text-center">
+          Welcome back
+        </h2>
+        <p className="text-base text-secondary-text mt-1 text-center">
           Login to your account
         </p>
         <form
@@ -109,9 +112,7 @@ export default function LoginForm() {
             )}
           </div>
 
-          {serverError && (
-            <p className="text-red-500 text-sm">{serverError}</p>
-          )}
+          {serverError && <p className="text-red-500 text-sm">{serverError}</p>}
 
           <button
             type="submit"

@@ -10,46 +10,58 @@ import { User } from "@supabase/supabase-js";
 import { Loader2 } from "lucide-react";
 import LogoutButton from "@/app/dashboard/LogoutButton";
 import { Menu, X } from "lucide-react";
+import useWindowSize from "@/app/hooks/useWindowSize";
 
 export default function Navbar({
   isNavbarOpen,
   setIsNavbarOpen,
+  setDropdown1Open,
+  setDropdown2Open,
 }: {
   isNavbarOpen: boolean;
   setIsNavbarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setDropdown1Open: React.Dispatch<React.SetStateAction<boolean>>;
+  setDropdown2Open: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [user, setUser] = useState<User | null>(null); // Explicitly define the state type
   const [loading, setLoading] = useState(true);
+  const size = useWindowSize();
 
   useEffect(() => {
     const supabase = createClient();
 
-    // Get the current session
     supabase.auth
       .getSession()
       .then(({ data }) => {
         if (data.session) {
-          setUser(data.session.user); // Set user if logged in
+          setUser(data.session.user);
         } else {
-          setUser(null); // Set user to null if not logged in
+          setUser(null);
         }
-        setLoading(false); // Stop loading after session check
+        setLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching session:", err);
-        setLoading(false); // Stop loading if there's an error
+        setLoading(false);
       });
   }, []);
 
   return (
-    <div className="sticky top-0 z-40 transform">
+    <div
+      style={{
+        zIndex: size.width < 1024 ? (isNavbarOpen ? 42 : 40) : undefined,
+      }}
+      className={`sticky top-0 transform ${
+        size.width >= 1024 ? "z-[40] hover:z-[42]" : ""
+      }`}
+    >
       <div className="absolute inset-0 h-full w-full bg-primary-bg/90 !opacity-100 transition-opacity"></div>
       <nav
         style={{
           background: isNavbarOpen ? "#121212" : "transparent",
         }}
         className={`${
-          isNavbarOpen ? "border-none" : "border-b"
+          isNavbarOpen && size.width < 1024 ? "border-none" : "border-b"
         } relative z-40 border-brdr backdrop-blur-sm transition-opacity shadow-lg shadow-primary-bg/80`}
       >
         <div className="relative flex justify-between h-16 mx-auto lg:container lg:px-16 xl:px-20">
@@ -65,8 +77,7 @@ export default function Navbar({
                   data-state="closed"
                   href="/"
                 >
-                  <img className="h-6 w-6" src="logo.png" />
-                  <p className="font-semibold text-xl">linkfolio</p>
+                  <img className="w-[124px] h-[24px]" src="headerlogo.png" />
                 </a>
               </div>
               <nav
@@ -160,7 +171,7 @@ export default function Navbar({
                     className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
                     href="/login"
                   >
-                    <span className="truncate">Sign in</span>
+                    <span className="truncate">Login</span>
                   </a>
                   <a
                     data-size="tiny"
@@ -190,7 +201,11 @@ export default function Navbar({
               )}
               <motion.div
                 className="block lg:hidden cursor-pointer text-primary-text"
-                onClick={() => setIsNavbarOpen(!isNavbarOpen)}
+                onClick={() => {
+                  setIsNavbarOpen(!isNavbarOpen);
+                  setDropdown1Open(false);
+                  setDropdown2Open(false);
+                }}
                 initial={{ rotate: 0 }}
                 animate={{ rotate: isNavbarOpen ? 180 : 0 }}
                 transition={{ duration: 0.3 }}

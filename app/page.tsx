@@ -33,7 +33,9 @@ const imageUrls = [
 
 export default function Home() {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
-  
+  const [isDropdown1Open, setDropdown1Open] = useState(false);
+  const [isDropdown2Open, setDropdown2Open] = useState(false);
+
   useEffect(() => {
     // Add or remove the `overflow-hidden` class on the <body> tag
     if (isNavbarOpen) {
@@ -49,9 +51,20 @@ export default function Home() {
   }, [isNavbarOpen]);
   return (
     <div className="w-full h-full flex flex-col antialiased">
-      <Navbar isNavbarOpen={isNavbarOpen} setIsNavbarOpen={setIsNavbarOpen} />
-      <MobileNavbar isOpen={isNavbarOpen} />
-      {/* <Spotlight  className="left-[24rem] -top-[9.25rem] "/> */}
+      <Navbar
+        isNavbarOpen={isNavbarOpen}
+        setIsNavbarOpen={setIsNavbarOpen}
+        setDropdown1Open={setDropdown1Open}
+        setDropdown2Open={setDropdown2Open}
+      />
+      <MobileNavbar
+        isOpen={isNavbarOpen}
+        isDropdown1Open={isDropdown1Open}
+        isDropdown2Open={isDropdown2Open}
+        setDropdown1Open={setDropdown1Open}
+        setDropdown2Open={setDropdown2Open}
+      />
+      {/* <Spotlight className="left-[-2rem] lg:left-[24rem] -top-[9.25rem]" /> */}
       <main
         style={{
           overflow: isNavbarOpen ? "hidden" : "auto",
@@ -108,11 +121,10 @@ export default function Home() {
                         </span>
                       </h1>
                       <p className="pt-2 text-foreground my-3 text-sm sm:mt-5 lg:mb-0 sm:text-base lg:text-lg">
-                        Supabase is an open source Firebase alternative.{/* */}{" "}
-                        <br className="hidden md:block" />
-                        Start your project with a Postgres database,
-                        Authentication, instant APIs, Edge Functions, Realtime
-                        subscriptions, Storage, and Vector embeddings.
+                        Simplify your web presence with with LinkFolio.
+                        Effortlessly share your startups, highlight your
+                        projects, and organize all your important links in one
+                        sleek, professional portfolio.
                       </p>
                     </div>
                     <div className="flex items-center gap-2">

@@ -14,12 +14,15 @@
 // export default MobileNavbar;
 
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 import { PiRocketLaunch, PiCubeLight } from "react-icons/pi";
 import { BiLink } from "react-icons/bi";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { logout } from "@/app/dashboard/action";
+import { createClient } from "@/utils/supabase/client";
+import { User } from "@supabase/supabase-js";
 
 const staggerVariants = {
   hidden: {
@@ -35,14 +38,46 @@ const staggerVariants = {
   }),
 };
 
-export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
-  const [isDropdown1Open, setDropdown1Open] = useState(false);
-  const [isDropdown2Open, setDropdown2Open] = useState(false);
+export default function MobileNavbar({
+  isOpen,
+  isDropdown1Open,
+  isDropdown2Open,
+  setDropdown1Open,
+  setDropdown2Open,
+}: {
+  isOpen: boolean;
+  isDropdown1Open: boolean;
+  isDropdown2Open: boolean;
+  setDropdown1Open: React.Dispatch<React.SetStateAction<boolean>>;
+  setDropdown2Open: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const navItems = [
     { id: 1, label: "Enterprise", href: "/enterprise" },
     { id: 2, label: "Pricing", href: "/pricing" },
     { id: 3, label: "Docs", href: "/docs" },
   ];
+
+  const [user, setUser] = useState<User | null>(null); // Explicitly define the state type
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        if (data.session) {
+          setUser(data.session.user);
+        } else {
+          setUser(null);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching session:", err);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <AnimatePresence>
@@ -50,7 +85,10 @@ export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="max-h-[91vh] no_scrollbar block w-full fixed top-16 left-0 z-[39] lg:hidden bg-primary-bg supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] overflow-y-auto pt-4 pb-4 px-4"
+          style={{
+            zIndex: isOpen ? 42 : 39,
+          }}
+          className="max-h-[91vh] no_scrollbar block w-full fixed top-16 left-0 lg:hidden bg-primary-bg supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] overflow-y-auto pt-4 pb-4 px-4"
         >
           {/* Navbar Links */}
           <motion.nav
@@ -68,7 +106,12 @@ export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
                 className="w-full py-2 pl-3 pr-4 text-base flex items-center justify-between font-medium text-primary-text/80 hover:bg-surface-200 focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-foreground-lighter focus-visible:rounded"
               >
                 Features
-                <span>{isDropdown1Open ? <ChevronUp /> : <ChevronDown />}</span>
+                <motion.span
+                  animate={{ rotate: isDropdown1Open ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronDown />
+                </motion.span>
               </button>
               {isDropdown1Open && (
                 <motion.div
@@ -152,6 +195,7 @@ export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
                 </motion.div>
               )}
             </motion.div>
+
             <motion.div
               className="border-b border-secondary-border transform-none w-full"
               custom={1}
@@ -162,7 +206,12 @@ export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
                 className="w-full py-2 pl-3 pr-4 text-base flex items-center justify-between font-medium text-primary-text/80 hover:bg-surface-200 focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-foreground-lighter focus-visible:rounded"
               >
                 Blogs
-                <span>{isDropdown2Open ? <ChevronUp /> : <ChevronDown />}</span>
+                <motion.span
+                  animate={{ rotate: isDropdown2Open ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronDown />
+                </motion.span>
               </button>
               {isDropdown2Open && (
                 <motion.div
@@ -209,8 +258,8 @@ export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
                           New biz master plan
                         </h4>
                         <p className="text-xs text-secondary-text group-hover/menu-item:text-primary-text/80 mb-1 transition-all ease-out duration-200">
-                          how a small enterprise bizz can be scaled into
-                          large enterprises
+                          how a small enterprise bizz can be scaled into large
+                          enterprises
                         </p>
                         <p className="text-primary-text group-hover/menu-item:text-accent-text transition-all ease-out duration-200 cursor-pointer text-xs font-thin leading-snug flex items-center justify-center">
                           Read more
@@ -262,12 +311,39 @@ export default function MobileNavbar({ isOpen }: { isOpen: boolean }) {
               custom={5}
               variants={staggerVariants}
             >
-              <p className="mt-4 text-sm font-normal w-1/2 h-8 px-4 py-2 border bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0">
-                Dashboard
-              </p>
-              <p className="mt-4 text-sm font-normal w-1/2 h-8 px-4 py-2 border bg-[#ff0000] hover:bg-[#ff1a1a] border-[#ff3333] hover:border-[#ff4d4d] text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0">
-                Logout
-              </p>
+              {loading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : user ? (
+                <>
+                  <a
+                    href="/dashboard"
+                    className="mt-4 cursor-pointer text-sm font-normal w-1/2 h-8 px-4 py-2 border bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
+                  >
+                    Dashboard
+                  </a>
+                  <p
+                    onClick={() => logout()}
+                    className="mt-4 cursor-pointer text-sm font-normal w-1/2 h-8 px-4 py-2 border bg-[#ff0000] hover:bg-[#ff1a1a] border-[#ff3333] hover:border-[#ff4d4d] text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
+                  >
+                    Logout
+                  </p>
+                </>
+              ) : (
+                <>
+                  <a
+                    href="/login"
+                    className="mt-4 cursor-pointer text-sm font-normal w-1/2 h-8 px-4 py-2 border text-primary-text bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
+                  >
+                    Login
+                  </a>
+                  <a
+                    href="/login"
+                    className="mt-4 cursor-pointer text-sm font-normal w-1/2 h-8 px-4 py-2 border bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
+                  >
+                    Create your page
+                  </a>
+                </>
+              )}
             </motion.div>
           </motion.nav>
         </motion.div>

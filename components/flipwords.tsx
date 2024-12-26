@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-const words = ["Startup ", "Project ", "Invention "];
+const words = ["Startup ", "Project ", "Creation "];
 
 interface FlipWordsProps {
   duration?: number;
@@ -11,11 +11,12 @@ interface FlipWordsProps {
 }
 
 export const FlipWords: React.FC<FlipWordsProps> = ({
-  duration = 4000,
+  duration = 3000,
   className,
 }) => {
   const [currentWord, setCurrentWord] = useState(words[0]);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
   const startAnimation = useCallback(() => {
     const word = words[(words.indexOf(currentWord) + 1) % words.length];
@@ -26,6 +27,7 @@ export const FlipWords: React.FC<FlipWordsProps> = ({
   useEffect(() => {
     if (!isAnimating) {
       const timerId = setTimeout(() => {
+        setIsFirstRender(false); // Ensure subsequent animations run normally
         startAnimation();
       }, duration);
       return () => clearTimeout(timerId); // Cleanup timeout
@@ -39,14 +41,8 @@ export const FlipWords: React.FC<FlipWordsProps> = ({
       }}
     >
       <motion.div
-        initial={{
-          opacity: 0,
-          y: 10,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
+        initial={isFirstRender ? {} : { opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{
           type: "spring",
           stiffness: 100,
@@ -60,19 +56,20 @@ export const FlipWords: React.FC<FlipWordsProps> = ({
           scale: 2,
           position: "absolute",
         }}
-        className={cn(
-          "z-10 inline-block relative",
-          className
-        )}
+        className={cn("z-10 inline-block relative", className)}
         key={currentWord}
       >
         {currentWord.split("").map((letter, index) => (
           <motion.span
             key={currentWord + index}
-            initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+            initial={
+              isFirstRender
+                ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                : { opacity: 0, y: 10, filter: "blur(8px)" }
+            }
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{
-              delay: index * 0.08,
+              delay: isFirstRender ? 0 : index * 0.08,
               duration: 0.4,
             }}
             className="inline-block text-primarytext"
