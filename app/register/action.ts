@@ -1,63 +1,32 @@
 "use server";
-
-import { passwordMatchSchema } from "@/validation/passwordMatchSchema";
 import { z } from "zod";
-
-// import { revalidatePath } from "next/cache";
-// import { redirect } from "next/navigation";
-
 import { createClient } from "@/utils/supabase/server";
 
-// export const registerUser = async ({
-//   email,
-//   password,
-//   passwordConfirm,
-// }: {
-//   email: string;
-//   password: string;
-//   passwordConfirm: string;
-// }) => {
-//   const newUserSchema = z
-//     .object({
-//       email: z.string().email(),
-//     })
-//     .and(passwordMatchSchema);
 
-//   const newUserValidation = newUserSchema.safeParse({
-//     email,
-//     password,
-//     passwordConfirm,
-//   });
-
-//   if (!newUserValidation.success) {
-//     return {
-//       error: true,
-//       message: newUserValidation.error.issues[0]?.message ?? "An error occured",
-//     };
-//   }
-// };
 
 export const registerUser = async ({
   email,
   password,
-  passwordConfirm,
   fullname,
 }: {
   email: string;
   password: string;
-  passwordConfirm: string;
-  fullname: string
+  fullname: string;
 }) => {
-  const newUserSchema = z
-    .object({
-      email: z.string().email(),
-    })
-    .and(passwordMatchSchema);
+  const newUserSchema = z.object({
+    email: z.string().email(),
+    password: z
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .regex(
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])/,
+      "Password must contain at least one uppercase letter and one special character"
+    ),
+  });
 
   const newUserValidation = newUserSchema.safeParse({
     email,
     password,
-    passwordConfirm,
   });
 
   if (!newUserValidation.success) {
@@ -82,7 +51,6 @@ export const registerUser = async ({
     "https://api.dicebear.com/9.x/adventurer/svg?seed=Kimberly",
   ];
 
-  // Select a random avatar URL
   const randomAvatarUrl = avatarUrls[Math.floor(Math.random() * avatarUrls.length)];
 
   const { data, error } = await supabase.auth.signUp({
@@ -104,7 +72,6 @@ export const registerUser = async ({
     };
   }
 
-  // Handle case where the user already exists
   if (data.user && data.user.identities && data.user.identities.length === 0) {
     return {
       error: true,

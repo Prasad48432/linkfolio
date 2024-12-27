@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { resetPasswordFunc } from "./action";
-import { useRouter } from "next/navigation";
+import { useRouter,useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 
@@ -19,6 +19,15 @@ export default function ResetPassword() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const code = searchParams.get("code");
+
+  if (!code) {
+    setServerError("Invalid recovery link. Please try again.");
+    setIsLoading(false);
+    return;
+  }
+
 
   // Initialize the form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -37,6 +46,7 @@ export default function ResetPassword() {
       const response = await resetPasswordFunc({
         password: data.password,
         passwordConfirm: data.passwordConfirm,
+        code, 
       });
 
       if (response.error) {
@@ -53,10 +63,10 @@ export default function ResetPassword() {
   };
 
   return (
-    <main className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-[380px] bg-white shadow-md rounded-md p-6">
+    <main className="flex justify-center items-center min-h-screen bg-primary-bg">
+      <div className="w-[380px] rounded-md p-6">
         <h2 className="text-2xl font-bold text-center mb-4">Password Reset</h2>
-        <p className="text-center text-gray-600 mb-6">
+        <p className="text-center text-primary-text mb-6">
           Enter your new password to update your password
         </p>
         <form
@@ -71,7 +81,7 @@ export default function ResetPassword() {
               type="password"
               id="password"
               {...form.register("password")}
-              className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 text-primary-text bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md"
             />
             {form.formState.errors.password && (
               <p className="text-red-500 text-sm">
@@ -88,7 +98,7 @@ export default function ResetPassword() {
               type="password"
               id="passwordConfirm"
               {...form.register("passwordConfirm")}
-              className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 text-primary-text bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md"
             />
             {form.formState.errors.passwordConfirm && (
               <p className="text-red-500 text-sm">
@@ -103,7 +113,7 @@ export default function ResetPassword() {
 
           <button
             type="submit"
-            className="mt-4 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 disabled:opacity-50"
+            className="realtive mt-4 cursor-pointer space-x-2 text-center font-thin ease-out duration-200 rounded-md outline-none transition-all outline-0 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder w-full flex items-center justify-center text-base px-4 py-2 h-[42px]"
             disabled={isLoading}
           >
             {isLoading ? (

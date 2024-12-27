@@ -25,7 +25,9 @@ export const forgotPassword = async ({ email }: { email: string }) => {
   // supabase authentication from here
   const supabase = createClient();
 
-  const { error } = await supabase.auth.resetPasswordForEmail(email);
+  const { error } = await supabase.auth.resetPasswordForEmail(email,{
+    redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/forgot-password/reset-password`,
+  });
 
   console.log("err: ", error);
   // if (error === null) {

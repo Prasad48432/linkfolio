@@ -49,7 +49,7 @@ export default function ForgotPassword() {
 
   return (
     <main className="flex justify-center items-center min-h-screen bg-primary-bg">
-      <div className="w-[380px] shadow-md p-6 rounded-md">
+      <div className="w-[380px] p-6 rounded-md">
         <h2 className="text-2xl font-bold mb-4">Password Reset</h2>
         <p className="mb-6 text-sm text-primary-text">
           Enter your email address to reset your password
@@ -82,7 +82,7 @@ export default function ForgotPassword() {
 
           <button
             type="submit"
-            className="bg-accent-bg text-primary-text p-2 rounded-md hover:bg-acccent-selection disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="bg-accent-bg flex items-center justify-center text-primary-text p-2 rounded-md hover:bg-acccent-selection disabled:bg-accent-selection disabled:cursor-not-allowed"
             disabled={isLoading}
           >
             {isLoading ? (
