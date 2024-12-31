@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,12 +6,12 @@ import { z } from "zod";
 import { resetPasswordFunc } from "./action";
 import { useRouter,useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
-import Link from "next/link";
+import { toast } from "sonner";
+import { passwordSchema } from "@/validation/passwordSchema";
 
 // Validation schema for the form
 const formSchema = z.object({
-  password: z.string().min(6),
-  passwordConfirm: z.string().min(6),
+  password: passwordSchema,
 });
 
 export default function ResetPassword() {
@@ -34,7 +33,6 @@ export default function ResetPassword() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       password: "",
-      passwordConfirm: "",
     },
   });
 
@@ -45,14 +43,20 @@ export default function ResetPassword() {
     try {
       const response = await resetPasswordFunc({
         password: data.password,
-        passwordConfirm: data.passwordConfirm,
         code, 
       });
 
       if (response.error) {
         setServerError(response.message);
       } else {
-        // Redirect to the dashboard page after successful password reset
+        toast.success("Password reset successfull!", {
+          duration: 1500,
+          style: {
+            background: "#1a1a1a",
+            color: "#89e15a",
+            border: "1px solid #363636",
+          },
+        });
         router.push("/dashboard");
       }
     } catch (error) {
@@ -82,27 +86,11 @@ export default function ResetPassword() {
               id="password"
               {...form.register("password")}
               className="p-2 text-primary-text bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md"
+              placeholder="Set new password"
             />
             {form.formState.errors.password && (
               <p className="text-red-500 text-sm">
                 {form.formState.errors.password.message}
-              </p>
-            )}
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label htmlFor="passwordConfirm" className="text-sm font-medium">
-              Confirm password
-            </label>
-            <input
-              type="password"
-              id="passwordConfirm"
-              {...form.register("passwordConfirm")}
-              className="p-2 text-primary-text bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md"
-            />
-            {form.formState.errors.passwordConfirm && (
-              <p className="text-red-500 text-sm">
-                {form.formState.errors.passwordConfirm.message}
               </p>
             )}
           </div>

@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { forgotPassword } from "./action";
+import { toast } from "sonner";
 
 // Schema validation
 const formSchema = z.object({
@@ -38,7 +39,15 @@ export default function ForgotPassword() {
       if (response.error) {
         setServerError(response.message);
       } else {
-        router.push("/forgot-password/confirmation");
+        toast.success("Password reset email sent!", {
+          duration: 1500,
+          style: {
+            background: "#1a1a1a",
+            color: "#89e15a",
+            border: "1px solid #363636",
+          },
+        });
+        form.reset({ email: "" });
       }
     } catch (error) {
       setServerError("An unexpected error occurred. Please try again.");
@@ -50,8 +59,8 @@ export default function ForgotPassword() {
   return (
     <main className="flex justify-center items-center min-h-screen bg-primary-bg">
       <div className="w-[380px] p-6 rounded-md">
-        <h2 className="text-2xl font-bold mb-4">Password Reset</h2>
-        <p className="mb-6 text-sm text-primary-text">
+        <h2 className="text-2xl font-bold mb-1 text-primary-text">Password Reset</h2>
+        <p className="mb-6 text-sm text-secondary-text">
           Enter your email address to reset your password
         </p>
 

@@ -1,26 +1,21 @@
 "use server";
-
 import { z } from "zod";
-
 import { createClient } from "@/utils/supabase/server";
+import { passwordSchema } from "@/validation/passwordSchema";
 
 export const resetPasswordFunc = async ({
   password,
-  passwordConfirm,
   code,
 }: {
   password: string;
-  passwordConfirm: string;
   code: string;
 }) => {
   const newUserSchema = z.object({
-    password: z.string().min(6),
-    passwordConfirm: z.string().min(6),
+    password: passwordSchema,
   });
 
   const newUserValidation = newUserSchema.safeParse({
     password,
-    passwordConfirm,
   });
 
   if (!newUserValidation.success) {

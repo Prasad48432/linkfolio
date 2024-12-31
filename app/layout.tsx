@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Rubik } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
-import Navbar from "@/components/navbar";
-import MobileNavbar from "@/components/mobilenavbar";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",

@@ -64,7 +64,7 @@ export default function Home() {
         setDropdown1Open={setDropdown1Open}
         setDropdown2Open={setDropdown2Open}
       />
-      {/* <Spotlight className="left-[-2rem] lg:left-[24rem] -top-[9.25rem]" /> */}
+      <Spotlight className="left-[-2rem] lg:left-[24rem] -top-[9.25rem]" />
       <main
         style={{
           overflow: isNavbarOpen ? "hidden" : "auto",
@@ -86,7 +86,7 @@ export default function Home() {
                             href="/launch-week"
                           >
                             <div className="inline-flex items-center bg-opacity-10 bg-accent-bg text-accent-text border border-secondary-strongerborder group-hover/announcement:border-secondary-border px-3 rounded-full text-sm py-1 announcement-badge">
-                              Launch Week 13
+                              50% off ends soon!
                             </div>
                             <span className="text-foreground announcement-text">
                               Learn more

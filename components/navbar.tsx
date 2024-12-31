@@ -12,6 +12,8 @@ import LogoutButton from "@/app/dashboard/LogoutButton";
 import { Menu, X } from "lucide-react";
 import useWindowSize from "@/app/hooks/useWindowSize";
 import { logout } from "@/app/dashboard/action";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function Navbar({
   isNavbarOpen,
@@ -27,6 +29,29 @@ export default function Navbar({
   const [user, setUser] = useState<User | null>(null); // Explicitly define the state type
   const [loading, setLoading] = useState(true);
   const size = useWindowSize();
+
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      const response = await logout();
+
+      if (response.success) {
+        toast.success("Logout successful!", {
+          duration: 1500,
+          style: {
+            background: "#1a1a1a",
+            color: "#89e15a",
+            border: "1px solid #363636",
+          },
+        });
+
+        router.push("/login");
+      }
+    } catch (error) {
+      toast.error("An unexpected error occurred. Please try again.");
+    }
+  };
 
   useEffect(() => {
     const supabase = createClient();
@@ -161,7 +186,7 @@ export default function Navbar({
                 <div className="absolute left-0 top-full flex justify-center" />
               </nav>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 select-none">
               {loading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : !user ? (
@@ -194,7 +219,7 @@ export default function Navbar({
                     <span className="truncate">Dashboard</span>
                   </a>
                   <p
-                    onClick={() => logout()}
+                    onClick={() => handleLogout()}
                     className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
                   >
                     <span className="truncate">Logout</span>

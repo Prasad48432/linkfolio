@@ -3,11 +3,9 @@
 import { z } from "zod";
 
 import { createClient } from "@/utils/supabase/server";
-// import { redirect } from "next/navigation";
 
 const loginSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(5), // Adjust the minimum length as needed
 });
 
 export const loginUser = async ({
@@ -30,20 +28,7 @@ export const loginUser = async ({
     };
   }
 
-  // supabase authentication from here
   const supabase = createClient();
-
-  ///////////////////////////// TEST for redirection ///////////
-  // const { data, error } = await supabase.auth.getUser();
-  // const {
-  //   data: { user },
-  // } = await supabase.auth.getUser();
-
-  // if (user) {
-  //   return redirect("/dashboard");
-  // }
-
-  ///////////////////////////////////////////
 
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -64,14 +49,12 @@ export const loginUser = async ({
     };
   }
 
-  // User successfully logged in
   return {
     success: true,
     message: "Login successful",
     user: {
       id: data.user.id,
       email: data.user.email,
-      // Add any other user data you want to return
     },
   };
 };

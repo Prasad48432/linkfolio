@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginUser } from "./action";
 import { passwordSchema } from "@/validation/passwordSchema";
-import { Loader2 } from "lucide-react";
+import { Loader2, Quote } from "lucide-react";
 import Link from "next/link";
 import GoogleSignin from "./GoogleSignin";
 import { toast } from "sonner";
@@ -15,7 +15,7 @@ import { toast } from "sonner";
 // Form schema validation
 const formSchema = z.object({
   email: z.string().email(),
-  password: passwordSchema,
+  password: z.string().min(1, "Please enter your password"),
 });
 
 export default function LoginForm() {
@@ -73,6 +73,7 @@ export default function LoginForm() {
               <img
                 className="w-[124px] h-[24px] mb-2 -ml-1"
                 src="headerlogo.png"
+                draggable="false"
               />
               <p className="text-base text-secondary-text mt-1">
                 Login to your account
@@ -88,7 +89,11 @@ export default function LoginForm() {
                   <input
                     {...form.register("email")}
                     type="email"
-                    className="w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md mt-1"
+                    className={`${
+                      form.formState.errors.email
+                        ? "border-danger-border focus:border-danger-strongerborder"
+                        : "border-secondary-border focus:border-accent-strongerborder"
+                    } w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none rounded-md mt-1`}
                     placeholder="you@example.com"
                   />
                   {form.formState.errors.email && (
@@ -105,7 +110,11 @@ export default function LoginForm() {
                   <input
                     {...form.register("password")}
                     type="password"
-                    className="w-full px-3 py-2 text-sm bg-secondary-bg border border-secondary-border focus:outline-none focus:border-accent-strongerborder rounded-md mt-1"
+                    className={`${
+                      form.formState.errors.password
+                        ? "border-danger-border focus:border-danger-strongerborder"
+                        : "border-secondary-border focus:border-accent-strongerborder"
+                    } w-full px-3 py-2 text-sm bg-secondary-bg border focus:outline-none rounded-md mt-1`}
                     placeholder="Enter your password"
                   />
                   {form.formState.errors.password && (
@@ -188,10 +197,38 @@ export default function LoginForm() {
             </div>
           </main>
           <aside className="flex-col items-center justify-center flex-1 flex-shrink hidden basis-1/4 xl:flex">
-            <div className="h-screen w-full dark:bg-black bg-white  dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative flex items-center justify-center">
-              {/* Radial gradient for the container to give a faded look */}
-              <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-              <img className="w-[80%]" src="headerlogo.png" />
+            <div className="h-screen w-full bg-primary-bg bg-grid-white/[0.1] relative flex items-center justify-center">
+              <div className="relative flex flex-col gap-6">
+                <div className="absolute select-none -top-12 -left-11">
+                  <span className="text-[160px] leading-none text-secondary-text rotate-180">
+                    <Quote size={40} className="rotate-180" />
+                  </span>
+                </div>
+                <blockquote className="z-10 max-w-lg text-3xl">
+                  I've been using @supabase for two personal projects and it has
+                  been amazing being able to use the power of Postgres and don't
+                  have to worry about the backend
+                </blockquote>
+                <a
+                  href="https://twitter.com/varlenneto/status/1496595780475535366"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4"
+                >
+                  <img
+                    src="https://supabase.com/images/twitter-profiles/wkXN0t_F_400x400.jpg"
+                    alt="varlenneto"
+                    className="w-12 h-12 rounded-full"
+                  />
+                  <div className="flex flex-col">
+                    <cite className="not-italic font-medium text-foreground-light whitespace-nowrap">
+                      @varlenneto
+                    </cite>
+                  </div>
+                </a>
+              </div>
+
+              <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-primary-bg [mask-image:radial-gradient(ellipse_at_center,transparent_20%,#121212)]"></div>
             </div>
           </aside>
         </div>

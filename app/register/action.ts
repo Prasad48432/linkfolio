@@ -1,6 +1,7 @@
 "use server";
 import { z } from "zod";
 import { createClient } from "@/utils/supabase/server";
+import { passwordSchema } from "@/validation/passwordSchema";
 
 
 
@@ -15,13 +16,7 @@ export const registerUser = async ({
 }) => {
   const newUserSchema = z.object({
     email: z.string().email(),
-    password: z
-    .string()
-    .min(8, "Password must be at least 8 characters long")
-    .regex(
-      /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])/,
-      "Password must contain at least one uppercase letter and one special character"
-    ),
+    password: passwordSchema,
   });
 
   const newUserValidation = newUserSchema.safeParse({

@@ -5,8 +5,9 @@ import { useSearchParams } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 
-export default function GoogleSignin({text}:{text:string}) {
+export default function GoogleSignin({ text }: { text: string }) {
   const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
   const supabase = createClient();
   const searchParams = useSearchParams();
@@ -15,7 +16,7 @@ export default function GoogleSignin({text}:{text:string}) {
   async function signInWithGoogle() {
     setIsGoogleLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo: `${window.location.origin}/auth/callback${
@@ -26,6 +27,17 @@ export default function GoogleSignin({text}:{text:string}) {
 
       if (error) {
         throw error;
+      }
+
+      if (data) {
+        toast.success(`${data}`, {
+          duration: 1500,
+          style: {
+            background: "#1a1a1a",
+            color: "#89e15a",
+            border: "1px solid #363636",
+          },
+        });
       }
     } catch (error) {
       console.log("there is an error");

@@ -25,9 +25,9 @@ body {
   background: rgb(207, 207, 207);
   background: linear-gradient(
     360deg,
-    rgb(183, 183, 183) 0%,
-    rgb(206, 206, 206) 47%,
-    rgb(219, 219, 219) 100%
+    rgb(115, 115, 115) 0%,
+    rgb(105, 105, 105) 47%,
+    rgb(115, 115, 115) 100%
   );
   border-radius: 10px;
 }

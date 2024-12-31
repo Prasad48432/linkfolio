@@ -23,6 +23,8 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { logout } from "@/app/dashboard/action";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
+import { toast } from "sonner";
+import {useRouter} from "next/navigation";
 
 const staggerVariants = {
   hidden: {
@@ -59,6 +61,7 @@ export default function MobileNavbar({
 
   const [user, setUser] = useState<User | null>(null); // Explicitly define the state type
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const supabase = createClient();
@@ -78,6 +81,28 @@ export default function MobileNavbar({
         setLoading(false);
       });
   }, []);
+
+
+  const handleLogout = async () => {
+    try {
+      const response = await logout();
+
+      if (response.success) {
+        toast.success("Logout successful!", {
+          duration: 1500,
+          style: {
+            background: "#1a1a1a",
+            color: "#89e15a",
+            border: "1px solid #363636",
+          },
+        });
+
+        router.push("/login");
+      }
+    } catch (error) {
+      toast.error("An unexpected error occurred. Please try again.");
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -307,7 +332,7 @@ export default function MobileNavbar({
               </motion.div>
             ))}
             <motion.div
-              className={`transform-none w-full flex gap-2 items-center justify-center`}
+              className={`transform-none w-full flex gap-2 items-center justify-center select-none`}
               custom={5}
               variants={staggerVariants}
             >
@@ -322,7 +347,7 @@ export default function MobileNavbar({
                     Dashboard
                   </a>
                   <p
-                    onClick={() => logout()}
+                    onClick={() => handleLogout()}
                     className="mt-4 cursor-pointer text-sm font-thin w-1/2 h-8 px-4 py-2 border bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
                   >
                     Logout
