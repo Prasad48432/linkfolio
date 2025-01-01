@@ -10,10 +10,16 @@ import { Loader2 } from "lucide-react";
 import { logout } from "../action";
 import { toast } from "sonner";
 
+type Profile = {
+  bio: string | null;
+  username: string | null;
+};
+
 const Header = () => {
   const scrolled = useScroll(5);
   const selectedLayout = useSelectedLayoutSegment();
-  const [user, setUser] = useState<User | null>(null); // Explicitly define the state type
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null); // Explicitly define the state type
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -41,6 +47,7 @@ const Header = () => {
   useEffect(() => {
     const supabase = createClient();
 
+    // Fetch session and set user
     supabase.auth
       .getSession()
       .then(({ data }) => {
@@ -56,6 +63,44 @@ const Header = () => {
         setLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      const supabase = createClient();
+
+      // Fetch initial profile data
+      supabase
+        .from('profiles')
+        .select('bio, username')
+        .eq('id', user.id)
+        .single()
+        .then(({ data, error }) => {
+          if (error) {
+            console.error("Error fetching profile:", error.message);
+          } else {
+            setProfile(data);
+          }
+        });
+
+      // Subscribe to real-time updates
+      const channel = supabase
+        .channel('public:profiles')
+        .on(
+          'postgres_changes',
+          { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `id=eq.${user.id}` },
+          (payload) => {
+            // Type-cast payload.new to match the Profile type
+            setProfile(payload.new as Profile);
+          }
+        )
+        .subscribe();
+
+      // Cleanup subscription on unmount
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    }
+  }, [user]);
 
   return (
     <div className="sticky inset-x-0 top-0 z-30 w-full transition-all border-b border-secondary-border">
@@ -74,6 +119,8 @@ const Header = () => {
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           ) : (
             <div className="flex items-center gap-2">
+              <p className="text-primary-text text-sm font-thin">{profile?.username}</p>
+              <p className="text-primary-text text-sm font-thin">{profile?.bio}</p>
               <p
                 onClick={() => handleLogout()}
                 className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"

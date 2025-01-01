@@ -9,7 +9,7 @@ body {
   overflow-x: hidden;
 }
 
-.bricolage{
+.bricolage {
   font-family: var(--font-bricolage);
 }
 
@@ -32,12 +32,11 @@ body {
   border-radius: 10px;
 }
 
-
-.avatar-group{
+.avatar-group {
   display: flex;
   overflow: hidden;
 }
-.avatar{
+.avatar {
   position: relative;
   display: inline-flex;
 }
@@ -51,9 +50,14 @@ body {
 }
 
 .no_scrollbar {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
-.no_scrollbar::-webkit-scrollbar { 
-  display: none;  /* Safari and Chrome */
+.no_scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+
+::selection {
+  background-color: #ba3e1e; 
 }

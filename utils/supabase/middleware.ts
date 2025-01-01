@@ -37,37 +37,81 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (user && request.nextUrl.pathname.startsWith("/forgot-password")) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/dashboard";
-    url.search = "";
-    return NextResponse.redirect(url);
+  const url = request.nextUrl.clone();
+
+  if (user) {
+    if (
+      request.nextUrl.pathname.startsWith("/forgot-password") ||
+      request.nextUrl.pathname.match("/forgot-password") ||
+      request.nextUrl.pathname.startsWith("/login") ||
+      request.nextUrl.pathname.startsWith("/register")
+    ) {
+      url.pathname = "/dashboard/home";
+      return NextResponse.redirect(url);
+    }
+
+    if (
+      request.nextUrl.pathname === "/" ||
+      request.nextUrl.pathname.startsWith("/dashboard")
+    ) {
+      return NextResponse.next();
+    }
+  } else {
+    if (request.nextUrl.pathname.startsWith("/dashboard")) {
+      url.pathname = "/login";
+      return NextResponse.redirect(url);
+    }
+
+    if (
+      request.nextUrl.pathname === "/forgot-password/reset-password" &&
+      !request.nextUrl.searchParams.has("code")
+    ) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      return NextResponse.redirect(url);
+    }
+
+    if (
+      request.nextUrl.pathname === "/" ||
+      request.nextUrl.pathname.startsWith("/login") ||
+      request.nextUrl.pathname.startsWith("/register") ||
+      request.nextUrl.pathname.match("/forgot-password")
+    ) {
+      return NextResponse.next();
+    }
   }
 
-  if (
-    !user &&
-    request.nextUrl.pathname === "/forgot-password/reset-password" &&
-    !request.nextUrl.searchParams.has("code")
-  ) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  }
+  // if (user && request.nextUrl.pathname.startsWith("/forgot-password")) {
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = "/dashboard/home";
+  //   url.search = "";
+  //   return NextResponse.redirect(url);
+  // }
 
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith("/login") &&
-    !request.nextUrl.pathname.startsWith("/auth") &&
-    !request.nextUrl.pathname.startsWith("/register") &&
-    !request.nextUrl.pathname.startsWith("/forgot-password") &&
-    request.nextUrl.pathname !== "/" &&
-    request.nextUrl.pathname !== "/blogs"
-  ) {
-    // no user, potentially respond by redirecting the user to the login page
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  }
+  // if (
+  //   !user &&
+  //   request.nextUrl.pathname === "/forgot-password/reset-password" &&
+  //   !request.nextUrl.searchParams.has("code")
+  // ) {
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = "/login";
+  //   return NextResponse.redirect(url);
+  // }
+
+  // if (
+  //   !user &&
+  //   !request.nextUrl.pathname.startsWith("/login") &&
+  //   !request.nextUrl.pathname.startsWith("/auth") &&
+  //   !request.nextUrl.pathname.startsWith("/register") &&
+  //   !request.nextUrl.pathname.startsWith("/forgot-password") &&
+  //   request.nextUrl.pathname !== "/" &&
+  //   request.nextUrl.pathname !== "/blogs"
+  // ) {
+  //   // no user, potentially respond by redirecting the user to the login page
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = "/login";
+  //   return NextResponse.redirect(url);
+  // }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
   // creating a new response object with NextResponse.next() make sure to:

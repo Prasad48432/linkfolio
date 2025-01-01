@@ -35,20 +35,29 @@ export default function Home() {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const [isDropdown1Open, setDropdown1Open] = useState(false);
   const [isDropdown2Open, setDropdown2Open] = useState(false);
+  const [showSpotlight, setShowSpotlight] = useState(false);
 
   useEffect(() => {
-    // Add or remove the `overflow-hidden` class on the <body> tag
     if (isNavbarOpen) {
       document.body.classList.add("overflow-hidden");
     } else {
       document.body.classList.remove("overflow-hidden");
     }
 
-    // Cleanup function to remove the class if the component unmounts
     return () => {
       document.body.classList.remove("overflow-hidden");
     };
   }, [isNavbarOpen]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSpotlight(true);
+    }, 200); // Show spotlight after 2 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
+
+
   return (
     <div className="w-full h-full flex flex-col antialiased">
       <Navbar
@@ -64,7 +73,7 @@ export default function Home() {
         setDropdown1Open={setDropdown1Open}
         setDropdown2Open={setDropdown2Open}
       />
-      <Spotlight className="left-[-2rem] lg:left-[24rem] -top-[9.25rem]" />
+      {showSpotlight && <Spotlight className="left-[-2rem] lg:left-[24rem] -top-[9.25rem]" />}
       <main
         style={{
           overflow: isNavbarOpen ? "hidden" : "auto",
@@ -111,7 +120,7 @@ export default function Home() {
                         </div>
                       </div>
                       <h1
-                        className={`bricolage text-foreground font-extrabold text-3xl lg:text-7xl tracking-tight`}
+                        className={`bricolage text-foreground font-extrabold text-3xl lg:text-7xl tracking-tight select-none`}
                       >
                         <span className="block text-primary-text lg:mb-2">
                           The spotlight your
@@ -121,7 +130,7 @@ export default function Home() {
                         </span>
                       </h1>
                       <p className="pt-2 text-foreground my-3 text-sm sm:mt-5 lg:mb-0 sm:text-base lg:text-lg">
-                        Simplify your web presence with with LinkFolio.
+                        Simplify your web presence with with Linkfolio.
                         Effortlessly share your startups, highlight your
                         projects, and organize all your important links in one
                         sleek, professional portfolio.

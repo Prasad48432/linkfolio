@@ -10,6 +10,10 @@ const nextConfig = {
           hostname: "randomuser.me",
           pathname: "/api/portraits/**",
         },
+        {
+          protocol: "https",
+          hostname: "images.pexels.com",
+        },
       ],
     },
   };

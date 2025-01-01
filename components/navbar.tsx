@@ -14,6 +14,8 @@ import useWindowSize from "@/app/hooks/useWindowSize";
 import { logout } from "@/app/dashboard/action";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar({
   isNavbarOpen,
@@ -103,7 +105,13 @@ export default function Navbar({
                   data-state="closed"
                   href="/"
                 >
-                  <img className="w-[124px] h-[24px]" src="headerlogo.png" />
+                  <Image
+                    className="w-[124px] h-[24px]"
+                    src="/headerlogo.png"
+                    alt="Header Logo"
+                    width={124}
+                    height={24}
+                  />
                 </a>
               </div>
               <nav
@@ -199,14 +207,12 @@ export default function Navbar({
                   >
                     <span className="truncate">Login</span>
                   </a>
-                  <a
-                    data-size="tiny"
-                    type="button"
+                  <Link
+                    href="/register?next=/dashboard/home"
                     className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
-                    href="/register"
                   >
                     <span className="truncate">Create your page</span>
-                  </a>
+                  </Link>
                 </>
               ) : (
                 <div className="flex items-center gap-2">
@@ -214,7 +220,7 @@ export default function Navbar({
                     data-size="tiny"
                     type="button"
                     className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
-                    href="/dashboard"
+                    href="/dashboard/home"
                   >
                     <span className="truncate">Dashboard</span>
                   </a>
@@ -504,13 +510,15 @@ const Blogs = () => {
             className="flex items-start group/menu-item justify-center gap-2"
             href="#"
           >
-            <img
+            <Image
               className="mb-2 h-[4.5rem] w-28 rounded object-cover opacity-75 group-hover/menu-item:opacity-100 transition-all ease-out duration-200"
               src="https://images.pexels.com/photos/7414273/pexels-photo-7414273.jpeg?auto=compress&cs=tinysrgb&w=600"
               alt="Placeholder image"
+              width={112}
+              height={72}
             />
             <div className="flex flex-col items-start justify-center">
-              <h4 className="mb-0.5 text-sm font-medium">
+              <h4 className="mb-0.5 text-sm font-medium text-primary-text/80 group-hover/menu-item:text-primary-text transition-all ease-out duration-200">
                 How's startup built
               </h4>
               <p className="text-xs text-secondary-text group-hover/menu-item:text-primary-text/80 mb-1 transition-all ease-out duration-200">
@@ -526,13 +534,15 @@ const Blogs = () => {
             className="flex items-start group/menu-item justify-center gap-2"
             href="#"
           >
-            <img
+            <Image
               className="mb-2 h-[4.5rem] w-28 rounded object-cover opacity-75 group-hover/menu-item:opacity-100 transition-all ease-out duration-200"
               src="https://images.pexels.com/photos/7414283/pexels-photo-7414283.jpeg?auto=compress&cs=tinysrgb&w=600"
               alt="Placeholder image"
+              width={112}
+              height={72}
             />
             <div className="flex flex-col items-start justify-center">
-              <h4 className="mb-0.5 text-sm font-medium">
+              <h4 className="mb-0.5 text-sm font-medium text-primary-text/80 group-hover/menu-item:text-primary-text transition-all ease-out duration-200">
                 New biz master plan
               </h4>
               <p className="text-xs text-secondary-text group-hover/menu-item:text-primary-text/80 mb-1 transition-all ease-out duration-200">

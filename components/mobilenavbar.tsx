@@ -24,7 +24,8 @@ import { logout } from "@/app/dashboard/action";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { toast } from "sonner";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const staggerVariants = {
   hidden: {
@@ -81,7 +82,6 @@ export default function MobileNavbar({
         setLoading(false);
       });
   }, []);
-
 
   const handleLogout = async () => {
     try {
@@ -250,11 +250,14 @@ export default function MobileNavbar({
                       className="flex items-start group/menu-item justify-center gap-2"
                       href="#"
                     >
-                      <img
+                      <Image
                         className="mb-2 h-[4.5rem] w-28 rounded object-cover opacity-75 group-hover/menu-item:opacity-100 transition-all ease-out duration-200"
                         src="https://images.pexels.com/photos/7414273/pexels-photo-7414273.jpeg?auto=compress&cs=tinysrgb&w=600"
                         alt="Placeholder image"
+                        width={112}
+                        height={72}
                       />
+
                       <div className="flex flex-col items-start justify-center">
                         <h4 className="mb-0.5 text-sm font-medium">
                           How's startup built
@@ -273,10 +276,12 @@ export default function MobileNavbar({
                       className="flex items-start group/menu-item justify-center gap-2"
                       href="#"
                     >
-                      <img
+                      <Image
                         className="mb-2 h-[4.5rem] w-28 rounded object-cover opacity-75 group-hover/menu-item:opacity-100 transition-all ease-out duration-200"
                         src="https://images.pexels.com/photos/7414283/pexels-photo-7414283.jpeg?auto=compress&cs=tinysrgb&w=600"
                         alt="Placeholder image"
+                        width={112}
+                        height={72}
                       />
                       <div className="flex flex-col items-start justify-center">
                         <h4 className="mb-0.5 text-sm font-medium">
@@ -341,7 +346,7 @@ export default function MobileNavbar({
               ) : user ? (
                 <>
                   <a
-                    href="/dashboard"
+                    href="/dashboard/home"
                     className="mt-4 cursor-pointer text-sm font-thin w-1/2 h-8 px-4 py-2 border bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
                   >
                     Dashboard

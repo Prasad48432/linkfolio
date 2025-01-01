@@ -6,7 +6,7 @@ export default async function LoginPage() {
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
   if (data.user) {
-    redirect("/dashboard");
+    redirect("/dashboard/home");
   }
 
   return <RegisterForm />;

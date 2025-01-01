@@ -52,7 +52,7 @@ export default function LoginForm() {
             border: "1px solid #363636",
           },
         });
-        router.push("/dashboard");
+        router.push("/dashboard/home");
       }
     } catch (error) {
       setServerError("An unexpected error occurred. Please try again.");
@@ -134,7 +134,7 @@ export default function LoginForm() {
                       id="link-checkbox"
                       type="checkbox"
                       value=""
-                      className="w-3 h-3 text-accent-text bg-secondary-bg border-secondary-border rounded focus:ring-accent-border"
+                      className="w-3 h-3 accent-accent-text text-accent-text bg-secondary-bg border-secondary-border rounded focus:ring-accent-border"
                     />
                     <label
                       htmlFor="link-checkbox"
@@ -205,7 +205,7 @@ export default function LoginForm() {
                   </span>
                 </div>
                 <blockquote className="z-10 max-w-lg text-3xl">
-                  I've been using @supabase for two personal projects and it has
+                  I've been using <a href="#" className="text-accent-text transition-all ease-out duration-200">@supabase</a> for two personal projects and it has
                   been amazing being able to use the power of Postgres and don't
                   have to worry about the backend
                 </blockquote>
