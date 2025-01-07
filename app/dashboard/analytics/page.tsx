@@ -1,5 +1,5 @@
 import React from "react";
-import Dashboard from "../page";
+import Dashboard from "../dashboard";
 
 const Messages = () => {
   return (

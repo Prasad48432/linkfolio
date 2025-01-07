@@ -6,7 +6,7 @@ import useScroll from "@/app/dashboard/utils/usescroll";
 import { cn } from "@/lib/utils";
 import { User } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
-import { Loader2 } from "lucide-react";
+import {MoveUpRight } from "lucide-react";
 import { logout } from "../action";
 import { toast } from "sonner";
 
@@ -56,11 +56,9 @@ const Header = () => {
         } else {
           setUser(null);
         }
-        setLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching session:", err);
-        setLoading(false);
       });
   }, []);
 
@@ -70,40 +68,23 @@ const Header = () => {
 
       // Fetch initial profile data
       supabase
-        .from('profiles')
-        .select('bio, username')
-        .eq('id', user.id)
+        .from("profiles")
+        .select("bio, username")
+        .eq("id", user.id)
         .single()
         .then(({ data, error }) => {
           if (error) {
             console.error("Error fetching profile:", error.message);
           } else {
             setProfile(data);
+            setLoading(false);
           }
         });
-
-      // Subscribe to real-time updates
-      const channel = supabase
-        .channel('public:profiles')
-        .on(
-          'postgres_changes',
-          { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `id=eq.${user.id}` },
-          (payload) => {
-            // Type-cast payload.new to match the Profile type
-            setProfile(payload.new as Profile);
-          }
-        )
-        .subscribe();
-
-      // Cleanup subscription on unmount
-      return () => {
-        supabase.removeChannel(channel);
-      };
     }
   }, [user]);
 
   return (
-    <div className="sticky inset-x-0 top-0 z-30 w-full transition-all border-b border-secondary-border">
+    <div className="sticky inset-x-0 top-0 z-30 w-full transition-all bg-primary-bg border-b border-secondary-border">
       <div className="flex h-[60px] items-center justify-between px-4">
         <div className="flex items-center space-x-4">
           <Link
@@ -116,11 +97,26 @@ const Header = () => {
 
         <div className="hidden md:block">
           {loading ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <span className="flex items-center justify-center gap-2">
+              <span className="h-4 w-24 rounded-md bg-secondary-bg animate-pulse" />
+              <span className="h-4 w-16 rounded-md bg-secondary-bg animate-pulse" />
+              <span className="h-10 w-10 rounded-full bg-secondary-bg animate-pulse" />
+            </span>
           ) : (
             <div className="flex items-center gap-2">
-              <p className="text-primary-text text-sm font-thin">{profile?.username}</p>
-              <p className="text-primary-text text-sm font-thin">{profile?.bio}</p>
+              <a
+                target="_blank"
+                href={`/${profile?.username}`}
+                className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+              >
+                <span className="truncate flex items-center justify-center gap-1">
+                  {process.env.NEXT_PUBLIC_BASE_URL?.replace(
+                    /(^\w+:|^)\/\//,
+                    ""
+                  )}
+                  /{profile?.username} <MoveUpRight size={14} />
+                </span>
+              </a>
               <p
                 onClick={() => handleLogout()}
                 className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"

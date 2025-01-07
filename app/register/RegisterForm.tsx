@@ -5,7 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerUser } from "./action";
 import { useRouter } from "next/navigation";
-import { Loader2, Eye, EyeOff } from "lucide-react";
+import { Loader, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import GoogleSignin from "./GoogleSignin";
 import { Quote } from "lucide-react";
@@ -168,7 +168,7 @@ export default function RegisterForm() {
                 >
                   {isLoading ? (
                     <p className="text-primary-text/80 flex items-center justify-center">
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <Loader className="mr-2 h-4 w-4 animate-spin" />
                       Please wait...
                     </p>
                   ) : (

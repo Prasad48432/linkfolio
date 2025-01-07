@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginUser } from "./action";
 import { passwordSchema } from "@/validation/passwordSchema";
-import { Loader2, Quote } from "lucide-react";
+import { Loader, Quote } from "lucide-react";
 import Link from "next/link";
 import GoogleSignin from "./GoogleSignin";
 import { toast } from "sonner";
@@ -160,7 +160,7 @@ export default function LoginForm() {
                 >
                   {isLoading ? (
                     <p className="text-primary-text/80 flex items-center justify-center">
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <Loader className="mr-2 h-4 w-4 animate-spin" />
                       Please wait...
                     </p>
                   ) : (

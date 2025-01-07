@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { Loader } from "lucide-react";
 import Link from "next/link";
 import { forgotPassword } from "./action";
 import { toast } from "sonner";
@@ -96,7 +96,7 @@ export default function ForgotPassword() {
           >
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader className="mr-2 h-4 w-4 animate-spin" />
                 Please wait
               </>
             ) : (

@@ -48,7 +48,7 @@ const HeaderMobile = () => {
       ref={containerRef}
     >
       <motion.div
-        className="absolute inset-0 right-0 w-full bg-white"
+        className="absolute inset-0 right-0 w-full bg-primary-bg"
         variants={sidebar}
       />
       <motion.ul
@@ -60,24 +60,20 @@ const HeaderMobile = () => {
 
           return (
             <div key={idx}>
-              {item.submenu ? (
-                <MenuItemWithSubMenu item={item} toggleOpen={toggleOpen} />
-              ) : (
                 <MenuItem>
                   <Link
                     href={item.path}
                     onClick={() => toggleOpen()}
                     className={`flex w-full text-2xl ${
-                      item.path === pathname ? "font-bold" : ""
+                      item.path === pathname ? "font-semibold text-accent-text" : "font-thin text-primary-text"
                     }`}
                   >
                     {item.title}
                   </Link>
                 </MenuItem>
-              )}
 
               {!isLastItem && (
-                <MenuItem className="my-3 h-px w-full bg-gray-300" />
+                <MenuItem className="my-3 h-px w-full bg-secondary-border" />
               )}
             </div>
           );
@@ -93,7 +89,7 @@ export default HeaderMobile;
 const MenuToggle = ({ toggle }: { toggle: any }) => (
   <button
     onClick={toggle}
-    className="pointer-events-auto absolute right-4 top-[14px] z-30"
+    className="pointer-events-auto absolute right-4 top-[20px] z-30"
   >
     <svg width="23" height="23" viewBox="0 0 23 23">
       <Path
@@ -124,7 +120,7 @@ const Path = (props: any) => (
   <motion.path
     fill="transparent"
     strokeWidth="2"
-    stroke="hsl(0, 0%, 18%)"
+    stroke="#ededed"
     strokeLinecap="round"
     {...props}
   />
@@ -144,56 +140,6 @@ const MenuItem = ({
   );
 };
 
-const MenuItemWithSubMenu: React.FC<MenuItemWithSubMenuProps> = ({
-  item,
-  toggleOpen,
-}) => {
-  const pathname = usePathname();
-  const [subMenuOpen, setSubMenuOpen] = useState(false);
-
-  return (
-    <>
-      <MenuItem>
-        <button
-          className="flex w-full text-2xl"
-          onClick={() => setSubMenuOpen(!subMenuOpen)}
-        >
-          <div className="flex flex-row justify-between w-full items-center">
-            <span
-              className={`${pathname.includes(item.path) ? "font-bold" : ""}`}
-            >
-              {item.title}
-            </span>
-            <div className={`${subMenuOpen && "rotate-180"}`}>
-              <ChevronDown size={24} />
-            </div>
-          </div>
-        </button>
-      </MenuItem>
-      <div className="mt-2 ml-2 flex flex-col space-y-2">
-        {subMenuOpen && (
-          <>
-            {item.subMenuItems?.map((subItem, subIdx) => {
-              return (
-                <MenuItem key={subIdx}>
-                  <Link
-                    href={subItem.path}
-                    onClick={() => toggleOpen()}
-                    className={` ${
-                      subItem.path === pathname ? "font-bold" : ""
-                    }`}
-                  >
-                    {subItem.title}
-                  </Link>
-                </MenuItem>
-              );
-            })}
-          </>
-        )}
-      </div>
-    </>
-  );
-};
 
 const MenuItemVariants = {
   open: {

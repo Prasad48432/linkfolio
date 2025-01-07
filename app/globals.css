@@ -49,15 +49,22 @@ body {
   border-color: #121212;
 }
 
-.no_scrollbar {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+@media only screen and (max-width: 600px) {
+  .no_scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no_scrollbar::-webkit-scrollbar {
+    display: none; 
+  }
 }
-.no_scrollbar::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
-}
-
 
 ::selection {
-  background-color: #ba3e1e; 
+  background-color: #ba3e1e;
+}
+
+
+.markdown_content a{
+  text-decoration: underline;
+  font-weight: 400;
 }

@@ -1,4 +1,4 @@
-import { UserRoundPen , FolderKanban, Mail, Settings, HelpCircle } from "lucide-react";
+import { UserRoundPen , FolderKanban, AtSign , ChartSpline , Palette  } from "lucide-react";
 
 import { SideNavItem } from "./types";
 
@@ -6,27 +6,27 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
   {
     title: "Profile",
     path: "/dashboard/home",
-    icon: UserRoundPen ,
+    icon: UserRoundPen,
   },
   {
-    title: "Messages",
-    path: "/dashboard/messages",
-    icon: Mail,
-  },
-  {
-    title: "Projects",
-    path: "/dashboard/projects",
+    title: "Contents",
+    path: "/dashboard/contents",
     icon: FolderKanban,
   },
   {
-    title: "Settings",
-    path: "/dashboard/settings",
-    icon: Settings,
+    title: "Socials",
+    path: "/dashboard/socials",
+    icon: AtSign,
   },
   {
-    title: "Help",
-    path: "/dashboard/help",
-    icon: HelpCircle,
+    title: "Themes",
+    path: "/dashboard/themes",
+    icon: Palette,
+  },
+  {
+    title: "Analytics",
+    path: "/dashboard/settings",
+    icon: ChartSpline ,
   },
 ];
 

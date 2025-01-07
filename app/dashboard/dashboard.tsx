@@ -36,7 +36,7 @@
 // import { motion } from "framer-motion";
 // import { createClient } from "@/utils/supabase/client";
 // import { User } from "@supabase/supabase-js";
-// import { Loader2 } from "lucide-react";
+// import { Loader } from "lucide-react";
 
 // const Example = () => {
 //   const [user, setUser] = useState<User | null>(null); // Explicitly define the state type
@@ -214,7 +214,7 @@
 //             >
 //               {loading ? (
 //                 <div className="flex items-center gap-2">
-//                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+//                   <Loader className="mr-2 h-4 w-4 animate-spin" />
 //                 </div>
 //               ) : (
 //                 <span className="block text-xs font-semibold truncate w-[80%]">
@@ -294,7 +294,7 @@ import PageWrapper from "./components/page-wrapper";
 
 
 interface DashboardProps {
-  children?: ReactNode;
+  children: ReactNode;
 }
 
 const Dashboard = ({ children }: DashboardProps) => {

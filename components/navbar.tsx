@@ -7,7 +7,7 @@ import { BiLink } from "react-icons/bi";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
-import { Loader2 } from "lucide-react";
+import { Loader } from "lucide-react";
 import LogoutButton from "@/app/dashboard/LogoutButton";
 import { Menu, X } from "lucide-react";
 import useWindowSize from "@/app/hooks/useWindowSize";
@@ -196,7 +196,7 @@ export default function Navbar({
             </div>
             <div className="flex items-center gap-2 select-none">
               {loading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader className="mr-2 h-4 w-4 animate-spin" />
               ) : !user ? (
                 <>
                   <a

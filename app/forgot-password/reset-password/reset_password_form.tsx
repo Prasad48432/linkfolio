@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { resetPasswordFunc } from "./action";
 import { useRouter,useSearchParams } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { Loader } from "lucide-react";
 import { toast } from "sonner";
 import { passwordSchema } from "@/validation/passwordSchema";
 
@@ -106,7 +106,7 @@ export default function ResetPassword() {
           >
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader className="mr-2 h-4 w-4 animate-spin" />
                 Please wait
               </>
             ) : (

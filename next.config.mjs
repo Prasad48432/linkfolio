@@ -14,6 +14,14 @@ const nextConfig = {
           protocol: "https",
           hostname: "images.pexels.com",
         },
+        {
+          protocol: "https",
+          hostname: "xnbbwfavkuvfdlnbixar.supabase.co",
+        },
+        {
+          protocol: "https",
+          hostname: "api.dicebear.com",
+        }
       ],
     },
   };

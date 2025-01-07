@@ -7,6 +7,7 @@ import "@smastrom/react-rating/style.css";
 import MobileNavbar from "@/components/mobilenavbar";
 import Navbar from "@/components/navbar";
 import { useState, useEffect } from "react";
+import CookieConsent from "@/components/cookieconsent";
 
 const imageUrls = [
   {
@@ -73,6 +74,7 @@ export default function Home() {
         setDropdown1Open={setDropdown1Open}
         setDropdown2Open={setDropdown2Open}
       />
+      <CookieConsent />
       {showSpotlight && <Spotlight className="left-[-2rem] lg:left-[24rem] -top-[9.25rem]" />}
       <main
         style={{
@@ -141,7 +143,7 @@ export default function Home() {
                         data-size="medium"
                         type="button"
                         className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 h-[38px]"
-                        href="https://supabase.com/dashboard"
+                        href="/login?next=/dashboard/home"
                       >
                         <span className="truncate flex items-center justify-center">
                           Create your{" "}
@@ -155,7 +157,7 @@ export default function Home() {
                         data-size="medium"
                         type="button"
                         className="inline-flex relative justify-center cursor-pointer items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-foreground bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 h-[38px]"
-                        href="/contact/sales"
+                        href="/prasadreddy03"
                       >
                         <span className="truncate">Check live demo</span>
                       </a>
