@@ -62,22 +62,22 @@ const ImageSelect = ({
               opacity: 0,
             }}
             transition={{ type: "spring", bounce: 0.3, duration: 0.4 }}
-            className="absolute z-10 p-5 bg-primary-bg h-[65vh] lg:h-[60vh] w-[90vw] sm:w-[40vw] rounded-2xl text-primary-text"
+            className="absolute z-10 py-5 bg-primary-bg h-[60vh] lg:h-[60vh] w-[90vw] sm:w-[40vw] rounded-lg border border-secondary-border text-primary-text"
           >
             <button
               onClick={() => {
                 setModal((modal) => !modal);
                 setLoading(false);
               }}
-              className="absolute top-0 right-0 -mt-4 -mr-4 bg-darkbg text-primarytext border border-black h-8 w-8 block mb-2 rounded-full font-bold text-lg"
+              className="absolute top-0 right-0 -mt-4 -mr-4 bg-primary-bg text-primarytext border border-secondary-border hover:border-secondary-strongerborder h-8 w-8 block mb-2 rounded-full font-bold text-lg duration-200 transition-all ease-out"
             >
               &times;
             </button>
-            <h1 className="text-lg md:text-2xl text-center mt-2 font-medium text-primary-text/90">
+            <h1 className="text-lg md:text-xl text-center mt-2 font-normal text-primary-text/90">
               Select Image
             </h1>
-            <p className="text-center text-xs md:text-lg mb-8 text-primary-text/70">
-              Select from Basic Avatars or update your own
+            <p className="text-center text-xs md:text-base mb-8 text-primary-text/70 font-thin">
+              Select from Basic Avatars or pick local image
             </p>
             <div className="divide-y divide-secondary-strongerborder">
               <div
@@ -98,7 +98,7 @@ const ImageSelect = ({
                   <RiImageAddLine className="text-primary-text/80 text-4xl md:text-5xl hover:text-gray-400 hover:border-secondary-strongerborder cursor-pointer p-2 border border-dashed border-secondary-border duration-200 transition-all ease-out" />
                 )}
               </div>
-              <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md grid grid-cols-6 lg:grid-cols-8 gap-2 pt-6 md:pt-8">
+              <div className="mt-8 sm:mx-auto sm:w-full px-8 lg:px-12 grid grid-cols-6 lg:grid-cols-8 gap-2 pt-6 md:pt-8">
                 {Images.map((simage, index) => (
                   <div
                     onClick={() => {

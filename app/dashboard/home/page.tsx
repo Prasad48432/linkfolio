@@ -435,7 +435,7 @@ const Home = () => {
             <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full"></div>
             {fetchLoading ? (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg flex items-center justify-center">
-                <Loader size={24} className="animate-spin" />
+                <Loader strokeWidth={1.5} size={24} className="animate-spin" />
               </div>
             ) : (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-black">

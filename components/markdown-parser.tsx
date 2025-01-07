@@ -5,7 +5,7 @@ const MarkdownParser = ({
   className,
 }: {
   text: string;
-  className: string;
+  className?: string;
 }) => {
   return (
     <span className={`markdown_content ${className}`}>

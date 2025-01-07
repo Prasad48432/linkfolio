@@ -44,7 +44,8 @@ export async function updateSession(request: NextRequest) {
       request.nextUrl.pathname.startsWith("/forgot-password") ||
       request.nextUrl.pathname.match("/forgot-password") ||
       request.nextUrl.pathname.startsWith("/login") ||
-      request.nextUrl.pathname.startsWith("/register")
+      request.nextUrl.pathname.startsWith("/register") ||
+      request.nextUrl.pathname === "/dashboard"
     ) {
       url.pathname = "/dashboard/home";
       return NextResponse.redirect(url);
