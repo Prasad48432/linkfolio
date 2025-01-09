@@ -1,14 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter, useSelectedLayoutSegment } from "next/navigation";
-import useScroll from "@/app/dashboard/utils/usescroll";
-import { cn } from "@/lib/utils";
 import { User } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
 import {MoveUpRight } from "lucide-react";
-import { logout } from "../action";
-import { toast } from "sonner";
+import LogoutConfiramtion from "./logout-confirmation";
 
 type Profile = {
   bio: string | null;
@@ -16,33 +12,11 @@ type Profile = {
 };
 
 const Header = () => {
-  const scrolled = useScroll(5);
-  const selectedLayout = useSelectedLayoutSegment();
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null); // Explicitly define the state type
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
+  const [logoutModal, setLogoutModal] = useState(false);
 
-  const handleLogout = async () => {
-    try {
-      const response = await logout();
-
-      if (response.success) {
-        toast.success("Logout successful!", {
-          duration: 1500,
-          style: {
-            background: "#1a1a1a",
-            color: "#89e15a",
-            border: "1px solid #363636",
-          },
-        });
-
-        router.push("/login");
-      }
-    } catch (error) {
-      toast.error("An unexpected error occurred. Please try again.");
-    }
-  };
 
   useEffect(() => {
     const supabase = createClient();
@@ -86,6 +60,7 @@ const Header = () => {
   return (
     <div className="sticky inset-x-0 top-0 z-30 w-full transition-all bg-primary-bg border-b border-secondary-border">
       <div className="flex h-[60px] items-center justify-between px-4">
+        <LogoutConfiramtion modal={logoutModal} setModal={setLogoutModal} />
         <div className="flex items-center space-x-4">
           <Link
             href="/"
@@ -104,7 +79,7 @@ const Header = () => {
             </span>
           ) : (
             <div className="flex items-center gap-2">
-              <a
+              {profile?.username && <a
                 target="_blank"
                 href={`/${profile?.username}`}
                 className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
@@ -116,9 +91,9 @@ const Header = () => {
                   )}
                   /{profile?.username} <MoveUpRight size={14} />
                 </span>
-              </a>
+              </a>}
               <p
-                onClick={() => handleLogout()}
+                onClick={() => setLogoutModal(true)}
                 className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
               >
                 <span className="truncate">Logout</span>

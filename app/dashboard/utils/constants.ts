@@ -25,7 +25,7 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
   },
   {
     title: "Analytics",
-    path: "/dashboard/settings",
+    path: "/dashboard/analytics",
     icon: ChartSpline ,
   },
 ];

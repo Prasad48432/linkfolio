@@ -69,12 +69,17 @@ const config: Config = {
         },
         pingCustom: {
           '75%, 100%': { transform: 'scale(1.07)', opacity: '0.5' },
+        },
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' }
         }
       },
       animation: {
         slideIn: "slideIn 0.3s ease-out",
         spotlight: "spotlight 2s ease .75s 1 forwards",
         pingCustom: 'pingCustom 1s cubic-bezier(0, 0, 0.2, 1) infinite',
+        shimmer: 'shimmer 1.5s infinite'
       },
     },
   },

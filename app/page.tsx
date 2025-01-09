@@ -8,6 +8,10 @@ import MobileNavbar from "@/components/mobilenavbar";
 import Navbar from "@/components/navbar";
 import { useState, useEffect } from "react";
 import CookieConsent from "@/components/cookieconsent";
+import UsernameCheck from "@/components/usernamecheck";
+import { User } from "@supabase/supabase-js";
+import { createClient } from "@/utils/supabase/client";
+import { Loader } from "lucide-react";
 
 const imageUrls = [
   {
@@ -37,6 +41,27 @@ export default function Home() {
   const [isDropdown1Open, setDropdown1Open] = useState(false);
   const [isDropdown2Open, setDropdown2Open] = useState(false);
   const [showSpotlight, setShowSpotlight] = useState(false);
+  const [user, setUser] = useState<User | null>(null); // Explicitly define the state type
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        if (data.session) {
+          setUser(data.session.user);
+        } else {
+          setUser(null);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching session:", err);
+        setLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     if (isNavbarOpen) {
@@ -53,11 +78,10 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSpotlight(true);
-    }, 200); // Show spotlight after 2 seconds
+    }, 200);
 
     return () => clearTimeout(timer);
   }, []);
-
 
   return (
     <div className="w-full h-full flex flex-col antialiased">
@@ -75,7 +99,9 @@ export default function Home() {
         setDropdown2Open={setDropdown2Open}
       />
       <CookieConsent />
-      {showSpotlight && <Spotlight className="left-[-2rem] lg:left-[24rem] -top-[9.25rem]" />}
+      {showSpotlight && (
+        <Spotlight className="left-[-2rem] lg:left-[24rem] -top-[9.25rem]" />
+      )}
       <main
         style={{
           overflow: isNavbarOpen ? "hidden" : "auto",
@@ -138,30 +164,32 @@ export default function Home() {
                         sleek, professional portfolio.
                       </p>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <a
-                        data-size="medium"
-                        type="button"
-                        className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 h-[38px]"
-                        href="/login?next=/dashboard/home"
-                      >
-                        <span className="truncate flex items-center justify-center">
-                          Create your{" "}
-                          <span className="hidden md:block ml-1 mr-1">
-                            linkfolio
-                          </span>{" "}
-                          page
-                        </span>
-                      </a>
-                      <a
-                        data-size="medium"
-                        type="button"
-                        className="inline-flex relative justify-center cursor-pointer items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-foreground bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 h-[38px]"
-                        href="/prasadreddy03"
-                      >
-                        <span className="truncate">Check live demo</span>
-                      </a>
-                    </div>
+                    {loading ? (
+                      <Loader className="mr-2 h-4 w-4 animate-spin" />
+                    ) : !user ? (
+                      <UsernameCheck />
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <a
+                          data-size="medium"
+                          type="button"
+                          className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 h-[38px]"
+                          href="/dashboard/home"
+                        >
+                          <span className="truncate flex items-center justify-center">
+                            Dashboard
+                          </span>
+                        </a>
+                        <a
+                          data-size="medium"
+                          type="button"
+                          className="inline-flex relative justify-center cursor-pointer items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-foreground bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 h-[38px]"
+                          href="/dashboard/analytics"
+                        >
+                          <span className="truncate">Analytics</span>
+                        </a>
+                      </div>
+                    )}
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-2">
                       <div className="-space-x-5 avatar-group justify-center  lg:justify-start">
                         {imageUrls.map((image, index) => (

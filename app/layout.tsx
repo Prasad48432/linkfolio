@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${bricolage.variable} ${rubik.variable} antialiased`}>
-        <Toaster richColors position="top-right" />
+        <Toaster  richColors position="top-right" />
         {children}
       </body>
     </html>

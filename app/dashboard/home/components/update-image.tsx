@@ -15,8 +15,8 @@ const UpdateImage = ({
   fetchLoading: boolean;
 }) => {
   return (
-    <div>
-      <h2 className="mb-1 text-lg font-bold text-primary-text/80">
+    <div className="w-full flex flex-col items-center justify-center">
+      <h2 className="mb-0.5 text-lg font-bold text-primary-text/80">
         Image Update
       </h2>
       <p className="text-sm  text-primary-text/60 mb-5">

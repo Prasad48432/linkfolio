@@ -50,7 +50,10 @@ const ImageSelect = ({
   return (
     <AnimatePresence>
       {modal && (
-        <div className="px-5 z-[100] fixed h-full w-full flex items-center justify-center top-0 left-0 bg-black/20 backdrop-blur">
+        <div
+          style={{ pointerEvents: "auto" }}
+          className="px-5 z-[100] fixed h-full w-full flex items-center justify-center top-0 left-0 bg-black/20 backdrop-blur"
+        >
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             animate={{
@@ -62,6 +65,7 @@ const ImageSelect = ({
               opacity: 0,
             }}
             transition={{ type: "spring", bounce: 0.3, duration: 0.4 }}
+            style={{ pointerEvents: "auto" }}
             className="absolute z-10 py-5 bg-primary-bg h-[60vh] lg:h-[60vh] w-[90vw] sm:w-[40vw] rounded-lg border border-secondary-border text-primary-text"
           >
             <button

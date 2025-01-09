@@ -65,11 +65,11 @@ export default async function UsernamePage({ params }: { params: Params }) {
         </div>
         <div className="w-full lg:min-h-[100vh] lg:w-4/6 relative lg:left-[33.34%] p-8">
           <div className="grid grid-cols-2 gap-4 items-center justify-center auto-rows-min">
-            <div className="bg-secondary-bg h-32 rounded-lg col-span-1" />
-            <div className="bg-secondary-bg h-32 rounded-lg col-span-1" />
-            <div className="bg-secondary-bg h-32 rounded-lg col-span-1" />
-            <div className="bg-secondary-bg h-16 rounded-lg col-span-1" />
-            <div className="bg-secondary-bg h-16 rounded-lg col-span-1" />
+            <div className="bg-secondary-bg h-32 rounded-lg col-span-2 lg:col-span-1" />
+            <div className="bg-secondary-bg h-32 rounded-lg col-span-2 lg:col-span-1" />
+            <div className="bg-secondary-bg h-32 rounded-lg col-span-2 lg:col-span-1" />
+            <div className="bg-secondary-bg h-16 rounded-lg col-span-2 lg:col-span-1" />
+            <div className="bg-secondary-bg h-16 rounded-lg col-span-2 lg:col-span-1" />
             {/* {startups.data?.map((_, index) => (
               <div key={index} className="bg-secondary-bg h-36 rounded-lg" />
             ))} */}

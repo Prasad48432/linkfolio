@@ -23,19 +23,16 @@ export const handleImageClick = async ({
         `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/userimages/userimages/`
       )[1];
 
-      console.log(`Old Image ${oldFilePath}`);
-
-      console.log(`New Image ${simage}`);
 
       if (oldFilePath) {
         await supabase.storage
           .from("userimages")
           .remove([`userimages/${oldFilePath}`])
           .then((result) => {
-            console.log(result);
+            // console.log(result);
           })
           .catch((err) => {
-            console.log(err);
+            // console.log(err);
           });
       }
 
