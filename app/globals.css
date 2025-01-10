@@ -55,16 +55,24 @@ body {
     scrollbar-width: none;
   }
   .no_scrollbar::-webkit-scrollbar {
-    display: none; 
+    display: none;
   }
+}
+
+.scrollbar_hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar_hidden::-webkit-scrollbar {
+  display: none;
 }
 
 ::selection {
   background-color: #ba3e1e;
 }
 
-
-.markdown_content a{
+.markdown_content a {
   text-decoration: underline;
   font-weight: 400;
 }

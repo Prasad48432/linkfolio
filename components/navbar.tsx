@@ -5,74 +5,48 @@ import { AnimatePresence, motion } from "framer-motion";
 import { PiRocketLaunch, PiCubeLight } from "react-icons/pi";
 import { BiLink } from "react-icons/bi";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { Loader } from "lucide-react";
-import LogoutButton from "@/app/dashboard/LogoutButton";
 import { Menu, X } from "lucide-react";
 import useWindowSize from "@/app/hooks/useWindowSize";
 import { logout } from "@/app/dashboard/action";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { ToastError, ToastSuccess } from "./toast";
+import { ProfileData } from "@/types/user";
 
 export default function Navbar({
   isNavbarOpen,
   setIsNavbarOpen,
   setDropdown1Open,
   setDropdown2Open,
+  loading,
+  userData,
+  user,
 }: {
   isNavbarOpen: boolean;
   setIsNavbarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setDropdown1Open: React.Dispatch<React.SetStateAction<boolean>>;
   setDropdown2Open: React.Dispatch<React.SetStateAction<boolean>>;
+  loading: boolean;
+  userData: ProfileData;
+  user: User | null;
 }) {
-  const [user, setUser] = useState<User | null>(null); // Explicitly define the state type
-  const [loading, setLoading] = useState(true);
   const size = useWindowSize();
-
   const router = useRouter();
 
   const handleLogout = async () => {
     try {
       const response = await logout();
-
       if (response.success) {
-        toast.success("Logout successful!", {
-          duration: 1500,
-          style: {
-            background: "#1a1a1a",
-            color: "#89e15a",
-            border: "1px solid #363636",
-          },
-        });
-
+        ToastSuccess({ message: "Logout successful." });
         router.push("/login");
       }
     } catch (error) {
-      toast.error("An unexpected error occurred. Please try again.");
+      ToastError({ message: "An unexpected error occurred." });
     }
   };
-
-  useEffect(() => {
-    const supabase = createClient();
-
-    supabase.auth
-      .getSession()
-      .then(({ data }) => {
-        if (data.session) {
-          setUser(data.session.user);
-        } else {
-          setUser(null);
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching session:", err);
-        setLoading(false);
-      });
-  }, []);
 
   return (
     <div
@@ -230,11 +204,13 @@ export default function Navbar({
                   >
                     <span className="truncate">Logout</span>
                   </p>
-                  <img
+                  <Image
+                    width={200}
+                    height={200}
                     className="bg-accent-bg/20 h-8 md:h-10 w-8 md:w-10 rounded-full"
                     referrerPolicy="no-referrer"
-                    src={user?.identities?.[0]?.identity_data?.avatar_url}
-                    alt="User Avatar"
+                    src={userData.avatar_url}
+                    alt="User Profile"
                   />
                 </div>
               )}

@@ -9,6 +9,7 @@ import { Loader } from "lucide-react";
 import Link from "next/link";
 import { forgotPassword } from "./action";
 import { toast } from "sonner";
+import { ToastSuccess } from "@/components/toast";
 
 // Schema validation
 const formSchema = z.object({
@@ -39,14 +40,7 @@ export default function ForgotPassword() {
       if (response.error) {
         setServerError(response.message);
       } else {
-        toast.success("Password reset email sent!", {
-          duration: 1500,
-          style: {
-            background: "#1a1a1a",
-            color: "#89e15a",
-            border: "1px solid #363636",
-          },
-        });
+        ToastSuccess({message: "Password reset email sent."})
         form.reset({ email: "" });
       }
     } catch (error) {

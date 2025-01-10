@@ -43,19 +43,56 @@ export default function Home() {
   const [showSpotlight, setShowSpotlight] = useState(false);
   const [user, setUser] = useState<User | null>(null); // Explicitly define the state type
   const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState({
+    full_name: "",
+    username: "",
+    bio: "",
+    country: "",
+    email: "",
+    id: "",
+    avatar_url: "",
+    profile_link: "",
+    profile_link_text: "",
+    user_skills: [],
+    resume_url: "",
+  });
 
   useEffect(() => {
     const supabase = createClient();
+
+    const fetchProfile = async (userId: string) => {
+      try {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select(
+            "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url"
+          )
+          .eq("id", userId)
+          .single();
+
+        if (error) {
+          console.error("Error fetching profile:", error.message);
+        } else {
+          setUserData(data);
+        }
+      } catch (error) {
+        console.error("Error retrieving profile data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     supabase.auth
       .getSession()
       .then(({ data }) => {
         if (data.session) {
+          const userId = data.session.user.id;
           setUser(data.session.user);
+          fetchProfile(userId);
         } else {
           setUser(null);
+          setLoading(false);
         }
-        setLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching session:", err);
@@ -90,6 +127,9 @@ export default function Home() {
         setIsNavbarOpen={setIsNavbarOpen}
         setDropdown1Open={setDropdown1Open}
         setDropdown2Open={setDropdown2Open}
+        loading={loading}
+        userData={userData}
+        user={user}
       />
       <MobileNavbar
         isOpen={isNavbarOpen}
@@ -97,6 +137,8 @@ export default function Home() {
         isDropdown2Open={isDropdown2Open}
         setDropdown1Open={setDropdown1Open}
         setDropdown2Open={setDropdown2Open}
+        loading={loading}
+        user={user}
       />
       <CookieConsent />
       {showSpotlight && (

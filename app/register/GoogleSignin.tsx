@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { Loader } from "lucide-react";
 import Image from "next/image";
+import { ToastError } from "@/components/toast";
 
 export default function GoogleSignin({text}:{text:string}) {
   const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
@@ -28,7 +29,7 @@ export default function GoogleSignin({text}:{text:string}) {
         throw error;
       }
     } catch (error) {
-      console.log("there is an error");
+      ToastError({ message: `Error ${error}` });
       setIsGoogleLoading(false);
     }
   }

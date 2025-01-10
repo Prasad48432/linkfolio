@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import MarkdownParser from "@/components/markdown-parser";
-import { IndianRupee, Link, Mail, MapPin } from "lucide-react";
+import { Link, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { formatEarnings } from "@/lib/format-earnings";
 import { FaMapMarkerAlt, FaRupeeSign } from "react-icons/fa";

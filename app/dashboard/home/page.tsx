@@ -10,6 +10,7 @@ import {
   X,
   Link,
   Type,
+  FileUser,
 } from "lucide-react";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { createClient } from "@/utils/supabase/client";
@@ -28,8 +29,15 @@ import Image from "next/image";
 import MarkdownParser from "@/components/markdown-parser";
 import { formatEarnings } from "@/lib/format-earnings";
 import UsernameSelect from "./components/username-select";
-import { SKILLS } from "./utils/constants";
 import SkillsSection from "./components/skills-select";
+import ResumeSection from "./components/resume-select";
+import { DISPLAY_ICONS_MAP } from "./components/icons-map";
+import { ToastError, ToastSuccess } from "@/components/toast";
+
+interface Skill {
+  name: string;
+  icon: string;
+}
 
 const Home = () => {
   const supabase = createClient();
@@ -43,6 +51,8 @@ const Home = () => {
     avatar_url: "",
     profile_link: "",
     profile_link_text: "",
+    user_skills: [],
+    resume_url: "",
   });
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(true);
@@ -50,41 +60,61 @@ const Home = () => {
   const [preview, setPreview] = useState(false);
   const [isUsernameThere, setIsUsernameThere] = useState(false);
 
+  // Function to fetch profile data
   const fetchProfile = async () => {
     try {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-
+  
       if (user) {
         const { data, error } = await supabase
           .from("profiles")
           .select(
-            "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text"
+            "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url"
           )
           .eq("id", user.id)
           .single();
-
+  
         if (error) {
           console.error("Error fetching profile:", error.message);
-          setFetchLoading(false);
         } else {
           if (data.username) {
             setIsUsernameThere(true);
           }
           setProfileData(data);
-          setFetchLoading(false);
         }
       }
     } catch (error) {
       console.error("Error retrieving profile data:", error);
+    } finally {
       setFetchLoading(false);
     }
   };
-
+  
+  // Real-time subscription to profile updates
+  useEffect(() => {
+    const channel = supabase
+      .channel('profiles-updates')
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `id=eq.${profileData?.id}` },
+        () => {
+          fetchProfile(); // Re-fetch data on profile update
+        }
+      )
+      .subscribe();
+  
+    // Cleanup subscription on unmount
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [profileData?.id]);
+  
+  // Fetch profile on component mount
   useEffect(() => {
     fetchProfile();
-  }, [supabase]);
+  }, []);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -114,24 +144,13 @@ const Home = () => {
           .eq("id", user.id);
 
         if (error) {
-          toast.error("Update unsuccessful.", {
-            duration: 1000,
-          });
+          ToastError({message: "Update unsuccessful."})
         } else {
-          toast.success("Update successful.", {
-            duration: 1000,
-            style: {
-              background: "#1a1a1a",
-              color: "#89e15a",
-              border: "1px solid #363636",
-            },
-          });
+          ToastSuccess({message: "Update successful."})
         }
       }
     } catch (error) {
-      toast.error("An unexpected error occurred.", {
-        duration: 1000,
-      });
+      ToastError({message: "An unexpected error occurred."})
       console.error("Unexpected error:", error);
     } finally {
       setLoading(false);
@@ -148,26 +167,25 @@ const Home = () => {
 
         if (profileData.avatar_url) {
           const oldFilePath = profileData.avatar_url.split(
-            `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/userimages/userimages/`
+            `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/userimages/`
           )[1];
-
 
           if (oldFilePath) {
             await supabase.storage
               .from("userimages")
-              .remove([`userimages/${oldFilePath}`])
+              .remove([`${oldFilePath}`])
               .then((result) => {
-                // console.log(result);
+                // TODO:
               })
               .catch((err) => {
-                // console.log(err);
+                ToastError({message: "An unexpected error occurred."})
               });
           }
         }
 
         const fileExt = selectedFile.name.split(".").pop();
 
-        const filePath = `userimages/${Date.now()}.${fileExt}`;
+        const filePath = `${Date.now()}.${fileExt}`;
 
         // Upload the image to the "userimages" bucket
         const { error } = await supabase.storage
@@ -188,12 +206,11 @@ const Home = () => {
           })
           .eq("id", user?.id);
 
-        fetchProfile();
         setModal(false);
 
-        toast.success("image uploaded");
+        ToastSuccess({message: "image uploaded."})
       } catch (error) {
-        toast.success(`${error}`);
+        ToastError({message: "An unexpected error occurred."})
       }
     }
   };
@@ -212,7 +229,6 @@ const Home = () => {
           modal={modal}
           setModal={setModal}
           image={profileData.avatar_url}
-          fetchProfile={fetchProfile}
         />
         {/* Left Part */}
         <div className="lg:w-[55%] w-full lg:overflow-y-auto bg-primary-bg pt-4 px-0 lg:px-4">
@@ -392,7 +408,29 @@ const Home = () => {
                 )}
               </TabPanel>
               <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
-                <SkillsSection />
+                {fetchLoading ? (
+                  <div className="flex flex-col gap-4 mt-4 px-2">
+                    <div className="w-full h-8 bg-secondary-bg rounded-lg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                    </div>
+                    <div className="w-[90%] h-8 bg-secondary-bg rounded-lg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-300/20 to-secondary-bg animate-shimmer" />
+                    </div>
+                    <div className="w-[80%] h-8 bg-secondary-bg rounded-lg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <ResumeSection
+                      resumeUrl={profileData.resume_url}
+                      userId={profileData.id}
+                    />
+                    <SkillsSection
+                      fetchedSkills={profileData.user_skills}
+                    />
+                  </>
+                )}
               </TabPanel>
               <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
                 {fetchLoading ? (
@@ -408,7 +446,6 @@ const Home = () => {
                       setProfileData={setProfileData}
                       isUsernameThere={isUsernameThere}
                       setIsUsernameThere={setIsUsernameThere}
-                      refetch={fetchProfile}
                     />
                     <div>
                       <label className="block text-sm font-medium text-primary-text/80 px-1 mb-0.5">
@@ -540,6 +577,46 @@ const Home = () => {
                       </div>
                     </div>
                   </div>
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    {profileData.profile_link &&
+                      profileData.profile_link_text && (
+                        <a
+                          target="_blank"
+                          href={profileData.profile_link}
+                          className="mt-3 flex items-center justify-center gap-0.5 text-primary-text hover:text-accent-text transition-colors duration-200 ease-out"
+                        >
+                          <Link strokeWidth={1} size={13} />
+                          <p className="underline underline-offset-2 text-xs">
+                            {profileData.profile_link_text}
+                          </p>
+                        </a>
+                      )}
+                    {profileData.resume_url && (
+                      <a
+                        target="_blank"
+                        href={`${profileData.resume_url}?download`}
+                        className="mt-3 flex items-center justify-center gap-0.5 text-primary-text hover:text-accent-text transition-colors duration-200 ease-out"
+                      >
+                        <FileUser strokeWidth={1} size={13} />
+                        <p className="underline underline-offset-2 text-xs">
+                          Resume
+                        </p>
+                      </a>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-start flex-wrap gap-2">
+                    {(profileData.user_skills as Skill[]).map((skill) => (
+                      <div
+                        key={skill.name}
+                        className="flex cursor-pointer items-center justify-center gap-0.5 p-0.5 border rounded border-secondary-border bg-secondary-bg text-primary-text/60 hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all duration-200 ease-out"
+                      >
+                        {DISPLAY_ICONS_MAP[skill.icon]}
+                        <span className="text-xxs select-none pt-0.5">
+                          {skill.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                   <div className="mt-4">
                     <MarkdownParser
                       text={profileData.bio}
@@ -552,7 +629,6 @@ const Home = () => {
                     <div className="w-60 h-16 border border-secondary-border rounded-md mt-2 bg-secondary-bg hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all ease-out duration-200"></div>
                     <div className="w-60 h-20 border border-secondary-border rounded-md mt-2 bg-secondary-bg hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all ease-out duration-200"></div>
                     <div className="w-60 h-14 border border-secondary-border rounded-md mt-2 bg-secondary-bg hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all ease-out duration-200"></div>
-                    <div className="w-60 h-20 border border-secondary-border rounded-md mt-2 bg-secondary-bg hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all ease-out duration-200"></div>
                   </div>
                 </div>
               </div>

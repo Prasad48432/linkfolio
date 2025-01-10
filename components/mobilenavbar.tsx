@@ -1,31 +1,15 @@
-// import React from "react";
-
-// const MobileNavbar = () => {
-//   return (
-//     <div className="h-auto min-h-[91vh] w-full  fixed z-[50] bottom-0 p-4 left-0 bg-primary-bg flex flex-col items-center justify-center gap-2 divide-y divide-secondary-border">
-//       <p className="w-full text-primary-text mt-1">Blogs</p>
-//       <p className="w-full text-primary-text mt-1">Text</p>
-//       <p className="w-full text-primary-text mt-1">Text</p>
-//       <p className="w-full text-primary-text mt-1">Text</p>
-//     </div>
-//   );
-// };
-
-// export default MobileNavbar;
-
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, ChevronUp, Loader } from "lucide-react";
+import { ChevronDown, Loader } from "lucide-react";
 import { PiRocketLaunch, PiCubeLight } from "react-icons/pi";
 import { BiLink } from "react-icons/bi";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { logout } from "@/app/dashboard/action";
-import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { ToastError, ToastSuccess } from "./toast";
 
 const staggerVariants = {
   hidden: {
@@ -47,12 +31,16 @@ export default function MobileNavbar({
   isDropdown2Open,
   setDropdown1Open,
   setDropdown2Open,
+  loading,
+  user,
 }: {
   isOpen: boolean;
   isDropdown1Open: boolean;
   isDropdown2Open: boolean;
   setDropdown1Open: React.Dispatch<React.SetStateAction<boolean>>;
   setDropdown2Open: React.Dispatch<React.SetStateAction<boolean>>;
+  loading: boolean;
+  user: User | null;
 }) {
   const navItems = [
     { id: 1, label: "Enterprise", href: "/enterprise" },
@@ -60,47 +48,17 @@ export default function MobileNavbar({
     { id: 3, label: "Docs", href: "/docs" },
   ];
 
-  const [user, setUser] = useState<User | null>(null); // Explicitly define the state type
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
-
-  useEffect(() => {
-    const supabase = createClient();
-
-    supabase.auth
-      .getSession()
-      .then(({ data }) => {
-        if (data.session) {
-          setUser(data.session.user);
-        } else {
-          setUser(null);
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching session:", err);
-        setLoading(false);
-      });
-  }, []);
 
   const handleLogout = async () => {
     try {
       const response = await logout();
-
       if (response.success) {
-        toast.success("Logout successful!", {
-          duration: 1500,
-          style: {
-            background: "#1a1a1a",
-            color: "#89e15a",
-            border: "1px solid #363636",
-          },
-        });
-
+        ToastSuccess({ message: "Logout successful." });
         router.push("/login");
       }
     } catch (error) {
-      toast.error("An unexpected error occurred. Please try again.");
+      ToastError({ message: "An unexpected error occurred." });
     }
   };
 

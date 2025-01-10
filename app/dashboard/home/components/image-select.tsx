@@ -38,12 +38,10 @@ const ImageSelect = ({
   modal,
   setModal,
   image,
-  fetchProfile,
 }: {
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   image: string;
-  fetchProfile: any;
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -110,7 +108,6 @@ const ImageSelect = ({
                         simage: simage,
                         image: image,
                         setModal: setModal,
-                        fecthProfile: fetchProfile,
                       });
                     }}
                     key={index}

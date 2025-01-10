@@ -11,6 +11,7 @@ import GoogleSignin from "./GoogleSignin";
 import { Quote } from "lucide-react";
 import { toast } from "sonner";
 import { passwordSchema } from "@/validation/passwordSchema";
+import { ToastSuccess } from "@/components/toast";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -47,14 +48,7 @@ export default function RegisterForm() {
       if (response.error) {
         setServerError(response.message);
       } else {
-        toast.success("Registration successful", {
-          duration: 1500,
-          style: {
-            background: "#1a1a1a",
-            color: "#89e15a",
-            border: "1px solid #363636",
-          },
-        });
+        ToastSuccess({message: "Registration successful."})
         router.push("/register/confirmation");
       }
     } catch (error) {

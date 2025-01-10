@@ -1,4 +1,5 @@
 "use client";
+import { ToastError, ToastSuccess } from "@/components/toast";
 import { createClient } from "@/utils/supabase/client";
 import { Loader, Signature } from "lucide-react";
 import React, { useState } from "react";
@@ -19,27 +20,17 @@ const UsernameSelect = ({
   setProfileData,
   isUsernameThere,
   setIsUsernameThere,
-  refetch,
 }: {
   profileData: profileData;
   setProfileData: any;
   isUsernameThere: boolean;
   setIsUsernameThere: React.Dispatch<React.SetStateAction<boolean>>;
-  refetch: () => Promise<void>;
 }) => {
   const supabase = createClient();
   const [usernameUpdateLoading, setUsernameUpdateLoading] = useState(false);
   const handleUsernameUpdate = async (username: string) => {
     if (!username) {
-      toast.error("Please enter an input.", {
-        duration: 1300,
-        style: {
-          background: "rgb(77 35 29/0.9)",
-          color: "#ededed",
-          border: "1px solid #e6563c",
-        },
-      });
-
+      ToastError({message: "Please enter an input."})
       return;
     }
 
@@ -51,16 +42,8 @@ const UsernameSelect = ({
       .eq("username", username);
 
     if (data?.length !== 0) {
-      toast.error("Username already taken.", {
-        duration: 1000,
-        style: {
-          background: "rgb(77 35 29/0.9)",
-          color: "#ededed",
-          border: "1px solid #e6563c",
-        },
-      });
+      ToastError({message: "Username already taken."})
       setUsernameUpdateLoading(false);
-
       return;
     }
 
@@ -76,26 +59,12 @@ const UsernameSelect = ({
         })
         .eq("id", user?.id);
 
-      toast.success("Username updated.", {
-        duration: 1000,
-        style: {
-          background: "#1a1a1a",
-          color: "#89e15a",
-          border: "1px solid #363636",
-        },
-      });
+        ToastSuccess({message: "Username updated."})
       fetch
       setIsUsernameThere(true);
       setUsernameUpdateLoading(false);
     } catch (error) {
-      toast.error(`${error}`, {
-        duration: 1000,
-        style: {
-          background: "rgb(77 35 29/0.9)",
-          color: "#ededed",
-          border: "1px solid #e6563c",
-        },
-      });
+      ToastError({message: "An unexpected error occurred."})
       setUsernameUpdateLoading(false);
     }
   };

@@ -11,6 +11,7 @@ import { Loader, Quote } from "lucide-react";
 import Link from "next/link";
 import GoogleSignin from "./GoogleSignin";
 import { toast } from "sonner";
+import { ToastSuccess } from "@/components/toast";
 
 // Form schema validation
 const formSchema = z.object({
@@ -44,14 +45,7 @@ export default function LoginForm() {
       if (response.error) {
         setServerError(response.message);
       } else {
-        toast.success("Login successful", {
-          duration: 1500,
-          style: {
-            background: "#1a1a1a",
-            color: "#89e15a",
-            border: "1px solid #363636",
-          },
-        });
+        ToastSuccess({message: "Login successful."})
         router.push("/dashboard/home");
       }
     } catch (error) {

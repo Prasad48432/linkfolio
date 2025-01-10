@@ -1,3 +1,4 @@
+import { ToastError, ToastSuccess } from "@/components/toast";
 import { createClient } from "@/utils/supabase/client";
 import { toast } from "sonner";
 
@@ -5,12 +6,10 @@ export const handleImageClick = async ({
   simage,
   image,
   setModal,
-  fecthProfile,
 }: {
   simage: string;
   image: string;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  fecthProfile: any;
 }) => {
   try {
     const supabase = createClient();
@@ -29,10 +28,10 @@ export const handleImageClick = async ({
           .from("userimages")
           .remove([`userimages/${oldFilePath}`])
           .then((result) => {
-            // console.log(result);
+            // TODO:
           })
           .catch((err) => {
-            // console.log(err);
+            ToastError({message: "An unexpected error occurred."})
           });
       }
 
@@ -43,19 +42,10 @@ export const handleImageClick = async ({
         })
         .eq("id", user?.id);
 
-      fecthProfile();
-
       setModal(false);
-      toast.success("Image updated.", {
-        duration: 1000,
-        style: {
-          background: "#1a1a1a",
-          color: "#89e15a",
-          border: "1px solid #363636",
-        },
-      });
+      ToastSuccess({message:"Image updated."})
     }
   } catch (error) {
-    toast.error(`${error}`);
+    ToastError({message: "An unexpected error occurred."})
   }
 };

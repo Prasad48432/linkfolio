@@ -8,6 +8,7 @@ import { useRouter,useSearchParams } from "next/navigation";
 import { Loader } from "lucide-react";
 import { toast } from "sonner";
 import { passwordSchema } from "@/validation/passwordSchema";
+import { ToastSuccess } from "@/components/toast";
 
 // Validation schema for the form
 const formSchema = z.object({
@@ -49,14 +50,7 @@ export default function ResetPassword() {
       if (response.error) {
         setServerError(response.message);
       } else {
-        toast.success("Password reset successfull!", {
-          duration: 1500,
-          style: {
-            background: "#1a1a1a",
-            color: "#89e15a",
-            border: "1px solid #363636",
-          },
-        });
+        ToastSuccess({message: "Password reset successfull"})
         router.push("/dashboard");
       }
     } catch (error) {

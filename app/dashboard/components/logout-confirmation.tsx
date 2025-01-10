@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { logout } from "../action";
 import { toast } from "sonner";
 import { Loader } from "lucide-react";
+import { ToastError, ToastSuccess } from "@/components/toast";
 
 const LogoutConfiramtion = ({
   modal,
@@ -22,14 +23,7 @@ const LogoutConfiramtion = ({
       const response = await logout();
 
       if (response.success) {
-        toast.success("Logout successful!", {
-          duration: 1500,
-          style: {
-            background: "#1a1a1a",
-            color: "#89e15a",
-            border: "1px solid #363636",
-          },
-        });
+        ToastSuccess({message: "Logout successful!"})
 
         setLogoutLoading(false);
         setModal(false);
@@ -37,7 +31,7 @@ const LogoutConfiramtion = ({
       }
     } catch (error) {
       setLogoutLoading(false);
-      toast.error("An unexpected error occurred. Please try again.");
+      ToastError({message: "An unexpected error occurred. Please try again."});
     }
   };
 

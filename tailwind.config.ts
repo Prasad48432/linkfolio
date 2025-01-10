@@ -17,6 +17,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        xxs: ['0.5rem', '0.75rem'],
+      },
       colors: {
         primary: {
           DEFAULT: "hsl(0, 0%, 18%)",
@@ -51,6 +54,13 @@ const config: Config = {
           border: "#823529",
           strongerborder: "#e6563c",
         },
+        success : {
+          DEFAULT: "hsl(154.9deg 100% 19.2%)",
+          bg: "#006239",
+          selection: "hsl(153.1deg 60.2% 52.7%/0.5)",
+          border: "#3ecf8e",
+          strongerborder: "hsl(153.1deg 60.2% 52.7%)"
+        }
       },
       keyframes: {
         spotlight: {

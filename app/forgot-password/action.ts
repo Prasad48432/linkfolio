@@ -29,8 +29,6 @@ export const forgotPassword = async ({ email }: { email: string }) => {
     redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/forgot-password/reset-password`,
   });
 
-  console.log("err: ", error);
-
   if (error) {
     return {
       error: true,
