@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { RiImageAddLine } from "react-icons/ri";
-import { toast } from "sonner";
 import { FileUp, Loader, Pencil } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import { ToastError, ToastSuccess } from "@/components/toast";

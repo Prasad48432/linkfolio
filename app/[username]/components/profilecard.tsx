@@ -2,23 +2,13 @@
 import React from "react";
 import Image from "next/image";
 import MarkdownParser from "@/components/markdown-parser";
-import { Link, Mail } from "lucide-react";
+import { FileUser, Link, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { formatEarnings } from "@/lib/format-earnings";
 import { FaMapMarkerAlt, FaRupeeSign } from "react-icons/fa";
-
-interface Profile {
-  id: string;
-  full_name: string;
-  email: string;
-  avatar_url: string;
-  usernames: string;
-  bio: string;
-  theme: string[];
-  country: string;
-  profile_link: string;
-  profile_link_text: string;
-}
+import { ProfileData } from "@/types/user";
+import { ICONS_MAP_SMALL } from "@/app/dashboard/home/components/icons-map-small";
+import { ICONS_MAP } from "@/app/dashboard/home/components/icons-map";
 
 const staggerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -29,7 +19,12 @@ const staggerVariants = {
   }),
 };
 
-const ProfileCard = ({ profile }: { profile: Profile }) => {
+interface Skill {
+  name: string;
+  icon: string;
+}
+
+const ProfileCard = ({ profile }: { profile: ProfileData }) => {
   return (
     <>
       <motion.div
@@ -69,24 +64,55 @@ const ProfileCard = ({ profile }: { profile: Profile }) => {
             </div>
           </div>
         </motion.div>
-        {profile.profile_link && profile.profile_link_text && (
-          <motion.div variants={staggerVariants} custom={2} className="mb-4">
-            <a
-              target="_blank"
-              href={profile.profile_link}
-              className="flex items-center justify-center gap-0.5 text-primary-text hover:text-accent-text transition-colors duration-200 ease-out"
-            >
-              <Link strokeWidth={1} size={18} />
-              <p className="underline underline-offset-2">
-                {profile.profile_link_text}
-              </p>
-            </a>
-          </motion.div>
-        )}
+        <div className="flex items-center justify-center gap-3 mb-4">
+          {profile.profile_link && profile.profile_link_text && (
+            <motion.div variants={staggerVariants} custom={2} className="mb-4">
+              <a
+                target="_blank"
+                href={profile.profile_link}
+                className="text-sm md:text-base flex items-center justify-center gap-0.5 text-primary-text hover:text-accent-text transition-colors duration-200 ease-out"
+              >
+                <Link strokeWidth={1} size={18} />
+                <p className="underline underline-offset-2">
+                  {profile.profile_link_text}
+                </p>
+              </a>
+            </motion.div>
+          )}
+          {profile.resume_url && (
+            <motion.div variants={staggerVariants} custom={2} className="mb-4">
+              <a
+                target="_blank"
+                href={`${profile.resume_url}?download`}
+                className="text-sm md:text-base flex items-center justify-center gap-0.5 text-primary-text hover:text-accent-text transition-colors duration-200 ease-out"
+              >
+                <FileUser strokeWidth={1} size={18} />
+                <p className="underline underline-offset-2">Resume</p>
+              </a>
+            </motion.div>
+          )}
+        </div>
+
+        <motion.div variants={staggerVariants} custom={3} className="mb-4">
+          <div className="flex items-center justify-center flex-wrap gap-2 ">
+            {(profile.user_skills as Skill[]).map((skill) => (
+              <div
+                key={skill.name}
+                className="flex cursor-pointer items-center justify-center gap-1 md:gap-2 p-1 md:p-1.5 border rounded-md md:rounded-lg border-secondary-border bg-secondary-bg text-primary-text/60 transition-all duration-200 ease-out"
+              >
+                <span className="hidden md:block">{ICONS_MAP[skill.icon]}</span>
+                <span className="block md:hidden">{ICONS_MAP_SMALL[skill.icon]}</span>
+                <span className="text-xs lg:text-sm select-none">
+                  {skill.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
         <motion.div
           variants={staggerVariants}
-          custom={3}
+          custom={4}
           className="text-sm text-center md:text-base mb-0 lg:mb-4 w-[93%] lg:w-[90%] block text-primary-text/80"
         >
           <MarkdownParser text={profile.bio} />
@@ -94,7 +120,7 @@ const ProfileCard = ({ profile }: { profile: Profile }) => {
 
         <motion.p
           variants={staggerVariants}
-          custom={4}
+          custom={5}
           className="text-primary-text/80 text-lg font-medium text-center mt-6"
         >
           Subscribe to my weekly newsletter.
@@ -102,7 +128,7 @@ const ProfileCard = ({ profile }: { profile: Profile }) => {
 
         <motion.div
           variants={staggerVariants}
-          custom={5}
+          custom={6}
           className="flex items-center justify-center relative w-full lg:w-[85%] mt-3"
         >
           <span className="absolute top-[55%] -translate-y-1/2 left-3 flex items-center">

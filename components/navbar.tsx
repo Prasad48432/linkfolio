@@ -207,7 +207,7 @@ export default function Navbar({
                   <Image
                     width={200}
                     height={200}
-                    className="bg-accent-bg/20 h-8 md:h-10 w-8 md:w-10 rounded-full"
+                    className="bg-accent-bg/20 h-8 md:h-10 w-8 md:w-10 rounded-full object-cover"
                     referrerPolicy="no-referrer"
                     src={userData.avatar_url}
                     alt="User Profile"

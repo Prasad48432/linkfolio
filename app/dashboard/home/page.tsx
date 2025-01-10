@@ -31,7 +31,7 @@ import { formatEarnings } from "@/lib/format-earnings";
 import UsernameSelect from "./components/username-select";
 import SkillsSection from "./components/skills-select";
 import ResumeSection from "./components/resume-select";
-import { DISPLAY_ICONS_MAP } from "./components/icons-map";
+import { ICONS_MAP_SMALL } from "./components/icons-map-small";
 import { ToastError, ToastSuccess } from "@/components/toast";
 
 interface Skill {
@@ -548,7 +548,7 @@ const Home = () => {
                       size={16}
                     />
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-center justify-center">
                     <Image
                       src={profileData.avatar_url}
                       className="w-[50px] h-[50px] rounded-full p-0.5 border border-secondary-border object-cover"
@@ -604,13 +604,13 @@ const Home = () => {
                       </a>
                     )}
                   </div>
-                  <div className="flex items-center justify-start flex-wrap gap-2">
+                  <div className="flex items-center justify-center flex-wrap gap-2">
                     {(profileData.user_skills as Skill[]).map((skill) => (
                       <div
                         key={skill.name}
-                        className="flex cursor-pointer items-center justify-center gap-0.5 p-0.5 border rounded border-secondary-border bg-secondary-bg text-primary-text/60 hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all duration-200 ease-out"
+                        className="flex cursor-pointer items-center justify-center gap-0.5 p-0.5 border rounded border-secondary-border bg-secondary-bg text-primary-text/60 transition-all duration-200 ease-out"
                       >
-                        {DISPLAY_ICONS_MAP[skill.icon]}
+                        {ICONS_MAP_SMALL[skill.icon]}
                         <span className="text-xxs select-none pt-0.5">
                           {skill.name}
                         </span>

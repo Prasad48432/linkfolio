@@ -1,71 +1,3 @@
-// constants.ts
-import {
-  FaPython,
-  FaJava,
-  FaJsSquare,
-  FaReact,
-  FaVuejs,
-  FaAngular,
-  FaNodeJs,
-  FaDocker,
-  FaAws,
-  FaFigma,
-  FaGitAlt,
-  FaGithub,
-  FaDatabase,
-  FaPhp,
-  FaRust,
-  FaSwift,
-} from "react-icons/fa";
-import { FaGolang } from "react-icons/fa6";
-import {
-  SiCplusplus,
-  SiKubernetes,
-  SiTailwindcss,
-  SiNextdotjs,
-  SiPytorch,
-  SiMongodb,
-  SiTensorflow,
-  SiTypescript,
-  SiKotlin,
-  SiDart,
-  SiJquery,
-  SiSvelte,
-  SiExpress,
-  SiDjango,
-  SiNestjs,
-  SiFlask,
-  SiRubyonrails,
-  SiLaravel,
-  SiKeras,
-  SiScikitlearn,
-  SiOpencv, 
-  SiPandas,
-  SiGitlab,
-  SiBitbucket,
-  SiPostgresql,
-  SiRedis,
-  SiSupabase,
-  SiFirebase,
-  SiSqlite,
-  SiMysql,
-  SiGooglecloud,
-  SiVercel,
-  SiNetlify,
-  SiDigitalocean,
-  SiAdobexd,
-  SiCanva,
-  SiGraphql,
-  SiWebrtc,
-  SiSocketdotio,
-  SiFramer,
-  SiBootstrap,
-  SiThreedotjs
-} from "react-icons/si";
-import { TbBrandCSharp } from "react-icons/tb";
-import { DiRuby } from "react-icons/di";
-import { BiLogoSpringBoot } from "react-icons/bi";
-import { VscAzure } from "react-icons/vsc";
 
 // constants.ts
 
@@ -74,14 +6,11 @@ export const Programming_languages = [
   { name: "Java", icon: "FaJava" },
   { name: "JavaScript", icon: "FaJsSquare" },
   { name: "C++", icon: "SiCplusplus" },
-  { name: "Dart", icon: "SiDart" },
   { name: "PHP", icon: "FaPhp" },
   { name: "Csharp", icon: "TbBrandCSharp" },
   { name: "Ruby", icon: "DiRuby" },
   { name: "GoLang", icon: "FaGolang" },
   { name: "Rust", icon: "FaRust" },
-  { name: "Swift", icon: "FaSwift" },
-  { name: "Kotlin", icon: "SiKotlin" },
   { name: "Typescript", icon: "SiTypescript" },
   { name: "GraphQL", icon: "SiGraphql" }
 ];
@@ -108,6 +37,16 @@ export const Backend_technologies = [
   { name: "Laravel", icon: "SiLaravel" },
   { name: "Spring Boot", icon: "BiLogoSpringBoot" }
 ];
+
+export const Mobile_app_development = [
+  { name: "Dart", icon: "SiDart" },
+  { name: "Flutter", icon: "SiFlutter" }, 
+  { name: "Swift", icon: "FaSwift" },
+  { name: "Kotlin", icon: "SiKotlin" },
+  { name: "React Native", icon: "TbBrandReactNative" },
+  { name: "Ionic", icon: "SiIonic" },
+  { name: "Xamarin", icon: "TbBrandXamarin" },
+]
 
 export const AI_and_ML_tools = [
   { name: "TensorFlow", icon: "SiTensorflow" },
@@ -139,6 +78,13 @@ export const Databases = [
   { name: "MySQL", icon: "SiMysql" }
 ];
 
+export const Data_analysis_and_Virtualization = [
+  {name: "PowerBI", icon: "FaPowerBi"},
+  {name: "MS Excel", icon: "PiMicrosoftExcel"},
+  {name: "Tableau", icon: "SiTableau"},
+  {name: "Plotly", icon: "SiPlotly"}
+]
+
 export const Version_control_and_collaboration =[
   { name: "Git", icon: "FaGitAlt" },
   { name: "GitHub", icon: "FaGithub" },
@@ -163,7 +109,9 @@ export const SKILLS = {
   Programming_languages,
   Frontend_technologies,
   Backend_technologies,
+  Mobile_app_development,
   Databases,
+  Data_analysis_and_Virtualization,
   Version_control_and_collaboration,
   AI_and_ML_tools,
   DEVOPS_tools,
