@@ -53,6 +53,7 @@ const Home = () => {
     profile_link_text: "",
     user_skills: [],
     resume_url: "",
+    resume_url_visibility: false,
   });
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(true);
@@ -71,7 +72,7 @@ const Home = () => {
         const { data, error } = await supabase
           .from("profiles")
           .select(
-            "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url"
+            "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url, resume_url_visibility"
           )
           .eq("id", user.id)
           .single();
@@ -219,7 +220,7 @@ const Home = () => {
     <Dashboard>
       <div
         onClick={() => setPreview(true)}
-        className="lg:hidden font-bold py-1 px-2 inline-flex items-center justify-center bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-gray-400 w-[120px] bottom-6 fixed left-1/2 translate-x-[-50%] z-[48]"
+        className="lg:hidden font-bold py-1 px-2 inline-flex items-center justify-center bg-secondary-bg rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-secondary-strongerborder w-[120px] bottom-6 fixed left-1/2 translate-x-[-50%] z-[48]"
       >
         <Eye strokeWidth={1} className="text-primarytext text-lg mr-1" />
         <p className="text-primarytext font-semibold text-base">Preview</p>
@@ -346,7 +347,7 @@ const Home = () => {
                     <div className="flex flex-col items-center justify-center gap-3 w-full px-3 pt-3 pb-4 border border-secondary-strongerborder rounded-md border-dashed">
                       <div className="w-full">
                         <label className="block text-sm font-medium text-primary-text/80 px-1 mb-0.5">
-                          Profile Link Text
+                          Portfolio Link Text
                         </label>
                         <div className="relative">
                           <span className="absolute top-[55%] -translate-y-1/2 left-3 flex items-center">
@@ -368,7 +369,7 @@ const Home = () => {
                       </div>
                       <div className="w-full">
                         <label className="block text-sm font-medium text-primary-text/80 px-1 mb-0.5">
-                          Profile Link
+                          Portfolio Link
                         </label>
                         <div className="relative">
                           <span className="absolute top-[55%] -translate-y-1/2 left-3 flex items-center">
@@ -392,7 +393,7 @@ const Home = () => {
                     <button
                       onClick={handleUpdate}
                       disabled={loading}
-                      className="font-thin flex items-center justify-center mt-2 bg-accent-bg/80 border border-accent-border/70 hover:bg-accent-selection/80 hover:border-accent-strongerborder/70 transition-all ease-out duration-200 text-primary-text py-1.5 px-3 rounded-md disabled:opacity-80"
+                      className="font-thin mb-10 flex items-center justify-center mt-2 bg-accent-bg/80 border border-accent-border/70 hover:bg-accent-selection/80 hover:border-accent-strongerborder/70 transition-all ease-out duration-200 text-primary-text py-1.5 px-3 rounded-md disabled:opacity-80"
                     >
                       {loading ? (
                         <Loader
@@ -425,6 +426,7 @@ const Home = () => {
                     <ResumeSection
                       resumeUrl={profileData.resume_url}
                       userId={profileData.id}
+                      resumeUrlVisibility={profileData.resume_url_visibility}
                     />
                     <SkillsSection
                       fetchedSkills={profileData.user_skills}
@@ -591,7 +593,7 @@ const Home = () => {
                           </p>
                         </a>
                       )}
-                    {profileData.resume_url && (
+                    {profileData.resume_url && profileData.resume_url_visibility && (
                       <a
                         target="_blank"
                         href={`${profileData.resume_url}?download`}

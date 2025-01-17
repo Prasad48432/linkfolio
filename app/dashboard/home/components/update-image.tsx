@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { Pencil } from "lucide-react";
 
 const UpdateImage = ({
   image,
@@ -16,10 +17,10 @@ const UpdateImage = ({
 }) => {
   return (
     <div className="w-full flex flex-col items-center justify-center">
-      <h2 className="mb-0.5 text-lg font-bold text-primary-text/80">
+      <h2 className="mb-0.5 text-base lg:text-lg font-bold text-primary-text/80">
         Image Update
       </h2>
-      <p className="text-sm  text-primary-text/60 mb-5">
+      <p className="text-xs lg:text-sm  text-primary-text/60 mb-5">
         Update the publicly visible display image
       </p>
       <div className="relative inline-flex group items-center justify-center">
@@ -41,9 +42,10 @@ const UpdateImage = ({
         <button
           onClick={() => setModal(true)}
           type="submit"
-          className="h-[2rem] ml-5 flex sm:hidden items-center justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-violet-600 hover:bg-violet-500 transition duration-150 ease-in-out"
+          className="ml-5 sm:hidden flex items-center justify-center  py-0.5 px-1.5 border text-sm rounded lg:rounded-md bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-primary-text cursor-pointer transition-all duration-200 ease-out"
         >
-          Update Image
+          <Pencil className="mr-1" strokeWidth={1} size={13} />
+          edit
         </button>
         {/* desktop button */}
         <div className="absolute inset-0 z-20 justify-center items-center rounded-full bg-transparent group-hover:bg-secondary-bg/30 duration-200 cursor-pointer hidden sm:flex">

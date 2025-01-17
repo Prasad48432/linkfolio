@@ -75,7 +75,8 @@ export const Databases = [
   { name: "Supabase", icon: "SiSupabase" },
   { name: "Firebase", icon: "SiFirebase" },
   { name: "SQLite", icon: "SiSqlite" },
-  { name: "MySQL", icon: "SiMysql" }
+  { name: "MySQL", icon: "SiMysql" },
+  { name: "Prisma", icon: "SiPrisma" },
 ];
 
 export const Data_analysis_and_Virtualization = [

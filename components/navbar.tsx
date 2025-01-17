@@ -48,15 +48,36 @@ export default function Navbar({
     }
   };
 
+  useEffect(() => {
+    const topDiv = document.getElementById("topdiv");
+    const bottomDiv = document.getElementById("bottomdiv");
+
+    bottomDiv?.addEventListener("mouseenter", () => {
+      topDiv?.classList.remove("z-40");
+      topDiv?.classList.add("z-[42]");
+    });
+
+    bottomDiv?.addEventListener("mouseleave", () => {
+      topDiv?.classList.remove("z-[42]");
+      topDiv?.classList.add("z-40");
+    });
+  }, []);
+
+  useEffect(() => {
+    const topDiv = document.getElementById("topdiv");
+
+    if (window.innerWidth < 600) {
+      if (isNavbarOpen) {
+        topDiv?.classList.add("z-[42]");
+      }
+      if (!isNavbarOpen) {
+        topDiv?.classList.remove("z-[42]");
+      }
+    }
+  }, [isNavbarOpen]);
+
   return (
-    <div
-      style={{
-        zIndex: size.width < 1024 ? (isNavbarOpen ? 42 : 40) : undefined,
-      }}
-      className={`sticky top-0 transform ${
-        size.width >= 1024 ? "z-[40] hover:z-[42]" : ""
-      }`}
-    >
+    <div id="topdiv" className="sticky top-0 transform z-40">
       <div className="absolute inset-0 h-full w-full bg-primary-bg/90 !opacity-100 transition-opacity"></div>
       <nav
         style={{
@@ -68,7 +89,7 @@ export default function Navbar({
       >
         <div className="relative flex justify-between h-16 mx-auto lg:container lg:px-16 xl:px-20">
           <div className="flex items-center px-6 lg:px-0 flex-1 sm:items-stretch justify-between">
-            <div className="flex items-center">
+            <div id="bottomdiv" className="flex items-center">
               <div className="flex items-center flex-shrink-0">
                 <a
                   className="flex gap-1 items-center justify-center w-auto focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-foreground-lighter focus-visible:ring-offset-4 focus-visible:ring-offset-background-alternative focus-visible:rounded-sm"
@@ -221,9 +242,9 @@ export default function Navbar({
                   setDropdown1Open(false);
                   setDropdown2Open(false);
                 }}
-                initial={{ rotate: 0 }}
-                animate={{ rotate: isNavbarOpen ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0.7 }}
+                animate={{ opacity: isNavbarOpen ? 0.7 : 1 }}
+                transition={{ duration: 1 }}
               >
                 {isNavbarOpen ? (
                   <X className="h-6 w-6" /> // Cross icon

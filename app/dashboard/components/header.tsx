@@ -3,20 +3,26 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { User } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
-import {MoveUpRight } from "lucide-react";
+import { Loader, Menu, MoveUpRight, X } from "lucide-react";
 import LogoutConfiramtion from "./logout-confirmation";
+import { Cycle, motion } from "framer-motion";
 
 type Profile = {
   bio: string | null;
   username: string | null;
 };
 
-const Header = () => {
+const Header = ({
+  isOpen,
+  toggleOpen,
+}: {
+  isOpen: boolean;
+  toggleOpen: Cycle;
+}) => {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null); // Explicitly define the state type
   const [loading, setLoading] = useState(true);
   const [logoutModal, setLogoutModal] = useState(false);
-
 
   useEffect(() => {
     const supabase = createClient();
@@ -59,7 +65,7 @@ const Header = () => {
 
   return (
     <div className="sticky inset-x-0 top-0 z-30 w-full transition-all bg-primary-bg border-b border-secondary-border">
-      <div className="flex h-[60px] items-center justify-between px-4">
+      <div className="flex h-[60px] items-center justify-between px-4 relative">
         <LogoutConfiramtion modal={logoutModal} setModal={setLogoutModal} />
         <div className="flex items-center space-x-4">
           <Link
@@ -70,6 +76,24 @@ const Header = () => {
           </Link>
         </div>
 
+        <motion.div
+          className="block lg:hidden cursor-pointer text-primary-text"
+          onClick={() => {
+            loading ? null : toggleOpen();
+          }}
+          initial={{ opacity: 0.7 }}
+          animate={{ opacity: isOpen ? 0.7 : 1 }}
+          transition={{ duration: 1 }}
+        >
+          {loading ? (
+            <Loader className="animate-spin" size={20} />
+          ) : isOpen ? (
+            <X className="h-6 w-6" /> // Cross icon
+          ) : (
+            <Menu className="h-6 w-6" /> // Menu icon
+          )}
+        </motion.div>
+
         <div className="hidden md:block">
           {loading ? (
             <span className="flex items-center justify-center gap-2">
@@ -79,19 +103,21 @@ const Header = () => {
             </span>
           ) : (
             <div className="flex items-center gap-2">
-              {profile?.username && <a
-                target="_blank"
-                href={`/${profile?.username}`}
-                className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
-              >
-                <span className="truncate flex items-center justify-center gap-1">
-                  {process.env.NEXT_PUBLIC_BASE_URL?.replace(
-                    /(^\w+:|^)\/\//,
-                    ""
-                  )}
-                  /{profile?.username} <MoveUpRight size={14} />
-                </span>
-              </a>}
+              {profile?.username && (
+                <a
+                  target="_blank"
+                  href={`/${profile?.username}`}
+                  className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                >
+                  <span className="truncate flex items-center justify-center gap-1">
+                    {process.env.NEXT_PUBLIC_BASE_URL?.replace(
+                      /(^\w+:|^)\/\//,
+                      ""
+                    )}
+                    /{profile?.username} <MoveUpRight size={14} />
+                  </span>
+                </a>
+              )}
               <p
                 onClick={() => setLogoutModal(true)}
                 className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
@@ -111,5 +137,45 @@ const Header = () => {
     </div>
   );
 };
+
+const MenuToggle = ({ toggle }: { toggle: any }) => (
+  <button
+    onClick={toggle}
+    className="pointer-events-auto absolute right-4 top-[20px] z-30"
+  >
+    <svg width="23" height="23" viewBox="0 0 23 23">
+      <Path
+        variants={{
+          closed: { d: "M 2 2.5 L 20 2.5" },
+          open: { d: "M 3 16.5 L 17 2.5" },
+        }}
+      />
+      <Path
+        d="M 2 9.423 L 20 9.423"
+        variants={{
+          closed: { opacity: 1 },
+          open: { opacity: 0 },
+        }}
+        transition={{ duration: 0.1 }}
+      />
+      <Path
+        variants={{
+          closed: { d: "M 2 16.346 L 20 16.346" },
+          open: { d: "M 3 2.5 L 17 16.346" },
+        }}
+      />
+    </svg>
+  </button>
+);
+
+const Path = (props: any) => (
+  <motion.path
+    fill="transparent"
+    strokeWidth="2"
+    stroke="#ededed"
+    strokeLinecap="round"
+    {...props}
+  />
+);
 
 export default Header;

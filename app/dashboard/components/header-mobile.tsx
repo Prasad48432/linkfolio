@@ -1,11 +1,10 @@
 "use client";
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, { ReactNode, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SIDENAV_ITEMS } from "@/app/dashboard/utils/constants";
 import { SideNavItem } from "@/app/dashboard/utils/types";
-import { ChevronDown } from "lucide-react";
-import { motion, useCycle } from "framer-motion";
+import { Cycle, motion } from "framer-motion";
 
 type MenuItemWithSubMenuProps = {
   item: SideNavItem;
@@ -31,18 +30,35 @@ const sidebar = {
   },
 };
 
-const HeaderMobile = () => {
+const HeaderMobile = ({
+  isOpen,
+  toggleOpen,
+}: {
+  isOpen: boolean;
+  toggleOpen: Cycle;
+}) => {
   const pathname = usePathname();
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
-  const [isOpen, toggleOpen] = useCycle(false, true);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [isOpen]);
 
   return (
     <motion.nav
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
-      className={`fixed inset-0 z-50 w-full md:hidden ${
+      className={`fixed inset-0 z-50 w-full top-[3.8rem] md:hidden ${
         isOpen ? "" : "pointer-events-none"
       }`}
       ref={containerRef}
@@ -53,78 +69,40 @@ const HeaderMobile = () => {
       />
       <motion.ul
         variants={variants}
-        className="absolute grid w-full gap-3 px-10 py-16 max-h-screen overflow-y-auto"
+        className="absolute grid w-full px-4 py-4 max-h-screen overflow-y-auto"
       >
         {SIDENAV_ITEMS.map((item, idx) => {
           const isLastItem = idx === SIDENAV_ITEMS.length - 1; // Check if it's the last item
 
           return (
             <div key={idx}>
-                <MenuItem>
-                  <Link
-                    href={item.path}
-                    onClick={() => toggleOpen()}
-                    className={`flex w-full text-2xl ${
-                      item.path === pathname ? "font-semibold text-accent-text" : "font-thin text-primary-text"
-                    }`}
-                  >
-                    {item.title}
-                  </Link>
-                </MenuItem>
+              <MenuItem>
+                <Link
+                  href={item.path}
+                  onClick={() => toggleOpen()}
+                  className={`w-full py-2 pl-3 pr-4 text-base flex items-center justify-between font-medium ${
+                    item.path === pathname
+                      ? "text-accent-text"
+                      : "text-primary-text/80"
+                  }`}
+                >
+                  {item.title}
+                  {item.icon && <item.icon strokeWidth={1.5} size={20} />}
+                </Link>
+              </MenuItem>
 
               {!isLastItem && (
-                <MenuItem className="my-3 h-px w-full bg-secondary-border" />
+                <MenuItem className="my-1 h-px w-full bg-secondary-border" />
               )}
             </div>
           );
         })}
       </motion.ul>
-      <MenuToggle toggle={toggleOpen} />
     </motion.nav>
   );
 };
 
 export default HeaderMobile;
-
-const MenuToggle = ({ toggle }: { toggle: any }) => (
-  <button
-    onClick={toggle}
-    className="pointer-events-auto absolute right-4 top-[20px] z-30"
-  >
-    <svg width="23" height="23" viewBox="0 0 23 23">
-      <Path
-        variants={{
-          closed: { d: "M 2 2.5 L 20 2.5" },
-          open: { d: "M 3 16.5 L 17 2.5" },
-        }}
-      />
-      <Path
-        d="M 2 9.423 L 20 9.423"
-        variants={{
-          closed: { opacity: 1 },
-          open: { opacity: 0 },
-        }}
-        transition={{ duration: 0.1 }}
-      />
-      <Path
-        variants={{
-          closed: { d: "M 2 16.346 L 20 16.346" },
-          open: { d: "M 3 2.5 L 17 16.346" },
-        }}
-      />
-    </svg>
-  </button>
-);
-
-const Path = (props: any) => (
-  <motion.path
-    fill="transparent"
-    strokeWidth="2"
-    stroke="#ededed"
-    strokeLinecap="round"
-    {...props}
-  />
-);
 
 const MenuItem = ({
   className,
@@ -139,7 +117,6 @@ const MenuItem = ({
     </motion.li>
   );
 };
-
 
 const MenuItemVariants = {
   open: {

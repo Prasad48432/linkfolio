@@ -63,7 +63,8 @@ import {
   SiTableau,
   SiPlotly,
   SiFlutter,
-  SiIonic 
+  SiIonic, 
+  SiPrisma
 } from "react-icons/si";
 import { TbBrandCSharp,TbBrandReactNative,TbBrandXamarin  } from "react-icons/tb";
 import { DiRuby } from "react-icons/di";
@@ -130,6 +131,9 @@ export const ICONS_MAP: Record<string, JSX.Element> = {
   ),
   SiPlotly: (
     <SiPlotly className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px]" />
+  ),
+  SiPrisma: (
+    <SiPrisma className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px]" />
   ),
   SiTailwindcss: (
     <SiTailwindcss className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px]" />

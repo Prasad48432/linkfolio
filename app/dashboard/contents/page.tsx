@@ -6,15 +6,24 @@ import {
   BatteryLow,
   ExternalLink,
   Eye,
-  Loader,
   MapPin,
   SignalMedium,
   X,
 } from "lucide-react";
 import MarkdownParser from "@/components/markdown-parser";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+import { createClient } from "@/utils/supabase/client";
+import StartupCard from "./components/startupcard";
+import ProjectCard from "./components/projectcard";
+import LinkCard from "./components/linkcard";
 
 const Projects = () => {
+  const supabase = createClient();
   const [preview, setPreview] = useState(false);
+  const [links, setLinks] = useState<any[] | null>([]);
+  const [startups, setStartups] = useState<any[] | null>([]);
+  const [projects, setProjects] = useState<any[] | null>([]);
+
   useEffect(() => {
     if (preview) {
       document.body.classList.add("overflow-hidden");
@@ -26,6 +35,36 @@ const Projects = () => {
       document.body.classList.remove("overflow-hidden");
     };
   }, [preview]);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        const userId = user?.id;
+
+        if (!userId) return;
+
+        const [{ data: linksf }, { data: startupsf }, { data: projectsf }] =
+          await Promise.all([
+            supabase.from("links").select("*").eq("user_id", userId),
+            supabase.from("startups").select("*").eq("user_id", userId),
+            supabase.from("projects").select("*").eq("user_id", userId),
+          ]);
+
+        setLinks(linksf);
+        setProjects(projectsf);
+        setStartups(startupsf);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchContent();
+  }, []);
+
   return (
     <Dashboard>
       <div
@@ -37,15 +76,36 @@ const Projects = () => {
       </div>
       <div className="flex gap-2 h-auto lg:h-[calc(100vh-100px)] relative">
         <div className="lg:w-[55%] w-full lg:overflow-y-auto">
-          <div className="mt-2 items-center justify-center flex flex-col gap-4 p-4">
-            <div className="h-44 w-full bg-secondary-bg rounded-md"></div>
-            <div className="h-44 w-full bg-secondary-bg rounded-md"></div>
-            <div className="h-44 w-full bg-secondary-bg rounded-md"></div>
-            <div className="h-44 w-full bg-secondary-bg rounded-md"></div>
-            <div className="h-44 w-full bg-secondary-bg rounded-md"></div>
-            <div className="h-44 w-full bg-secondary-bg rounded-md"></div>
-            <div className="h-44 w-full bg-secondary-bg rounded-md"></div>
-          </div>
+          <TabGroup>
+            <TabList className="flex p-1.5 lg:p-2 bg-secondary-bg/40 gap-1 rounded-full mx-1">
+              <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
+                Startups
+              </Tab>
+              <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
+                Projects
+              </Tab>
+              <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
+                Links
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
+                {startups?.map((startup) => {
+                  return <StartupCard key={startup.id} startup={startup} />;
+                })}
+              </TabPanel>
+              <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
+                {projects?.map((project) => {
+                  return <ProjectCard key={project.id} project={project} />;
+                })}
+              </TabPanel>
+              <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
+                {links?.map((link) => {
+                  return <LinkCard key={link.id} link={link} />;
+                })}
+              </TabPanel>
+            </TabPanels>
+          </TabGroup>
         </div>
         <div
           className={`${
@@ -129,11 +189,64 @@ const Projects = () => {
                 </div>
                 <div className="mt-4 border-t border-secondary-border"></div>
                 <div className="mt-4">
-                  <div className="bg-secondary-bg border border-secondary-border  h-[18px] w-[80px] rounded-[0.1875rem]"></div>
-                  <div className="w-60 h-16 border border-secondary-border rounded-md mt-2 bg-secondary-bg hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all ease-out duration-200"></div>
-                  <div className="w-60 h-20 border border-secondary-border rounded-md mt-2 bg-secondary-bg hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all ease-out duration-200"></div>
-                  <div className="w-60 h-14 border border-secondary-border rounded-md mt-2 bg-secondary-bg hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all ease-out duration-200"></div>
-                  <div className="w-60 h-20 border border-secondary-border rounded-md mt-2 bg-secondary-bg hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all ease-out duration-200"></div>
+                  <TabGroup>
+                    <TabList className="flex p-0.5 gap-2 rounded-full mx-0.5 items-center justify-center">
+                      <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
+                        Startups
+                      </Tab>
+                      <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
+                        Projects
+                      </Tab>
+                      <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
+                        Links
+                      </Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel className="w-full px-1 py-2 flex flex-col gap-2">
+                        {startups?.map((startup) => {
+                          return (
+                            <div
+                              className="w-full h-24 text-xxs rounded-md bg-secondary-bg border-secondary-border flex flex-col items-center justify-center text-primary-text"
+                              key={startup.id}
+                            >
+                              <p>{startup.id}</p>
+                              <p>{startup.name}</p>
+                              <p>{startup.description}</p>
+                            </div>
+                          );
+                        })}
+                      </TabPanel>
+                      <TabPanel className="w-full px-1 py-2 flex flex-col gap-2">
+                        {projects?.map((project) => {
+                          return (
+                            <div
+                              className="w-full h-24 text-xxs rounded-md bg-secondary-bg border-secondary-border flex flex-col items-center justify-center text-primary-text"
+                              key={project.id}
+                            >
+                              <p>{project.id}</p>
+                              <p>{project.name}</p>
+                              <p>{project.description}</p>
+                              <p>{project.github_link}</p>
+                            </div>
+                          );
+                        })}
+                      </TabPanel>
+                      <TabPanel className="w-full px-1 py-2 flex flex-col gap-2">
+                        {links?.map((link) => {
+                          return (
+                            <div
+                              className="w-full h-24 text-xxs rounded-md bg-secondary-bg border-secondary-border flex flex-col items-center justify-center text-primary-text"
+                              key={link.id}
+                            >
+                              <p>{link.id}</p>
+                              <p>{link.title}</p>
+                              <p>{link.link}</p>
+                            </div>
+                          );
+                        })}
+                      </TabPanel>
+                    </TabPanels>
+                  </TabGroup>
                 </div>
               </div>
             </div>

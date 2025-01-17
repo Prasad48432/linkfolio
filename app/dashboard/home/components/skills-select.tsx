@@ -65,20 +65,20 @@ const SkillsSection = ({ fetchedSkills }: { fetchedSkills: Skills }) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 focus:outline-none">
+    <div className="flex flex-col gap-2 focus:outline-none mb-10 relative">
       <div className="flex flex-col">
-        <h1 className="text-primary-text/90 font-medium text-xl px-1">
+        <h1 className="text-primary-text/90 font-medium text-base lg:text-xl px-1">
           Skills Section
         </h1>
-        <p className="text-primary-text/70 font-normal text-sm mb-1 px-1">
-          Pick up to 10 skills that represent you best.
+        <p className="text-primary-text/70 font-normal text-xs lg:text-sm mb-1 px-1">
+          Pick up to 7 skills that represent you best.
         </p>
       </div>
       {!areSkillsEqual(selectedSkills, fetchedSkills) && (
         <button
           onClick={handleUpdate}
           disabled={loading}
-          className="font-thin relative ml-auto w-[70px] text-sm flex items-center justify-center mt-2 bg-success-bg border border-success-border hover:bg-success-selection hover:border-success-strongerborder transition-all ease-out duration-200 text-primary-text py-1 px-1.5 rounded-md disabled:opacity-80"
+          className="fixed bottom-16 lg:bottom-12 left-1/2 -translate-x-1/2 lg:left-1/4 lg:translate-x-[250%] z-[41] font-thin w-[70px] text-sm lg:text-base flex items-center justify-center mt-2 bg-success-bg border border-success-border hover:bg-success-selection hover:border-success-strongerborder transition-all ease-out duration-200 text-primary-text py-1 px-1.5 rounded-md disabled:opacity-80"
         >
           {!loading && <span className="absolute -top-1 -right-1 w-2 h-2 flex items-center justify-center">
             <span className="absolute w-full h-full bg-green-500 rounded-full"></span>
@@ -125,7 +125,7 @@ const SkillSection = ({
   }) => void;
 }) => (
   <div className="px-3 pt-3 pb-4 border border-secondary-strongerborder rounded-md border-dashed">
-    <p className="text-primary-text/80 font-medium text-lg mb-3">{title}</p>
+    <p className="text-primary-text/80 font-medium text-base lg:text-lg mb-3">{title}</p>
     <div className="flex items-center justify-start flex-wrap gap-2.5">
       {skills.map((skill) => {
         const isSelected = selectedSkills.some((s) => s.name === skill.name);
@@ -133,14 +133,14 @@ const SkillSection = ({
           <div
             key={skill.name}
             onClick={() => {
-              if (isSelected || selectedSkills.length < 10) {
+              if (isSelected || selectedSkills.length < 7) {
                 toggleSkillSelection(skill);
               }
             }}
             className={`flex cursor-pointer items-center gap-2 p-2 border rounded-lg ${
               isSelected
                 ? "border-accent-border bg-accent-bg text-primary-text"
-                : selectedSkills.length < 10
+                : selectedSkills.length < 7
                 ? "border-secondary-border bg-secondary-bg text-primary-text/60 hover:bg-secondary-selection hover:border-secondary-strongerborder"
                 : "border-secondary-border bg-secondary-bg text-primary-text/60 opacity-50 cursor-not-allowed"
             } transition-all duration-200 ease-out`}

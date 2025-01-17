@@ -1,8 +1,6 @@
 import React from "react";
 import { createClient } from "@/utils/supabase/server";
-import { FlagIcon, Mail } from "lucide-react";
-import Image from "next/image";
-import MarkdownParser from "@/components/markdown-parser";
+import { FlagIcon } from "lucide-react";
 import ProfileCard from "./components/profilecard";
 
 interface Params {

@@ -9,6 +9,7 @@ import { FaMapMarkerAlt, FaRupeeSign } from "react-icons/fa";
 import { ProfileData } from "@/types/user";
 import { ICONS_MAP_SMALL } from "@/app/dashboard/home/components/icons-map-small";
 import { ICONS_MAP } from "@/app/dashboard/home/components/icons-map";
+import { ClipLinks } from "./clippathlinks";
 
 const staggerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -31,7 +32,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
         initial="hidden"
         animate="visible"
         variants={staggerVariants}
-        className="flex flex-col items-center justify-center py-3 lg:py-6"
+        className="flex flex-col items-center justify-center py-3"
       >
         <motion.div
           variants={staggerVariants}
@@ -101,7 +102,9 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
                 className="flex cursor-pointer items-center justify-center gap-1 md:gap-2 p-1 md:p-1.5 border rounded-md md:rounded-lg border-secondary-border bg-secondary-bg text-primary-text/60 transition-all duration-200 ease-out"
               >
                 <span className="hidden md:block">{ICONS_MAP[skill.icon]}</span>
-                <span className="block md:hidden">{ICONS_MAP_SMALL[skill.icon]}</span>
+                <span className="block md:hidden">
+                  {ICONS_MAP_SMALL[skill.icon]}
+                </span>
                 <span className="text-xs lg:text-sm select-none">
                   {skill.name}
                 </span>
@@ -149,6 +152,9 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
           <button className="cursor-pointer py-2 px-4 text-sm rounded-r-md border border-accent-border bg-accent-bg text-primary-text">
             Subscribe
           </button>
+        </motion.div>
+        <motion.div variants={staggerVariants} custom={7} className="w-full">
+          <ClipLinks />
         </motion.div>
       </motion.div>
     </>

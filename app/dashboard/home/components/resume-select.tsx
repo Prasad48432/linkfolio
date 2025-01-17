@@ -5,13 +5,16 @@ import { FileUp, Loader, Pencil } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import { ToastError, ToastSuccess } from "@/components/toast";
 import { FaRegFilePdf } from "react-icons/fa6";
+import ToggleSwitch from "@/components/toggleswitch";
 
 const ResumeSection = ({
   resumeUrl,
   userId,
+  resumeUrlVisibility
 }: {
   resumeUrl: string;
   userId: string;
+  resumeUrlVisibility: boolean;
 }) => {
   const supabase = createClient();
   const [file, setFile] = useState<File | null>(null);
@@ -102,17 +105,17 @@ const ResumeSection = ({
   return (
     <div className="w-full">
       <div className="flex flex-col">
-        <h1 className="text-primary-text/90 font-medium text-xl px-1">
+        <h1 className="text-primary-text/90 font-medium text-base lg:text-xl px-1">
           Resume Section
         </h1>
-        <p className="text-primary-text/70 font-normal text-sm mb-1 px-1">
+        <p className="text-primary-text/70 font-normal text-xs lg:text-sm mb-1 px-1">
           Attach your resume to showcase your experience.
         </p>
       </div>
       {resumeUrl ? (
-        <div className="mt-2 w-full h-36 flex items-center justify-center gap-2 rounded-md border border-dashed border-secondary-strongerborder transition-all duration-200">
+        <div className="mt-2 w-full h-40 lg:h-36 flex items-center justify-center gap-2 rounded-md border border-dashed border-secondary-strongerborder transition-all duration-200 relative">
           {!file && (
-            <div className="w-28 h-24 rounded-md overflow-hidden shadow-lg scrollbar_hidden">
+            <div className="hidden lg:flex w-28 h-24 rounded-md overflow-hidden shadow-lg scrollbar_hidden">
               <iframe
                 src={resumeUrl}
                 title="PDF Preview"
@@ -144,7 +147,7 @@ const ResumeSection = ({
                 />
                 <label
                   htmlFor="fileUpload"
-                  className="text-primary-text/90 transition-all duration-200 ease-out flex items-center justify-center px-1.5 font-thin py-0.5 text-sm border rounded-md bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-primary-text cursor-pointer"
+                  className="text-primary-text/90 transition-all duration-200 ease-out flex items-center justify-center px-1.5 font-thin py-0.5 text-sm border rounded lg:rounded-md bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-primary-text cursor-pointer"
                 >
                   <Pencil className="mr-1" strokeWidth={1} size={13} /> edit
                 </label>
@@ -169,6 +172,7 @@ const ResumeSection = ({
               </button>
             )}
           </div>
+          <ToggleSwitch resumeUrlVisibility={resumeUrlVisibility} />
         </div>
       ) : (
         <div
