@@ -1,11 +1,10 @@
 import React from "react";
-import Dashboard from "../dashboard";
 
 const Messages = () => {
   return (
-    <Dashboard>
+    <>
       <div className="text-primary-text text-xl font-semibold">Messages</div>
-    </Dashboard>
+    </>
   );
 };
 

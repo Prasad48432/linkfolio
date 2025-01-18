@@ -14,10 +14,9 @@ import {
 } from "lucide-react";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { createClient } from "@/utils/supabase/client";
-import { toast } from "sonner";
 import { Loader } from "lucide-react";
 import CountrySelect from "./components/country-select";
-import { User, Mail, Signature, IdCard } from "lucide-react";
+import { User, Mail, IdCard } from "lucide-react";
 import {
   HoverCard,
   HoverCardContent,
@@ -217,7 +216,7 @@ const Home = () => {
   };
 
   return (
-    <Dashboard>
+    <>
       <div
         onClick={() => setPreview(true)}
         className="lg:hidden font-bold py-1 px-2 inline-flex items-center justify-center bg-secondary-bg rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-secondary-strongerborder w-[120px] bottom-6 fixed left-1/2 translate-x-[-50%] z-[48]"
@@ -638,7 +637,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </Dashboard>
+    </>
   );
 };
 

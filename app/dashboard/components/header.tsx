@@ -97,9 +97,15 @@ const Header = ({
         <div className="hidden md:block">
           {loading ? (
             <span className="flex items-center justify-center gap-2">
-              <span className="h-4 w-24 rounded-md bg-secondary-bg animate-pulse" />
-              <span className="h-4 w-16 rounded-md bg-secondary-bg animate-pulse" />
-              <span className="h-10 w-10 rounded-full bg-secondary-bg animate-pulse" />
+              <div className="w-32 h-6 bg-secondary-bg rounded-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+              </div>
+              <div className="w-24 h-6 bg-secondary-bg rounded-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+              </div>
+              <div className="w-10 h-10 bg-secondary-bg rounded-full relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+              </div>
             </span>
           ) : (
             <div className="flex items-center gap-2">

@@ -78,7 +78,7 @@ const SkillsSection = ({ fetchedSkills }: { fetchedSkills: Skills }) => {
         <button
           onClick={handleUpdate}
           disabled={loading}
-          className="fixed bottom-16 lg:bottom-12 left-1/2 -translate-x-1/2 lg:left-1/4 lg:translate-x-[250%] z-[41] font-thin w-[70px] text-sm lg:text-base flex items-center justify-center mt-2 bg-success-bg border border-success-border hover:bg-success-selection hover:border-success-strongerborder transition-all ease-out duration-200 text-primary-text py-1 px-1.5 rounded-md disabled:opacity-80"
+          className="fixed bottom-16 lg:bottom-12 left-1/2 -translate-x-1/2 lg:left-1/4 lg:translate-x-[250%] z-[41] font-thin w-[70px] text-sm lg:text-base flex items-center justify-center mt-2 bg-success-bg border border-success-border hover:bg-success-bg hover:border-success-strongerborder transition-all ease-out duration-200 text-primary-text py-1 px-1.5 rounded-md disabled:opacity-80"
         >
           {!loading && <span className="absolute -top-1 -right-1 w-2 h-2 flex items-center justify-center">
             <span className="absolute w-full h-full bg-green-500 rounded-full"></span>
