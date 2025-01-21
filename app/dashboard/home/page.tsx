@@ -100,7 +100,7 @@ const Home = () => {
         'postgres_changes',
         { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `id=eq.${profileData?.id}` },
         () => {
-          fetchProfile(); // Re-fetch data on profile update
+          fetchProfile();
         }
       )
       .subscribe();

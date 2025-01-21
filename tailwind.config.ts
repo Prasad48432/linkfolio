@@ -19,6 +19,7 @@ const config: Config = {
     extend: {
       fontSize: {
         xxs: ['0.5rem', '0.75rem'],
+        ms: ['0.6rem', '0.75rem'],
       },
       colors: {
         primary: {

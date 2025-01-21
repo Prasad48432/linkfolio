@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 body {
   color: #ededed;
   background: #121212;
@@ -49,12 +51,21 @@ body {
   border-color: #121212;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) and (min-width: 0px) {
   .no_scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
   .no_scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hidden {
+    overflow: auto;
+  }
+  
+  /* Hide the scrollbar */
+  .scrollbar-hidden::-webkit-scrollbar {
     display: none;
   }
 }
@@ -76,3 +87,4 @@ body {
   text-decoration: underline;
   font-weight: 400;
 }
+

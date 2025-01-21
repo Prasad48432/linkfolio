@@ -69,7 +69,7 @@ const HeaderMobile = ({
       />
       <motion.ul
         variants={variants}
-        className="absolute grid w-full px-4 py-4 max-h-screen overflow-y-auto"
+        className="absolute grid w-full px-4 py-4 max-h-screen"
       >
         {SIDENAV_ITEMS.map((item, idx) => {
           const isLastItem = idx === SIDENAV_ITEMS.length - 1; // Check if it's the last item
