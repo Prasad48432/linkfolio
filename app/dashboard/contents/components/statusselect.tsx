@@ -10,7 +10,7 @@ const StatusSelect = ({
 }) => {
   return (
     <select
-      className="select border border-secondary-strongerborder bg-[#1a1a1a] w-full p-1.5 mt-2 rounded-md mr-2 text-sm"
+      className="select border border-secondary-strongerborder bg-[#1a1a1a] w-full p-1 lg:p-1.5 mt-1 lg:mt-2 rounded-md mr-2 text-xs lg:text-sm"
       value={value}
       onChange={onChange}
     >

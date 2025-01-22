@@ -26,6 +26,7 @@ import {
   fetchProjects,
   fetchStartups,
 } from "./functions/fetchContent";
+import { handleAdd } from "./functions/addContents";
 
 type IndexConversion = "startupAdd" | "linkAdd" | "projectAdd";
 
@@ -55,7 +56,12 @@ const Projects = () => {
     projectAdd: "",
   });
   const [addLoading, setAddLoading] = useState(false);
-  const [draggingItemId, setDraggingItemId] = useState<string | null>(null);
+  const [startupDraggingItemId, setStartupDraggingItemId] = useState<
+    string | null
+  >(null);
+  const [linkDraggingItemId, setLinkDraggingItemId] = useState<string | null>(
+    null
+  );
 
   const debounce = (func: (...args: any[]) => void, wait: number) => {
     let timeout: NodeJS.Timeout | null = null;
@@ -66,17 +72,19 @@ const Projects = () => {
   };
 
   const updateFieldInSupabase = async ({
+    table,
     id,
     field,
     value,
   }: {
+    table: string;
     id: string;
     field: string;
     value: any;
   }) => {
     try {
       const { data, error } = await supabase
-        .from("startups")
+        .from(table)
         .update({ [field]: value })
         .eq("id", id);
 
@@ -97,7 +105,7 @@ const Projects = () => {
     []
   );
 
-  const handleFieldChange = ({
+  const handleStartupsFieldChange = ({
     id,
     field,
     value,
@@ -106,22 +114,15 @@ const Projects = () => {
     field: string;
     value: any;
   }) => {
-    // if (field === "revenue") {
-    //   const parsedValue = parseInt(value, 10);
-    //   if (!isNaN(parsedValue)) {
-    //     value = parsedValue;
-    //   } else {
-    //     toast.error("invalid input", {
-    //       duration: 1000,
-    //       style: {
-    //         background: "#131313",
-    //         color: "#FF2E2E",
-    //         border: "1px solid #3B3B3B",
-    //       },
-    //     });
-    //     return;
-    //   }
-    // }
+    if (field === "estimated_revenue") {
+      const parsedValue = parseInt(value, 10);
+      if (!isNaN(parsedValue)) {
+        value = parsedValue;
+      } else {
+        ToastError({ message: "Invalid input." });
+        return;
+      }
+    }
 
     setStartups((prev) =>
       // @ts-expect-error
@@ -130,15 +131,32 @@ const Projects = () => {
       )
     );
     // Pass arguments directly
-    debouncedUpdateField({ id, field, value });
+    debouncedUpdateField({ table: "startups", id, field, value });
+  };
+
+  const handleLinksFieldChange = ({
+    id,
+    field,
+    value,
+  }: {
+    id: string;
+    field: string;
+    value: any;
+  }) => {
+    setLinks((prev) =>
+      // @ts-expect-error
+      prev.map((link) => (link.id === id ? { ...link, [field]: value } : link))
+    );
+    // Pass arguments directly
+    debouncedUpdateField({ table: "links", id, field, value });
   };
 
   const StartupsDragStart = (start: any) => {
-    setDraggingItemId(start.draggableId); // Set the ID of the currently dragged item
+    setStartupDraggingItemId(start.draggableId); // Set the ID of the currently dragged item
   };
 
   const StartupsDragEnd = async (result: any) => {
-    setDraggingItemId(null);
+    setStartupDraggingItemId(null);
     if (!result.destination || !startups) return;
 
     const reorderedStartups = Array.from(startups);
@@ -158,6 +176,46 @@ const Projects = () => {
               .from("startups")
               .update({ index: index + 1 })
               .eq("id", startup.id);
+
+            if (error) {
+              ToastError({ message: "An unexpected error occurred." });
+            }
+          }
+        })
+      );
+
+      ToastSuccess({ message: "Indices updated successfully" });
+    } catch (err) {
+      console.error("Error during reordering:", err);
+      ToastError({ message: "An unexpected error occurred." });
+    }
+  };
+
+  const LinksDragStart = (start: any) => {
+    setLinkDraggingItemId(start.draggableId); // Set the ID of the currently dragged item
+  };
+
+  const LinksDragEnd = async (result: any) => {
+    setLinkDraggingItemId(null);
+    if (!result.destination || !links) return;
+
+    const reorderedLinks = Array.from(links);
+    const [reorderedStartup] = reorderedLinks.splice(result.source.index, 1);
+    reorderedLinks.splice(result.destination.index, 0, reorderedStartup);
+
+    try {
+      // Update local state
+      setLinks(reorderedLinks);
+
+      // Update only the startups whose indices have changed
+      await Promise.all(
+        reorderedLinks.map(async (link, index) => {
+          if (link.index !== index + 1) {
+            // Only update if the index has changed
+            const { error } = await supabase
+              .from("links")
+              .update({ index: index + 1 })
+              .eq("id", link.id);
 
             if (error) {
               ToastError({ message: "An unexpected error occurred." });
@@ -200,104 +258,6 @@ const Projects = () => {
       ...prev,
       [key]: value,
     }));
-  };
-
-  const handleAdd = async ({
-    table,
-    value,
-  }: {
-    table: string;
-    value: string;
-  }) => {
-    try {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      const userId = user?.id;
-
-      if (!userId) return;
-
-      if (value === "") {
-        ToastError({ message: "Enter a valid link" });
-        return;
-      }
-
-      setAddLoading(true);
-
-      let exists = false;
-      let secureValue = `https://${value}`;
-
-      // Query the respective table based on the conditions
-      if (table === "startups") {
-        const { data } = await supabase
-          .from("startups")
-          .select("website")
-          .eq("website", secureValue)
-          .eq("verified", true);
-
-        exists = (data && data.length > 0) || false;
-      } else if (table === "links") {
-        const { data } = await supabase
-          .from("links")
-          .select("link")
-          .eq("link", secureValue);
-
-        exists = (data && data.length > 0) || false;
-      } else if (table === "projects") {
-        const { data } = await supabase
-          .from("projects")
-          .select("github_link, website_link")
-          .or(`github_link.eq.${secureValue},website_link.eq.${secureValue}`);
-
-        exists = (data && data.length > 0) || false;
-      }
-
-      // If the value exists, stop further execution
-      if (exists) {
-        ToastError({ message: "Value already exists in the database." });
-        setAddLoading(false);
-        return;
-      }
-
-      if (table === "startups") {
-        const { data: maxIndexData, error: maxIndexError } = await supabase
-          .from("startups")
-          .select("index")
-          .order("index", { ascending: false })
-          .limit(1);
-
-        if (maxIndexError) {
-          ToastError({ message: "Failed to fetch max index" });
-          setAddLoading(false);
-          return;
-        }
-
-        const newIndex =
-          maxIndexData?.length > 0 ? maxIndexData[0].index + 1 : 1;
-
-        const { error } = await supabase.from(table).insert({
-          user_id: userId,
-          name: "",
-          description: "",
-          category: "",
-          website: value,
-          status: "active",
-          verified: false,
-          index: newIndex,
-          estimated_revenue: 0,
-          visibility_on_profile: true,
-          show_status: true,
-        });
-
-        if (error) throw error;
-        else ToastSuccess({ message: "New entry inserted successfully" });
-      }
-      setAddLoading(false);
-    } catch (error) {
-      console.error("Error handling add logic:", error);
-      setAddLoading(false);
-    }
   };
 
   useEffect(() => {
@@ -391,10 +351,26 @@ const Projects = () => {
           )
           .subscribe();
 
+        // const maxIndexDeleteSubscription = supabase
+        //   .channel("max-delete-index")
+        //   .on(
+        //     "broadcast",
+        //     {
+        //       event: "deleted_max_index_item",
+        //     },
+        //     () => {
+        //       fetchLinks({ userId, supabase, setLinks });
+        //     }
+        //   )
+        //   .subscribe((status) => {
+        //     console.log("Subscription status:", status);
+        //   });
+
         return () => {
           supabase.removeChannel(startupsSubscription);
           supabase.removeChannel(linksSubscription);
           supabase.removeChannel(projectsSubscription);
+          // supabase.removeChannel(maxIndexDeleteSubscription);
         };
       } catch (error) {
         console.log(error);
@@ -415,7 +391,10 @@ const Projects = () => {
       </div>
       <div className="flex gap-2 h-auto lg:h-[calc(100vh-100px)] relative">
         <div className="lg:w-[55%] w-full lg:overflow-y-auto">
+          <div className="hidden lg:block absolute -top-3 left-0 lg:w-[55%] w-full h-[1.7rem] bg-gradient-to-t from-primary-bg/10 to-primary-bg to-90% z-10 pointer-events-none"></div>
+          <div className="hidden lg:block absolute -bottom-3 left-0 lg:w-[55%] w-full h-[1.7rem] bg-gradient-to-b from-primary-bg/10 to-primary-bg to-90% z-10 pointer-events-none"></div>
           <TabGroup
+            defaultIndex={2}
             onChange={() => {
               setValues({
                 startupAdd: "",
@@ -503,6 +482,10 @@ const Projects = () => {
                                 handleAdd({
                                   table: "startups",
                                   value: values.startupAdd,
+                                  supabase: supabase,
+                                  setAddLoading: setAddLoading,
+                                  setToggles: setToggles,
+                                  setValues: setValues,
                                 });
                               }}
                               className="bg-secondary-bg h-8 lg:h-10 w-16 lg:w-20 text-primary-text font-medium py-2 px-4 rounded-r-md border border-l-0 border-secondary-strongerborder text-xs sm:text-sm flex items-center justify-center"
@@ -556,9 +539,9 @@ const Projects = () => {
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
                                       className={`transition-colors duration-300 border rounded-md ${
-                                        draggingItemId === startup.id
+                                        startupDraggingItemId === startup.id
                                           ? "border-white/70 border-dashed opacity-100"
-                                          : draggingItemId
+                                          : startupDraggingItemId
                                           ? "opacity-50 border border-dashed border-secondary-border"
                                           : "opacity-100 border border-secondary-border"
                                       }`}
@@ -566,7 +549,9 @@ const Projects = () => {
                                       <StartupCard
                                         key={startup.id}
                                         startup={startup}
-                                        handleFieldChange={handleFieldChange}
+                                        handleFieldChange={
+                                          handleStartupsFieldChange
+                                        }
                                       />
                                     </div>
                                   )}
@@ -643,6 +628,10 @@ const Projects = () => {
                                 handleAdd({
                                   table: "projects",
                                   value: values.projectAdd,
+                                  supabase: supabase,
+                                  setAddLoading: setAddLoading,
+                                  setToggles: setToggles,
+                                  setValues: setValues,
                                 });
                               }}
                               className="bg-secondary-bg h-8 lg:h-10 w-16 lg:w-20 text-primary-text font-medium py-2 px-4 rounded-r-md border border-l-0 border-secondary-strongerborder text-xs sm:text-sm flex items-center justify-center"
@@ -739,6 +728,10 @@ const Projects = () => {
                                 handleAdd({
                                   table: "links",
                                   value: values.linkAdd,
+                                  supabase: supabase,
+                                  setAddLoading: setAddLoading,
+                                  setToggles: setToggles,
+                                  setValues: setValues,
                                 });
                               }}
                               className="bg-secondary-bg h-10 w-32 text-primary-text font-medium py-2 px-4 rounded-r-md border border-l-0 border-secondary-strongerborder text-xs sm:text-sm flex items-center justify-center"
@@ -767,9 +760,56 @@ const Projects = () => {
                         </div>
                       </motion.div>
                     )}
-                    {links?.map((link) => {
-                      return <LinkCard key={link.id} link={link} />;
-                    })}
+                    <p className="cursor-pointer">send broadcast</p>
+                    <div className="items-center justify-center flex flex-col w-full">
+                      <DragDropContext
+                        onDragStart={LinksDragStart}
+                        onDragEnd={LinksDragEnd}
+                      >
+                        <Droppable droppableId="link-list">
+                          {(provided) => (
+                            <div
+                              {...provided.droppableProps}
+                              ref={provided.innerRef}
+                              className="w-full flex flex-col gap-3"
+                            >
+                              {/* Render draggable items here */}
+                              {links?.map((link, index) => (
+                                <Draggable
+                                  key={link.id}
+                                  draggableId={link.id}
+                                  index={index}
+                                >
+                                  {(provided) => (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      className={`transition-colors duration-300 border rounded-md ${
+                                        linkDraggingItemId === link.id
+                                          ? "border-white/70 border-dashed opacity-100"
+                                          : linkDraggingItemId
+                                          ? "opacity-50 border border-dashed border-secondary-border"
+                                          : "opacity-100 border border-secondary-border"
+                                      }`}
+                                    >
+                                      <LinkCard
+                                        key={link.id}
+                                        link={link}
+                                        handleFieldChange={
+                                          handleLinksFieldChange
+                                        }
+                                      />
+                                    </div>
+                                  )}
+                                </Draggable>
+                              ))}
+                              {provided.placeholder}
+                            </div>
+                          )}
+                        </Droppable>
+                      </DragDropContext>
+                    </div>
                   </>
                 )}
               </TabPanel>
@@ -779,15 +819,15 @@ const Projects = () => {
         <div
           className={`${
             preview ? "flex" : "hidden"
-          } lg:flex scale-90 md:scale-100 z-[49] bg-primary-bg lg:bg-transparent lg:z-10 w-full bg-darkbg rounded-lg p-6 lg:p-4 fixed right-1/2 top-1/2 translate-x-1/2 -translate-y-[calc(50%-28px)] lg:translate-x-0 lg:translate-y-0 lg:static lg:right-auto lg:top-auto lg:w-[45%] lg:h-[85vh]`}
+          } lg:flex z-[49] bg-primary-bg lg:bg-transparent lg:z-10 w-full bg-darkbg rounded-lg p-6 lg:p-4 fixed right-1/2 top-1/2 translate-x-1/2 -translate-y-[calc(50%-31px)] lg:translate-x-0 lg:translate-y-0 lg:static lg:right-auto lg:top-auto lg:w-[45%] h-[calc(100vh-60px)] lg:h-[85vh]`}
         >
           <p
             onClick={() => setPreview(false)}
-            className="block lg:hidden absolute top-0 right-0 text-primary-text cursor-pointer"
+            className="block lg:hidden absolute top-3 right-3 text-primary-text cursor-pointer"
           >
             <X />
           </p>
-          <div className="relative mx-auto border-black dark:border-black bg-black border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
+          <div className="scale-90 md:scale-100 relative mx-auto border-black dark:border-black bg-black border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
             <div className="w-[130px] h-[18px] bg-black top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
             <div className="w-[90px] h-[5px] bg-gray-400 bottom-0.5 z-50 rounded-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
             <div className="w-[30] h-[18px] text-primarytext text-xs top-0.5 left-[17%] -translate-x-1/2 absolute">
@@ -812,7 +852,7 @@ const Projects = () => {
             ) : (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-black">
                 <div className="bg-primary-bg/80 w-[272px] h-[572px]"></div>
-                <div className="absolute top-4 left-0 w-full h-[97.3%] rounded-b-[2.1rem] p-4 scrollbar-hidden">
+                <div className="absolute top-4 left-0 w-full h-[97.3%] rounded-b-[2.1rem] p-4 overflow-y-auto scrollbar_hidden">
                   <div
                     style={{
                       backgroundColor: "#343434",

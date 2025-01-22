@@ -66,7 +66,8 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
       <DeleteConfirmation
         modal={deleteModel}
         setModal={setDeleteModel}
-        startup={startup}
+        object={startup}
+        table="startups"
       />
       <div className="w-full h-fit rounded-md bg-secondary-bg flex flex-col items-center justify-center text-primary-text px-2 py-2 relative">
         <span title="Drag handle" className="absolute top-3 left-3">
@@ -81,7 +82,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                 alt={startup.name}
                 width={600}
                 height={600}
-                className="rounded-full w-full h-full mr-4 border border-dashed p-0.5"
+                className="rounded-full w-full h-full mr-4 border border-dashed p-0.5 object-cover"
               />
             </div>
             <div className="flex flex-col items-center justify-center w-[calc(100%-4rem)]">
@@ -189,17 +190,17 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                   value: !startup.visibility_on_profile,
                 })
               }
-              className={`relative inline-flex items-center h-4 w-[1.9rem] lg:h-6 rounded-full lg:w-11 focus:outline-none border ${
+              className={`relative inline-flex items-center h-4 w-[1.9rem] lg:h-5 rounded-full lg:w-[2.4rem] focus:outline-none border ${
                 startup.visibility_on_profile
                   ? "bg-success-bg border-success-border"
-                  : "bg-primary-bg border-secondary-strongerborder"
+                  : "bg-[#1a1a1a] border-secondary-strongerborder"
               }`}
             >
               <span
-                className={`inline-block w-[0.7rem] h-[0.7rem] lg:w-4 lg:h-4 transform bg-primary-text rounded-full transition-transform duration-200 ${
+                className={`inline-block w-[0.7rem] h-[0.7rem] lg:w-[0.9rem] lg:h-[0.9rem] transform bg-primary-text rounded-full transition-transform duration-200 ${
                   startup.visibility_on_profile
-                    ? "translate-x-[1rem] lg:translate-x-6"
-                    : "translate-x-[0.2rem] lg:translate-x-1"
+                    ? "translate-x-[1rem] lg:translate-x-5"
+                    : "translate-x-[0.2rem]"
                 }`}
               />
             </button>
@@ -291,7 +292,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                 }
               />
               <div className="flex items-center justify-between mt-2 w-full px-1">
-                <span className="text-xxs lg:text-sm">
+                <span className="text-ms lg:text-sm">
                   Show status in profile
                 </span>
                 <button
@@ -302,15 +303,15 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                       value: !startup.show_status,
                     })
                   }
-                  className={`relative inline-flex items-center h-6 rounded-full w-11 focus:outline-none border ${
+                  className={`relative inline-flex items-center h-4 w-[1.9rem] lg:h-5 rounded-full lg:w-[2.4rem] focus:outline-none border ${
                     startup.show_status
                       ? "bg-success-bg border-success-border"
-                      : "bg-primary-bg border-secondary-strongerborder"
+                      : "bg-[#1a1a1a]  border-secondary-strongerborder"
                   }`}
                 >
                   <span
-                    className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform duration-200 ${
-                      startup.show_status ? "translate-x-6" : "translate-x-1"
+                    className={`inline-block w-[0.7rem] h-[0.7rem] lg:w-[0.9rem] lg:h-[0.9rem] transform bg-white rounded-full transition-transform duration-200 ${
+                      startup.show_status ? "translate-x-[1rem] lg:translate-x-5" : "translate-x-[0.2rem]"
                     }`}
                   />
                 </button>

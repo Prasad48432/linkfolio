@@ -16,7 +16,9 @@ export const fetchLinks = async ({
     const { data: linksf } = await supabase
       .from("links")
       .select("*")
-      .eq("user_id", userId);
+      .eq("user_id", userId)
+      .order("index", { ascending: true });
+
     setLinks(linksf);
   } catch (err) {
     ToastError({ message: "An unexpected error occurred." });

@@ -8,34 +8,34 @@ import { createClient } from "@/utils/supabase/client";
 const DeleteConfirmation = ({
   modal,
   setModal,
-  startup,
+  object,
+  table,
 }: {
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  startup: any;
+  object: any;
+  table: string;
 }) => {
   const supabase = createClient();
   const [deleteLoading, setDeleteLoading] = useState(false);
 
-  const handleDelete = async (startup: any) => {
+  const handleDelete = async (object: any) => {
     setDeleteLoading(true);
     try {
       const { data, error } = await supabase
-        .from("startups")
+        .from(table)
         .delete()
-        .eq("id", startup.id);
+        .eq("id", object.id);
 
-      if (!error) {
-        ToastSuccess({ message: "Deleted sucessfully." });
-      }
-      // Step 1: Get the deleted startup's index
-      const deletedIndex = startup.index;
+      if (!error) ToastSuccess({ message: "Deleted sucessfully." });
+      // Step 1: Get the deleted object's index
+      const deletedIndex = object.index;
 
       // Step 2: Delete the entry
       const { data: deleteData, error: deleteError } = await supabase
-        .from("startups")
+        .from(table)
         .delete()
-        .eq("id", startup.id);
+        .eq("id", object.id);
 
       if (deleteError) {
         ToastError({
@@ -45,7 +45,7 @@ const DeleteConfirmation = ({
 
       // Step 3: Update indices for remaining entries
       const { data: remainingEntries, error: fetchError } = await supabase
-        .from("startups")
+        .from(table)
         .select("id, index")
         .gt("index", deletedIndex) // Fetch entries with a higher index than the deleted one
         .order("index", { ascending: true });
@@ -57,16 +57,36 @@ const DeleteConfirmation = ({
         return;
       }
 
+      if (!remainingEntries || remainingEntries.length === 0) {
+        // const maxIndexDeleteChannel = supabase.channel("max-delete-index");
+
+        // maxIndexDeleteChannel.subscribe((status) => {
+        //   if (status !== 'SUBSCRIBED') {
+        //     return null
+        //   }
+    
+        //   maxIndexDeleteChannel.send({
+        //     type: 'broadcast',
+        //     event: 'deleted_max_index_item',
+        //     payload: { 
+        //       id: object.id,
+        //       table: table
+        //     },
+        //   })
+        // })
+      }
+
       // Step 4: Update the indices
       for (const entry of remainingEntries) {
         await supabase
-          .from("startups")
+          .from(table)
           .update({ index: entry.index - 1 }) // Decrement the index by 1
           .eq("id", entry.id);
       }
 
       ToastSuccess({ message: "Deleted successfully and indices updated." });
     } catch (error) {
+      console.log(error);
       ToastError({
         message: "An unexpected error occurred. Please try again.",
       });
@@ -74,6 +94,29 @@ const DeleteConfirmation = ({
       setDeleteLoading(false);
       setModal(false);
     }
+  };
+
+  const sendBroadcast = async () => {
+    const maxIndexDeleteChannel = supabase.channel("max-delete-index");
+
+    // Subscribe first
+    maxIndexDeleteChannel.subscribe(async (status) => {
+      if (status === "SUBSCRIBED") {
+        // Once subscribed, send the broadcast message
+        const response = await maxIndexDeleteChannel.send({
+          type: "broadcast",
+          event: "deleted_max_index_item",
+          payload: {
+            id: "object.id",
+            table: "links",
+          },
+        });
+    
+        console.log("Broadcast sent:", response); // Log response for debugging
+      } else {
+        console.error("Subscription failed with status:", status);
+      }
+    });
   };
 
   return (
@@ -110,7 +153,7 @@ const DeleteConfirmation = ({
                 <p className="text-sm text-foreground-light">
                   Are you sure? you want to delete{" "}
                   <span className="font-semibold text-accent-text">
-                    {startup.name}
+                    {table === "startups" ? object.name : object.title}
                   </span>
                 </p>
               </div>
@@ -129,7 +172,7 @@ const DeleteConfirmation = ({
               <button
                 data-size="medium"
                 type="submit"
-                onClick={() => handleDelete(startup)}
+                onClick={() => handleDelete(object)}
                 className={`relative cursor-pointer space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border border-danger-border ${
                   !deleteLoading &&
                   "hover:bg-danger-selection hover:border-danger-strongerborder"

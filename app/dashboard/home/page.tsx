@@ -66,7 +66,7 @@ const Home = () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-  
+
       if (user) {
         const { data, error } = await supabase
           .from("profiles")
@@ -75,7 +75,7 @@ const Home = () => {
           )
           .eq("id", user.id)
           .single();
-  
+
         if (error) {
           console.error("Error fetching profile:", error.message);
         } else {
@@ -91,26 +91,31 @@ const Home = () => {
       setFetchLoading(false);
     }
   };
-  
+
   // Real-time subscription to profile updates
   useEffect(() => {
     const channel = supabase
-      .channel('profiles-updates')
+      .channel("profiles-updates")
       .on(
-        'postgres_changes',
-        { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `id=eq.${profileData?.id}` },
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "profiles",
+          filter: `id=eq.${profileData?.id}`,
+        },
         () => {
           fetchProfile();
         }
       )
       .subscribe();
-  
+
     // Cleanup subscription on unmount
     return () => {
       supabase.removeChannel(channel);
     };
   }, [profileData?.id]);
-  
+
   // Fetch profile on component mount
   useEffect(() => {
     fetchProfile();
@@ -144,13 +149,13 @@ const Home = () => {
           .eq("id", user.id);
 
         if (error) {
-          ToastError({message: "Update unsuccessful."})
+          ToastError({ message: "Update unsuccessful." });
         } else {
-          ToastSuccess({message: "Update successful."})
+          ToastSuccess({ message: "Update successful." });
         }
       }
     } catch (error) {
-      ToastError({message: "An unexpected error occurred."})
+      ToastError({ message: "An unexpected error occurred." });
       console.error("Unexpected error:", error);
     } finally {
       setLoading(false);
@@ -178,7 +183,7 @@ const Home = () => {
                 // TODO:
               })
               .catch((err) => {
-                ToastError({message: "An unexpected error occurred."})
+                ToastError({ message: "An unexpected error occurred." });
               });
           }
         }
@@ -208,12 +213,24 @@ const Home = () => {
 
         setModal(false);
 
-        ToastSuccess({message: "image uploaded."})
+        ToastSuccess({ message: "image uploaded." });
       } catch (error) {
-        ToastError({message: "An unexpected error occurred."})
+        ToastError({ message: "An unexpected error occurred." });
       }
     }
   };
+
+  useEffect(() => {
+    if (preview) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [preview]);
 
   return (
     <>
@@ -427,9 +444,7 @@ const Home = () => {
                       userId={profileData.id}
                       resumeUrlVisibility={profileData.resume_url_visibility}
                     />
-                    <SkillsSection
-                      fetchedSkills={profileData.user_skills}
-                    />
+                    <SkillsSection fetchedSkills={profileData.user_skills} />
                   </>
                 )}
               </TabPanel>
@@ -501,15 +516,15 @@ const Home = () => {
         <div
           className={`${
             preview ? "flex" : "hidden"
-          } lg:flex scale-90 md:scale-100 z-[49] bg-primary-bg lg:bg-transparent lg:z-10 w-full bg-darkbg rounded-lg p-6 lg:p-4 fixed right-1/2 top-1/2 translate-x-1/2 -translate-y-[calc(50%-28px)] lg:translate-x-0 lg:translate-y-0 lg:static lg:right-auto lg:top-auto lg:w-[45%] lg:h-[85vh]`}
+          } lg:flex z-[49] bg-primary-bg lg:bg-transparent lg:z-10 w-full bg-darkbg rounded-lg p-6 lg:p-4 fixed right-1/2 top-1/2 translate-x-1/2 -translate-y-[calc(50%-31px)] lg:translate-x-0 lg:translate-y-0 lg:static lg:right-auto lg:top-auto lg:w-[45%] h-[calc(100vh-60px)] lg:h-[85vh]`}
         >
           <p
             onClick={() => setPreview(false)}
-            className="block lg:hidden absolute top-0 right-0 text-primary-text cursor-pointer"
+            className="block lg:hidden absolute top-3 right-3 text-primary-text cursor-pointer"
           >
             <X />
           </p>
-          <div className="relative mx-auto border-black dark:border-black bg-black border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
+          <div className="scale-90 md:scale-100 relative mx-auto border-black dark:border-black bg-black border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
             <div className="w-[130px] h-[18px] bg-black top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
             <div className="w-[90px] h-[5px] bg-gray-400 bottom-0.5 z-50 rounded-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
             <div className="w-[30] h-[18px] text-primarytext text-xs top-0.5 left-[17%] -translate-x-1/2 absolute">
@@ -592,18 +607,19 @@ const Home = () => {
                           </p>
                         </a>
                       )}
-                    {profileData.resume_url && profileData.resume_url_visibility && (
-                      <a
-                        target="_blank"
-                        href={`${profileData.resume_url}?download`}
-                        className="mt-3 flex items-center justify-center gap-0.5 text-primary-text hover:text-accent-text transition-colors duration-200 ease-out"
-                      >
-                        <FileUser strokeWidth={1} size={13} />
-                        <p className="underline underline-offset-2 text-xs">
-                          Resume
-                        </p>
-                      </a>
-                    )}
+                    {profileData.resume_url &&
+                      profileData.resume_url_visibility && (
+                        <a
+                          target="_blank"
+                          href={`${profileData.resume_url}?download`}
+                          className="mt-3 flex items-center justify-center gap-0.5 text-primary-text hover:text-accent-text transition-colors duration-200 ease-out"
+                        >
+                          <FileUser strokeWidth={1} size={13} />
+                          <p className="underline underline-offset-2 text-xs">
+                            Resume
+                          </p>
+                        </a>
+                      )}
                   </div>
                   <div className="flex items-center justify-center flex-wrap gap-2">
                     {(profileData.user_skills as Skill[]).map((skill) => (
