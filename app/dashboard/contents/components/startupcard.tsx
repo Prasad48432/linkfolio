@@ -22,10 +22,11 @@ type HandleFieldChange = (params: {
   id: string;
   field: string;
   value: any;
+  isNumber? : boolean;
 }) => void;
 
 interface StartupCardProps {
-  startup: any; // Replace `any` with the specific type of your startup if possible
+  startup: any;
   handleFieldChange: HandleFieldChange;
 }
 
@@ -70,12 +71,12 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
         table="startups"
       />
       <div className="w-full h-fit rounded-md bg-secondary-bg flex flex-col items-center justify-center text-primary-text px-2 py-2 relative">
-        <span title="Drag handle" className="absolute top-3 left-3">
+        <span title="Drag handle" className="absolute top-2 lg:top-3 left-2 lg:left-3">
           <GripVertical size={18} />
         </span>
         <div className="flex flex-col items-center justify-end w-[95%] mt-3">
           <div className="flex items-center justify-center w-full gap-2">
-            <div className="w-16 h-16 p-2 rounded-full">
+            <div className="w-16 h-full p-1.5 rounded-full">
               <Image
                 src={`https://www.google.com/s2/favicons?sz=128&domain_url=${startup.website}`}
                 title={startup.name}
@@ -102,7 +103,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                   name="startup_website"
                   value={startup.website}
                   readOnly
-                  className="border-secondary-border cursor-not-allowed w-full py-2 pl-[1.75rem] lg:pl-10 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
+                  className="border-secondary-border cursor-not-allowed w-full py-2 pl-[1.75rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
                 />
               </div>
               <div className="flex items-center justify-center gap-2 w-full">
@@ -129,7 +130,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                         value: e.target.value,
                       })
                     }
-                    className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-[1.75rem] lg:pl-10 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
+                    className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-[1.75rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
                   />
                 </div>
                 <div className="relative w-1/2">
@@ -153,9 +154,10 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                         id: startup.id,
                         field: "estimated_revenue",
                         value: e.target.value,
+                        isNumber: true
                       })
                     }
-                    className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-[1.75rem] lg:pl-10 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-[1.75rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                 </div>
               </div>

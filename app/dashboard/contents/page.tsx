@@ -62,6 +62,9 @@ const Projects = () => {
   const [linkDraggingItemId, setLinkDraggingItemId] = useState<string | null>(
     null
   );
+  const [projectDraggingItemId, setProjectDraggingItemId] = useState<
+    string | null
+  >(null);
 
   const debounce = (func: (...args: any[]) => void, wait: number) => {
     let timeout: NodeJS.Timeout | null = null;
@@ -76,13 +79,37 @@ const Projects = () => {
     id,
     field,
     value,
+    isLink = false,
+    isNumber = false,
   }: {
     table: string;
     id: string;
     field: string;
     value: any;
+    isLink?: boolean;
+    isNumber?: boolean;
   }) => {
     try {
+
+      if (isLink) {
+        const regex = /^https:\/\/([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+        if (!regex.test(value)) {
+          ToastError({ message: "Invalid link." });
+          return;
+        }
+      }
+
+      if(isNumber) {
+        const parsedValue = parseInt(value, 10);
+        if (!isNaN(parsedValue)) {
+          value = parsedValue;
+        } else {
+          ToastError({ message: "Invalid number input." });
+          return;
+        }
+      }
+  
+
       const { data, error } = await supabase
         .from(table)
         .update({ [field]: value })
@@ -109,20 +136,13 @@ const Projects = () => {
     id,
     field,
     value,
+    isNumber= false,
   }: {
     id: string;
     field: string;
     value: any;
+    isNumber?: boolean;
   }) => {
-    if (field === "estimated_revenue") {
-      const parsedValue = parseInt(value, 10);
-      if (!isNaN(parsedValue)) {
-        value = parsedValue;
-      } else {
-        ToastError({ message: "Invalid input." });
-        return;
-      }
-    }
 
     setStartups((prev) =>
       // @ts-expect-error
@@ -131,7 +151,7 @@ const Projects = () => {
       )
     );
     // Pass arguments directly
-    debouncedUpdateField({ table: "startups", id, field, value });
+    debouncedUpdateField({ table: "startups", id, field, value, isNumber: isNumber });
   };
 
   const handleLinksFieldChange = ({
@@ -149,6 +169,27 @@ const Projects = () => {
     );
     // Pass arguments directly
     debouncedUpdateField({ table: "links", id, field, value });
+  };
+
+  const handleProjectsFieldChange = ({
+    id,
+    field,
+    value,
+    isLink = false, // Optional property to check for valid link
+  }: {
+    id: string;
+    field: string;
+    value: any;
+    isLink?: boolean;
+  }) => {
+    setProjects((prev) =>
+      // @ts-expect-error
+      prev.map((project) =>
+        project.id === id ? { ...project, [field]: value } : project
+      )
+    );
+    // Pass arguments directly
+    debouncedUpdateField({ table: "projects", id, field, value, isLink: isLink });
   };
 
   const StartupsDragStart = (start: any) => {
@@ -184,7 +225,47 @@ const Projects = () => {
         })
       );
 
-      ToastSuccess({ message: "Indices updated successfully" });
+      ToastSuccess({ message: "Order updated" });
+    } catch (err) {
+      console.error("Error during reordering:", err);
+      ToastError({ message: "An unexpected error occurred." });
+    }
+  };
+
+  const ProjectsDragStart = (start: any) => {
+    setProjectDraggingItemId(start.draggableId); // Set the ID of the currently dragged item
+  };
+
+  const ProjectsDragEnd = async (result: any) => {
+    setProjectDraggingItemId(null);
+    if (!result.destination || !projects) return;
+
+    const reorderedProjects = Array.from(projects);
+    const [reorderedProject] = reorderedProjects.splice(result.source.index, 1);
+    reorderedProjects.splice(result.destination.index, 0, reorderedProject);
+
+    try {
+      // Update local state
+      setProjects(reorderedProjects);
+
+      // Update only the startups whose indices have changed
+      await Promise.all(
+        reorderedProjects.map(async (link, index) => {
+          if (link.index !== index + 1) {
+            // Only update if the index has changed
+            const { error } = await supabase
+              .from("projects")
+              .update({ index: index + 1 })
+              .eq("id", link.id);
+
+            if (error) {
+              ToastError({ message: "An unexpected error occurred." });
+            }
+          }
+        })
+      );
+
+      ToastSuccess({ message: "Order updated" });
     } catch (err) {
       console.error("Error during reordering:", err);
       ToastError({ message: "An unexpected error occurred." });
@@ -200,14 +281,14 @@ const Projects = () => {
     if (!result.destination || !links) return;
 
     const reorderedLinks = Array.from(links);
-    const [reorderedStartup] = reorderedLinks.splice(result.source.index, 1);
-    reorderedLinks.splice(result.destination.index, 0, reorderedStartup);
+    const [reorderedLink] = reorderedLinks.splice(result.source.index, 1);
+    reorderedLinks.splice(result.destination.index, 0, reorderedLink);
 
     try {
       // Update local state
       setLinks(reorderedLinks);
 
-      // Update only the startups whose indices have changed
+      // Update only the links whose indices have changed
       await Promise.all(
         reorderedLinks.map(async (link, index) => {
           if (link.index !== index + 1) {
@@ -224,7 +305,7 @@ const Projects = () => {
         })
       );
 
-      ToastSuccess({ message: "Indices updated successfully" });
+      ToastSuccess({ message: "Order updated" });
     } catch (err) {
       console.error("Error during reordering:", err);
       ToastError({ message: "An unexpected error occurred." });
@@ -346,31 +427,36 @@ const Projects = () => {
               filter: `user_id=eq.${userId}`,
             },
             () => {
+              console.log("change detected");
               fetchProjects({ userId, supabase, setProjects }); // Refetch data on any change
             }
           )
           .subscribe();
 
-        // const maxIndexDeleteSubscription = supabase
-        //   .channel("max-delete-index")
-        //   .on(
-        //     "broadcast",
-        //     {
-        //       event: "deleted_max_index_item",
-        //     },
-        //     () => {
-        //       fetchLinks({ userId, supabase, setLinks });
-        //     }
-        //   )
-        //   .subscribe((status) => {
-        //     console.log("Subscription status:", status);
-        //   });
+        const maxIndexDeleteSubscription = supabase
+          .channel("max-index-delete")
+          .on(
+            "broadcast",
+            {
+              event: "deleted_max_index_item",
+            },
+            (object) => {
+              if (object.payload.table === "links") {
+                fetchLinks({ userId, supabase, setLinks });
+              } else if (object.payload.table === "startups") {
+                fetchStartups({ userId, supabase, setStartups });
+              } else if (object.payload.table === "projects") {
+                fetchProjects({ userId, supabase, setProjects });
+              }
+            }
+          )
+          .subscribe();
 
         return () => {
           supabase.removeChannel(startupsSubscription);
           supabase.removeChannel(linksSubscription);
           supabase.removeChannel(projectsSubscription);
-          // supabase.removeChannel(maxIndexDeleteSubscription);
+          supabase.removeChannel(maxIndexDeleteSubscription);
         };
       } catch (error) {
         console.log(error);
@@ -394,7 +480,6 @@ const Projects = () => {
           <div className="hidden lg:block absolute -top-3 left-0 lg:w-[55%] w-full h-[1.7rem] bg-gradient-to-t from-primary-bg/10 to-primary-bg to-90% z-10 pointer-events-none"></div>
           <div className="hidden lg:block absolute -bottom-3 left-0 lg:w-[55%] w-full h-[1.7rem] bg-gradient-to-b from-primary-bg/10 to-primary-bg to-90% z-10 pointer-events-none"></div>
           <TabGroup
-            defaultIndex={2}
             onChange={() => {
               setValues({
                 startupAdd: "",
@@ -540,7 +625,7 @@ const Projects = () => {
                                       {...provided.dragHandleProps}
                                       className={`transition-colors duration-300 border rounded-md ${
                                         startupDraggingItemId === startup.id
-                                          ? "border-white/70 border-dashed opacity-100"
+                                          ? "border-primary-text border-dashed opacity-100"
                                           : startupDraggingItemId
                                           ? "opacity-50 border border-dashed border-secondary-border"
                                           : "opacity-100 border border-secondary-border"
@@ -603,7 +688,7 @@ const Projects = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="w-full h-14 rounded-md p-1 bg-secondary-bg/50 text-primary-text border border-secondary-border flex items-center justify-center"
+                        className="w-full h-12 rounded-md p-1 bg-secondary-bg/50 text-primary-text border border-secondary-border flex items-center justify-center"
                       >
                         <div className="flex rounded-md shadow-sm items-center justify-center w-[90%] gap-1 lg:gap-2">
                           <div className="w-full flex items-center justify-center">
@@ -611,7 +696,7 @@ const Projects = () => {
                               https://
                             </span>
                             <input
-                              placeholder="link to github or website"
+                              placeholder="link to github"
                               type="text"
                               value={values.projectAdd}
                               onChange={(e) => {
@@ -660,9 +745,55 @@ const Projects = () => {
                         </div>
                       </motion.div>
                     )}
-                    {projects?.map((project) => {
-                      return <ProjectCard key={project.id} project={project} />;
-                    })}
+                    <div className="items-center justify-center flex flex-col w-full">
+                      <DragDropContext
+                        onDragStart={ProjectsDragStart}
+                        onDragEnd={ProjectsDragEnd}
+                      >
+                        <Droppable droppableId="project-list">
+                          {(provided) => (
+                            <div
+                              {...provided.droppableProps}
+                              ref={provided.innerRef}
+                              className="w-full flex flex-col gap-3"
+                            >
+                              {/* Render draggable items here */}
+                              {projects?.map((project, index) => (
+                                <Draggable
+                                  key={project.id}
+                                  draggableId={project.id}
+                                  index={index}
+                                >
+                                  {(provided) => (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      className={`transition-colors duration-300 border rounded-md ${
+                                        projectDraggingItemId === project.id
+                                          ? "border-white/70 border-dashed opacity-100"
+                                          : projectDraggingItemId
+                                          ? "opacity-50 border border-dashed border-secondary-border"
+                                          : "opacity-100 border border-secondary-border"
+                                      }`}
+                                    >
+                                      <ProjectCard
+                                        key={project.id}
+                                        project={project}
+                                        handleFieldChange={
+                                          handleProjectsFieldChange
+                                        }
+                                      />
+                                    </div>
+                                  )}
+                                </Draggable>
+                              ))}
+                              {provided.placeholder}
+                            </div>
+                          )}
+                        </Droppable>
+                      </DragDropContext>
+                    </div>
                   </>
                 )}
               </TabPanel>
@@ -672,13 +803,13 @@ const Projects = () => {
                     <div className="w-full h-10 bg-secondary-bg rounded-lg relative overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-36 bg-secondary-bg rounded-lg relative overflow-hidden">
+                    <div className="w-full h-[95.2px] lg:h-[103.2px] bg-secondary-bg rounded-lg relative overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-36 bg-secondary-bg rounded-lg relative overflow-hidden">
+                    <div className="w-full h-[95.2px] lg:h-[103.2px] bg-secondary-bg rounded-lg relative overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-36 bg-secondary-bg rounded-lg relative overflow-hidden">
+                    <div className="w-full h-[95.2px] lg:h-[103.2px] bg-secondary-bg rounded-lg relative overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
                     </div>
                   </>
@@ -760,7 +891,6 @@ const Projects = () => {
                         </div>
                       </motion.div>
                     )}
-                    <p className="cursor-pointer">send broadcast</p>
                     <div className="items-center justify-center flex flex-col w-full">
                       <DragDropContext
                         onDragStart={LinksDragStart}

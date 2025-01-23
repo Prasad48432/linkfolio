@@ -27,7 +27,9 @@ const DeleteConfirmation = ({
         .delete()
         .eq("id", object.id);
 
-      if (!error) ToastSuccess({ message: "Deleted sucessfully." });
+
+      if (error) return;
+
       // Step 1: Get the deleted object's index
       const deletedIndex = object.index;
 
@@ -58,22 +60,20 @@ const DeleteConfirmation = ({
       }
 
       if (!remainingEntries || remainingEntries.length === 0) {
-        // const maxIndexDeleteChannel = supabase.channel("max-delete-index");
-
-        // maxIndexDeleteChannel.subscribe((status) => {
-        //   if (status !== 'SUBSCRIBED') {
-        //     return null
-        //   }
-    
-        //   maxIndexDeleteChannel.send({
-        //     type: 'broadcast',
-        //     event: 'deleted_max_index_item',
-        //     payload: { 
-        //       id: object.id,
-        //       table: table
-        //     },
-        //   })
-        // })
+        try {
+          const response = await supabase.channel("max-index-delete").send({
+            type: "broadcast",
+            event: "deleted_max_index_item",
+            payload: {
+              id: object.id,
+              table: table,
+            },
+          });
+        } catch (error) {
+          ToastError({
+            message: "Failed to fetch realtime refresh page.",
+          });
+        }
       }
 
       // Step 4: Update the indices
@@ -84,7 +84,7 @@ const DeleteConfirmation = ({
           .eq("id", entry.id);
       }
 
-      ToastSuccess({ message: "Deleted successfully and indices updated." });
+      ToastSuccess({ message: "Deleted successfully." });
     } catch (error) {
       console.log(error);
       ToastError({
@@ -94,29 +94,6 @@ const DeleteConfirmation = ({
       setDeleteLoading(false);
       setModal(false);
     }
-  };
-
-  const sendBroadcast = async () => {
-    const maxIndexDeleteChannel = supabase.channel("max-delete-index");
-
-    // Subscribe first
-    maxIndexDeleteChannel.subscribe(async (status) => {
-      if (status === "SUBSCRIBED") {
-        // Once subscribed, send the broadcast message
-        const response = await maxIndexDeleteChannel.send({
-          type: "broadcast",
-          event: "deleted_max_index_item",
-          payload: {
-            id: "object.id",
-            table: "links",
-          },
-        });
-    
-        console.log("Broadcast sent:", response); // Log response for debugging
-      } else {
-        console.error("Subscription failed with status:", status);
-      }
-    });
   };
 
   return (

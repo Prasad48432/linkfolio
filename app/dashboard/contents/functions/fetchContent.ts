@@ -64,7 +64,8 @@ export const fetchProjects = async ({
     const { data: projectsf } = await supabase
       .from("projects")
       .select("*")
-      .eq("user_id", userId);
+      .eq("user_id", userId)
+      .order("index", { ascending: true });
     setProjects(projectsf);
   } catch (err) {
     ToastError({ message: "An unexpected error occurred." });

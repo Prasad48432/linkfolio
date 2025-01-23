@@ -47,7 +47,7 @@ export const handleAdd = async ({
     const regex = /^https:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s]*)?$/;
 
     if (!regex.test(secureValue)) {
-      ToastError({ message: "Invalid secure value" });
+      ToastError({ message: "Invalid link." });
       return;
     }
 
@@ -92,7 +92,7 @@ export const handleAdd = async ({
         .limit(1);
 
       if (maxIndexError) {
-        ToastError({ message: "Failed to fetch max index" });
+        ToastError({ message: "Failed to fetch max index." });
         setAddLoading(false);
         return;
       }
@@ -115,7 +115,7 @@ export const handleAdd = async ({
 
       if (error) throw error;
       else {
-        ToastSuccess({ message: "New startup inserted successfully" });
+        ToastSuccess({ message: "New startup added successfully." });
       }
     } else if (table === "links") {
       const { data: maxIndexData, error: maxIndexError } = await supabase
@@ -125,7 +125,7 @@ export const handleAdd = async ({
         .limit(1);
 
       if (maxIndexError) {
-        ToastError({ message: "Failed to fetch max index" });
+        ToastError({ message: "Failed to fetch max index." });
         setAddLoading(false);
         return;
       }
@@ -142,9 +142,47 @@ export const handleAdd = async ({
 
       if (error) throw error;
       else {
-        ToastSuccess({ message: "New link inserted successfully" });
+        ToastSuccess({ message: "New link added successfully." });
       }
     } else if (table === "projects") {
+      const { data: maxIndexData, error: maxIndexError } = await supabase
+        .from("projects")
+        .select("index")
+        .order("index", { ascending: false })
+        .limit(1);
+
+      if (maxIndexError) {
+        ToastError({ message: "Failed to fetch max index." });
+        setAddLoading(false);
+        return;
+      }
+
+      const newIndex = maxIndexData?.length > 0 ? maxIndexData[0].index + 1 : 1;
+
+      const isGitHubLink =
+        secureValue.startsWith("https://github.com") ||
+        secureValue.startsWith("http://github.com");
+
+      if (!isGitHubLink) {
+        ToastError({ message: "Invalid github link." });
+        setAddLoading(false);
+        return;
+      }
+
+      const { error } = await supabase.from(table).insert({
+        user_id: userId,
+        name: "",
+        description: "",
+        github_link: secureValue,
+        website_link: "",
+        category: "",
+        index: newIndex,
+      });
+
+      if (error) throw error;
+      else {
+        ToastSuccess({ message: "New project added successfully." });
+      }
     }
 
     setToggles({

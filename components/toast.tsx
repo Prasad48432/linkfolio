@@ -11,7 +11,7 @@ export const ToastError = ({
   const toastId = toast.error(message, {
     duration: duration,
     style: {
-      background: "rgb(77 35 29/0.9)",
+      background: "rgb(77 35 29)",
       color: "#ededed",
       border: "1px solid rgb(230 86 60/0.8)",
     },
@@ -40,7 +40,7 @@ export const ToastSuccess = ({
     ),
     duration: duration,
     style: {
-      background: "rgb(0 98 57/0.85)",
+      background: "rgb(0 98 57)",
       color: "#ededed",
       border: "1px solid rgb(62 207 142/0.8)",
     },
