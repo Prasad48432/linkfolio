@@ -66,20 +66,22 @@ export const handleAdd = async ({
       const { data } = await supabase
         .from("links")
         .select("link")
+        .eq("user_id",userId)
         .eq("link", secureValue);
 
       exists = (data && data.length > 0) || false;
     } else if (table === "projects") {
       const { data } = await supabase
         .from("projects")
-        .select("github_link, website_link")
-        .or(`github_link.eq.${secureValue},website_link.eq.${secureValue}`);
+        .select("github_link")
+        .eq("user_id",userId)
+        .eq("github_link", secureValue);
 
       exists = (data && data.length > 0) || false;
     }
 
     if (exists) {
-      ToastError({ message: "Value already exists in the database." });
+      ToastError({ message: "Link already exists in the database." });
       setAddLoading(false);
       return;
     }
@@ -88,6 +90,7 @@ export const handleAdd = async ({
       const { data: maxIndexData, error: maxIndexError } = await supabase
         .from("startups")
         .select("index")
+        .eq("user_id", userId)
         .order("index", { ascending: false })
         .limit(1);
 
@@ -111,6 +114,7 @@ export const handleAdd = async ({
         estimated_revenue: 0,
         visibility_on_profile: true,
         show_status: true,
+        show_toggle: "description",
       });
 
       if (error) throw error;
@@ -121,6 +125,7 @@ export const handleAdd = async ({
       const { data: maxIndexData, error: maxIndexError } = await supabase
         .from("links")
         .select("index")
+        .eq("user_id", userId)
         .order("index", { ascending: false })
         .limit(1);
 
@@ -148,6 +153,7 @@ export const handleAdd = async ({
       const { data: maxIndexData, error: maxIndexError } = await supabase
         .from("projects")
         .select("index")
+        .eq("user_id", userId)
         .order("index", { ascending: false })
         .limit(1);
 
@@ -159,12 +165,35 @@ export const handleAdd = async ({
 
       const newIndex = maxIndexData?.length > 0 ? maxIndexData[0].index + 1 : 1;
 
-      const isGitHubLink =
-        secureValue.startsWith("https://github.com") ||
-        secureValue.startsWith("http://github.com");
+      // Extract owner and repo from the GitHub link
+      const match = secureValue.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+      if (!match) {
+        ToastError({ message: "Invalid GitHub repository format." });
+        setAddLoading(false);
+        return;
+      }
 
-      if (!isGitHubLink) {
-        ToastError({ message: "Invalid github link." });
+      const owner = match[1];
+      const repo = match[2];
+
+      // Check if the repository exists and is public using GitHub API
+      try {
+        const response = await fetch(
+          `https://api.github.com/repos/${owner}/${repo}`
+        );
+        if (!response.ok) {
+          if (response.status === 404) {
+            ToastError({
+              message: "GitHub repository not found or is private.",
+            });
+            setAddLoading(false);
+            return;
+          }
+        }
+      } catch (error: any) {
+        ToastError({
+          message: error.message || "Failed to verify GitHub repository.",
+        });
         setAddLoading(false);
         return;
       }
@@ -177,6 +206,7 @@ export const handleAdd = async ({
         website_link: "",
         category: "",
         index: newIndex,
+        visibility_on_profile: true,
       });
 
       if (error) throw error;

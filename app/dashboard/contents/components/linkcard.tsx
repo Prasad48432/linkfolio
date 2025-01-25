@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import useWindowSize from "@/hooks/useWindowSize";
-import { Globe, GripVertical, Link, Trash } from "lucide-react";
+import { Globe, GripVertical, Link, Tag, Trash } from "lucide-react";
 import DeleteConfirmation from "./deleteconfirm";
 
 type HandleFieldChange = (params: {
@@ -28,10 +28,10 @@ const LinkCard = ({ link, handleFieldChange }: LinkCardProps) => {
         table="links"
       />
       <div className="w-full h-fit rounded-md bg-secondary-bg flex flex-col items-center justify-center text-primary-text px-2 py-2 relative">
-        <span title="Drag handle" className="absolute top-2 lg:top-3 left-2 lg:left-3">
-          <GripVertical size={18} />
+        <span title="Drag handle" className="absolute top-3 left-2 lg:left-3">
+          <GripVertical size={size.width > 1000 ? 18 : 15} />
         </span>
-        <div className="flex items-center justify-end w-[95%] gap-2">
+        <div className="flex items-center justify-end w-[95%] gap-1 lg:gap-2">
           <div className="w-16 h-full p-1.5 rounded-full">
             <Image
               src={`https://www.google.com/s2/favicons?sz=128&domain_url=${link.link}`}
@@ -42,7 +42,7 @@ const LinkCard = ({ link, handleFieldChange }: LinkCardProps) => {
               className="rounded-full w-full h-full mr-4 border border-dashed p-0.5 object-cover"
             />
           </div>
-          <div className="flex flex-col items-center justify-center gap-1 w-[calc(100%-6rem)] lg:w-[calc(100%-7rem)]">
+          <div className="flex flex-col items-center justify-center w-[calc(100%-6rem)] lg:w-[calc(100%-7rem)]">
             <div className="relative w-full">
               <span
                 title="Link"
@@ -59,7 +59,7 @@ const LinkCard = ({ link, handleFieldChange }: LinkCardProps) => {
                 name="link_text"
                 value={link.link}
                 readOnly
-                className="border-secondary-border cursor-not-allowed w-full py-2 pl-[1.75rem] lg:pl-10 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
+                className="border-secondary-border cursor-not-allowed w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
               />
             </div>
             <div className="relative w-full">
@@ -67,7 +67,7 @@ const LinkCard = ({ link, handleFieldChange }: LinkCardProps) => {
                 title="Link text"
                 className="absolute top-[55%] -translate-y-1/2 left-2 lg:left-3 flex items-center"
               >
-                <Globe
+                <Tag
                   strokeWidth={1}
                   size={size.width > 1000 ? 20 : 15}
                   className="text-primary-text/80 text-xl"
@@ -84,7 +84,7 @@ const LinkCard = ({ link, handleFieldChange }: LinkCardProps) => {
                     value: e.target.value,
                   })
                 }
-                className="border-secondary-border w-full py-2 pl-[1.75rem] lg:pl-10 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
+                className="border-secondary-border w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
               />
             </div>
           </div>

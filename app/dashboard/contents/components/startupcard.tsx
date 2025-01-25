@@ -7,6 +7,7 @@ import {
   Link,
   OctagonAlert,
   Settings,
+  Tag,
   Trash,
 } from "lucide-react";
 import React, { useState } from "react";
@@ -71,11 +72,11 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
         table="startups"
       />
       <div className="w-full h-fit rounded-md bg-secondary-bg flex flex-col items-center justify-center text-primary-text px-2 py-2 relative">
-        <span title="Drag handle" className="absolute top-2 lg:top-3 left-2 lg:left-3">
-          <GripVertical size={18} />
+        <span title="Drag handle" className="absolute top-3 left-2 lg:left-3">
+          <GripVertical size={size.width > 1000 ? 18 : 15} />
         </span>
         <div className="flex flex-col items-center justify-end w-[95%] mt-3">
-          <div className="flex items-center justify-center w-full gap-2">
+          <div className="flex items-center justify-center w-full gap-1 lg:gap-2">
             <div className="w-16 h-full p-1.5 rounded-full">
               <Image
                 src={`https://www.google.com/s2/favicons?sz=128&domain_url=${startup.website}`}
@@ -103,7 +104,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                   name="startup_website"
                   value={startup.website}
                   readOnly
-                  className="border-secondary-border cursor-not-allowed w-full py-2 pl-[1.75rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
+                  className="border-secondary-border cursor-not-allowed w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
                 />
               </div>
               <div className="flex items-center justify-center gap-2 w-full">
@@ -112,7 +113,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                     title="Startup name"
                     className="absolute top-[55%] -translate-y-1/2 left-2 lg:left-3 flex items-center"
                   >
-                    <Globe
+                    <Tag
                       strokeWidth={1}
                       size={size.width > 1000 ? 20 : 15}
                       className="text-primary-text/80 text-xl"
@@ -130,7 +131,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                         value: e.target.value,
                       })
                     }
-                    className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-[1.75rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
+                    className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
                   />
                 </div>
                 <div className="relative w-1/2">
@@ -157,7 +158,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                         isNumber: true
                       })
                     }
-                    className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-[1.75rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                 </div>
               </div>

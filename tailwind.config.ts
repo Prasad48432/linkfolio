@@ -20,6 +20,7 @@ const config: Config = {
       fontSize: {
         xxs: ['0.5rem', '0.75rem'],
         ms: ['0.6rem', '0.75rem'],
+        mx: ['0.7rem', '0.8rem'],
       },
       colors: {
         primary: {

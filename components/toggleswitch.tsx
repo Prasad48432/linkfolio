@@ -51,8 +51,8 @@ const ToggleSwitch = ({
         onClick={() => handleUpdate(!resumeUrlVisibility)}
         className={`w-10 h-6 border-[0.5px] flex items-center rounded-full p-1 cursor-pointer transition-all duration-300 ease-out ${
           resumeUrlVisibility
-            ? "bg-accent-bg border-accent-border"
-            : "bg-secondary-bg border-secondary-border"
+            ? "bg-success-bg border-success-border"
+            : "bg-[#1a1a1a] border-secondary-strongerborder"
         }`}
       >
         <motion.div

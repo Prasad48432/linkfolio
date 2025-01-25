@@ -27,6 +27,9 @@ import {
   fetchStartups,
 } from "./functions/fetchContent";
 import { handleAdd } from "./functions/addContents";
+import StartupPreviewRender from "./components/startuppreview_render";
+import ProjectPreviewRender from "./components/projectpreview_render";
+import LinkPreviewRender from "./components/linkpreview_render";
 
 type IndexConversion = "startupAdd" | "linkAdd" | "projectAdd";
 
@@ -65,6 +68,7 @@ const Projects = () => {
   const [projectDraggingItemId, setProjectDraggingItemId] = useState<
     string | null
   >(null);
+  const [tabToggles, setTabToggles] = useState(0);
 
   const debounce = (func: (...args: any[]) => void, wait: number) => {
     let timeout: NodeJS.Timeout | null = null;
@@ -90,7 +94,6 @@ const Projects = () => {
     isNumber?: boolean;
   }) => {
     try {
-
       if (isLink) {
         const regex = /^https:\/\/([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
         if (!regex.test(value)) {
@@ -99,7 +102,7 @@ const Projects = () => {
         }
       }
 
-      if(isNumber) {
+      if (isNumber) {
         const parsedValue = parseInt(value, 10);
         if (!isNaN(parsedValue)) {
           value = parsedValue;
@@ -108,7 +111,6 @@ const Projects = () => {
           return;
         }
       }
-  
 
       const { data, error } = await supabase
         .from(table)
@@ -136,14 +138,13 @@ const Projects = () => {
     id,
     field,
     value,
-    isNumber= false,
+    isNumber = false,
   }: {
     id: string;
     field: string;
     value: any;
     isNumber?: boolean;
   }) => {
-
     setStartups((prev) =>
       // @ts-expect-error
       prev.map((startup) =>
@@ -151,7 +152,13 @@ const Projects = () => {
       )
     );
     // Pass arguments directly
-    debouncedUpdateField({ table: "startups", id, field, value, isNumber: isNumber });
+    debouncedUpdateField({
+      table: "startups",
+      id,
+      field,
+      value,
+      isNumber: isNumber,
+    });
   };
 
   const handleLinksFieldChange = ({
@@ -189,7 +196,13 @@ const Projects = () => {
       )
     );
     // Pass arguments directly
-    debouncedUpdateField({ table: "projects", id, field, value, isLink: isLink });
+    debouncedUpdateField({
+      table: "projects",
+      id,
+      field,
+      value,
+      isLink: isLink,
+    });
   };
 
   const StartupsDragStart = (start: any) => {
@@ -427,7 +440,6 @@ const Projects = () => {
               filter: `user_id=eq.${userId}`,
             },
             () => {
-              console.log("change detected");
               fetchProjects({ userId, supabase, setProjects }); // Refetch data on any change
             }
           )
@@ -480,7 +492,8 @@ const Projects = () => {
           <div className="hidden lg:block absolute -top-3 left-0 lg:w-[55%] w-full h-[1.7rem] bg-gradient-to-t from-primary-bg/10 to-primary-bg to-90% z-10 pointer-events-none"></div>
           <div className="hidden lg:block absolute -bottom-3 left-0 lg:w-[55%] w-full h-[1.7rem] bg-gradient-to-b from-primary-bg/10 to-primary-bg to-90% z-10 pointer-events-none"></div>
           <TabGroup
-            onChange={() => {
+            onChange={(e) => {
+              setTabToggles(e);
               setValues({
                 startupAdd: "",
                 linkAdd: "",
@@ -609,7 +622,7 @@ const Projects = () => {
                             <div
                               {...provided.droppableProps}
                               ref={provided.innerRef}
-                              className="w-full flex flex-col gap-3"
+                              className="w-full flex flex-col"
                             >
                               {/* Render draggable items here */}
                               {startups?.map((startup, index) => (
@@ -623,7 +636,7 @@ const Projects = () => {
                                       ref={provided.innerRef}
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
-                                      className={`transition-colors duration-300 border rounded-md ${
+                                      className={`transition-colors duration-300 border rounded-md mb-3 ${
                                         startupDraggingItemId === startup.id
                                           ? "border-primary-text border-dashed opacity-100"
                                           : startupDraggingItemId
@@ -755,7 +768,7 @@ const Projects = () => {
                             <div
                               {...provided.droppableProps}
                               ref={provided.innerRef}
-                              className="w-full flex flex-col gap-3"
+                              className="w-full flex flex-col"
                             >
                               {/* Render draggable items here */}
                               {projects?.map((project, index) => (
@@ -769,7 +782,7 @@ const Projects = () => {
                                       ref={provided.innerRef}
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
-                                      className={`transition-colors duration-300 border rounded-md ${
+                                      className={`transition-colors duration-300 border rounded-md mb-3 ${
                                         projectDraggingItemId === project.id
                                           ? "border-white/70 border-dashed opacity-100"
                                           : projectDraggingItemId
@@ -834,11 +847,11 @@ const Projects = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="w-full h-14 rounded-md p-1 bg-secondary-bg/50 text-primary-text border border-secondary-border flex items-center justify-center"
+                        className="w-full h-12 rounded-md p-1 bg-secondary-bg/50 text-primary-text border border-secondary-border flex items-center justify-center"
                       >
-                        <div className="flex rounded-md shadow-sm items-center justify-center w-[90%] gap-2">
+                        <div className="flex rounded-md shadow-sm items-center justify-center w-[90%] gap-1 lg:gap-2">
                           <div className="w-full flex items-center justify-center">
-                            <span className="inline-flex bg-secondary-bg h-10 items-center pl-3 rounded-l-md border border-r-0 border-secondary-strongerborder text-gray-400 text-xs sm:text-sm">
+                            <span className="inline-flex bg-secondary-bg h-8 lg:h-10 items-center pl-3 rounded-l-md border border-r-0 border-secondary-strongerborder text-gray-400 text-xs sm:text-sm">
                               https://
                             </span>
                             <input
@@ -852,7 +865,7 @@ const Projects = () => {
                                 });
                               }}
                               autoComplete="off"
-                              className="flex-1 h-10 text-primary-text placeholder-secondary-text form-input bg-secondary-bg pr-3 block w-[70%] focus:outline-none rounded-none border border-l-0 border-secondary-strongerborder transition duration-150 ease-in-out text-xs sm:text-sm"
+                              className="flex-1 h-8 lg:h-10 text-primary-text placeholder-secondary-text form-input bg-secondary-bg pr-3 block w-[70%] focus:outline-none rounded-none border border-l-0 border-secondary-strongerborder transition duration-150 ease-in-out text-xs sm:text-sm"
                             />
                             <button
                               onClick={(e) => {
@@ -865,7 +878,7 @@ const Projects = () => {
                                   setValues: setValues,
                                 });
                               }}
-                              className="bg-secondary-bg h-10 w-32 text-primary-text font-medium py-2 px-4 rounded-r-md border border-l-0 border-secondary-strongerborder text-xs sm:text-sm flex items-center justify-center"
+                              className="bg-secondary-bg h-8 lg:h-10 w-16 lg:w-20 text-primary-text font-medium py-2 px-4 rounded-r-md border border-l-0 border-secondary-strongerborder text-xs sm:text-sm flex items-center justify-center"
                             >
                               {addLoading ? (
                                 <Loader
@@ -901,7 +914,7 @@ const Projects = () => {
                             <div
                               {...provided.droppableProps}
                               ref={provided.innerRef}
-                              className="w-full flex flex-col gap-3"
+                              className="w-full flex flex-col"
                             >
                               {/* Render draggable items here */}
                               {links?.map((link, index) => (
@@ -915,7 +928,7 @@ const Projects = () => {
                                       ref={provided.innerRef}
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
-                                      className={`transition-colors duration-300 border rounded-md ${
+                                      className={`transition-colors duration-300 border rounded-md mb-3 ${
                                         linkDraggingItemId === link.id
                                           ? "border-white/70 border-dashed opacity-100"
                                           : linkDraggingItemId
@@ -982,58 +995,31 @@ const Projects = () => {
             ) : (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-black">
                 <div className="bg-primary-bg/80 w-[272px] h-[572px]"></div>
-                <div className="absolute top-4 left-0 w-full h-[97.3%] rounded-b-[2.1rem] p-4 overflow-y-auto scrollbar_hidden">
-                  <div
-                    style={{
-                      backgroundColor: "#343434",
-                    }}
-                    className="absolute top-[-8px] right-0 m-4 rounded-md p-1 cursor-pointer"
-                    title="share"
-                  >
-                    <ExternalLink
-                      style={{
-                        color: "#ffffff",
-                      }}
-                      size={16}
-                    />
-                  </div>
-                  <div className="flex items-center">
-                    <Image
-                      src={"/avatars/Annie.png"}
-                      className="w-[50px] h-[50px] rounded-full p-0.5 border border-secondary-border object-cover"
-                      alt="overlay"
-                      referrerPolicy="no-referrer"
-                      width={200}
-                      height={200}
-                    />
-                    <div className="">
-                      <h1 className="text-white text-sm font-bold ml-3">
-                        Sai Prasad
-                      </h1>
-                      <div className="flex justify-center items-center text-gray-300 text-sm mt-[0.1rem] ml-[0.6rem]">
-                        <MapPin size={12} />
-                        <h2
-                          title="India"
-                          className="cursor-pointer text-xs ml-0.5 mr-1 max-w-12 text-ellipsis truncate"
-                        >
-                          India
-                        </h2>
-                        <div className="h-3 border-l border-secondary-border mr-1"></div>
-                        <span className="text-xs">₹</span>
-                        <span className="text-xs">20000</span>
+                <div className="absolute top-4 right-1 w-full h-[97.3%] rounded-b-[2.1rem] p-4 overflow-y-auto scrollbar_hidden">
+                  <div className="flex items-center justify-center">
+                    <div className="bg-secondary-bg w-[50px] h-[50px] rounded-full p-1 border border-secondary-border object-cover"></div>
+                    <div className="ml-3">
+                      <div className="bg-secondary-bg h-[18px] w-[110px] rounded-sm border border-secondary-border"></div>
+                      <div className="flex items-center text-primary-text text-sm mt-1">
+                        <div className="bg-secondary-bg h-[12px] w-[40px] rounded-sm border border-secondary-border"></div>
+                        <div className="ml-1 h-3 border-l border-secondary-strongerborder mr-1 "></div>
+                        <span className="bg-secondary-bg h-[12px] w-[50px] rounded-sm border border-secondary-border"></span>
                       </div>
                     </div>
                   </div>
-                  <div className="mt-4">
-                    <h3 className="text-white text-sm font-semibold">Bio</h3>
-                    <MarkdownParser
-                      text="hello everyone"
-                      className="text-primary-text/80 text-xs"
-                    />
+                  <div className="mt-2 flex items-center justify-center gap-1">
+                    <div className="bg-secondary-bg h-[18px] w-[40px] rounded-[0.1875rem] border border-secondary-border"></div>
+                    <div className="bg-secondary-bg h-[18px] w-[50px] rounded-[0.1875rem] border border-secondary-border"></div>
+                    <div className="bg-secondary-bg h-[18px] w-[30px] rounded-[0.1875rem] border border-secondary-border"></div>
+                    <div className="bg-secondary-bg h-[18px] w-[40px] rounded-[0.1875rem] border border-secondary-border"></div>
                   </div>
+                  <div className="w-full flex items-center justify-center ">
+                    <div className="bg-secondary-bg h-[40px] w-[95%] mt-2 rounded-[0.1875rem] border border-secondary-border"></div>
+                  </div>
+
                   <div className="mt-4 border-t border-secondary-border"></div>
                   <div className="mt-4">
-                    <TabGroup>
+                    <TabGroup selectedIndex={tabToggles}>
                       <TabList className="flex p-0.5 gap-2 rounded-full mx-0.5 items-center justify-center">
                         <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-primary-text data-[selected]:text-accent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2  data-[selected]:decoration-accent-bg">
                           Startups
@@ -1046,46 +1032,30 @@ const Projects = () => {
                         </Tab>
                       </TabList>
                       <TabPanels>
-                        <TabPanel className="w-full px-1 py-2 flex flex-col gap-2">
-                          {startups?.map((startup) => {
+                        <TabPanel className="w-full px-1 py-2 flex flex-col gap-0.5">
+                          {startups?.map((startup, index) => {
                             return (
-                              <div
-                                className="w-full h-24 text-xxs rounded-md bg-secondary-bg border-secondary-border flex flex-col items-center justify-center text-primary-text"
-                                key={startup.id}
-                              >
-                                <p>{startup.id}</p>
-                                <p>{startup.name}</p>
-                                <p>{startup.description}</p>
-                              </div>
+                              <StartupPreviewRender
+                                key={index}
+                                startup={startup}
+                              />
                             );
                           })}
                         </TabPanel>
-                        <TabPanel className="w-full px-1 py-2 flex flex-col gap-2">
-                          {projects?.map((project) => {
+                        <TabPanel className="w-full px-1 py-2 flex flex-col gap-0.5">
+                          {projects?.map((project, index) => {
                             return (
-                              <div
-                                className="w-full h-24 text-xxs rounded-md bg-secondary-bg border-secondary-border flex flex-col items-center justify-center text-primary-text"
-                                key={project.id}
-                              >
-                                <p>{project.id}</p>
-                                <p>{project.name}</p>
-                                <p>{project.description}</p>
-                                <p>{project.github_link}</p>
-                              </div>
+                              <ProjectPreviewRender
+                                key={index}
+                                project={project}
+                              />
                             );
                           })}
                         </TabPanel>
-                        <TabPanel className="w-full px-1 py-2 flex flex-col gap-2">
-                          {links?.map((link) => {
+                        <TabPanel className="w-full px-1 py-2 flex flex-col gap-0.5">
+                          {links?.map((link, index) => {
                             return (
-                              <div
-                                className="w-full h-24 text-xxs rounded-md bg-secondary-bg border-secondary-border flex flex-col items-center justify-center text-primary-text"
-                                key={link.id}
-                              >
-                                <p>{link.id}</p>
-                                <p>{link.title}</p>
-                                <p>{link.link}</p>
-                              </div>
+                              <LinkPreviewRender key={index} link={link} />
                             );
                           })}
                         </TabPanel>

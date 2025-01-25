@@ -27,7 +27,6 @@ const DeleteConfirmation = ({
         .delete()
         .eq("id", object.id);
 
-
       if (error) return;
 
       // Step 1: Get the deleted object's index
@@ -71,7 +70,7 @@ const DeleteConfirmation = ({
           });
         } catch (error) {
           ToastError({
-            message: "Failed to fetch realtime refresh page.",
+            message: "Failed to refresh page.",
           });
         }
       }
@@ -119,7 +118,6 @@ const DeleteConfirmation = ({
           >
             <div className="flex flex-col gap-1.5 text-center sm:text-left py-4 px-5 border-b border-secondary-border">
               <h2
-                id="radix-:r9q:"
                 className="text-base leading-none font-normal"
               >
                 <span className="break-words">Confirm Delete</span>
@@ -130,7 +128,7 @@ const DeleteConfirmation = ({
                 <p className="text-sm text-foreground-light">
                   Are you sure? you want to delete{" "}
                   <span className="font-semibold text-accent-text">
-                    {table === "startups" ? object.name : object.title}
+                    {table === "links" ? object.title : object.name}
                   </span>
                 </p>
               </div>

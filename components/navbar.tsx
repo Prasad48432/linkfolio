@@ -106,6 +106,7 @@ export default function Navbar({
                     alt="Header Logo"
                     width={124}
                     height={24}
+                    priority
                   />
                 </a>
               </div>

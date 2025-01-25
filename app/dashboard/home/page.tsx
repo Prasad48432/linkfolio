@@ -642,10 +642,10 @@ const Home = () => {
                   </div>
                   <div className="mt-4 border-t border-secondary-border"></div>
                   <div className="mt-4">
-                    <div className="bg-secondary-bg border border-secondary-border  h-[18px] w-[80px] rounded-[0.1875rem]"></div>
-                    <div className="w-60 h-16 border border-secondary-border rounded-md mt-2 bg-secondary-bg hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all ease-out duration-200"></div>
-                    <div className="w-60 h-20 border border-secondary-border rounded-md mt-2 bg-secondary-bg hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all ease-out duration-200"></div>
-                    <div className="w-60 h-14 border border-secondary-border rounded-md mt-2 bg-secondary-bg hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all ease-out duration-200"></div>
+                    <div className="bg-secondary-bg border border-secondary-border  h-[18px] w-60 rounded-[0.1875rem]"></div>
+                    <div className="w-60 h-16 border border-secondary-border rounded-md mt-2 bg-secondary-bg transition-all ease-out duration-200"></div>
+                    <div className="w-60 h-20 border border-secondary-border rounded-md mt-2 bg-secondary-bg transition-all ease-out duration-200"></div>
+                    <div className="w-60 h-14 border border-secondary-border rounded-md mt-2 bg-secondary-bg transition-all ease-out duration-200"></div>
                   </div>
                 </div>
               </div>

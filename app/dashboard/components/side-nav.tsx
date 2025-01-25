@@ -20,6 +20,7 @@ const SideNav = () => {
             height={24}
             src="/headerlogo.png"
             alt="header"
+            priority
           />
         </Link>
 
