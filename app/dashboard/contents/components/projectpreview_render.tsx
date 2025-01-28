@@ -7,24 +7,54 @@ import { FiLink } from "react-icons/fi";
 import Image from "next/image";
 import GithubStarBadge from "./starbadge";
 
-const ProjectPreviewRender = ({ project }: { project: any }) => {
+const ProjectPreviewRender = ({
+  project,
+  theme,
+}: {
+  project: any;
+  theme?: any;
+}) => {
   return (
     <div key={project.id} className="relative">
       <div className="absolute top-5 right-3 flex flex-col gap-1 items-center justify-center">
         <Link
+          style={{
+            background: theme ? theme.primary_bg : "#121212",
+            borderColor: theme ? theme.border : "#4d4d4d",
+          }}
           href={`https://${project.github_link}`}
-          className="cursor-pointer bg-primary-bg border-secondary-strongerborder px-1 py-0.5 flex items-center justify-center gap-2 rounded-md"
+          className="cursor-pointer px-1 py-0.5 flex items-center justify-center gap-2 rounded-md border"
         >
-          <IoLogoGithub className="text-sm text-primary-text" />
+          <IoLogoGithub
+            style={{
+              color: theme ? theme.primary_text : "#ededed",
+            }}
+            className="text-sm "
+          />
         </Link>
         <Link
+          style={{
+            background: theme ? theme.primary_bg : "#121212",
+            borderColor: theme ? theme.strongerborder : "#4d4d4d",
+          }}
           href={`https://${project.website_link}`}
-          className="cursor-pointer bg-primary-bg border-secondary-strongerborder px-1 py-0.5 flex items-center justify-center gap-2 rounded-md"
+          className="cursor-pointer px-1 py-0.5 flex items-center justify-center gap-2 rounded-md border"
         >
-          <FiLink className="text-sm text-primary-text" />
+          <FiLink
+            style={{
+              color: theme ? theme.primary_text : "#ededed",
+            }}
+            className="text-sm "
+          />
         </Link>
       </div>
-      <div className="w-60 rounded-md mt-2 bg-secondary-bg p-4 border-[0.5px] border-secondary-strongerborder">
+      <div
+        style={{
+          background: theme ? theme.secondary_bg : "#262626",
+          borderColor: theme ? theme.strongerborder : "#4d4d4d",
+        }}
+        className="w-60 rounded-md mt-2  p-4 border-[0.5px]"
+      >
         <div className="flex items-center">
           <div className="w-[2.4rem] h-[2.4rem] p-0.5 rounded-full border border-dashed mr-2">
             <Image
@@ -38,18 +68,37 @@ const ProjectPreviewRender = ({ project }: { project: any }) => {
           </div>
           <div className="flex flex-col items-start justify-center gap-1.5">
             <a target="_blank" href={`https://${project.website_link}`}>
-              <p className="text-primary-text hover:underline font-semibold text-sm -mb-1.5">
+              <p
+                style={{
+                  color: theme ? theme.primary_text : "#ededed",
+                }}
+                className="hover:underline font-semibold text-sm -mb-1.5"
+              >
                 {project.name}
               </p>
             </a>
             <span className="flex items-center justify-center gap-0.5">
               <CategoryBadge object={project} size={"sm"} />
-              <GithubStarBadge link={project.github_link} size="sm" />
+              <GithubStarBadge
+                link={project.github_link}
+                theme={theme}
+                size="sm"
+              />
             </span>
           </div>
         </div>
-        <hr className="border-t border-secondary-strongerborder my-2 w-full" />
-        <span className="text-primary-text mt-2 text-mx markdown_content">
+        <hr
+          style={{
+            borderColor: theme ? theme.strongerborder : "#4d4d4d",
+          }}
+          className="border-t  my-2 w-full"
+        />
+        <span
+          style={{
+            color: theme ? theme.primary_text : "#ededed",
+          }}
+          className="text-primary-text mt-2 text-mx markdown_content"
+        >
           <ReactMarkdown>{project.description}</ReactMarkdown>
         </span>
       </div>

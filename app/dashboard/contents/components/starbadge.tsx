@@ -4,7 +4,15 @@ import React, { useState, useEffect } from "react";
 import { DiGithubBadge } from "react-icons/di";
 import { FaRegStar } from "react-icons/fa6";
 
-const GithubStarBadge = ({ link, size }: { link: string; size: string }) => {
+const GithubStarBadge = ({
+  link,
+  size,
+  theme,
+}: {
+  link: string;
+  size: string;
+  theme?: any;
+}) => {
   const [stars, setStars] = useState(1200);
   // useEffect(() => {
   //   const fetchGitHubStars = async () => {
@@ -50,6 +58,11 @@ const GithubStarBadge = ({ link, size }: { link: string; size: string }) => {
 
   return (
     <span
+      style={{
+        background: theme ? theme.primary_bg : "#121212",
+        borderColor: theme ? theme.strongerborder : "#4d4d4d",
+        color: theme ? theme.primary_text : "#ededed",
+      }}
       className={`flex bg-primary-bg items-center justify-center rounded border border-secondary-strongerborder ${
         size === "sm"
           ? "text-[0.4rem] lg:text-[0.5rem]"

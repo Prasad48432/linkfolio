@@ -56,6 +56,14 @@ export default function Home() {
     user_skills: [],
     resume_url: "",
     resume_url_visibility: false,
+    theme: {
+      primary_bg: "",
+      secondary_bg: "",
+      primary_text: "",
+      accent_text: "",
+      border: "",
+      strongerborder: "",
+    }
   });
 
   useEffect(() => {
@@ -66,7 +74,7 @@ export default function Home() {
         const { data, error } = await supabase
           .from("profiles")
           .select(
-            "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url, resume_url_visibility"
+            "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url, resume_url_visibility, theme"
           )
           .eq("id", userId)
           .single();

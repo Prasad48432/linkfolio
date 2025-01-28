@@ -5,7 +5,13 @@ import CategoryBadge from "./categorybadge";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 
-const StartupPreviewRender = ({ startup }: { startup: any }) => {
+const StartupPreviewRender = ({
+  startup,
+  theme,
+}: {
+  startup: any;
+  theme?: any;
+}) => {
   return (
     <div key={startup.id} className="relative">
       <div className="absolute top-5 right-2 flex items-center">
@@ -33,9 +39,18 @@ const StartupPreviewRender = ({ startup }: { startup: any }) => {
         </div>
       </div>
 
-      <div className="w-60 rounded-md mt-2 bg-secondary-bg p-4 border-[0.5px] border-secondary-strongerborder">
+      <div
+        style={{
+          background: theme ? theme.secondary_bg : "#262626",
+          borderColor: theme ? theme.strongerborder : "#4d4d4d",
+        }}
+        className="w-60 rounded-md mt-2 p-4 border-[0.5px]"
+      >
         <div className="flex items-center">
-          <div className="w-[2.4rem] h-[2.4rem] p-0.5 rounded-full border border-dashed mr-2">
+          <div
+          style={{
+            borderColor: theme ? theme.strongerborder : "#4d4d4d",
+          }} className="w-[2.4rem] h-[2.4rem] p-0.5 rounded-full border border-dashed mr-2">
             <Image
               src={`https://www.google.com/s2/favicons?sz=128&domain_url=${startup.website}`}
               title={startup.name}
@@ -46,8 +61,14 @@ const StartupPreviewRender = ({ startup }: { startup: any }) => {
             />
           </div>
           <div className="">
-            <a target="_blank" href={`https://${startup.website}`}>
-              <p className="text-primary-text hover:underline font-semibold text-sm -mb-1.5">
+            <a
+              style={{
+                color: theme ? theme.primary_text : "#ededed",
+              }}
+              target="_blank"
+              href={`https://${startup.website}`}
+            >
+              <p className="hover:underline font-semibold text-sm -mb-1.5">
                 {startup.name}
               </p>
             </a>
@@ -59,11 +80,21 @@ const StartupPreviewRender = ({ startup }: { startup: any }) => {
         </div>
         {startup.status !== "discontinued" &&
           startup.show_toggle !== "none" && (
-            <hr className="border-t border-secondary-strongerborder my-2 w-full" />
+            <hr
+              style={{
+                borderColor: theme ? theme.strongerborder : "#4d4d4d",
+              }}
+              className="border-t  my-2 w-full"
+            />
           )}
         {startup.status !== "discontinued" &&
           startup.show_toggle !== "none" && (
-            <span className="text-primary-text mt-2 text-mx markdown_content">
+            <span
+              style={{
+                color: theme ? theme.primary_text : "#ededed",
+              }}
+              className=" mt-2 text-mx markdown_content"
+            >
               {startup.status !== "discontinued" &&
                 startup.show_toggle !== "none" && (
                   <>

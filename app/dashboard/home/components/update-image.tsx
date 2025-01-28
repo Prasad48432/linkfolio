@@ -6,13 +6,11 @@ const UpdateImage = ({
   image,
   setModal,
   handleFileChange,
-  loading,
   fetchLoading,
 }: {
   image: string;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   handleFileChange: any;
-  loading: boolean;
   fetchLoading: boolean;
 }) => {
   return (

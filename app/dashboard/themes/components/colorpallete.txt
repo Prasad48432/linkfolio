@@ -1,0 +1,121 @@
+
+
+{
+    primary_bg: "#F9F7F7",
+    secondary_bg: "#DBE2EF",
+    primary_text: "#112D4E",
+    accent_text: "#3F72AF",
+    border: "#b9c6df",
+    strongerborder: "#a7b8d7",
+    theme_type: "light"
+}
+
+{
+    primary_bg: "#FFF5E4",
+    secondary_bg: "#FFE3E1",
+    primary_text: "#ff8080",
+    accent_text: "#ff4d4d",
+    border: "#ff7066",
+    strongerborder: "#ff4133",
+    theme_type: "light"
+}
+
+{
+    primary_bg: "#F4EEFF",
+    secondary_bg: "#DCD6F7",
+    primary_text: "#424874",
+    accent_text: "#A6B1E1",
+    border: "#b6aaee",
+    strongerborder: "#927fe6",
+    theme_type: "light"
+}
+
+{
+    primary_bg: "#FFE6E6",
+    secondary_bg: "#dfc7d7",
+    primary_text: "#7469B6",
+    accent_text: "#AD88C6",
+    border: "#d0aec5",
+    strongerborder: "#be8eae",
+    theme_type: "light"
+  }
+
+  
+
+    {
+      primary_bg: "#F8EDE3",
+      secondary_bg: "#BDD2B6",
+      primary_text: "#5c685a",
+      accent_text: "#849181",
+      border: "#9bbb90",
+      strongerborder: "#7ea871",
+      theme_type: "light"
+    }
+
+
+    {
+      primary_bg: "#EDF1D6",
+      secondary_bg: "#9DC08B",
+      primary_text: "#40513B",
+      accent_text: "#609966",
+      border: "#81af6a",
+      strongerborder: "#679550",
+      theme_type: "light"
+    }
+
+
+        {
+      primary_bg: "#E2F2FD",
+      secondary_bg: "#DBE2EF",
+      primary_text: "#112D4E",
+      accent_text: "#3F72AF",
+      border: "#a7b8d7",
+      strongerborder: "#849cc8",
+      theme_type: "light"
+    }
+
+
+
+
+    {
+        primary_bg: "#27374D",
+        secondary_bg: "#526D82",
+        primary_text: "#DDE6ED",
+        accent_text: "#9DB2BF",
+        border: "#7290a7",
+        strongerborder: "#91a8ba",
+        theme_type: "dark"
+    }
+
+
+    {
+        primary_bg: "#222831",
+        secondary_bg: "#393E46",
+        primary_text: "#FFD369",
+        accent_text: "#b99f64",
+        border: "#505762",
+        strongerborder: "#67707e",
+        theme_type: "dark"
+    }
+
+
+    {
+        primary_bg: "#2C3333",
+        secondary_bg: "#395B64",
+        primary_text: "#E7F6F2",
+        accent_text: "#A5C9CA",
+        border: "#4a7682",
+        strongerborder: "#5d93a2",
+        theme_type: "dark"
+    }
+
+
+    {
+        primary_bg: "#2D2424",
+        secondary_bg: "#5C3D2E",
+        primary_text: "#E0C097",
+        accent_text: "#d8724a",
+        border: "#774f3c",
+        strongerborder: "#99664d",
+        theme_type: "dark"
+    }

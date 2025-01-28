@@ -199,11 +199,19 @@ const countries = [
 ];
 
 const CountrySelect = ({
+  id,
   value,
-  onChange,
+  handleFieldChange,
 }: {
+  id:string;
   value: string;
-  onChange: ChangeEventHandler | undefined;
+  handleFieldChange: ({ id, field, value, isNumber, isLink, }: {
+    id: string;
+    field: string;
+    value: any;
+    isNumber?: boolean;
+    isLink?: boolean;
+}) => void
 }) => {
   return (
     <div className="relative">
@@ -218,7 +226,13 @@ const CountrySelect = ({
         name="country"
         className="relative  bg-secondary-bg mt-2 text-sm rounded-md pl-8 text-primarytext border border-secondary-border focus:border-secondary-strongerborder focus:outline-none transition duration-150 ease-in-out block w-full px-3 py-2"
         value={value}
-        onChange={onChange}
+        onChange={(e) => {
+          handleFieldChange({
+            id: id,
+            field: "country",
+            value: e.target.value,
+          })
+        }}
       >
         <option value="none" disabled>
           Pick Country

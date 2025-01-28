@@ -5,6 +5,7 @@ import {
   Globe,
   GripVertical,
   Link,
+  Loader,
   OctagonAlert,
   Settings,
   Tag,
@@ -18,12 +19,16 @@ import { motion } from "framer-motion";
 import CategorySelect from "./categoryselect";
 import StatusSelect from "./statusselect";
 import DeleteConfirmation from "./deleteconfirm";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+import { ToastError } from "@/components/toast";
+import { IoAdd } from "react-icons/io5";
+import { MdDeleteOutline } from "react-icons/md";
 
 type HandleFieldChange = (params: {
   id: string;
   field: string;
   value: any;
-  isNumber? : boolean;
+  isNumber?: boolean;
 }) => void;
 
 interface StartupCardProps {
@@ -155,7 +160,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                         id: startup.id,
                         field: "estimated_revenue",
                         value: e.target.value,
-                        isNumber: true
+                        isNumber: true,
                       })
                     }
                     className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
@@ -213,7 +218,10 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
               onClick={() => toggleHandler("verficationSelected")}
               className={`w-6 lg:w-8 h-6 lg:h-8 bg-danger-selection border-danger-border border rounded-full flex items-center justify-center cursor-pointer`}
             >
-              <OctagonAlert strokeWidth={1} size={size.width > 1000 ? 18 : 12} />
+              <OctagonAlert
+                strokeWidth={1}
+                size={size.width > 1000 ? 18 : 12}
+              />
             </div>
             <div
               onClick={() => toggleHandler("settingsSelected")}
@@ -256,6 +264,209 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
           </div>
         </div>
         <div className="w-[90%] flex items-center justify-center">
+          {toggles.verficationSelected && (
+            <div className="bg-morelightbg rounded-md mt-2 w-full">
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.15 }}
+                className="flex rounded-md shadow-sm items-center justify-start pl-2 pr-2"
+              >
+                <p className="py-2 px-1 text-primary-text text-sm">
+                  Verify your domain email for additional security
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="flex rounded-md shadow-sm items-center justify-center pl-2 pr-2 pb-2"
+              >
+                <input
+                  value={"mail"}
+                  onChange={(e) => {}}
+                  placeholder="mail address"
+                  type="text"
+                  autoComplete="off"
+                  className="flex-1 h-10 text-primary-text placeholder-gray-500 form-input bg-primary-bg pl-3 block w-[70%] rounded-l-md border border-r-0 border-secondary-strongerborder transition duration-150 ease-in-out sm:text-sm focus:outline-none"
+                />
+                <span className="inline-flex bg-primary-bg h-10 items-center pr-3 rounded-none border border-l-0 border-secondary-strongerborder  text-gray-400 sm:text-sm">
+                  @{startup.website.split('https://')}
+                </span>
+                <button
+                  onClick={() => {}}
+                  className="bg-primary-bg h-10 text-primary-text font-normal py-2 px-4 rounded-r-md border border-l-0 border-secondary-strongerborder sm:text-sm"
+                >
+                  {false ? (
+                    "Send Email"
+                  ): (
+                    "Send Email"
+                  )}
+                </button>
+              </motion.div>
+            </div>
+          )}
+          {toggles.settingsSelected && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="w-full flex items-center justify-start pb-2"
+            >
+              <div className="h-20 p-2 mt-2 rounded-md flex flex-col items-center justify-center text-primarytext">
+                <TabGroup>
+                  <TabList className="flex gap-1 lg:gap-2 p-1 bg-primarybg rounded-md">
+                    <Tab className="rounded-[0.00875rem] lg:rounded-md py-1 px-3 text-[0.8rem] font-semibold text-primary-text focus:outline-none data-[selected]:bg-primary-bg data-[hover]:bg-primary-bg/40 data-[selected]:data-[hover]:bg-primary-bg/70 data-[focus]:outline-1 data-[focus]:outline-white">
+                      Visibility on Profile
+                    </Tab>
+                    <Tab className="rounded-[0.00875rem] lg:rounded-md py-1 px-1.5 text-[0.8rem] font-semibold text-primary-text focus:outline-none data-[selected]:bg-primary-bg data-[hover]:bg-primary-bg/40 data-[selected]:data-[hover]:bg-primary-bg/70 data-[focus]:outline-1 data-[focus]:outline-white">
+                      API Keys
+                    </Tab>
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel>
+                      <div className="flex m-2">
+                        <div className="mr-2 flex items-center justify-center">
+                          <input
+                            id={`radio-1`}
+                            aria-describedby={`radio-text-1`}
+                            type="radio"
+                            name={`show_toggle-${startup.id}`}
+                            value="default"
+                            onChange={() =>
+                              handleFieldChange({
+                                id: startup.id,
+                                field: "show_toggle",
+                                value: "none",
+                              })
+                            }
+                            checked={startup.show_toggle === "none"}
+                            className="w-3 h-3 text-blue-600 bg-gray-100 "
+                          />
+                          <label
+                            htmlFor="default-radio-1"
+                            className="ms-1 text-base font-medium text-gray-300"
+                          >
+                            None
+                          </label>
+                        </div>
+                        <div className="mr-2 flex items-center justify-center">
+                          <input
+                            id={`radio-1`}
+                            aria-describedby={`radio-text-1`}
+                            type="radio"
+                            name={`show_toggle-${startup.id}`}
+                            value="default"
+                            onChange={() =>
+                              handleFieldChange({
+                                id: startup.id,
+                                field: "show_toggle",
+                                value: "description",
+                              })
+                            }
+                            checked={startup.show_toggle === "description"}
+                            className="w-3 h-3 text-blue-600 bg-gray-100 "
+                          />
+                          <label
+                            htmlFor="default-radio-1"
+                            className="ms-1 text-base underline underline-offset-4 decoration-dashed font-medium text-gray-300 interactable"
+                            data-type="desc_place"
+                          >
+                            Description
+                          </label>
+                        </div>
+                        <div
+                          onClick={() => {
+                            if (!startup.apiinfo) {
+                              ToastError({ message: "Add API Info first." });
+                            }
+                          }}
+                          className="flex items-center justify-center"
+                        >
+                          <input
+                            id={`radio-2`}
+                            aria-describedby={`radio-text-2`}
+                            type="radio"
+                            disabled={!startup.apiinfo}
+                            name={`show_toggle-${startup.id}`}
+                            onChange={() =>
+                              handleFieldChange({
+                                id: startup.id,
+                                field: "show_toggle",
+                                value: "revenue",
+                              })
+                            }
+                            checked={startup.show_toggle === "revenue"}
+                            value="default"
+                            className="w-3 h-3 text-blue-600 bg-gray-100 "
+                          />
+                          <label
+                            htmlFor="default-radio-1"
+                            data-type="revenue_place"
+                            className={`interactable underline underline-offset-4 decoration-dashed ms-1 text-base font-medium ${
+                              startup.apiinfo
+                                ? "text-gray-300"
+                                : "text-gray-500"
+                            }`}
+                          >
+                            Revenue Chart
+                          </label>
+                        </div>
+                      </div>
+                    </TabPanel>
+                    <TabPanel>
+                      <div className="flex gap-1.5 m-2">
+                        {!startup.apiinfo && (
+                          <span
+                            onClick={() => {}}
+                            className="bg-primary-bg p-1 rounded-md cursor-pointer"
+                          >
+                            <IoAdd size={20} />
+                          </span>
+                        )}
+                        <span
+                          className={`${
+                            startup.apiinfo
+                              ? "text-primarytext"
+                              : "text-primary-text/60"
+                          }  p-1 pl-2  pr-2 bg-lightbg rounded-md w-[50%] text-sm`}
+                        >
+                          {startup.apiinfo
+                            ? startup.apiinfo.apiid
+                            : "NO API INFO FOUND"}
+                        </span>
+                        <span
+                          className={`${
+                            startup.apiinfo
+                              ? "text-primarytext"
+                              : "text-primary-text/60"
+                          } p-1 pl-2 pr-2 bg-lightbg rounded-md w-[50%] text-sm`}
+                        >
+                          {startup.apiinfo
+                            ? startup.apiinfo.apikey
+                            : "NO API INFO FOUND"}
+                        </span>
+                        {startup.apiinfo && (
+                          <span
+                            onClick={() => {
+                              // deleteApiInFirestore(startup.id);
+                            }}
+                            title="delete api info"
+                            className="cursor-pointer bg-lightbg p-1 rounded-md text-red-400"
+                          >
+                            <MdDeleteOutline size={20} />
+                          </span>
+                        )}
+                      </div>
+                    </TabPanel>
+                  </TabPanels>
+                </TabGroup>
+              </div>
+            </motion.div>
+          )}
           {toggles.categorySelected && (
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -314,7 +525,9 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                 >
                   <span
                     className={`inline-block w-[0.7rem] h-[0.7rem] lg:w-[0.9rem] lg:h-[0.9rem] transform bg-white rounded-full transition-transform duration-200 ${
-                      startup.show_status ? "translate-x-[1rem] lg:translate-x-5" : "translate-x-[0.2rem]"
+                      startup.show_status
+                        ? "translate-x-[1rem] lg:translate-x-5"
+                        : "translate-x-[0.2rem]"
                     }`}
                   />
                 </button>

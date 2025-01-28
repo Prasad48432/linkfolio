@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Dashboard from "../dashboard";
 import {
   BatteryLow,
@@ -54,7 +54,6 @@ const Home = () => {
     resume_url: "",
     resume_url_visibility: false,
   });
-  const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const [preview, setPreview] = useState(false);
@@ -92,6 +91,99 @@ const Home = () => {
     }
   };
 
+  const debounce = (func: (...args: any[]) => void, wait: number) => {
+    let timeout: NodeJS.Timeout | null = null;
+    return (...args: any[]) => {
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  };
+
+  const updateFieldInSupabase = async ({
+    table,
+    id,
+    field,
+    value,
+    isLink = false,
+    isNumber = false,
+  }: {
+    table: string;
+    id: string;
+    field: string;
+    value: any;
+    isLink?: boolean;
+    isNumber?: boolean;
+  }) => {
+    try {
+      if (isLink) {
+        const regex = /^https:\/\/([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+        if (!regex.test(value)) {
+          ToastError({ message: "Invalid link." });
+          return;
+        }
+      }
+
+      if (isNumber) {
+        const parsedValue = parseInt(value, 10);
+        if (!isNaN(parsedValue)) {
+          value = parsedValue;
+        } else {
+          ToastError({ message: "Invalid number input." });
+          return;
+        }
+      }
+
+      const { data, error } = await supabase
+        .from(table)
+        .update({ [field]: value })
+        .eq("id", id);
+
+      if (error) {
+        ToastError({
+          message: "An unexpected error occurred.",
+        });
+      }
+
+      ToastSuccess({ message: "Updated successfully." });
+    } catch (error) {
+      ToastError({ message: "An unexpected error occurred." });
+    }
+  };
+
+  const debouncedUpdateField = useCallback(
+    debounce(updateFieldInSupabase, 1000),
+    []
+  );
+
+  const handleFieldChange = ({
+    id,
+    field,
+    value,
+    isNumber = false,
+    isLink = false,
+  }: {
+    id: string;
+    field: string;
+    value: any;
+    isNumber?: boolean;
+    isLink?: boolean;
+  }) => {
+    setProfileData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+
+    // Pass arguments directly
+    debouncedUpdateField({
+      table: "profiles",
+      id,
+      field,
+      value,
+      isNumber: isNumber,
+      isLink: isLink,
+    });
+  };
+
   // Real-time subscription to profile updates
   useEffect(() => {
     const channel = supabase
@@ -126,40 +218,6 @@ const Home = () => {
   ) => {
     const { name, value } = e.target;
     setProfileData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleUpdate = async () => {
-    setLoading(true);
-
-    try {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (user) {
-        const { error } = await supabase
-          .from("profiles")
-          .update({
-            full_name: profileData.full_name,
-            bio: profileData.bio,
-            country: profileData.country,
-            profile_link: profileData.profile_link,
-            profile_link_text: profileData.profile_link_text,
-          })
-          .eq("id", user.id);
-
-        if (error) {
-          ToastError({ message: "Update unsuccessful." });
-        } else {
-          ToastSuccess({ message: "Update successful." });
-        }
-      }
-    } catch (error) {
-      ToastError({ message: "An unexpected error occurred." });
-      console.error("Unexpected error:", error);
-    } finally {
-      setLoading(false);
-    }
   };
 
   const handleFileChange = async (event: { target: { files: any[] } }) => {
@@ -282,7 +340,6 @@ const Home = () => {
                         image={profileData.avatar_url}
                         setModal={setModal}
                         handleFileChange={handleFileChange}
-                        loading={loading}
                         fetchLoading={fetchLoading}
                       />
                     </div>
@@ -303,7 +360,13 @@ const Home = () => {
                             type="text"
                             name="full_name"
                             value={profileData.full_name}
-                            onChange={handleInputChange}
+                            onChange={(e) => {
+                              handleFieldChange({
+                                id: profileData.id,
+                                field: "full_name",
+                                value: e.target.value,
+                              });
+                            }}
                             className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-10 text-sm bg-secondary-bg border focus:outline-none rounded-md mt-1"
                           />
                         </div>
@@ -313,8 +376,9 @@ const Home = () => {
                           Country
                         </label>
                         <CountrySelect
+                          id={profileData.id}
                           value={profileData.country}
-                          onChange={handleInputChange}
+                          handleFieldChange={handleFieldChange}
                         />
                       </div>
                       <div className="w-full">
@@ -355,7 +419,13 @@ const Home = () => {
                           rows={5}
                           name="bio"
                           value={profileData.bio}
-                          onChange={handleInputChange}
+                          onChange={(e) => {
+                            handleFieldChange({
+                              id: profileData.id,
+                              field: "bio",
+                              value: e.target.value,
+                            });
+                          }}
                           className="border-secondary-border focus:border-secondary-strongerborder w-full px-3 py-2 text-sm bg-secondary-bg border focus:outline-none rounded-md mt-1"
                         />
                       </div>
@@ -377,7 +447,13 @@ const Home = () => {
                             type="text"
                             name="profile_link_text"
                             value={profileData.profile_link_text}
-                            onChange={handleInputChange}
+                            onChange={(e) => {
+                              handleFieldChange({
+                                id: profileData.id,
+                                field: "profile_link_text",
+                                value: e.target.value,
+                              });
+                            }}
                             placeholder="text to diplay for profile link"
                             className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-10 text-sm bg-secondary-bg border focus:outline-none rounded-md mt-1"
                           />
@@ -400,27 +476,19 @@ const Home = () => {
                             name="profile_link"
                             placeholder="link"
                             value={profileData.profile_link}
-                            onChange={handleInputChange}
+                            onChange={(e) => {
+                              handleFieldChange({
+                                id: profileData.id,
+                                field: "profile_link",
+                                value: e.target.value,
+                                isLink: true,
+                              });
+                            }}
                             className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-10 text-sm bg-secondary-bg border focus:outline-none rounded-md mt-1"
                           />
                         </div>
                       </div>
                     </div>
-                    <button
-                      onClick={handleUpdate}
-                      disabled={loading}
-                      className="font-thin mb-10 flex items-center justify-center mt-2 bg-accent-bg/80 border border-accent-border/70 hover:bg-accent-selection/80 hover:border-accent-strongerborder/70 transition-all ease-out duration-200 text-primary-text py-1.5 px-3 rounded-md disabled:opacity-80"
-                    >
-                      {loading ? (
-                        <Loader
-                          size={24}
-                          strokeWidth={1}
-                          className="mr-2 animate-spin text-center"
-                        />
-                      ) : (
-                        "Update Profile"
-                      )}
-                    </button>
                   </>
                 )}
               </TabPanel>
