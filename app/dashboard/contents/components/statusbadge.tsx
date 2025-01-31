@@ -47,7 +47,15 @@ const statusInfo = [
   // Add more statuses as needed
 ];
 
-const StatusBadge = ({ startup, size }: { startup: any; size: string }) => {
+const StatusBadge = ({
+  startup,
+  size,
+  theme,
+}: {
+  startup: any;
+  size: string;
+  theme?: any;
+}) => {
   // Find the corresponding status info object
   const statusInfoItem = statusInfo.find(
     (item) => item.status === startup.status
@@ -57,6 +65,9 @@ const StatusBadge = ({ startup, size }: { startup: any; size: string }) => {
     const { text, icon, color } = statusInfoItem;
     return (
       <span
+        style={{
+          borderColor: theme ? theme.strongerborder : "#4d4d4d",
+        }}
         className={`inline-flex items-center ${
           size === "sm"
             ? "text-[0.4rem] lg:text-[0.5rem] mr-1"

@@ -22,7 +22,7 @@ const ProjectPreviewRender = ({
             background: theme ? theme.primary_bg : "#121212",
             borderColor: theme ? theme.border : "#4d4d4d",
           }}
-          href={`https://${project.github_link}`}
+          href={`${project.github_link}`}
           className="cursor-pointer px-1 py-0.5 flex items-center justify-center gap-2 rounded-md border"
         >
           <IoLogoGithub
@@ -37,7 +37,7 @@ const ProjectPreviewRender = ({
             background: theme ? theme.primary_bg : "#121212",
             borderColor: theme ? theme.strongerborder : "#4d4d4d",
           }}
-          href={`https://${project.website_link}`}
+          href={`${project.website_link}`}
           className="cursor-pointer px-1 py-0.5 flex items-center justify-center gap-2 rounded-md border"
         >
           <FiLink
@@ -67,7 +67,7 @@ const ProjectPreviewRender = ({
             />
           </div>
           <div className="flex flex-col items-start justify-center gap-1.5">
-            <a target="_blank" href={`https://${project.website_link}`}>
+            <a target="_blank" href={`${project.website_link}`}>
               <p
                 style={{
                   color: theme ? theme.primary_text : "#ededed",

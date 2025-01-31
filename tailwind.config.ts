@@ -10,90 +10,144 @@ const {
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
+    darkMode: ["class"],
+    content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      fontSize: {
-        xxs: ['0.5rem', '0.75rem'],
-        ms: ['0.6rem', '0.75rem'],
-        mx: ['0.7rem', '0.8rem'],
-      },
-      colors: {
-        primary: {
-          DEFAULT: "hsl(0, 0%, 18%)",
-          bg: "#121212",
-          text: "#ededed",
-        },
-        secondary: {
-          DEFAULT: "hsl(0deg 0% 14.1%)",
-          bg: "#262626",
-          text: "#6c757d",
-          selection: "#333333",
-          border: "#363636",
-          strongerborder: "#4d4d4d",
-        },
-        accent: {
-          DEFAULT: "#5769c1",
-          bg: "#991f00",
-          text: "#ff5733",
-          selection: "#b32400",
-          border: "#ff471a",
-          strongerborder: "#ff8566",
-        },
-        brdr: {
-          DEFAULT: "hsl(0deg 0% 21.2%)",
-          strong: "#363636",
-          stronger: "#666666",
-        },
-        danger: {
-          DEFAULT: "hsl(10.2deg 77.9% 53.9%)",
-          bg: "#4d231d",
-          selection: "#e34a3f80",
-          border: "#823529",
-          strongerborder: "#e6563c",
-        },
-        success : {
-          DEFAULT: "hsl(154.9deg 100% 19.2%)",
-          bg: "#006239",
-          selection: "hsl(153.1deg 60.2% 52.7%/0.5)",
-          border: "#3ecf8e",
-          strongerborder: "hsl(153.1deg 60.2% 52.7%)"
-        }
-      },
-      keyframes: {
-        spotlight: {
-          "0%": {
-            opacity: "0",
-            transform: "translate(-72%, -62%) scale(0.5)",
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translate(-50%,-40%) scale(1)",
-          },
-        },
-        slideIn: {
-          "0%": { transform: "translateX(-10px)", opacity: "0" },
-          "100%": { transform: "translateX(0)", opacity: "1" },
-        },
-        pingCustom: {
-          '75%, 100%': { transform: 'scale(1.07)', opacity: '0.5' },
-        },
-        shimmer: {
-          '0%': { transform: 'translateX(-100%)' },
-          '100%': { transform: 'translateX(100%)' }
-        }
-      },
-      animation: {
-        slideIn: "slideIn 0.3s ease-out",
-        spotlight: "spotlight 2s ease .75s 1 forwards",
-        pingCustom: 'pingCustom 1s cubic-bezier(0, 0, 0.2, 1) infinite',
-        shimmer: 'shimmer 1.5s infinite'
-      },
-    },
+  	extend: {
+  		fontSize: {
+  			xxs: [
+  				'0.5rem',
+  				'0.75rem'
+  			],
+  			ms: [
+  				'0.6rem',
+  				'0.75rem'
+  			],
+  			mx: [
+  				'0.7rem',
+  				'0.8rem'
+  			]
+  		},
+  		colors: {
+  			primary: {
+  				DEFAULT: 'hsl(var(--primary))',
+  				bg: '#121212',
+  				text: '#ededed',
+  				foreground: 'hsl(var(--primary-foreground))'
+  			},
+  			secondary: {
+  				DEFAULT: 'hsl(var(--secondary))',
+  				bg: '#262626',
+  				text: '#6c757d',
+  				selection: '#333333',
+  				border: '#363636',
+  				strongerborder: '#4d4d4d',
+  				foreground: 'hsl(var(--secondary-foreground))'
+  			},
+  			accent: {
+  				DEFAULT: 'hsl(var(--accent))',
+  				bg: '#991f00',
+  				text: '#ff5733',
+  				selection: '#b32400',
+  				border: '#ff471a',
+  				strongerborder: '#ff8566',
+  				foreground: 'hsl(var(--accent-foreground))'
+  			},
+  			brdr: {
+  				DEFAULT: 'hsl(0deg 0% 21.2%)',
+  				strong: '#363636',
+  				stronger: '#666666'
+  			},
+  			danger: {
+  				DEFAULT: 'hsl(10.2deg 77.9% 53.9%)',
+  				bg: '#4d231d',
+  				selection: '#e34a3f80',
+  				border: '#823529',
+  				strongerborder: '#e6563c'
+  			},
+  			success: {
+  				DEFAULT: 'hsl(154.9deg 100% 19.2%)',
+  				bg: '#006239',
+  				selection: 'hsl(153.1deg 60.2% 52.7%/0.5)',
+  				border: '#3ecf8e',
+  				strongerborder: 'hsl(153.1deg 60.2% 52.7%)'
+  			},
+  			background: 'hsl(var(--background))',
+  			foreground: 'hsl(var(--foreground))',
+  			card: {
+  				DEFAULT: 'hsl(var(--card))',
+  				foreground: 'hsl(var(--card-foreground))'
+  			},
+  			popover: {
+  				DEFAULT: 'hsl(var(--popover))',
+  				foreground: 'hsl(var(--popover-foreground))'
+  			},
+  			muted: {
+  				DEFAULT: 'hsl(var(--muted))',
+  				foreground: 'hsl(var(--muted-foreground))'
+  			},
+  			destructive: {
+  				DEFAULT: 'hsl(var(--destructive))',
+  				foreground: 'hsl(var(--destructive-foreground))'
+  			},
+  			border: 'hsl(var(--border))',
+  			input: 'hsl(var(--input))',
+  			ring: 'hsl(var(--ring))',
+  			chart: {
+  				'1': 'hsl(var(--chart-1))',
+  				'2': 'hsl(var(--chart-2))',
+  				'3': 'hsl(var(--chart-3))',
+  				'4': 'hsl(var(--chart-4))',
+  				'5': 'hsl(var(--chart-5))'
+  			}
+  		},
+  		keyframes: {
+  			spotlight: {
+  				'0%': {
+  					opacity: '0',
+  					transform: 'translate(-72%, -62%) scale(0.5)'
+  				},
+  				'100%': {
+  					opacity: '1',
+  					transform: 'translate(-50%,-40%) scale(1)'
+  				}
+  			},
+  			slideIn: {
+  				'0%': {
+  					transform: 'translateX(-10px)',
+  					opacity: '0'
+  				},
+  				'100%': {
+  					transform: 'translateX(0)',
+  					opacity: '1'
+  				}
+  			},
+  			pingCustom: {
+  				'75%, 100%': {
+  					transform: 'scale(1.07)',
+  					opacity: '0.5'
+  				}
+  			},
+  			shimmer: {
+  				'0%': {
+  					transform: 'translateX(-100%)'
+  				},
+  				'100%': {
+  					transform: 'translateX(100%)'
+  				}
+  			}
+  		},
+  		animation: {
+  			slideIn: 'slideIn 0.3s ease-out',
+  			spotlight: 'spotlight 2s ease .75s 1 forwards',
+  			pingCustom: 'pingCustom 1s cubic-bezier(0, 0, 0.2, 1) infinite',
+  			shimmer: 'shimmer 1.5s infinite'
+  		},
+  	}
   },
   plugins: [
     require("tailwindcss-animate"),

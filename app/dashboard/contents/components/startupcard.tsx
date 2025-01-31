@@ -380,7 +380,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                         </div>
                         <div
                           onClick={() => {
-                            if (!startup.apiinfo) {
+                            if (Object.keys(startup.api_info).length === 0) {
                               ToastError({ message: "Add API Info first." });
                             }
                           }}
@@ -390,7 +390,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                             id={`radio-2`}
                             aria-describedby={`radio-text-2`}
                             type="radio"
-                            disabled={!startup.apiinfo}
+                            disabled={Object.keys(startup.api_info).length === 0}
                             name={`show_toggle-${startup.id}`}
                             onChange={() =>
                               handleFieldChange({
@@ -407,7 +407,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                             htmlFor="default-radio-1"
                             data-type="revenue_place"
                             className={`interactable underline underline-offset-4 decoration-dashed ms-1 text-base font-medium ${
-                              startup.apiinfo
+                              startup.api_info
                                 ? "text-gray-300"
                                 : "text-gray-500"
                             }`}
@@ -419,7 +419,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                     </TabPanel>
                     <TabPanel>
                       <div className="flex gap-1.5 m-2">
-                        {!startup.apiinfo && (
+                        {Object.keys(startup.api_info).length === 0 && (
                           <span
                             onClick={() => {}}
                             className="bg-primary-bg p-1 rounded-md cursor-pointer"
@@ -429,30 +429,34 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                         )}
                         <span
                           className={`${
-                            startup.apiinfo
+                            Object.keys(startup.api_info).length !== 0
                               ? "text-primarytext"
                               : "text-primary-text/60"
                           }  p-1 pl-2  pr-2 bg-lightbg rounded-md w-[50%] text-sm`}
                         >
-                          {startup.apiinfo
-                            ? startup.apiinfo.apiid
+                          {Object.keys(startup.api_info).length !== 0
+                            ? startup.api_info.api_id
                             : "NO API INFO FOUND"}
                         </span>
                         <span
                           className={`${
-                            startup.apiinfo
+                            Object.keys(startup.api_info).length !== 0
                               ? "text-primarytext"
                               : "text-primary-text/60"
                           } p-1 pl-2 pr-2 bg-lightbg rounded-md w-[50%] text-sm`}
                         >
-                          {startup.apiinfo
-                            ? startup.apiinfo.apikey
+                          {Object.keys(startup.api_info).length !== 0
+                            ? startup.api_info.api_key
                             : "NO API INFO FOUND"}
                         </span>
-                        {startup.apiinfo && (
+                        {Object.keys(startup.api_info).length !== 0 && (
                           <span
                             onClick={() => {
-                              // deleteApiInFirestore(startup.id);
+                              handleFieldChange({
+                                id: startup.id,
+                                field: "api_info",
+                                value: {},
+                              })
                             }}
                             title="delete api info"
                             className="cursor-pointer bg-lightbg p-1 rounded-md text-red-400"

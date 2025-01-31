@@ -4,6 +4,39 @@ import StatusBadge from "./statusbadge";
 import CategoryBadge from "./categorybadge";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+
+const chartData = [
+  { month: "January", revenue: 186 },
+  { month: "February", revenue: 305 },
+  { month: "March", revenue: 237 },
+  { month: "April", revenue: 73 },
+  { month: "May", revenue: 209 },
+  { month: "June", revenue: 214 },
+];
+
+const hexToRgba = (hex: string, opacity: number) => {
+  // Remove "#" if present
+  hex = hex.replace(/^#/, "");
+
+  // Convert 3-digit hex to 6-digit
+  if (hex.length === 3) {
+    hex = hex.split("").map((char) => char + char).join("");
+  }
+
+  // Extract RGB values
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+};
 
 const StartupPreviewRender = ({
   startup,
@@ -12,6 +45,12 @@ const StartupPreviewRender = ({
   startup: any;
   theme?: any;
 }) => {
+  const chartConfig = {
+    revenue: {
+      label: "Revenue",
+      color: theme ? hexToRgba(theme.primary_text, 0.6) : "hsl(var(--chart-2))",
+    },
+  } satisfies ChartConfig;
   return (
     <div key={startup.id} className="relative">
       <div className="absolute top-5 right-2 flex items-center">
@@ -48,9 +87,11 @@ const StartupPreviewRender = ({
       >
         <div className="flex items-center">
           <div
-          style={{
-            borderColor: theme ? theme.strongerborder : "#4d4d4d",
-          }} className="w-[2.4rem] h-[2.4rem] p-0.5 rounded-full border border-dashed mr-2">
+            style={{
+              borderColor: theme ? theme.strongerborder : "#4d4d4d",
+            }}
+            className="w-[2.4rem] h-[2.4rem] p-0.5 rounded-full border border-dashed mr-2"
+          >
             <Image
               src={`https://www.google.com/s2/favicons?sz=128&domain_url=${startup.website}`}
               title={startup.name}
@@ -66,16 +107,16 @@ const StartupPreviewRender = ({
                 color: theme ? theme.primary_text : "#ededed",
               }}
               target="_blank"
-              href={`https://${startup.website}`}
+              href={`${startup.website}`}
             >
               <p className="hover:underline font-semibold text-sm -mb-1.5">
                 {startup.name}
               </p>
             </a>
             {startup.show_status && startup.status !== "discontinued" && (
-              <StatusBadge startup={startup} size={"sm"} />
+              <StatusBadge startup={startup} size={"sm"} theme={theme} />
             )}
-            <CategoryBadge object={startup} size={"sm"} />
+            <CategoryBadge object={startup} size={"sm"} theme={theme} />
           </div>
         </div>
         {startup.status !== "discontinued" &&
@@ -93,13 +134,36 @@ const StartupPreviewRender = ({
               style={{
                 color: theme ? theme.primary_text : "#ededed",
               }}
-              className=" mt-2 text-mx markdown_content"
+              className="mt-2 text-mx markdown_content"
             >
               {startup.status !== "discontinued" &&
                 startup.show_toggle !== "none" && (
                   <>
-                    {startup.show_toggle === "revn" ? (
-                      <></>
+                    {startup.show_toggle === "revenue" ? (
+                      <ChartContainer config={chartConfig} className="h-24 w-full">
+                        <AreaChart
+                          accessibilityLayer
+                          data={chartData}
+                          margin={{
+                            left: 12,
+                            right: 12,
+                          }}
+                        >
+                          <CartesianGrid vertical={false} horizontal={false} />
+                          <ChartTooltip
+                            cursor={false}
+                            content={<ChartTooltipContent indicator="dot" />}
+                          />
+                          <Area
+                            dataKey="revenue"
+                            type="natural"
+                            fill="var(--color-revenue)"
+                            fillOpacity={0.4}
+                            stroke="var(--color-revenue)"
+                            stackId="a"
+                          />
+                        </AreaChart>
+                      </ChartContainer>
                     ) : (
                       <ReactMarkdown>{startup.description}</ReactMarkdown>
                     )}

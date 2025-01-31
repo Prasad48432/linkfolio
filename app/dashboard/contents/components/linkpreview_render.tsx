@@ -23,7 +23,7 @@ const LinkPreviewRender = ({ link, theme }: { link: any; theme?: any }) => {
             />
           </div>
           <div className="flex flex-col justify-center w-[78%]">
-            <a target="_blank" href={`https://${link.link}`}>
+            <a target="_blank" href={`${link.link}`}>
               <p
                 style={{
                   color: theme ? theme.primary_text : "#ededed",

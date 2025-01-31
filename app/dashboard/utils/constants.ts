@@ -14,14 +14,14 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
     icon: FolderKanban,
   },
   {
-    title: "Socials",
-    path: "/dashboard/socials",
-    icon: AtSign,
-  },
-  {
     title: "Themes",
     path: "/dashboard/themes",
     icon: Palette,
+  },
+  {
+    title: "Socials",
+    path: "/dashboard/socials",
+    icon: AtSign,
   },
   {
     title: "Analytics",
