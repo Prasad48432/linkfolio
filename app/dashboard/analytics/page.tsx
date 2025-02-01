@@ -409,7 +409,7 @@ const Component = () => {
             <div className="grid gap-2">
               <div className="flex items-center gap-2 font-medium leading-none">
                 Trending up by 5.2% this month{" "}
-                <TrendingUp className="h-4 w-4" />
+                <TrendingUp className="h-4 w-4 text-success-border" />
               </div>
               <div className="flex items-center gap-2 leading-none text-muted-foreground">
                 January - June 2024
@@ -423,3 +423,74 @@ const Component = () => {
 };
 
 export default Component;
+
+// "use client"
+
+// import { useState } from "react"
+// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+// import PageClicksChart from "./page-clicks-chart"
+// import PageSourcesChart from "./page-sources-chart"
+// import PageViewsChart from "./page-views-chart"
+// import SubscribersChart from "./subscribers-chart"
+
+// type PageClicksTabType = "startups" | "projects" | "links";
+
+// export default function AnalyticsPage() {
+//   const [pageClicksTab, setPageClicksTab] = useState<PageClicksTabType>("startups");
+
+//   return (
+//     <div className="container mx-auto py-10">
+//       <h1 className="text-3xl font-bold mb-8">Analytics Dashboard</h1>
+//       <div className="grid gap-6 md:grid-cols-2">
+//         <Card>
+//           <CardHeader>
+//             <CardTitle>Page Clicks</CardTitle>
+//             <CardDescription>Click data for different page types</CardDescription>
+//           </CardHeader>
+//           <CardContent>
+//             <Tabs value={pageClicksTab} onValueChange={(value) => setPageClicksTab(value as PageClicksTabType)}>
+//               <TabsList className="mb-4">
+//                 <TabsTrigger value="startups">Startups</TabsTrigger>
+//                 <TabsTrigger value="projects">Projects</TabsTrigger>
+//                 <TabsTrigger value="links">Links</TabsTrigger>
+//               </TabsList>
+//               <TabsContent value={pageClicksTab}>
+//                 <PageClicksChart type={pageClicksTab} />
+//               </TabsContent>
+//             </Tabs>
+//           </CardContent>
+//         </Card>
+//         <Card>
+//           <CardHeader>
+//             <CardTitle>Page Sources</CardTitle>
+//             <CardDescription>Traffic sources for your pages</CardDescription>
+//           </CardHeader>
+//           <CardContent>
+//             <PageSourcesChart />
+//           </CardContent>
+//         </Card>
+//         <Card>
+//           <CardHeader>
+//             <CardTitle>Page Views</CardTitle>
+//             <CardDescription>Total page views over time</CardDescription>
+//           </CardHeader>
+//           <CardContent>
+//             <PageViewsChart />
+//           </CardContent>
+//         </Card>
+//         <Card>
+//           <CardHeader>
+//             <CardTitle>Subscribers</CardTitle>
+//             <CardDescription>Subscriber count over time</CardDescription>
+//           </CardHeader>
+//           <CardContent>
+//             <SubscribersChart />
+//           </CardContent>
+//         </Card>
+//       </div>
+//     </div>
+//   )
+// }
+
+

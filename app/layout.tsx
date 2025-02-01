@@ -25,6 +25,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          defer
+          data-website-id="679db6c24f53ae869404f8ba"
+          data-domain="linkfolio-dev.vercel.app"
+          src="https://datafa.st/js/script.js"
+        ></script>
+      </head>
       <body className={`${bricolage.variable} ${rubik.variable} antialiased`}>
         <Toaster richColors position="top-center" />
         {children}
