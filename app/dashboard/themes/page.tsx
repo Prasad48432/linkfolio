@@ -198,7 +198,38 @@ const Help = () => {
         <div className="lg:w-[55%] w-full lg:overflow-y-auto">
           {fetchLoading ? (
             <div className="flex flex-col items-start justify-center">
-              <Loader strokeWidth={1.5} size={24} className="animate-spin" />
+              <div className="flex flex-col items-center mb-2 mt-2 px-6 py-4 w-full h-full">
+                <div className="p-4 w-full h-full">
+                  <div className="h-8 mb-4 w-24 bg-secondary-bg rounded-lg relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                  </div>
+                  <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 mb-6">
+                    {Array.from({ length: 7 }).map((_, index) => (
+                      <div
+                        key={index}
+                        className="col-span-1 h-12 bg-secondary-bg rounded-lg relative overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="p-4 w-full h-full">
+                  <div className="h-8 mb-4 w-24 bg-secondary-bg rounded-lg relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                  </div>
+                  <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 mb-6">
+                    {Array.from({ length: 7 }).map((_, index) => (
+                      <div
+                        key={index}
+                        className="col-span-1 h-12 bg-secondary-bg rounded-lg relative overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="flex flex-col items-start justify-center">

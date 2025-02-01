@@ -13,12 +13,12 @@ import {
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 const chartData = [
-  { month: "January", revenue: 186 },
-  { month: "February", revenue: 305 },
-  { month: "March", revenue: 237 },
-  { month: "April", revenue: 73 },
-  { month: "May", revenue: 209 },
-  { month: "June", revenue: 214 },
+  { month: "January", revenue: 126 },
+  { month: "February", revenue: 235 },
+  { month: "March", revenue: 187 },
+  { month: "April", revenue: 143 },
+  { month: "May", revenue: 179 },
+  { month: "June", revenue: 184 },
 ];
 
 const hexToRgba = (hex: string, opacity: number) => {
@@ -27,7 +27,10 @@ const hexToRgba = (hex: string, opacity: number) => {
 
   // Convert 3-digit hex to 6-digit
   if (hex.length === 3) {
-    hex = hex.split("").map((char) => char + char).join("");
+    hex = hex
+      .split("")
+      .map((char) => char + char)
+      .join("");
   }
 
   // Extract RGB values
@@ -48,7 +51,7 @@ const StartupPreviewRender = ({
   const chartConfig = {
     revenue: {
       label: "Revenue",
-      color: theme ? hexToRgba(theme.primary_text, 0.6) : "hsl(var(--chart-2))",
+      color: theme ? hexToRgba(theme.primary_text, 0.6) : hexToRgba("#ededed", 0.6),
     },
   } satisfies ChartConfig;
   return (
@@ -140,7 +143,10 @@ const StartupPreviewRender = ({
                 startup.show_toggle !== "none" && (
                   <>
                     {startup.show_toggle === "revenue" ? (
-                      <ChartContainer config={chartConfig} className="h-24 w-full">
+                      <ChartContainer
+                        config={chartConfig}
+                        className="h-20 w-full"
+                      >
                         <AreaChart
                           accessibilityLayer
                           data={chartData}
@@ -150,14 +156,35 @@ const StartupPreviewRender = ({
                           }}
                         >
                           <CartesianGrid vertical={false} horizontal={false} />
+
                           <ChartTooltip
                             cursor={false}
                             content={<ChartTooltipContent indicator="dot" />}
                           />
+                          <defs>
+                            <linearGradient
+                              id="fillRevenue"
+                              x1="0"
+                              y1="0"
+                              x2="0"
+                              y2="1"
+                            >
+                              <stop
+                                offset="5%"
+                                stopColor="var(--color-revenue)"
+                                stopOpacity={0.8}
+                              />
+                              <stop
+                                offset="95%"
+                                stopColor="var(--color-revenue)"
+                                stopOpacity={0.1}
+                              />
+                            </linearGradient>
+                          </defs>
                           <Area
                             dataKey="revenue"
                             type="natural"
-                            fill="var(--color-revenue)"
+                            fill="url(#fillRevenue)"
                             fillOpacity={0.4}
                             stroke="var(--color-revenue)"
                             stackId="a"

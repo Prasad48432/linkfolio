@@ -132,3 +132,14 @@ body {
 
 
 
+@keyframes shimmerMove {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-shimmer path {
+  animation: shimmerMove 2s infinite linear;
+}
+
+
+

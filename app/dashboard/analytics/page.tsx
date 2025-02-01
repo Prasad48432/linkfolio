@@ -10,6 +10,10 @@ import {
   PieChart,
   AreaChart,
   Area,
+  YAxis,
+  LineChart,
+  Line,
+  LabelList,
 } from "recharts";
 import {
   Card,
@@ -26,21 +30,46 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { createClient } from "@/utils/supabase/client";
-import { Loader, TrendingUp } from "lucide-react";
-import { motion } from "framer-motion";
+import { TrendingUp } from "lucide-react";
+import { BsFiletypeCsv } from "react-icons/bs";
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+const sourcesData = [
+  { browser: "facebook", visitors: 275, fill: "var(--color-facebook)" },
+  { browser: "twitter_x", visitors: 200, fill: "var(--color-twitter_x)" },
+  { browser: "instagram", visitors: 187, fill: "var(--color-instagram)" },
+  { browser: "linkedin", visitors: 173, fill: "var(--color-linkedin)" },
+  { browser: "whatsapp", visitors: 120, fill: "var(--color-whatsapp)" },
+  { browser: "other", visitors: 90, fill: "var(--color-other)" },
 ];
-
-function genRandom(base: number) {
-  return Math.round(Math.random() * base);
-}
+const sourcesConfig = {
+  visitors: {
+    label: "Visitors",
+  },
+  facebook: {
+    label: "Facebook",
+    color: "hsl(var(--chart-1))",
+  },
+  twitter_x: {
+    label: "Twitter(x)",
+    color: "hsl(var(--chart-2))",
+  },
+  instagram: {
+    label: "Instagram",
+    color: "hsl(var(--chart-3))",
+  },
+  linkedin: {
+    label: "Linkedin",
+    color: "hsl(var(--chart-4))",
+  },
+  whatsapp: {
+    label: "WhatsApp",
+    color: "hsl(var(--chart-5))",
+  },
+  other: {
+    label: "Other",
+    color: "hsl(var(--chart-5))",
+  },
+} satisfies ChartConfig;
 
 const mapConfig = {
   startups: {
@@ -186,7 +215,7 @@ const Component = () => {
     <div className="grid grid-cols-8 gap-4 p-4">
       <Card className="col-span-8 lg:col-span-4 rounded-lg">
         <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row mb-4 lg:mb-0">
-          <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
+          <div className="flex w-full lg:w-[45%] flex-col justify-center gap-1 px-6 py-5 sm:py-6">
             <CardTitle className="text-lg leading-none text-primary-text">
               Visitor Clicks
             </CardTitle>
@@ -195,22 +224,32 @@ const Component = () => {
             </CardDescription>
           </div>
           {fetchLoading ? (
-            <>
-              <div className="relative z-30 flex flex-1">
-                <div className="w-full h-full bg-secondary-bg  relative overflow-hidden rounded-tr-lg">
+            <div className="w-full lg:w-[55%] flex">
+              <div className="relative w-1/3 z-30 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+                <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
                   <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
                 </div>
               </div>
-            </>
+              <div className="relative w-1/3 z-30 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+                <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                </div>
+              </div>
+              <div className="relative w-1/3 z-30 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+                <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                </div>
+              </div>
+            </div>
           ) : (
-            <div className="flex">
+            <div className="flex w-full lg:w-[55%]">
               {["startups", "projects", "links"].map((key) => {
                 const chart = key as keyof typeof mapConfig;
                 return (
                   <button
                     key={chart}
                     data-active={activeChart === chart}
-                    className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg"
+                    className="relative flex flex-1 flex-col justify-center gap-1 px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection border-l border-t lg:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder lg:last:rounded-tr-lg"
                     onClick={() => setActiveChart(chart)}
                   >
                     <span className="text-xs text-muted-foreground">
@@ -225,7 +264,7 @@ const Component = () => {
             </div>
           )}
         </CardHeader>
-        <CardContent className="px-2 sm:p-6">
+        <div className="px-2 py-4">
           {fetchLoading ? (
             <div className="w-full h-[250px] flex items-end gap-4 justify-center">
               {[150, 110, 170, 120, 150].map((height, index) => (
@@ -234,7 +273,7 @@ const Component = () => {
                   style={{
                     height: `${height}px`,
                   }}
-                  className="w-[80px] bg-secondary-bg rounded-lg relative overflow-hidden" // Animate height up and down
+                  className="w-[40px] lg:w-[80px] bg-secondary-bg rounded-lg relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
                 </div>
@@ -245,17 +284,18 @@ const Component = () => {
               config={clicksConfig}
               className="aspect-auto h-[250px] w-full"
             >
-              <BarChart
-                accessibilityLayer
-                data={clicks[activeChart]}
-                margin={{
-                  left: 12,
-                  right: 12,
-                }}
-              >
+              <BarChart accessibilityLayer data={clicks[activeChart]}>
                 <CartesianGrid vertical={false} />
                 <XAxis
                   dataKey="name"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  minTickGap={32}
+                  fontSize={10}
+                />
+                <YAxis
+                  dataKey="clicks"
                   tickLine={false}
                   axisLine={false}
                   tickMargin={8}
@@ -271,144 +311,349 @@ const Component = () => {
               </BarChart>
             </ChartContainer>
           )}
-        </CardContent>
-      </Card>
-      <Card className="col-span-8 lg:col-span-4 rounded-lg">
-        <CardHeader className="items-center pb-0">
-          <CardTitle>Pie Chart - Donut with Text</CardTitle>
-          <CardDescription>January - June 2024</CardDescription>
-        </CardHeader>
-        <CardContent className="flex-1 pb-0">
-          <ChartContainer
-            config={chartConfig2}
-            className="mx-auto aspect-square max-h-[250px]"
-          >
-            <PieChart>
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel />}
-              />
-              <Pie
-                data={chartData}
-                dataKey="visitors"
-                nameKey="browser"
-                innerRadius={60}
-                strokeWidth={5}
-              >
-                <Label
-                  content={({ viewBox }) => {
-                    if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                      return (
-                        <text
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          textAnchor="middle"
-                          dominantBaseline="middle"
-                        >
-                          <tspan
-                            x={viewBox.cx}
-                            y={viewBox.cy}
-                            className="fill-foreground text-3xl font-bold"
-                          >
-                            {totalVisitors.toLocaleString()}
-                          </tspan>
-                          <tspan
-                            x={viewBox.cx}
-                            y={(viewBox.cy || 0) + 24}
-                            className="fill-muted-foreground"
-                          >
-                            Visitors
-                          </tspan>
-                        </text>
-                      );
-                    }
-                  }}
-                />
-              </Pie>
-            </PieChart>
-          </ChartContainer>
-        </CardContent>
+        </div>
       </Card>
       <Card className="col-span-8 lg:col-span-4 rounded-lg">
         <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row mb-4 lg:mb-0">
           <div className="flex w-full items-center justify-between">
-            <div className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
-              <span className="text-xs text-muted-foreground">Page Views</span>
-              <span className="text-lg font-bold leading-none sm:text-xl">
-                345
-              </span>
+            <div className="w-1/2 relative flex flex-col items-start justify-center gap-1 border-t px-6 py-4 text-left data-[active=true]:bg-secondary-selection border-l-0 sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
+              <CardTitle className="text-lg leading-none text-primary-text">
+                Vistor Sources
+              </CardTitle>
+              <CardDescription className="text-primary-text/60">
+                Sources of vistors of page
+              </CardDescription>
             </div>
-            <div className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
-              <span className="text-xs text-muted-foreground">
-                Unique Visitors
-              </span>
-              <span className="text-lg font-bold leading-none sm:text-xl">
-                345
-              </span>
-            </div>
-            <div className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
-              <span className="text-xs text-muted-foreground">
-                Live Visitors
-              </span>
-              <span className="text-lg font-bold leading-none sm:text-xl relative">
-                345
-                <span className="absolute top-0 right-0 w-2 h-2 flex items-center justify-center">
-                  <span className="absolute w-full h-full bg-green-500 rounded-full"></span>
-                  <span className="absolute w-full h-full bg-green-500 rounded-full opacity-75 animate-ping"></span>
-                </span>
-              </span>
-            </div>
+            {fetchLoading ? (
+              <div className="w-1/2 flex">
+                <div className="relative w-1/2 z-30 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+                  <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                  </div>
+                </div>
+                <div className="relative w-1/2 z-30 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+                  <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="w-1/2 flex items-center justify-end">
+                <div className="w-1/2 relative  flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
+                  <span className="text-xs text-muted-foreground">
+                    Total Visitors
+                  </span>
+                  <span className="text-lg font-bold leading-none sm:text-xl">
+                    34.5k
+                  </span>
+                </div>
+                <div className="w-1/2 relative  flex flex-col items-center justify-center gap-2 border-t px-6 py-4 text-left data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
+                  <span className="text-xs text-muted-foreground">Organic</span>
+                  <span className="text-lg font-bold leading-none sm:text-xl">
+                    4.5k
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </CardHeader>
-        <CardContent className="px-2 sm:p-6">
-          <ChartContainer config={chartConfig3}>
-            <AreaChart
-              accessibilityLayer
-              data={chartData3}
-              margin={{
-                left: 12,
-                right: 12,
-              }}
+        <div className="px-2 py-4">
+          {fetchLoading ? (
+            <div className="w-full h-[250px] flex items-end gap-4 justify-center">
+              {[170, 130, 120, 180, 150].map((height, index) => (
+                <div
+                  key={index}
+                  style={{
+                    height: `${height}px`,
+                  }}
+                  className="w-[40px] lg:w-[80px] bg-secondary-bg rounded-lg relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <ChartContainer
+              config={sourcesConfig}
+              className="aspect-auto h-[250px] w-full"
             >
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="month"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) => value.slice(0, 3)}
-              />
-              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-              <defs>
-                <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
-                  <stop
-                    offset="5%"
-                    stopColor="var(--color-desktop)"
-                    stopOpacity={0.8}
+              <BarChart accessibilityLayer data={sourcesData}>
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="browser"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  minTickGap={32}
+                  fontSize={10}
+                />
+                <YAxis
+                  dataKey="visitors"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  minTickGap={32}
+                  fontSize={10}
+                />
+                <ChartTooltip
+                  content={
+                    <ChartTooltipContent className="w-[150px]" nameKey="name" />
+                  }
+                />
+                <Bar
+                  dataKey="visitors"
+                  fill={`var(--color-visitors)`}
+                  radius={4}
+                />
+              </BarChart>
+            </ChartContainer>
+          )}
+        </div>
+      </Card>
+      <Card className="col-span-8 lg:col-span-4 rounded-lg">
+        <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row mb-4 lg:mb-0">
+          {fetchLoading ? (
+            <>
+              <div className="relative z-30 w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+                <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                </div>
+              </div>
+              <div className="relative z-30 w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+                <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                </div>
+              </div>
+              <div className="relative z-30 w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+                <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="flex w-full items-center justify-between">
+              <div className="relative z-30 w-1/3 flex flex-col items-center justify-center gap-1 first:border-l-0 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
+                <span className="text-xs text-muted-foreground">
+                  Page Views
+                </span>
+                <span className="text-lg font-bold leading-none sm:text-xl">
+                  345
+                </span>
+              </div>
+              <div className="relative z-30 w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
+                <span className="text-xs text-muted-foreground">
+                  Unique Visitors
+                </span>
+                <span className="text-lg font-bold leading-none sm:text-xl">
+                  345
+                </span>
+              </div>
+              <div className="relative z-30 w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
+                <span className="text-xs text-muted-foreground">
+                  Live Visitors
+                </span>
+                <span className="text-lg font-bold leading-none sm:text-xl relative">
+                  345
+                  <span className="absolute top-1/2 -translate-y-1/2 -right-4 w-2 h-2 flex items-center justify-center">
+                    <span className="absolute w-full h-full bg-green-500 rounded-full"></span>
+                    <span className="absolute w-full h-full bg-green-500 rounded-full opacity-75 animate-ping"></span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          )}
+        </CardHeader>
+        <CardContent className="px-2 sm:p-6">
+          {fetchLoading ? (
+            <div className="w-full h-[250px] flex items-end gap-4 justify-center">
+              {[170, 130, 120, 180, 150].map((height, index) => (
+                <div
+                  key={index}
+                  style={{
+                    height: `${height}px`,
+                  }}
+                  className="w-[40px] lg:w-[80px] bg-secondary-bg rounded-lg relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <ChartContainer config={chartConfig3}>
+              <LineChart
+                accessibilityLayer
+                data={chartData3}
+                margin={{
+                  top: 20,
+                  left: 12,
+                  right: 12,
+                }}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="month"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickFormatter={(value) => value.slice(0, 3)}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent indicator="line" />}
+                />
+                <Line
+                  dataKey="desktop"
+                  type="natural"
+                  stroke="var(--color-desktop)"
+                  strokeWidth={2}
+                  dot={{
+                    fill: "var(--color-desktop)",
+                  }}
+                  activeDot={{
+                    r: 6,
+                  }}
+                >
+                  <LabelList
+                    position="top"
+                    offset={12}
+                    className="fill-foreground"
+                    fontSize={12}
                   />
-                  <stop
-                    offset="95%"
-                    stopColor="var(--color-desktop)"
-                    stopOpacity={0.1}
-                  />
-                </linearGradient>
-              </defs>
-              <Area
-                dataKey="desktop"
-                type="natural"
-                fill="url(#fillDesktop)"
-                fillOpacity={0.4}
-                stroke="var(--color-desktop)"
-                stackId="a"
-              />
-            </AreaChart>
-          </ChartContainer>
+                </Line>
+              </LineChart>
+            </ChartContainer>
+          )}
         </CardContent>
         <CardFooter>
           <div className="flex w-full items-start gap-2 text-sm">
             <div className="grid gap-2">
               <div className="flex items-center gap-2 font-medium leading-none">
-                Trending up by 5.2% this month{" "}
+                Trending up by <span className="text-success-border">5.2%</span>{" "}
+                this month{" "}
+                <TrendingUp className="h-4 w-4 text-success-border" />
+              </div>
+              <div className="flex items-center gap-2 leading-none text-muted-foreground">
+                January - June 2024
+              </div>
+            </div>
+          </div>
+        </CardFooter>
+      </Card>
+      <Card className="col-span-8 lg:col-span-4 rounded-lg">
+        <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row mb-4 lg:mb-0">
+          <div className="flex w-full items-center justify-between">
+            <div className="w-1/2 relative flex flex-col items-start justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
+              <CardTitle className="text-lg leading-none text-primary-text">
+                Newsletter Subscribers
+              </CardTitle>
+              <CardDescription className="text-primary-text/60">
+                Analyse and export subscribers
+              </CardDescription>
+            </div>
+            {fetchLoading ? (
+              <div className="w-1/2 flex">
+                <div className="relative w-1/2 z-30 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+                  <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                  </div>
+                </div>
+                <div className="relative w-1/2 z-30 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+                  <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="w-1/2 flex items-center justify-end">
+                <div className="w-1/2 relative  flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
+                  <span className="text-xs text-muted-foreground">
+                    Subscribers
+                  </span>
+                  <span className="text-lg font-bold leading-none sm:text-xl">
+                    345
+                  </span>
+                </div>
+                <div className="w-1/2 relative  flex flex-col items-center justify-center gap-2 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
+                  <span className="text-xs text-muted-foreground">
+                    Export as
+                  </span>
+                  <div className="flex  items-center justify-center cursor-pointer">
+                    <p className="py-1 px-2 flex text-primarytext items-center justify-center gap-1 text-xs bg-secondary-bg rounded-md border border-secondary-border">
+                      <BsFiletypeCsv size={15} /> CSV
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </CardHeader>
+        <CardContent className="px-2 sm:p-6">
+          {fetchLoading ? (
+            <div className="w-full h-[250px] flex items-end gap-4 justify-center">
+              {[170, 130, 120, 180, 150].map((height, index) => (
+                <div
+                  key={index}
+                  style={{
+                    height: `${height}px`,
+                  }}
+                  className="w-[40px] lg:w-[80px] bg-secondary-bg rounded-lg relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <ChartContainer config={chartConfig3}>
+              <LineChart
+                accessibilityLayer
+                data={chartData3}
+                margin={{
+                  top: 20,
+                  left: 12,
+                  right: 12,
+                }}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="month"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickFormatter={(value) => value.slice(0, 3)}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent indicator="line" />}
+                />
+                <Line
+                  dataKey="desktop"
+                  type="natural"
+                  stroke="var(--color-desktop)"
+                  strokeWidth={2}
+                  dot={{
+                    fill: "var(--color-desktop)",
+                  }}
+                  activeDot={{
+                    r: 6,
+                  }}
+                >
+                  <LabelList
+                    position="top"
+                    offset={12}
+                    className="fill-foreground"
+                    fontSize={12}
+                  />
+                </Line>
+              </LineChart>
+            </ChartContainer>
+          )}
+        </CardContent>
+        <CardFooter>
+          <div className="flex w-full items-start gap-2 text-sm">
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 font-medium leading-none">
+                Trending up by <span className="text-success-border">5.2%</span>{" "}
+                this month{" "}
                 <TrendingUp className="h-4 w-4 text-success-border" />
               </div>
               <div className="flex items-center gap-2 leading-none text-muted-foreground">
@@ -423,74 +668,3 @@ const Component = () => {
 };
 
 export default Component;
-
-// "use client"
-
-// import { useState } from "react"
-// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-// import PageClicksChart from "./page-clicks-chart"
-// import PageSourcesChart from "./page-sources-chart"
-// import PageViewsChart from "./page-views-chart"
-// import SubscribersChart from "./subscribers-chart"
-
-// type PageClicksTabType = "startups" | "projects" | "links";
-
-// export default function AnalyticsPage() {
-//   const [pageClicksTab, setPageClicksTab] = useState<PageClicksTabType>("startups");
-
-//   return (
-//     <div className="container mx-auto py-10">
-//       <h1 className="text-3xl font-bold mb-8">Analytics Dashboard</h1>
-//       <div className="grid gap-6 md:grid-cols-2">
-//         <Card>
-//           <CardHeader>
-//             <CardTitle>Page Clicks</CardTitle>
-//             <CardDescription>Click data for different page types</CardDescription>
-//           </CardHeader>
-//           <CardContent>
-//             <Tabs value={pageClicksTab} onValueChange={(value) => setPageClicksTab(value as PageClicksTabType)}>
-//               <TabsList className="mb-4">
-//                 <TabsTrigger value="startups">Startups</TabsTrigger>
-//                 <TabsTrigger value="projects">Projects</TabsTrigger>
-//                 <TabsTrigger value="links">Links</TabsTrigger>
-//               </TabsList>
-//               <TabsContent value={pageClicksTab}>
-//                 <PageClicksChart type={pageClicksTab} />
-//               </TabsContent>
-//             </Tabs>
-//           </CardContent>
-//         </Card>
-//         <Card>
-//           <CardHeader>
-//             <CardTitle>Page Sources</CardTitle>
-//             <CardDescription>Traffic sources for your pages</CardDescription>
-//           </CardHeader>
-//           <CardContent>
-//             <PageSourcesChart />
-//           </CardContent>
-//         </Card>
-//         <Card>
-//           <CardHeader>
-//             <CardTitle>Page Views</CardTitle>
-//             <CardDescription>Total page views over time</CardDescription>
-//           </CardHeader>
-//           <CardContent>
-//             <PageViewsChart />
-//           </CardContent>
-//         </Card>
-//         <Card>
-//           <CardHeader>
-//             <CardTitle>Subscribers</CardTitle>
-//             <CardDescription>Subscriber count over time</CardDescription>
-//           </CardHeader>
-//           <CardContent>
-//             <SubscribersChart />
-//           </CardContent>
-//         </Card>
-//       </div>
-//     </div>
-//   )
-// }
-
-
