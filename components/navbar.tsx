@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ToastError, ToastSuccess } from "./toast";
-import { ProfileData } from "@/types/user";
+import { HomeProfileData } from "@/types/user";
 
 export default function Navbar({
   isNavbarOpen,
@@ -30,7 +30,7 @@ export default function Navbar({
   setDropdown1Open: React.Dispatch<React.SetStateAction<boolean>>;
   setDropdown2Open: React.Dispatch<React.SetStateAction<boolean>>;
   loading: boolean;
-  userData: ProfileData;
+  userData: HomeProfileData;
   user: User | null;
 }) {
   const size = useWindowSize();

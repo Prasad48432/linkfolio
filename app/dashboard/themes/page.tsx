@@ -8,12 +8,14 @@ import {
   fetchStartups,
 } from "../contents/functions/fetchContent";
 import {
+  ArrowRight,
   BatteryLow,
   ExternalLink,
   Eye,
   FileUser,
   Link,
   Loader,
+  Mail,
   MapPin,
   SignalMedium,
   X,
@@ -79,6 +81,9 @@ const Help = () => {
       youtube: "",
     },
     theme: {},
+    newsletter_config: {
+      newsletter_title: "",
+    },
   });
   const [links, setLinks] = useState<any[] | null>([]);
   const [startups, setStartups] = useState<any[] | null>([]);
@@ -404,23 +409,23 @@ const Help = () => {
             <X />
           </p>
           <div className="scale-90 md:scale-100 relative mx-auto border-black dark:border-black bg-black border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
-            <div className="w-[130px] h-[18px] bg-black top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
-            <div className="w-[90px] h-[5px] bg-gray-400 bottom-0.5 z-50 rounded-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
-            <div className="w-[30] h-[18px] text-primarytext text-xs top-0.5 left-[17%] -translate-x-1/2 absolute">
+            <div className="w-[130px] h-[18px] bg-black top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute z-10"></div>
+            <div className="w-[90px] h-[5px] bg-gray-400 bottom-0.5 rounded-[1rem] left-1/2 -translate-x-1/2 absolute z-10"></div>
+            <div className="w-[30] h-[18px] text-primarytext text-xs top-0.5 left-[17%] -translate-x-1/2 absolute z-[11]">
               9:41
             </div>
-            <div className="w-[30] h-[18px] text-primarytext text-xs top-[0.3rem] left-[85%] -translate-x-1/2 absolute">
+            <div className="w-[30] h-[18px] text-primarytext text-xs top-[0.3rem] left-[85%] -translate-x-1/2 absolute z-[11]">
               <BatteryLow size={15} />
             </div>
-            <div className="w-[30] h-[18px] text-primarytext text-xs top-0.5 left-[78%] -translate-x-1/2 absolute">
+            <div className="w-[30] h-[18px] text-primarytext text-xs top-0.5 left-[78%] -translate-x-1/2 absolute z-[11]">
               <SignalMedium size={15} />
             </div>
-            <div className="h-[46px] w-[5px] bg-black absolute -start-[17px] top-[124px] rounded-s-lg"></div>
-            <div className="h-[46px] w-[5px] bg-black absolute -start-[17px] top-[178px] rounded-s-lg"></div>
-            <div className="h-[64px] w-[5px] bg-black absolute -end-[17px] top-[142px] rounded-e-lg"></div>
-            <div className="h-[10px] w-[10px] bg-white/10 absolute top-0 left-[40%] -translate-x-1/2 rounded-full"></div>
-            <div className="h-[5px] w-[5px] bg-white/20 absolute top-[2.5px] left-[40%] -translate-x-1/2 rounded-full"></div>
-            <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full"></div>
+            <div className="h-[46px] w-[5px] bg-black absolute -start-[17px] top-[124px] rounded-s-lg z-10"></div>
+            <div className="h-[46px] w-[5px] bg-black absolute -start-[17px] top-[178px] rounded-s-lg z-10"></div>
+            <div className="h-[64px] w-[5px] bg-black absolute -end-[17px] top-[142px] rounded-e-lg z-10"></div>
+            <div className="h-[10px] w-[10px] bg-white/10 absolute top-0 left-[40%] -translate-x-1/2 rounded-full z-10"></div>
+            <div className="h-[5px] w-[5px] bg-white/20 absolute top-[2.5px] left-[40%] -translate-x-1/2 rounded-full z-10"></div>
+            <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full z-10"></div>
             {fetchLoading ? (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg flex items-center justify-center">
                 <Loader strokeWidth={1.5} size={24} className="animate-spin" />
@@ -433,7 +438,7 @@ const Help = () => {
                   }}
                   className="w-[272px] h-[572px]"
                 ></div>
-                <div className="absolute top-3 right-1 w-full h-[97.3%] rounded-b-[2.1rem] p-4 overflow-y-auto scrollbar_hidden">
+                <div className="absolute top-3 right-1 w-full h-[97.3%] rounded-b-[2.1rem] p-4 overflow-y-auto scrollbar_hidden z-0">
                   <div
                     style={{
                       backgroundColor: theme.secondary_bg || "#262626",
@@ -652,6 +657,52 @@ const Help = () => {
                         </TabPanel>
                       </TabPanels>
                     </TabGroup>
+                  </div>
+                  <p
+                    style={{
+                      color: theme.primary_text || "#ededed",
+                    }}
+                    className="mt-4 text-center text-xs font-medium"
+                  >
+                    {profileData.newsletter_config.newsletter_title}
+                  </p>
+                  <div className="flex items-center justify-center relative w-full mt-3 mb-6">
+                    <span className="absolute top-1/2 -translate-y-1/2 left-3 flex items-center">
+                      <Mail
+                        strokeWidth={1}
+                        size={17}
+                        style={{
+                          color: theme.primary_text || "#ededed",
+                        }}
+                        className=" text-xl"
+                      />
+                    </span>
+                    <input
+                      type="text"
+                      name="full_name"
+                      value=""
+                      readOnly
+                      placeholder="email@google.com"
+                      style={{
+                        background: theme.secondary_bg || "#262626",
+                        borderColor: theme.strongerborder || "#4d4d4d",
+                      }}
+                      className=" border-r-0  w-full py-2 pl-8 text-sm border focus:outline-none rounded-l-md"
+                    />
+                    <button
+                      style={{
+                        background: theme.secondary_bg || "#262626",
+                        borderColor: theme.strongerborder || "#4d4d4d",
+                      }}
+                      className="cursor-pointer py-2 px-3 text-sm rounded-r-md border"
+                    >
+                      <ArrowRight
+                        style={{
+                          color: theme.primary_text || "#ededed",
+                        }}
+                        size={20}
+                      />
+                    </button>
                   </div>
                   <p
                     style={{

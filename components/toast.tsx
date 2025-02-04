@@ -40,7 +40,7 @@ export const ToastSuccess = ({
     ),
     duration: duration,
     style: {
-      background: "rgb(0 98 57)",
+      background: "#004d2d",
       color: "#ededed",
       border: "1px solid rgb(62 207 142/0.8)",
     },

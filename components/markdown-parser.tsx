@@ -3,12 +3,14 @@ import ReactMarkdown from "react-markdown";
 const MarkdownParser = ({
   text,
   className,
+  style,
 }: {
   text: string;
   className?: string;
+  style?: React.CSSProperties; 
 }) => {
   return (
-    <span className={`markdown_content ${className}`}>
+    <span className={`markdown_content ${className}`} style={style}>
       <ReactMarkdown
         components={{
           a: ({ href, children }: { href: string; children: any }) => (

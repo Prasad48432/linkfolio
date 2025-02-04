@@ -21,7 +21,7 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@radix-ui/react-hover-card";
+} from "@/components/ui/hover-card";
 import UpdateImage from "./components/update-image";
 import ImageSelect from "./components/image-select";
 import Image from "next/image";
@@ -392,16 +392,19 @@ const Home = () => {
                                 (Markdown Guide)
                               </button>
                             </HoverCardTrigger>
-                            <HoverCardContent className="bg-secondary-bg border border-secondary-strongerborder rounded-md z-50">
+                            <HoverCardContent className="bg-primary-bg border border-secondary-border rounded-md z-50">
                               <div className="flex flex-col p-2">
-                                <p>
+                                <p className="text-sm font-semibold">
+                                  Markdown guide
+                                </p>
+                                <p className="text-xs text-primary-text/80 mt-2">
                                   **text** →{" "}
                                   <span className="font-bold">text</span>
                                 </p>
-                                <p>
+                                <p className="text-xs text-primary-text/80">
                                   *text* → <span className="italic">text</span>
                                 </p>
-                                <p>
+                                <p className="text-xs text-primary-text/80">
                                   [link](https://mystartup.com) →{" "}
                                   <a
                                     href="https://mystartup.com"

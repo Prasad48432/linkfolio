@@ -43,8 +43,8 @@ const MenuItem = ({ item }: { item: SideNavItem }) => {
     <div className="md:px-4">
       <Link
         href={item.path}
-        className={`flex flex-row space-x-2 items-center p-2 rounded-lg hover:text-primary-text/80  duration-200 transition-all ease-out ${
-          item.path === pathname ? "text-primary-text hover:text-primary-text" : "text-secondary-text"
+        className={`flex flex-row space-x-2 items-center p-2 rounded-lg duration-200 transition-all ease-out ${
+          item.path === pathname ? "text-primary-text hover:text-primary-text" : "text-secondary-text hover:text-primary-text/80"
         }`}
       >
         {item.icon && <item.icon strokeWidth={1.5} size={20} />}

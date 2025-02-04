@@ -19,7 +19,7 @@ export const fetchProfile = async ({
       const { data, error } = await supabase
         .from("profiles")
         .select(
-          "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url, resume_url_visibility, socials, theme"
+          "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url, resume_url_visibility, socials, theme, newsletter_config"
         )
         .eq("id", user.id)
         .single();

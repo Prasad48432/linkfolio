@@ -6,6 +6,7 @@ import { createClient } from "@/utils/supabase/client";
 import { Loader, Menu, MoveUpRight, X } from "lucide-react";
 import LogoutConfiramtion from "./logout-confirmation";
 import { Cycle, motion } from "framer-motion";
+import { ToastError, ToastSuccess } from "@/components/toast";
 
 type Profile = {
   bio: string | null;

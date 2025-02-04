@@ -1,4 +1,4 @@
-import { UserRoundPen , FolderKanban, AtSign , ChartSpline , Palette  } from "lucide-react";
+import { UserRoundPen , FolderKanban, AtSign , ChartSpline , Palette, Newspaper  } from "lucide-react";
 
 import { SideNavItem } from "./types";
 
@@ -14,14 +14,19 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
     icon: FolderKanban,
   },
   {
-    title: "Themes",
-    path: "/dashboard/themes",
-    icon: Palette,
-  },
-  {
     title: "Socials",
     path: "/dashboard/socials",
     icon: AtSign,
+  },
+  {
+    title: "Newsletter",
+    path: "/dashboard/newsletter",
+    icon: Newspaper,
+  },
+  {
+    title: "Themes",
+    path: "/dashboard/themes",
+    icon: Palette,
   },
   {
     title: "Analytics",
