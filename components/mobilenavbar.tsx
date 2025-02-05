@@ -305,13 +305,13 @@ export default function MobileNavbar({
                 <>
                   <a
                     href="/dashboard/home"
-                    className="mt-4 cursor-pointer text-sm font-thin w-1/2 h-8 px-4 py-2 border text-primary-text bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover  flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
+                    className="mt-4 cursor-pointer text-sm font-normal w-1/2 h-8 px-4 py-2 border text-primary-text bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover  flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
                   >
                     Dashboard
                   </a>
                   <p
                     onClick={() => handleLogout()}
-                    className="mt-4 cursor-pointer text-sm font-thin w-1/2 h-8 px-4 py-2 border bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
+                    className="mt-4 cursor-pointer text-sm font-normal w-1/2 h-8 px-4 py-2 border bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder text-primary-text flex items-center justify-center ease-out duration-200 rounded-md outline-none transition-all outline-0"
                   >
                     Logout
                   </p>
