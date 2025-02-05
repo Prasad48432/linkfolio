@@ -71,7 +71,7 @@ const StatusBadge = ({
         className={`inline-flex items-center ${
           size === "sm"
             ? "text-[0.4rem] lg:text-[0.5rem] mr-1"
-            : "text-[0.5rem] lg:text-[0.7rem]"
+            : "text-[0.6rem] lg:text-[0.7rem] mr-1"
         }  px-0.5 py-[0.0625rem] rounded border ${color}`}
       >
         {icon} {text}

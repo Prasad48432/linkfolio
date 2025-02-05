@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import { FlagIcon, Pencil } from "lucide-react";
 import ProfileCard from "./components/profilecard";
 import ContentsCard from "./components/contentscard";
+import MobileSocialsRender from "./components/mobilesocials";
 
 interface Params {
   username: string;
@@ -35,9 +36,21 @@ export default async function UsernamePage({ params }: { params: Params }) {
   const profileId = profile.id;
 
   const [links, startups, projects] = await Promise.all([
-    supabase.from("links").select("*").eq("user_id", profileId).order("index",{ascending: true}),
-    supabase.from("startups").select("*").eq("user_id", profileId).order("index",{ascending: true}),
-    supabase.from("projects").select("*").eq("user_id", profileId).order("index",{ascending: true}),
+    supabase
+      .from("links")
+      .select("*")
+      .eq("user_id", profileId)
+      .order("index", { ascending: true }),
+    supabase
+      .from("startups")
+      .select("*")
+      .eq("user_id", profileId)
+      .order("index", { ascending: true }),
+    supabase
+      .from("projects")
+      .select("*")
+      .eq("user_id", profileId)
+      .order("index", { ascending: true }),
   ]);
 
   return (
@@ -51,7 +64,7 @@ export default async function UsernamePage({ params }: { params: Params }) {
             color: profile.theme.primary_text || "#ededed",
             borderColor: profile.theme.border || "#363636",
           }}
-          className="fixed top-0 left-0 cursor-pointer gap-2 z-[51] flex items-center justify-center h-12 w-full border border-dashed"
+          className="fixed top-0 left-0 cursor-pointer gap-2 z-[51] flex items-center justify-center h-12 w-full border border-r-0 border-l-0 border-dashed"
         >
           <span className="font-semibold text-base md:text-xl flex items-center justify-center gap-2">
             Edit your Page <Pencil />
@@ -69,7 +82,7 @@ export default async function UsernamePage({ params }: { params: Params }) {
           style={{
             borderColor: profile.theme.strongerborder || "#4d4d4d",
           }}
-          className="w-full relative lg:fixed z-50 h-auto lg:h-screen lg:w-2/6 p-6 border-r-0 lg:border-r"
+          className="w-full relative lg:fixed z-50 h-auto lg:h-screen lg:w-2/6 px-6 py-3 border-r-0 lg:border-r"
         >
           <ProfileCard profile={profile} />
         </div>
@@ -80,6 +93,7 @@ export default async function UsernamePage({ params }: { params: Params }) {
             projects={projects}
             links={links}
           />
+          <MobileSocialsRender profile={profile} />
         </div>
       </div>
     </>

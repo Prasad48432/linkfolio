@@ -67,10 +67,7 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
         table="projects"
       />
       <div className="w-full h-fit rounded-md bg-secondary-bg flex flex-col items-center justify-center text-primary-text px-2 py-2 relative">
-        <span
-          title="Drag handle"
-          className="absolute top-3 left-2 lg:left-3"
-        >
+        <span title="Drag handle" className="absolute top-3 left-2 lg:left-3">
           <GripVertical size={size.width > 1000 ? 18 : 15} />
         </span>
         <div className="flex flex-col items-center justify-end w-[95%] mt-3">
@@ -175,9 +172,13 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
                   value: e.target.value,
                 })
               }
+              maxLength={160}
               rows={3}
               className="border-secondary-border placeholder-gray-500 focus:border-secondary-strongerborder w-full p-2 lg:p-3 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
             />
+            <div className="absolute bottom-4 right-2 text-[0.6rem] text-gray-500">
+              {project.description.length}/160
+            </div>
           </div>
         </div>
         <div className="flex items-center justify-around w-[95%] mb-3 px-3 mt-2">

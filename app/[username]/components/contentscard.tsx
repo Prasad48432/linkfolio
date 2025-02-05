@@ -4,6 +4,8 @@ import { ProfileData } from "@/types/user";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { motion } from "framer-motion";
 import StartupRenderCard from "./startuprendercard";
+import ProjectRenderCard from "./projectrendercard";
+import LinkRenderCard from "./linkrendercard";
 
 const ContentsCard = ({
   profile,
@@ -36,7 +38,7 @@ const ContentsCard = ({
                   ? profile.theme.primary_text || "#ff5733"
                   : profile.theme.accent_text || "#ededed",
             }}
-            className="change-color transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-base lg:text-lg font-semibold focus:outline-none data-[selected]:underline underline-offset-2 decoration-2"
+            className="change-color transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-sm lg:text-lg font-semibold focus:outline-none data-[selected]:underline underline-offset-2 decoration-2"
           >
             Startups
           </Tab>
@@ -51,7 +53,7 @@ const ContentsCard = ({
                   ? profile.theme.primary_text || "#ff5733"
                   : profile.theme.accent_text || "#ededed",
             }}
-            className="change-color transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-base lg:text-lg font-semibold focus:outline-none data-[selected]:underline underline-offset-2 decoration-2"
+            className="change-color transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-sm lg:text-lg font-semibold focus:outline-none data-[selected]:underline underline-offset-2 decoration-2"
           >
             Projects
           </Tab>
@@ -66,7 +68,7 @@ const ContentsCard = ({
                   ? profile.theme.primary_text || "#ff5733"
                   : profile.theme.accent_text || "#ededed",
             }}
-            className="change-color transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-base lg:text-lg font-semibold focus:outline-none data-[selected]:underline underline-offset-2 decoration-2"
+            className="change-color transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-sm lg:text-lg font-semibold focus:outline-none data-[selected]:underline underline-offset-2 decoration-2"
           >
             Links
           </Tab>
@@ -74,7 +76,31 @@ const ContentsCard = ({
         <TabPanels>
           <TabPanel className="grid grid-cols-2 gap-2 items-center justify-center">
             {startups?.data?.map((startup: any, index: any) => {
-              return <StartupRenderCard key={index}  startup={startup} theme={profile.theme} />;
+              return (
+                <StartupRenderCard
+                  key={index}
+                  startup={startup}
+                  theme={profile.theme}
+                />
+              );
+            })}
+          </TabPanel>
+          <TabPanel className="grid grid-cols-2 gap-2 items-center justify-center">
+            {projects?.data?.map((project: any, index: any) => {
+              return (
+                <ProjectRenderCard
+                  key={index}
+                  project={project}
+                  theme={profile.theme}
+                />
+              );
+            })}
+          </TabPanel>
+          <TabPanel className="grid grid-cols-2 gap-2 items-center justify-center">
+            {links?.data?.map((link: any, index: any) => {
+              return (
+                <LinkRenderCard key={index} link={link} theme={profile.theme} />
+              );
             })}
           </TabPanel>
         </TabPanels>

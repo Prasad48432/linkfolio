@@ -705,7 +705,7 @@ const Home = () => {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-4">
+                  <div className="mt-4 text-center">
                     <MarkdownParser
                       text={profileData.bio}
                       className="text-primary-text/80 text-xs"

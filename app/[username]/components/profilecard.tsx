@@ -17,6 +17,7 @@ import {
   SiYoutube,
 } from "react-icons/si";
 import { motion } from "framer-motion";
+import useWindowSize from "@/hooks/useWindowSize";
 
 const hexToRgba = (hex: string, opacity: number) => {
   // Remove "#" if present
@@ -44,6 +45,7 @@ interface Skill {
 }
 
 const ProfileCard = ({ profile }: { profile: ProfileData }) => {
+  const size = useWindowSize();
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -60,7 +62,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
             borderColor: profile.theme.strongerborder || "#363636",
           }}
           src={profile.avatar_url || "/avatars/annie.png"}
-          className="w-20 h-20 rounded-full border-2 border-dashed p-1 object-cover flex-shrink-0"
+          className="w-[4.5rem] lg:w-20 h-[4.5rem] lg:h-20 rounded-full border-2 border-dashed p-1 object-cover flex-shrink-0"
           referrerPolicy="no-referrer"
         />
         <div className="flex flex-col items-start justify-center ml-4 flex-shrink-0">
@@ -98,12 +100,15 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
       </div>
       <div
         style={{
-          color: profile.theme.primary_text || "#ededed",
+          color:
+            size.width > 1024
+              ? hexToRgba(profile.theme.primary_text, 0.8) || "#ededed"
+              : profile.theme.primary_text || "#ededed",
         }}
-        className="flex items-center justify-center gap-3 mb-4"
+        className="flex items-center justify-center gap-3 mb-4 transition-all duration-200 ease-out"
       >
         {profile.profile_link && profile.profile_link_text && (
-          <div className="mb-4">
+          <div className="mb-4 changeon_hover">
             <a
               target="_blank"
               href={profile.profile_link}
@@ -117,7 +122,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
           </div>
         )}
         {profile.resume_url && (
-          <div className="mb-4">
+          <div className="mb-4 changeon_hover">
             <a
               target="_blank"
               href={`${profile.resume_url}?download`}
@@ -128,9 +133,14 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
             </a>
           </div>
         )}
+        <style jsx>{`
+          .changeon_hover:hover {
+            color: ${profile.theme.primary_text || "#ededed"};
+          }
+        `}</style>
       </div>
 
-      <div className="mb-4">
+      <div className="mb-6">
         <div className="flex items-center justify-center flex-wrap gap-2 ">
           {(profile.user_skills as Skill[]).map((skill) => (
             <div
@@ -164,7 +174,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
       </div>
 
       <p
-        className=" text-lg font-semibold text-center mt-6"
+        className="hidden lg:block text-lg font-semibold text-center mt-6"
         style={{
           color: profile.theme.primary_text || "#ededed",
         }}
@@ -172,7 +182,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
         {profile.newsletter_config.newsletter_title}
       </p>
 
-      <div className="flex items-center justify-center relative w-full lg:w-[85%] mt-3">
+      <div className="hidden lg:flex items-center justify-center relative w-full lg:w-[85%] mt-3">
         <span className="absolute top-1/2 -translate-y-1/2 left-3 flex items-center">
           <Mail
             strokeWidth={1}
@@ -217,7 +227,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
           />
         </button>
       </div>
-      <div className="w-full">
+      <div className="w-full hidden lg:block">
         <p
           style={{
             color: profile.theme.primary_text || "#ededed",

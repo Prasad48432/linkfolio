@@ -557,7 +557,7 @@ const Help = () => {
                     style={{
                       color: theme.primary_text || "#ededed",
                     }}
-                    className="mt-4"
+                    className="mt-4 text-center"
                   >
                     <MarkdownParser
                       text={profileData.bio}

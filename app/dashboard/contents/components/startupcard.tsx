@@ -181,9 +181,13 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                   value: e.target.value,
                 })
               }
+              maxLength={160}
               rows={3}
-              className="border-secondary-border placeholder-gray-500 focus:border-secondary-strongerborder w-full p-2 lg:p-3 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
+              className="border-secondary-border resize-none placeholder-gray-500 focus:border-secondary-strongerborder w-full p-2 lg:p-3 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
             />
+            <div className="absolute bottom-4 right-2 text-[0.6rem] text-gray-500">
+              {startup.description.length}/160
+            </div>
           </div>
         </div>
         {/* </div> */}
@@ -293,17 +297,13 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                   className="flex-1 h-10 text-primary-text placeholder-gray-500 form-input bg-primary-bg pl-3 block w-[70%] rounded-l-md border border-r-0 border-secondary-strongerborder transition duration-150 ease-in-out sm:text-sm focus:outline-none"
                 />
                 <span className="inline-flex bg-primary-bg h-10 items-center pr-3 rounded-none border border-l-0 border-secondary-strongerborder  text-gray-400 sm:text-sm">
-                  @{startup.website.split('https://')}
+                  @{startup.website.split("https://")}
                 </span>
                 <button
                   onClick={() => {}}
                   className="bg-primary-bg h-10 text-primary-text font-normal py-2 px-4 rounded-r-md border border-l-0 border-secondary-strongerborder sm:text-sm"
                 >
-                  {false ? (
-                    "Send Email"
-                  ): (
-                    "Send Email"
-                  )}
+                  {false ? "Send Email" : "Send Email"}
                 </button>
               </motion.div>
             </div>
@@ -390,7 +390,9 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                             id={`radio-2`}
                             aria-describedby={`radio-text-2`}
                             type="radio"
-                            disabled={Object.keys(startup.api_info).length === 0}
+                            disabled={
+                              Object.keys(startup.api_info).length === 0
+                            }
                             name={`show_toggle-${startup.id}`}
                             onChange={() =>
                               handleFieldChange({
@@ -456,7 +458,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                                 id: startup.id,
                                 field: "api_info",
                                 value: {},
-                              })
+                              });
                             }}
                             title="delete api info"
                             className="cursor-pointer bg-lightbg p-1 rounded-md text-red-400"
