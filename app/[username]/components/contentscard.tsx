@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ProfileData } from "@/types/user";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import StartupRenderCard from "./startuprendercard";
 import ProjectRenderCard from "./projectrendercard";
 import LinkRenderCard from "./linkrendercard";
@@ -19,11 +19,12 @@ const ContentsCard = ({
   links: any;
 }) => {
   const [tabIndex, setTabIndex] = useState(0);
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
+    <div
+      // initial={{ opacity: 0 }}
+      // animate={{ opacity: 1 }}
+      // transition={{ duration: 0.8 }}
     >
       <TabGroup onChange={(e) => setTabIndex(e)}>
         <TabList className="flex p-0.5 gap-2 rounded-full items-center justify-center mb-4">
@@ -105,7 +106,7 @@ const ContentsCard = ({
           </TabPanel>
         </TabPanels>
       </TabGroup>
-    </motion.div>
+    </div>
   );
 };
 

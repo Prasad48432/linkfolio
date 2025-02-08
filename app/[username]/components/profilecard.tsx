@@ -16,7 +16,7 @@ import {
   SiX,
   SiYoutube,
 } from "react-icons/si";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import useWindowSize from "@/hooks/useWindowSize";
 import { createClient } from "@/utils/supabase/client";
 import { subscribeUser } from "../functions/addSubscriber";
@@ -52,10 +52,10 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
   const [email, setEmail] = useState("");
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
+    <div
+      // initial={{ opacity: 0 }}
+      // animate={{ opacity: 1 }}
+      // transition={{ duration: 0.8 }}
       className="flex flex-col items-center justify-center py-3"
     >
       <div className="flex items-center justify-center mb-4">
@@ -336,7 +336,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
