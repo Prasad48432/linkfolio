@@ -398,14 +398,14 @@ const Home = () => {
                                   Markdown guide
                                 </p>
                                 <p className="text-xs text-primary-text/80 mt-2">
-                                  **text** →{" "}
+                                  <span className="text-accent-text">**text**</span> →{" "}
                                   <span className="font-bold">text</span>
                                 </p>
                                 <p className="text-xs text-primary-text/80">
-                                  *text* → <span className="italic">text</span>
+                                <span className="text-accent-text">*text*</span> → <span className="italic">text</span>
                                 </p>
                                 <p className="text-xs text-primary-text/80">
-                                  [link](https://mystartup.com) →{" "}
+                                <span className="text-accent-text">[link](https://mystartup.com)</span> →{" "}
                                   <a
                                     href="https://mystartup.com"
                                     target="_blank"
@@ -528,6 +528,14 @@ const Home = () => {
                   </div>
                 ) : (
                   <>
+                    <div className="flex flex-col">
+                      <h1 className="text-primary-text/90 font-medium text-base lg:text-xl px-1">
+                        Credentials Section
+                      </h1>
+                      <p className="text-primary-text/70 font-normal text-xs lg:text-sm mb-1 px-1">
+                        These fields are not editable on created
+                      </p>
+                    </div>
                     <UsernameSelect
                       profileData={profileData}
                       setProfileData={setProfileData}

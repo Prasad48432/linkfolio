@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import MarkdownParser from "@/components/markdown-parser";
 import { ArrowRight, FileUser, Link, Mail } from "lucide-react";
@@ -18,6 +18,8 @@ import {
 } from "react-icons/si";
 import { motion } from "framer-motion";
 import useWindowSize from "@/hooks/useWindowSize";
+import { createClient } from "@/utils/supabase/client";
+import { subscribeUser } from "../functions/addSubscriber";
 
 const hexToRgba = (hex: string, opacity: number) => {
   // Remove "#" if present
@@ -45,7 +47,10 @@ interface Skill {
 }
 
 const ProfileCard = ({ profile }: { profile: ProfileData }) => {
+  const supabase = createClient();
   const size = useWindowSize();
+  const [email, setEmail] = useState("");
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -196,8 +201,8 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
         <input
           type="text"
           name="full_name"
-          value=""
-          readOnly
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
           placeholder="email@google.com"
           style={{
             background: profile.theme.secondary_bg || "#262626",
@@ -212,12 +217,20 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
           }
         `}</style>
         <button
+          onClick={() =>
+            subscribeUser({
+              supabase: supabase,
+              email: email,
+              setEmail: setEmail,
+            })
+          }
+          disabled={email === ""}
           style={{
             background: profile.theme.secondary_bg || "#262626",
             borderColor: profile.theme.strongerborder || "#4d4d4d",
             color: profile.theme.primary_text || "#ededed",
           }}
-          className="cursor-pointer py-2 px-4 text-sm rounded-r-md border "
+          className="cursor-pointer py-2 px-4 text-sm rounded-r-md border disabled:opacity-55"
         >
           <ArrowRight
             style={{

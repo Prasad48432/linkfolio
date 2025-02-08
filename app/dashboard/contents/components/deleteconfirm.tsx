@@ -22,12 +22,9 @@ const DeleteConfirmation = ({
   const handleDelete = async (object: any) => {
     setDeleteLoading(true);
     try {
-      const { data, error } = await supabase
-        .from(table)
-        .delete()
-        .eq("id", object.id);
-
-      if (error) return;
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
       // Step 1: Get the deleted object's index
       const deletedIndex = object.index;
@@ -42,6 +39,7 @@ const DeleteConfirmation = ({
         ToastError({
           message: "An unexpected error occurred.",
         });
+        return;
       }
 
       // Step 3: Update indices for remaining entries
@@ -49,7 +47,8 @@ const DeleteConfirmation = ({
         .from(table)
         .select("id, index")
         .gt("index", deletedIndex) // Fetch entries with a higher index than the deleted one
-        .order("index", { ascending: true });
+        .order("index", { ascending: true })
+        .eq("user_id", user?.id);
 
       if (fetchError) {
         ToastError({
@@ -58,8 +57,11 @@ const DeleteConfirmation = ({
         return;
       }
 
-      if (!remainingEntries || remainingEntries.length === 0) {
+
+      // call broadcast if deleted last item
+      if (remainingEntries.length === 0) {
         try {
+          console.log("sent request");
           const response = await supabase.channel("max-index-delete").send({
             type: "broadcast",
             event: "deleted_max_index_item",
@@ -117,9 +119,7 @@ const DeleteConfirmation = ({
             style={{ pointerEvents: "auto" }}
           >
             <div className="flex flex-col gap-1.5 text-center sm:text-left py-4 px-5 border-b border-secondary-border">
-              <h2
-                className="text-base leading-none font-normal"
-              >
+              <h2 className="text-base leading-none font-normal">
                 <span className="break-words">Confirm Delete</span>
               </h2>
             </div>

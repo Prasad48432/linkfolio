@@ -1,5 +1,5 @@
 import { ToastError, ToastSuccess } from "@/components/toast";
-import { SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 export const handleAdd = async ({
   table,
