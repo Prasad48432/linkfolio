@@ -5,6 +5,9 @@ import {
   BatteryLow,
   ExternalLink,
   Eye,
+  FilePlus,
+  FolderPlus,
+  Link,
   Loader,
   MapPin,
   Plus,
@@ -30,6 +33,7 @@ import { handleAdd } from "./functions/addContents";
 import StartupPreviewRender from "./components/startuppreview_render";
 import ProjectPreviewRender from "./components/projectpreview_render";
 import LinkPreviewRender from "./components/linkpreview_render";
+import { MdOutlinePostAdd } from "react-icons/md";
 
 type IndexConversion = "startupAdd" | "linkAdd" | "projectAdd";
 
@@ -613,53 +617,69 @@ const Projects = () => {
                       </motion.div>
                     )}
                     <div className="items-center justify-center flex flex-col w-full">
-                      <DragDropContext
-                        onDragStart={StartupsDragStart}
-                        onDragEnd={StartupsDragEnd}
-                      >
-                        <Droppable droppableId="startup-list">
-                          {(provided) => (
-                            <div
-                              {...provided.droppableProps}
-                              ref={provided.innerRef}
-                              className="w-full flex flex-col"
-                            >
-                              {/* Render draggable items here */}
-                              {startups?.map((startup, index) => (
-                                <Draggable
-                                  key={startup.id}
-                                  draggableId={startup.id}
-                                  index={index}
-                                >
-                                  {(provided) => (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      className={`transition-colors duration-300 border rounded-md mb-3 ${
-                                        startupDraggingItemId === startup.id
-                                          ? "border-primary-text border-dashed opacity-100"
-                                          : startupDraggingItemId
-                                          ? "opacity-50 border border-dashed border-secondary-border"
-                                          : "opacity-100 border border-secondary-border"
-                                      }`}
-                                    >
-                                      <StartupCard
-                                        key={startup.id}
-                                        startup={startup}
-                                        handleFieldChange={
-                                          handleStartupsFieldChange
-                                        }
-                                      />
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </Droppable>
-                      </DragDropContext>
+                      {startups?.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center w-full h-[60vh] gap-1">
+                          <FilePlus
+                            strokeWidth={1}
+                            size={75}
+                            className="text-primary-text/60"
+                          />
+                          <p className="text-xl text-primary-text/60">
+                            No Startups found.
+                          </p>
+                          <p className="text-lg text-primary-text/60">
+                            Start adding your first Startup.
+                          </p>
+                        </div>
+                      ) : (
+                        <DragDropContext
+                          onDragStart={StartupsDragStart}
+                          onDragEnd={StartupsDragEnd}
+                        >
+                          <Droppable droppableId="startup-list">
+                            {(provided) => (
+                              <div
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                                className="w-full flex flex-col"
+                              >
+                                {/* Render draggable items here */}
+                                {startups?.map((startup, index) => (
+                                  <Draggable
+                                    key={startup.id}
+                                    draggableId={startup.id}
+                                    index={index}
+                                  >
+                                    {(provided) => (
+                                      <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        className={`transition-colors duration-300 border rounded-md mb-3 ${
+                                          startupDraggingItemId === startup.id
+                                            ? "border-primary-text border-dashed opacity-100"
+                                            : startupDraggingItemId
+                                            ? "opacity-50 border border-dashed border-secondary-border"
+                                            : "opacity-100 border border-secondary-border"
+                                        }`}
+                                      >
+                                        <StartupCard
+                                          key={startup.id}
+                                          startup={startup}
+                                          handleFieldChange={
+                                            handleStartupsFieldChange
+                                          }
+                                        />
+                                      </div>
+                                    )}
+                                  </Draggable>
+                                ))}
+                                {provided.placeholder}
+                              </div>
+                            )}
+                          </Droppable>
+                        </DragDropContext>
+                      )}
                     </div>
                   </>
                 )}
@@ -759,53 +779,69 @@ const Projects = () => {
                       </motion.div>
                     )}
                     <div className="items-center justify-center flex flex-col w-full">
-                      <DragDropContext
-                        onDragStart={ProjectsDragStart}
-                        onDragEnd={ProjectsDragEnd}
-                      >
-                        <Droppable droppableId="project-list">
-                          {(provided) => (
-                            <div
-                              {...provided.droppableProps}
-                              ref={provided.innerRef}
-                              className="w-full flex flex-col"
-                            >
-                              {/* Render draggable items here */}
-                              {projects?.map((project, index) => (
-                                <Draggable
-                                  key={project.id}
-                                  draggableId={project.id}
-                                  index={index}
-                                >
-                                  {(provided) => (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      className={`transition-colors duration-300 border rounded-md mb-3 ${
-                                        projectDraggingItemId === project.id
-                                          ? "border-white/70 border-dashed opacity-100"
-                                          : projectDraggingItemId
-                                          ? "opacity-50 border border-dashed border-secondary-border"
-                                          : "opacity-100 border border-secondary-border"
-                                      }`}
-                                    >
-                                      <ProjectCard
-                                        key={project.id}
-                                        project={project}
-                                        handleFieldChange={
-                                          handleProjectsFieldChange
-                                        }
-                                      />
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </Droppable>
-                      </DragDropContext>
+                      {projects?.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center w-full h-[60vh] gap-1">
+                          <FolderPlus
+                            strokeWidth={1}
+                            size={75}
+                            className="text-primary-text/60"
+                          />
+                          <p className="text-xl text-primary-text/60">
+                            No Projects found.
+                          </p>
+                          <p className="text-lg text-primary-text/60">
+                            Start adding your first Project.
+                          </p>
+                        </div>
+                      ) : (
+                        <DragDropContext
+                          onDragStart={ProjectsDragStart}
+                          onDragEnd={ProjectsDragEnd}
+                        >
+                          <Droppable droppableId="project-list">
+                            {(provided) => (
+                              <div
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                                className="w-full flex flex-col"
+                              >
+                                {/* Render draggable items here */}
+                                {projects?.map((project, index) => (
+                                  <Draggable
+                                    key={project.id}
+                                    draggableId={project.id}
+                                    index={index}
+                                  >
+                                    {(provided) => (
+                                      <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        className={`transition-colors duration-300 border rounded-md mb-3 ${
+                                          projectDraggingItemId === project.id
+                                            ? "border-white/70 border-dashed opacity-100"
+                                            : projectDraggingItemId
+                                            ? "opacity-50 border border-dashed border-secondary-border"
+                                            : "opacity-100 border border-secondary-border"
+                                        }`}
+                                      >
+                                        <ProjectCard
+                                          key={project.id}
+                                          project={project}
+                                          handleFieldChange={
+                                            handleProjectsFieldChange
+                                          }
+                                        />
+                                      </div>
+                                    )}
+                                  </Draggable>
+                                ))}
+                                {provided.placeholder}
+                              </div>
+                            )}
+                          </Droppable>
+                        </DragDropContext>
+                      )}
                     </div>
                   </>
                 )}
@@ -905,53 +941,69 @@ const Projects = () => {
                       </motion.div>
                     )}
                     <div className="items-center justify-center flex flex-col w-full">
-                      <DragDropContext
-                        onDragStart={LinksDragStart}
-                        onDragEnd={LinksDragEnd}
-                      >
-                        <Droppable droppableId="link-list">
-                          {(provided) => (
-                            <div
-                              {...provided.droppableProps}
-                              ref={provided.innerRef}
-                              className="w-full flex flex-col"
-                            >
-                              {/* Render draggable items here */}
-                              {links?.map((link, index) => (
-                                <Draggable
-                                  key={link.id}
-                                  draggableId={link.id}
-                                  index={index}
-                                >
-                                  {(provided) => (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      className={`transition-colors duration-300 border rounded-md mb-3 ${
-                                        linkDraggingItemId === link.id
-                                          ? "border-white/70 border-dashed opacity-100"
-                                          : linkDraggingItemId
-                                          ? "opacity-50 border border-dashed border-secondary-border"
-                                          : "opacity-100 border border-secondary-border"
-                                      }`}
-                                    >
-                                      <LinkCard
-                                        key={link.id}
-                                        link={link}
-                                        handleFieldChange={
-                                          handleLinksFieldChange
-                                        }
-                                      />
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </Droppable>
-                      </DragDropContext>
+                      {links?.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center w-full h-[60vh] gap-1">
+                          <Link
+                            strokeWidth={1}
+                            size={75}
+                            className="text-primary-text/60"
+                          />
+                          <p className="text-xl text-primary-text/60">
+                            No Links found.
+                          </p>
+                          <p className="text-lg text-primary-text/60">
+                            Start adding your first Link.
+                          </p>
+                        </div>
+                      ) : (
+                        <DragDropContext
+                          onDragStart={LinksDragStart}
+                          onDragEnd={LinksDragEnd}
+                        >
+                          <Droppable droppableId="link-list">
+                            {(provided) => (
+                              <div
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                                className="w-full flex flex-col"
+                              >
+                                {/* Render draggable items here */}
+                                {links?.map((link, index) => (
+                                  <Draggable
+                                    key={link.id}
+                                    draggableId={link.id}
+                                    index={index}
+                                  >
+                                    {(provided) => (
+                                      <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        className={`transition-colors duration-300 border rounded-md mb-3 ${
+                                          linkDraggingItemId === link.id
+                                            ? "border-white/70 border-dashed opacity-100"
+                                            : linkDraggingItemId
+                                            ? "opacity-50 border border-dashed border-secondary-border"
+                                            : "opacity-100 border border-secondary-border"
+                                        }`}
+                                      >
+                                        <LinkCard
+                                          key={link.id}
+                                          link={link}
+                                          handleFieldChange={
+                                            handleLinksFieldChange
+                                          }
+                                        />
+                                      </div>
+                                    )}
+                                  </Draggable>
+                                ))}
+                                {provided.placeholder}
+                              </div>
+                            )}
+                          </Droppable>
+                        </DragDropContext>
+                      )}
                     </div>
                   </>
                 )}

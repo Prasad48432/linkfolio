@@ -1,6 +1,5 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import Dashboard from "../dashboard";
 import {
   BatteryLow,
   SignalMedium,
@@ -32,6 +31,7 @@ import SkillsSection from "./components/skills-select";
 import ResumeSection from "./components/resume-select";
 import { ICONS_MAP_SMALL } from "./components/icons-map-small";
 import { ToastError, ToastSuccess } from "@/components/toast";
+import UpdateFavicon from "./components/update-favicon";
 
 interface Skill {
   name: string;
@@ -53,6 +53,7 @@ const Home = () => {
     user_skills: [],
     resume_url: "",
     resume_url_visibility: false,
+    favicon: "",
   });
   const [fetchLoading, setFetchLoading] = useState(true);
   const [modal, setModal] = useState(false);
@@ -70,7 +71,7 @@ const Home = () => {
         const { data, error } = await supabase
           .from("profiles")
           .select(
-            "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url, resume_url_visibility"
+            "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url, resume_url_visibility, favicon"
           )
           .eq("id", user.id)
           .single();
@@ -278,6 +279,63 @@ const Home = () => {
     }
   };
 
+  const handleFaviconChange = async (event: { target: { files: any[] } }) => {
+    if (event.target.files && event.target.files[0]) {
+      const selectedFile = event.target.files[0];
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (profileData.favicon && profileData.favicon !== "/favicon.ico") {
+          console.log("got into deleting old file");
+          const oldFilePath = profileData.favicon.split(
+            `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/userfavicons/`
+          )[1];
+
+          if (oldFilePath) {
+            await supabase.storage
+              .from("userfavicons")
+              .remove([`${oldFilePath}`])
+              .then((result) => {
+                // TODO:
+              })
+              .catch((err) => {
+                ToastError({ message: "An unexpected error occurred." });
+              });
+          }
+        }
+
+        const fileExt = selectedFile.name.split(".").pop();
+
+        const filePath = `${Date.now()}.${fileExt}`;
+
+        // Upload the image to the "userfavicons" bucket
+        const { error } = await supabase.storage
+          .from("userfavicons")
+          .upload(filePath, selectedFile);
+
+        if (error) throw error;
+
+        // Get the public URL of the uploaded image
+        const { data } = supabase.storage
+          .from("userfavicons")
+          .getPublicUrl(filePath);
+
+        const uri = await supabase
+          .from("profiles")
+          .update({
+            favicon: data.publicUrl,
+          })
+          .eq("id", user?.id);
+
+        ToastSuccess({ message: "favicon uploaded." });
+      } catch (error) {
+        ToastError({ message: "An unexpected error occurred." });
+      }
+    }
+  };
+
   useEffect(() => {
     if (preview) {
       document.body.classList.add("overflow-hidden");
@@ -344,6 +402,13 @@ const Home = () => {
                       />
                     </div>
                     <div className="flex flex-col items-center justify-center gap-3 w-full px-3 pt-3 pb-4 border border-secondary-strongerborder rounded-md border-dashed">
+                      <UpdateFavicon
+                        image={profileData.favicon}
+                        fetchLoading={fetchLoading}
+                        handleFaviconChange={handleFaviconChange}
+                      />
+                    </div>
+                    <div className="flex flex-col items-center justify-center gap-3 w-full px-3 pt-3 pb-4 border border-secondary-strongerborder rounded-md border-dashed">
                       <div className="w-full">
                         <label className="block text-sm font-medium text-primary-text/80 px-1 mb-0.5">
                           Full Name
@@ -398,14 +463,22 @@ const Home = () => {
                                   Markdown guide
                                 </p>
                                 <p className="text-xs text-primary-text/80 mt-2">
-                                  <span className="text-accent-text">**text**</span> →{" "}
-                                  <span className="font-bold">text</span>
+                                  <span className="text-accent-text">
+                                    **text**
+                                  </span>{" "}
+                                  → <span className="font-bold">text</span>
                                 </p>
                                 <p className="text-xs text-primary-text/80">
-                                <span className="text-accent-text">*text*</span> → <span className="italic">text</span>
+                                  <span className="text-accent-text">
+                                    *text*
+                                  </span>{" "}
+                                  → <span className="italic">text</span>
                                 </p>
                                 <p className="text-xs text-primary-text/80">
-                                <span className="text-accent-text">[link](https://mystartup.com)</span> →{" "}
+                                  <span className="text-accent-text">
+                                    [link](https://mystartup.com)
+                                  </span>{" "}
+                                  →{" "}
                                   <a
                                     href="https://mystartup.com"
                                     target="_blank"
@@ -458,7 +531,7 @@ const Home = () => {
                               });
                             }}
                             placeholder="text to diplay for profile link"
-                            className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-10 text-sm bg-secondary-bg border focus:outline-none rounded-md mt-1"
+                            className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-10 text-sm bg-secondary-bg autofill:bg-secondary-selection border focus:outline-none rounded-md mt-1"
                           />
                         </div>
                       </div>
@@ -628,12 +701,12 @@ const Home = () => {
             ) : (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-black">
                 <div className="bg-primary-bg/80 w-[272px] h-[572px]"></div>
-                <div className="absolute top-4 left-0 w-full h-full p-4">
+                <div className="absolute top-4 left-0 w-full h-[97.3%] rounded-b-[2.1rem] p-4 overflow-y-auto scrollbar_hidden">
                   <div
                     style={{
                       backgroundColor: "#343434",
                     }}
-                    className="absolute top-[-8px] right-0 m-4 rounded-md p-1 cursor-pointer"
+                    className="absolute top-12 right-0 m-4 rounded-md p-1 cursor-pointer"
                     title="share"
                   >
                     <ExternalLink
@@ -642,6 +715,19 @@ const Home = () => {
                       }}
                       size={16}
                     />
+                  </div>
+                  <div className="w-full rounded-full bg-secondary-bg flex items-center justify-start p-1 gap-1 mb-4">
+                    <Image
+                      src={profileData.favicon}
+                      className="w-[20px] h-[20px] rounded-full object-cover"
+                      alt="overlay"
+                      referrerPolicy="no-referrer"
+                      width={200}
+                      height={200}
+                    />
+                    <p className="text-xs text-primary-text/60">
+                      {process.env.NEXT_PUBLIC_BASE_URL}/{profileData.username}
+                    </p>
                   </div>
                   <div className="flex items-center justify-center">
                     <Image

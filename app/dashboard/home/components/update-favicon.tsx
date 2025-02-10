@@ -2,24 +2,22 @@ import React from "react";
 import Image from "next/image";
 import { Pencil } from "lucide-react";
 
-const UpdateImage = ({
-  image,
-  setModal,
-  handleFileChange,
+const UpdateFavicon = ({
   fetchLoading,
+  image,
+  handleFaviconChange,
 }: {
-  image: string;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  handleFileChange: any;
   fetchLoading: boolean;
+  image: string;
+  handleFaviconChange: any;
 }) => {
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <h2 className="mb-0.5 text-base lg:text-lg font-bold text-primary-text/80">
-        Image Update
+        Favicon Update
       </h2>
       <p className="text-xs lg:text-sm  text-primary-text/60 mb-5">
-        Update the publicly visible display image
+        Update the publicly visible custom favicon
       </p>
       <div className="relative inline-flex group items-center justify-center">
         {fetchLoading ? (
@@ -31,14 +29,15 @@ const UpdateImage = ({
             alt="User profile"
             width={600}
             height={600}
-            src={image || "/avatars/annie.png"}
+            src={image || "/favicon.ico"}
             className="w-[4rem] lg:w-[6rem] h-[4rem] lg:h-[6rem] rounded-full ring-2 ring-secondary-border p-1 inline-block object-cover"
             referrerPolicy="no-referrer"
           />
         )}
-        {/* mobile button */}
         <button
-          onClick={() => setModal(true)}
+          onClick={() => {
+            document.getElementById("faviconInput")?.click();
+          }}
           type="submit"
           className="ml-5 sm:hidden flex items-center justify-center  py-0.5 px-1.5 border text-sm rounded lg:rounded-md bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-primary-text cursor-pointer transition-all duration-200 ease-out"
         >
@@ -48,7 +47,7 @@ const UpdateImage = ({
         {/* desktop button */}
         <div className="absolute inset-0 z-20 justify-center items-center rounded-full bg-transparent group-hover:bg-secondary-bg/30 duration-200 cursor-pointer hidden sm:flex">
           <button
-            onClick={() => setModal(true)}
+            onClick={() => document.getElementById("faviconInput")?.click()}
             className="btn btn-square btn-sm  bg-neutral/50 border-neutral/0 group-hover:bg-neutral group-hover:border-neutral "
           >
             <svg
@@ -75,9 +74,9 @@ const UpdateImage = ({
         <input
           type="file"
           name="picture"
-          id="fileInput"
-          onChange={handleFileChange}
-          accept="image/*"
+          id="faviconInput"
+          onChange={handleFaviconChange}
+          accept=".ico"
           className="hidden"
         />
       </div>
@@ -85,4 +84,4 @@ const UpdateImage = ({
   );
 };
 
-export default UpdateImage;
+export default UpdateFavicon;

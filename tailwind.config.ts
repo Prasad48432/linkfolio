@@ -30,7 +30,15 @@ const config: Config = {
   			mx: [
   				'0.7rem',
   				'0.8rem'
-  			]
+  			],
+			sx: [
+				'0.8rem',
+				'1.25rem',
+			],
+			herosize: [
+				'2.1rem',
+				'2.3rem'
+			]
   		},
   		colors: {
   			primary: {

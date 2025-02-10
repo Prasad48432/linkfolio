@@ -77,7 +77,7 @@ export default function Navbar({
   }, [isNavbarOpen]);
 
   return (
-    <div id="topdiv" className="sticky top-0 transform z-40">
+    <div id="topdiv" className="sticky top-0 transform z-40 bg-primary-bg/90">
       <div className="absolute inset-0 h-full w-full bg-primary-bg/90 !opacity-100 transition-opacity"></div>
       <nav
         style={{
@@ -231,7 +231,7 @@ export default function Navbar({
                     height={200}
                     className="bg-accent-bg/20 h-8 md:h-10 w-8 md:w-10 rounded-full object-cover"
                     referrerPolicy="no-referrer"
-                    src={userData.avatar_url}
+                    src={user?.identities?.[0]?.identity_data?.avatar_url}
                     alt="User Profile"
                   />
                 </div>

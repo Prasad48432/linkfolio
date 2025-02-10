@@ -50,6 +50,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
   const supabase = createClient();
   const size = useWindowSize();
   const [email, setEmail] = useState("");
+  const isSocialsEmpty = Object.values(profile.socials).every((val) => val === "");
 
   return (
     <div
@@ -241,14 +242,14 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
         </button>
       </div>
       <div className="w-full hidden lg:block">
-        <p
+        {!isSocialsEmpty && <p
           style={{
             color: profile.theme.primary_text || "#ededed",
           }}
           className="text-lg font-semibold text-center mt-6 mb-4"
         >
           Follow my socials !
-        </p>
+        </p>}
         <div className="mt-3 mb-4 flex items-center justify-center gap-2">
           {profile.socials.facebook && (
             <a

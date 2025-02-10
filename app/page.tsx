@@ -9,9 +9,10 @@ import Navbar from "@/components/navbar";
 import { useState, useEffect } from "react";
 import CookieConsent from "@/components/cookieconsent";
 import UsernameCheck from "@/components/usernamecheck";
-import { User } from "@supabase/supabase-js";
+import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
 import { Loader } from "lucide-react";
+import Marquee from "react-fast-marquee";
 
 const imageUrls = [
   {
@@ -63,7 +64,7 @@ export default function Home() {
       accent_text: "",
       border: "",
       strongerborder: "",
-    }
+    },
   });
 
   useEffect(() => {
@@ -199,7 +200,7 @@ export default function Home() {
                         </div>
                       </div>
                       <h1
-                        className={`bricolage text-foreground font-extrabold text-3xl lg:text-7xl tracking-tight select-none`}
+                        className={`bricolage text-foreground font-extrabold text-herosize lg:text-7xl tracking-tight select-none`}
                       >
                         <span className="block text-primary-text lg:mb-2">
                           The spotlight your
@@ -208,11 +209,11 @@ export default function Home() {
                           <FlipWords duration={3000} className="" /> deserves
                         </span>
                       </h1>
-                      <p className="pt-2 text-foreground my-3 text-sm sm:mt-5 lg:mb-0 sm:text-base lg:text-lg">
-                        Simplify your web presence with with Linkfolio.
-                        Effortlessly share your startups, highlight your
-                        projects, and organize all your important links in one
-                        sleek, professional portfolio.
+                      <p className="pt-2 text-primary-text/80 my-3 text-sx sm:mt-5 lg:mb-0 sm:text-base lg:text-lg">
+                        Boost your web presence with Linkfolio. Share your
+                        startups, showcase projects, organize links, expand your
+                        network, get noticed by recruiters, and discover new
+                        opportunities <b>all in one sleek portfolio.</b>
                       </p>
                     </div>
                     {loading ? (
@@ -224,7 +225,7 @@ export default function Home() {
                         <a
                           data-size="medium"
                           type="button"
-                          className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 h-[38px]"
+                          className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder text-xs md:text-sm px-4 md:px-5 py-1.5"
                           href="/dashboard/home"
                         >
                           <span className="truncate flex items-center justify-center">
@@ -234,47 +235,52 @@ export default function Home() {
                         <a
                           data-size="medium"
                           type="button"
-                          className="inline-flex relative justify-center cursor-pointer items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-foreground bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 h-[38px]"
+                          className="inline-flex relative justify-center cursor-pointer items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-foreground bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-xs md:text-sm px-4 md:px-5 py-1.5"
                           href="/dashboard/analytics"
                         >
                           <span className="truncate">Analytics</span>
                         </a>
                       </div>
                     )}
-                    <div className="flex flex-col lg:flex-row items-center justify-center gap-2">
-                      <div className="-space-x-5 avatar-group justify-center  lg:justify-start">
+                    <div className="flex flex-col lg:flex-row items-center justify-center gap-2 w-full lg:w-3/4 mt-3 lg:mt-0">
+                      <Marquee
+                        autoFill
+                        speed={20}
+                        pauseOnClick
+                        pauseOnHover
+                        gradient
+                        gradientColor="#121212"
+                        className="gap-2"
+                      >
                         {imageUrls.map((image, index) => (
-                          <div
-                            title={image.name}
-                            key={index}
-                            className="avatar w-10 md:w-12 h-10 md:h-12 opacity-90"
-                          >
-                            <Image
-                              src={image.photourl ? image.photourl : "/man.png"}
-                              width={50}
-                              height={50}
-                              loading="lazy"
-                              alt="Picture of the author"
-                              style={{ objectFit: "cover" }}
-                            />
+                          <div className="flex flex-col items-center justify-center gap-1">
+                            <a
+                              href={`${process.env.NEXT_PUBLIC_BASE_URL?.replace(
+                                /(^\w+:|^)\/\//,
+                                ""
+                              )}/${image.name}`}
+                              title={image.name}
+                              key={index}
+                              className="mr-2 lg:mr-3 flex flex-col items-center justify-center gap-1"
+                            >
+                              <Image
+                                src={
+                                  image.photourl ? image.photourl : "/man.png"
+                                }
+                                width={50}
+                                height={50}
+                                loading="lazy"
+                                alt="Picture of the author"
+                                style={{ objectFit: "cover" }}
+                                className="w-12 md:w-14 h-12 md:h-14 opacity-90 rounded-full p-1 border-dashed border-2 border-secondary-strongerborder"
+                              />
+                              <p className="text-xs text-primary-text/70">
+                                {image.name}
+                              </p>
+                            </a>
                           </div>
                         ))}
-                      </div>
-                      <div className="flex flex-col justify-center items-center md:items-start gap-1">
-                        <div className="relative inline-flex">
-                          <Rating
-                            style={{ width: 100 }}
-                            value={4.25}
-                            readOnly
-                          />
-                        </div>
-                        <div className="text-xs md:text-sm text-primarytext">
-                          <span className="font-semibold  mr-1">290</span>
-                          <span className="opacity-70">
-                            Entrepreneurs joined!
-                          </span>
-                        </div>
-                      </div>
+                      </Marquee>
                     </div>
                   </div>
                 </div>

@@ -61,7 +61,6 @@ const DeleteConfirmation = ({
       // call broadcast if deleted last item
       if (remainingEntries.length === 0) {
         try {
-          console.log("sent request");
           const response = await supabase.channel("max-index-delete").send({
             type: "broadcast",
             event: "deleted_max_index_item",

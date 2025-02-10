@@ -4,10 +4,45 @@ import { FlagIcon, Pencil } from "lucide-react";
 import ProfileCard from "./components/profilecard";
 import ContentsCard from "./components/contentscard";
 import MobileSocialsRender from "./components/mobilesocials";
+import { Metadata } from "next";
 
 interface Params {
   username: string;
+  utm_source?: string;
+  utm_location?: string;
 }
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const results = await getNameBio(params.username);
+
+  return {
+    title: `${results?.full_name}`,
+    description: `${results?.bio}`,
+    icons: {
+      icon: results?.favicon,
+    },
+  };
+}
+
+const getNameBio = async (username: string) => {
+  const supabase = createClient();
+
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("full_name, bio, avatar_url, favicon")
+    .eq("username", username)
+    .single();
+
+  if (profileError || !profile) {
+    return null;
+  }
+
+  return profile;
+};
 
 export default async function UsernamePage({ params }: { params: Params }) {
   const supabase = createClient();
@@ -54,48 +89,43 @@ export default async function UsernamePage({ params }: { params: Params }) {
   ]);
 
   return (
-    <>
+    <div
+      style={{
+        background: profile.theme.primary_bg || "#121212",
+      }}
+      className="flex flex-col lg:flex-row relative"
+    >
       {userId === profileId && (
         <a
           href="/dashboard/home"
           target="_blank"
           style={{
-            backgroundColor: profile.theme.primary_bg || "#121212",
+            backgroundColor: profile.theme.secondary_bg || "#262626",
             color: profile.theme.primary_text || "#ededed",
-            borderColor: profile.theme.border || "#363636",
+            borderColor: profile.theme.strongerborder || "#4d4d4d",
           }}
-          className="fixed top-0 left-0 cursor-pointer gap-2 z-[51] flex items-center justify-center h-12 w-full border border-r-0 border-l-0 border-dashed"
+          className="absolute text-sm rounded-full gap-1 px-2 py-1 border-2 border-dashed top-4 right-8 flex items-center justify-center z-[51] cursor-pointer"
         >
-          <span className="font-semibold text-base md:text-xl flex items-center justify-center gap-2">
-            Edit your Page <Pencil />
-          </span>
+          <Pencil size={15} /> Edit Page
         </a>
       )}
       <div
         style={{
-          marginTop: userId === profileId ? "3rem" : "0rem",
-          background: profile.theme.primary_bg || "#121212",
+          borderColor: profile.theme.strongerborder || "#4d4d4d",
         }}
-        className="flex flex-col lg:flex-row"
+        className="w-full relative lg:fixed z-50 h-auto lg:h-screen lg:w-2/6 px-6 py-3 border-r-0 lg:border-r"
       >
-        <div
-          style={{
-            borderColor: profile.theme.strongerborder || "#4d4d4d",
-          }}
-          className="w-full relative lg:fixed z-50 h-auto lg:h-screen lg:w-2/6 px-6 py-3 border-r-0 lg:border-r"
-        >
-          <ProfileCard profile={profile} />
-        </div>
-        <div className="w-full lg:min-h-[100vh] lg:w-4/6 relative lg:left-[33.34%] px-8 py-4">
-          <ContentsCard
-            profile={profile}
-            startups={startups}
-            projects={projects}
-            links={links}
-          />
-          <MobileSocialsRender profile={profile} />
-        </div>
+        <ProfileCard profile={profile} />
       </div>
-    </>
+      <div className="w-full lg:min-h-[100vh] lg:w-4/6 relative lg:left-[33.34%] px-8 py-4">
+        <ContentsCard
+          profile={profile}
+          startups={startups}
+          projects={projects}
+          links={links}
+        />
+        <MobileSocialsRender profile={profile} />
+      </div>
+    </div>
   );
 }
