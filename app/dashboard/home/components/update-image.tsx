@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import { Pencil } from "lucide-react";
+import { Info, Pencil } from "lucide-react";
+import { HoverCard, HoverCardContent } from "@/components/ui/hover-card";
+import { HoverCardTrigger } from "@radix-ui/react-hover-card";
 
 const UpdateImage = ({
   image,
@@ -15,8 +17,39 @@ const UpdateImage = ({
 }) => {
   return (
     <div className="w-full flex flex-col items-center justify-center">
-      <h2 className="mb-0.5 text-base lg:text-lg font-bold text-primary-text/80">
+      <h2 className="mb-0.5 text-base lg:text-lg font-bold text-primary-text/80 flex items-center justify-start">
         Image Update
+        <HoverCard openDelay={250}>
+          <HoverCardTrigger className="text-sm font-medium text-primary-text cursor-pointer">
+            <Info strokeWidth={1} size={16} className="ml-1" />
+          </HoverCardTrigger>
+          <HoverCardContent className="bg-primary-bg border border-secondary-border rounded-md z-50">
+            <div className="flex flex-col p-2">
+              <p className="text-sm font-semibold">Recommended Image</p>
+              <ol className="text-xs text-primary-text/70 mt-2 list-decimal list-inside font-normal">
+                <li>
+                  Best image size
+                  <a
+                    className="text-accent-text font-medium ml-1"
+                  >
+                    500x500 px
+                  </a>
+                </li>
+                <li>
+                  Best image types{" "}
+                  <a
+                    className="text-accent-text font-medium ml-1"
+                  >
+                    JPG, PNG
+                  </a>
+                </li>
+                <li>
+                  Max file size <b className="text-accent-text font-medium">3 MB</b>
+                </li>
+              </ol>
+            </div>
+          </HoverCardContent>
+        </HoverCard>
       </h2>
       <p className="text-xs lg:text-sm  text-primary-text/60 mb-5">
         Update the publicly visible display image

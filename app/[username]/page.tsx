@@ -5,6 +5,7 @@ import ProfileCard from "./components/profilecard";
 import ContentsCard from "./components/contentscard";
 import MobileSocialsRender from "./components/mobilesocials";
 import { Metadata } from "next";
+import { CiEdit } from "react-icons/ci";
 
 interface Params {
   username: string;
@@ -104,9 +105,9 @@ export default async function UsernamePage({ params }: { params: Params }) {
             color: profile.theme.primary_text || "#ededed",
             borderColor: profile.theme.strongerborder || "#4d4d4d",
           }}
-          className="absolute text-sm rounded-full gap-1 px-2 py-1 border-2 border-dashed top-4 right-8 flex items-center justify-center z-[51] cursor-pointer"
+          className="absolute text-xs lg:text-sm rounded-full gap-1 px-2 py-1 border-2 border-dashed top-3 lg:top-4 right-3 lg:right-8 flex items-center justify-center z-[51] cursor-pointer"
         >
-          <Pencil size={15} /> Edit Page
+          <CiEdit className="text-base lg:text-lg" /> Edit Page
         </a>
       )}
       <div

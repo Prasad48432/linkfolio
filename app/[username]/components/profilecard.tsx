@@ -76,7 +76,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
             style={{
               color: profile.theme.primary_text || "#ededed",
             }}
-            className="text-xl lg:text-2xl font-semibold mb-1 text-start cursor-pointer"
+            className="text-lg lg:text-2xl font-semibold mb-0 lg:mb-1 text-start cursor-pointer"
           >
             {profile.full_name}
           </h1>
@@ -84,12 +84,12 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
             style={{
               color: profile.theme.primary_text || "#ededed",
             }}
-            className="flex items-center text-base"
+            className="flex items-center text-base -ml-0.5"
           >
-            <FaMapMarkerAlt className="mr-1 flex-shrink-0" />
+            <FaMapMarkerAlt className="mr-0.5 lg:mr-1 flex-shrink-0 text-sm lg:text-lg" />
             <span
               title={profile.country}
-              className="truncate max-w-[6rem] cursor-pointer"
+              className="truncate max-w-[6rem] cursor-pointer text-sx lg:text-base"
             >
               {profile.country}
             </span>
@@ -99,8 +99,8 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
               }}
               className="mx-2 h-4 w-px flex-shrink-0"
             ></div>
-            <FaRupeeSign className="mr-1 flex-shrink-0" />
-            <span>{formatEarnings(2000000)}/mo</span>
+            <FaRupeeSign className="mr-0.5 lg:mr-1 flex-shrink-0 text-sm lg:text-lg" />
+            <span className="text-sx lg:text-base">{formatEarnings(2000000)}/mo</span>
           </div>
         </div>
       </div>

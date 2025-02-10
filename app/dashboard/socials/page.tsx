@@ -150,13 +150,23 @@ const SocialLinks = () => {
           </div>
           {fetchLoading ? (
             <div className="flex flex-col gap-4">
-              {[...Array(6)].map((_, index) => (
+              {[0.9, 0.8, 0.7, 0.6, 0.35, 0.25].map((value, index) => (
                 <div className="w-full px-5" key={index}>
-                  <div className="w-[70px] h-[20px] bg-secondary-bg rounded-md relative overflow-hidden mb-1">
-                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                  <div
+                    style={{
+                      opacity: value,
+                    }}
+                    className="w-[70px] h-[20px] bg-secondary-bg rounded-md relative overflow-hidden mb-1"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
                   </div>
-                  <div className="w-full h-[40px] bg-secondary-bg rounded-md relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                  <div
+                    style={{
+                      opacity: value,
+                    }}
+                    className="w-full h-[40px] bg-secondary-bg rounded-md relative overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
                   </div>
                 </div>
               ))}

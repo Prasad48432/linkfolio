@@ -253,14 +253,13 @@ export default function Home() {
                         className="gap-2"
                       >
                         {imageUrls.map((image, index) => (
-                          <div className="flex flex-col items-center justify-center gap-1">
+                          <div key={index} className="flex flex-col items-center justify-center gap-1">
                             <a
                               href={`${process.env.NEXT_PUBLIC_BASE_URL?.replace(
                                 /(^\w+:|^)\/\//,
                                 ""
                               )}/${image.name}`}
                               title={image.name}
-                              key={index}
                               className="mr-2 lg:mr-3 flex flex-col items-center justify-center gap-1"
                             >
                               <Image

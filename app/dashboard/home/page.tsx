@@ -382,13 +382,13 @@ const Home = () => {
                 {fetchLoading ? (
                   <div className="flex flex-col gap-4 mt-4 px-2">
                     <div className="w-full h-8 bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-[90%] h-8 bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-300/20 to-secondary-bg animate-shimmer" />
+                    <div className="w-[90%] h-8 bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-[80%] h-8 bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                    <div className="w-[80%] h-8 bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
                     </div>
                   </div>
                 ) : (
@@ -572,13 +572,13 @@ const Home = () => {
                 {fetchLoading ? (
                   <div className="flex flex-col gap-4 mt-4 px-2">
                     <div className="w-full h-8 bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-[90%] h-8 bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-300/20 to-secondary-bg animate-shimmer" />
+                    <div className="w-[90%] h-8 bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-[80%] h-8 bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                    <div className="w-[80%] h-8 bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
                     </div>
                   </div>
                 ) : (
@@ -594,10 +594,16 @@ const Home = () => {
               </TabPanel>
               <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
                 {fetchLoading ? (
-                  <div className="flex flex-col gap-4 animate-pulse mt-4">
-                    <div className="w-full h-10 bg-secondary-bg rounded-lg"></div>
-                    <div className="w-[90%] h-10 bg-secondary-bg rounded-lg"></div>
-                    <div className="w-[80%] h-10 bg-secondary-bg rounded-lg"></div>
+                  <div className="flex flex-col gap-4 mt-4 px-2">
+                    <div className="w-full h-8 bg-secondary-bg rounded-lg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    </div>
+                    <div className="w-[90%] h-8 bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    </div>
+                    <div className="w-[80%] h-8 bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    </div>
                   </div>
                 ) : (
                   <>
@@ -716,7 +722,7 @@ const Home = () => {
                       size={16}
                     />
                   </div>
-                  <div className="w-full rounded-full bg-secondary-bg flex items-center justify-start p-1 gap-1 mb-4">
+                  <div className="w-full rounded-full bg-secondary-bg flex items-center justify-start p-1 gap-1 mb-4 cursor-pointer">
                     <Image
                       src={profileData.favicon}
                       className="w-[20px] h-[20px] rounded-full object-cover"
@@ -725,7 +731,10 @@ const Home = () => {
                       width={200}
                       height={200}
                     />
-                    <p className="text-xs text-primary-text/60">
+                    <p
+                      title={`${process.env.NEXT_PUBLIC_BASE_URL}/${profileData.username}`}
+                      className="text-xs text-primary-text/60 text-ellipsis truncate"
+                    >
                       {process.env.NEXT_PUBLIC_BASE_URL}/{profileData.username}
                     </p>
                   </div>

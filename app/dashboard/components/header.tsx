@@ -99,13 +99,13 @@ const Header = ({
           {loading ? (
             <span className="flex items-center justify-center gap-2">
               <div className="w-32 h-6 bg-secondary-bg rounded-lg relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
               </div>
               <div className="w-24 h-6 bg-secondary-bg rounded-lg relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
               </div>
               <div className="w-10 h-10 bg-secondary-bg rounded-full relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
               </div>
             </span>
           ) : (

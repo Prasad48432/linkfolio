@@ -231,8 +231,8 @@ const NewsletterForm = () => {
               </h1>
 
               {fetchLoading ? (
-                <div className="flex h-[20.8px] w-[106.487px] bg-secondary-bg rounded-md relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                <div className="flex h-[20.8px] w-[106.487px] bg-secondary-bg rounded-md relative overflow-hidden opacity-90">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
                 </div>
               ) : (
                 <div
@@ -251,14 +251,14 @@ const NewsletterForm = () => {
           {fetchLoading ? (
             <div className="flex flex-col items-center justify-center gap-4 w-full px-4 py-2">
               <div className="flex flex-col items-center justify-center w-full py-4">
-                <div className="h-[216px] mb-4 w-full bg-secondary-bg rounded-md relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                <div className="h-[216px] mb-4 w-full bg-secondary-bg rounded-md relative overflow-hidden opacity-90">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
                 </div>
-                <div className="h-[98.4px] mb-4 w-full bg-secondary-bg rounded-md relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                <div className="h-[98.4px] mb-4 w-full bg-secondary-bg rounded-md relative overflow-hidden opacity-70">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
                 </div>
-                <div className="h-[184.4px] mb-4 w-full bg-secondary-bg rounded-md relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                <div className="h-[184.4px] mb-4 w-full bg-secondary-bg rounded-md relative overflow-hidden opacity-50">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
                 </div>
               </div>
             </div>
