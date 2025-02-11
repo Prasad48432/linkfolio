@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import MarkdownParser from "@/components/markdown-parser";
-import { ArrowRight, FileUser, Link, Mail } from "lucide-react";
+import { ArrowRight, Copy, FileUser, Link, Mail } from "lucide-react";
 import { formatEarnings } from "@/lib/format-earnings";
 import { FaMapMarkerAlt, FaRupeeSign } from "react-icons/fa";
 import { ProfileData } from "@/types/user";
@@ -15,11 +15,15 @@ import {
   SiLinkedin,
   SiX,
   SiYoutube,
+  SiWhatsapp,
+  SiTelegram,
 } from "react-icons/si";
 // import { motion } from "framer-motion";
 import useWindowSize from "@/hooks/useWindowSize";
 import { createClient } from "@/utils/supabase/client";
 import { subscribeUser } from "../functions/addSubscriber";
+import { BiLinkExternal } from "react-icons/bi";
+import { SocialIcon } from "react-social-icons";
 
 const hexToRgba = (hex: string, opacity: number) => {
   // Remove "#" if present
@@ -50,15 +54,189 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
   const supabase = createClient();
   const size = useWindowSize();
   const [email, setEmail] = useState("");
-  const isSocialsEmpty = Object.values(profile.socials).every((val) => val === "");
+  const [modal, setModal] = useState(false);
+  const isSocialsEmpty = Object.values(profile.socials).every(
+    (val) => val === ""
+  );
+  const shareLink = () => {
+    const url = `https://${process.env.NEXT_PUBLIC_BASE_URL}/${profile.username}`;
+    const text = "Checkout my Linkfolio page";
+    const shareUrl = `${url}&quote=${encodeURIComponent(text)}`;
+
+    window.open(shareUrl);
+  };
 
   return (
     <div
       // initial={{ opacity: 0 }}
       // animate={{ opacity: 1 }}
       // transition={{ duration: 0.8 }}
-      className="flex flex-col items-center justify-center py-3"
+      className="flex flex-col items-center justify-center py-3 relative"
     >
+      <div
+        style={{
+          background: profile.theme.secondary_bg || "#262626",
+          color: profile.theme.primary_text || "#ededed",
+          borderColor: profile.theme.strongerborder || "#363636",
+        }}
+        onClick={() => {
+          size.width > 1024 ? setModal(true) : shareLink;
+        }}
+        className="p-1 rounded-md absolute top-3 right-3 border"
+      >
+        <BiLinkExternal className="text-base lg:text-lg" />
+      </div>
+      {modal && (
+        <div
+          className="px-5 z-[100] fixed h-full w-full flex items-center justify-center top-0 left-0 backdrop-blur"
+          style={{
+            pointerEvents: "auto",
+            background: hexToRgba(profile.theme.primary_bg, 0.2),
+          }}
+        >
+          <div
+            data-state={modal ? "open" : "closed"}
+            className="relative z-50 w-full border data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95  rounded-lg md:w-full bg-dash-sidebar sm:align-middle sm:w-full sm:max-w-sm p-0 gap-0 pb-5 !block"
+            style={{
+              pointerEvents: "auto",
+              background: profile.theme.primary_bg || "#121212",
+              borderColor: profile.theme.border || "#363636",
+            }}
+          >
+            <div
+              style={{
+                borderColor: profile.theme.border || "#363636",
+                color: profile.theme.primary_text || "#ededed",
+              }}
+              className="flex flex-col gap-1.5 text-center sm:text-left py-4 px-5 border-b"
+            >
+              <h2 className="text-base leading-none font-normal">
+                <span className="break-words">Share Page</span>
+              </h2>
+            </div>
+            <div className="py-4 px-5 overflow-hidden">
+              <div className="space-y-4">
+                <div
+                  style={{
+                    background: profile.theme.secondary_bg || "#262626",
+                    borderColor: profile.theme.border || "#363636",
+                    color: profile.theme.primary_text || "#ededed",
+                  }}
+                  className="rounded-md border w-full px-2 py-1 relative"
+                >
+                  <p className="w-[93%] text-ellipsis truncate">
+                    {process.env.NEXT_PUBLIC_BASE_URL}/{profile.username}
+                  </p>
+                  <p
+                    title="copy link"
+                    style={{
+                      background: profile.theme.primary_bg || "#121212",
+                      borderColor: profile.theme.strongerborder || "#363636",
+                      color: profile.theme.primary_text || "#ededed",
+                    }}
+                    className="p-1 rounded-md absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer"
+                  >
+                    <Copy size={16} />
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              style={{
+                background: profile.theme.border || "#363636",
+              }}
+              className="w-full h-px"
+            />
+            <div className="flex gap-2 px-5 pt-5 items-center justify-center">
+              <a
+                href={`whatsapp://send?text=Checkout my Linkfolio page ${process.env.NEXT_PUBLIC_BASE_URL}/${profile.username}`}
+                data-action="share/whatsapp/share"
+                style={{
+                  background: profile.theme.secondary_bg || "#262626",
+                  borderColor: profile.theme.strongerborder || "#363636",
+                  color: profile.theme.primary_text || "#ededed",
+                }}
+                className="p-2.5 lg:p-3 border rounded-full"
+              >
+                <SiWhatsapp className="text-xl lg:text-2xl" />
+              </a>
+              <a
+                target="_blank"
+                href={`http://x.com/share?text=Checkout my Linkfolio page &url=https://linkfolio-dev.vercel.app/${profile.username}`}
+                style={{
+                  background: profile.theme.secondary_bg || "#262626",
+                  borderColor: profile.theme.strongerborder || "#363636",
+                  color: profile.theme.primary_text || "#ededed",
+                }}
+                className="p-2.5 lg:p-3 border rounded-full"
+              >
+                <SiX className="text-xl lg:text-2xl" />
+              </a>
+              <a
+                target="_blank"
+                href={`https://www.facebook.com/sharer/sharer.php?u=https://linkfolio-dev.vercel.app/${profile.username}`}
+                style={{
+                  background: profile.theme.secondary_bg || "#262626",
+                  borderColor: profile.theme.strongerborder || "#363636",
+                  color: profile.theme.primary_text || "#ededed",
+                }}
+                className="p-2.5 lg:p-3 border rounded-full"
+              >
+                <SiFacebook className="text-xl lg:text-2xl" />
+              </a>{" "}
+              <a
+                target="_blank"
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=https://linkfolio-dev.vercel.app/${profile.username}&text=Checkout my Linkfolio page`}
+                style={{
+                  background: profile.theme.secondary_bg || "#262626",
+                  borderColor: profile.theme.strongerborder || "#363636",
+                  color: profile.theme.primary_text || "#ededed",
+                }}
+                className="p-2.5 lg:p-3 border rounded-full"
+              >
+                <SiLinkedin className="text-xl lg:text-2xl" />
+              </a>{" "}
+              <a
+                target="_blank"
+                href={`https://telegram.me/share/url?url=https://linkfolio-dev.vercel.app/${profile.username}&text=Checkout my Linkfolio page`}
+                style={{
+                  background: profile.theme.secondary_bg || "#262626",
+                  borderColor: profile.theme.strongerborder || "#363636",
+                  color: profile.theme.primary_text || "#ededed",
+                }}
+                className="p-2.5 lg:p-3 border rounded-full"
+              >
+                <SiTelegram className="text-xl lg:text-2xl" />
+              </a>{" "}
+            </div>
+            <button
+              onClick={() => setModal(false)}
+              type="button"
+              style={{
+                color: profile.theme.primary_text || "#ededed",
+              }}
+              className="absolute right-4 top-4 rounded-sm opacity-50 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none  disabled:pointer-events-none "
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={24}
+                height={24}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-x h-4 w-4"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+              <span className="sr-only">Close</span>
+            </button>
+          </div>
+        </div>
+      )}
       <div className="flex items-center justify-center mb-4">
         <Image
           alt="User profile"
@@ -100,7 +278,9 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
               className="mx-2 h-4 w-px flex-shrink-0"
             ></div>
             <FaRupeeSign className="mr-0.5 lg:mr-1 flex-shrink-0 text-sm lg:text-lg" />
-            <span className="text-sx lg:text-base">{formatEarnings(2000000)}/mo</span>
+            <span className="text-sx lg:text-base">
+              {formatEarnings(2000000)}/mo
+            </span>
           </div>
         </div>
       </div>
@@ -242,14 +422,16 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
         </button>
       </div>
       <div className="w-full hidden lg:block">
-        {!isSocialsEmpty && <p
-          style={{
-            color: profile.theme.primary_text || "#ededed",
-          }}
-          className="text-lg font-semibold text-center mt-6 mb-4"
-        >
-          Follow my socials !
-        </p>}
+        {!isSocialsEmpty && (
+          <p
+            style={{
+              color: profile.theme.primary_text || "#ededed",
+            }}
+            className="text-lg font-semibold text-center mt-6 mb-4"
+          >
+            Follow my socials !
+          </p>
+        )}
         <div className="mt-3 mb-4 flex items-center justify-center gap-2">
           {profile.socials.facebook && (
             <a

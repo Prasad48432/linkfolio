@@ -115,7 +115,7 @@ export default async function UsernamePage({ params }: { params: Params }) {
       }}
       className="flex flex-col lg:flex-row relative"
     >
-      {userId === profileId && (
+      {/* {userId === profileId && (
         <a
           href="/dashboard/home"
           target="_blank"
@@ -128,7 +128,7 @@ export default async function UsernamePage({ params }: { params: Params }) {
         >
           <CiEdit className="text-base lg:text-lg" /> Edit Page
         </a>
-      )}
+      )} */}
       <div
         style={{
           borderColor: profile.theme.strongerborder || "#4d4d4d",
