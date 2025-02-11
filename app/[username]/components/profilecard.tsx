@@ -23,7 +23,6 @@ import useWindowSize from "@/hooks/useWindowSize";
 import { createClient } from "@/utils/supabase/client";
 import { subscribeUser } from "../functions/addSubscriber";
 import { BiLinkExternal } from "react-icons/bi";
-import { SocialIcon } from "react-social-icons";
 
 const hexToRgba = (hex: string, opacity: number) => {
   // Remove "#" if present
@@ -58,6 +57,12 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
   const isSocialsEmpty = Object.values(profile.socials).every(
     (val) => val === ""
   );
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/${profile.username}`
+    );
+  };
 
   return (
     <div
@@ -119,6 +124,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
                     {process.env.NEXT_PUBLIC_BASE_URL}/{profile.username}
                   </p>
                   <p
+                    onClick={handleCopy}
                     title="copy link"
                     style={{
                       background: profile.theme.primary_bg || "#121212",
@@ -140,7 +146,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
             />
             <div className="flex gap-2 px-5 pt-5 items-center justify-center">
               <a
-                href={`whatsapp://send?text=Checkout my Linkfolio page ${process.env.NEXT_PUBLIC_BASE_URL}/${profile.username}`}
+                href={`whatsapp://send?text=${process.env.NEXT_PUBLIC_BASE_URL}/${profile.username}`}
                 data-action="share/whatsapp/share"
                 style={{
                   background: profile.theme.secondary_bg || "#262626",
@@ -153,7 +159,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
               </a>
               <a
                 target="_blank"
-                href={`http://x.com/share?text=Checkout my Linkfolio page &url=https://linkfolio-dev.vercel.app/${profile.username}`}
+                href={`http://x.com/share?text=Checkout my Linkfolio page%0A&url=https://linkfolio-dev.vercel.app/${profile.username}`}
                 style={{
                   background: profile.theme.secondary_bg || "#262626",
                   borderColor: profile.theme.strongerborder || "#363636",
@@ -165,7 +171,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
               </a>
               <a
                 target="_blank"
-                href={`https://www.facebook.com/sharer/sharer.php?u=https://linkfolio-dev.vercel.app/${profile.username}`}
+                href={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXT_PUBLIC_BASE_URL}/${profile.username}`}
                 style={{
                   background: profile.theme.secondary_bg || "#262626",
                   borderColor: profile.theme.strongerborder || "#363636",
@@ -177,7 +183,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
               </a>{" "}
               <a
                 target="_blank"
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=https://linkfolio-dev.vercel.app/${profile.username}&text=Checkout my Linkfolio page`}
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${process.env.NEXT_PUBLIC_BASE_URL}/${profile.username}&text=Checkout my Linkfolio page`}
                 style={{
                   background: profile.theme.secondary_bg || "#262626",
                   borderColor: profile.theme.strongerborder || "#363636",
@@ -189,7 +195,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
               </a>{" "}
               <a
                 target="_blank"
-                href={`https://telegram.me/share/url?url=https://linkfolio-dev.vercel.app/${profile.username}&text=Checkout my Linkfolio page`}
+                href={`https://telegram.me/share/url?url=${process.env.NEXT_PUBLIC_BASE_URL}/${profile.username}&text=Checkout my Linkfolio page`}
                 style={{
                   background: profile.theme.secondary_bg || "#262626",
                   borderColor: profile.theme.strongerborder || "#363636",

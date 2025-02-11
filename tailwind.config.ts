@@ -62,7 +62,7 @@ const config: Config = {
   				text: '#ff5733',
   				selection: '#b32400',
   				border: '#ff471a',
-  				strongerborder: '#ff8566',
+  				strongerborder: '#ff704d',
   				foreground: 'hsl(var(--accent-foreground))'
   			},
   			brdr: {

@@ -46,7 +46,7 @@ const ToggleSwitch = ({
 
   return (
     <div className="absolute bottom-0 lg:bottom-auto right-1/2 translate-x-1/2 lg:translate-x-0 lg:right-3 lg:top-1/2 -translate-y-1/2 flex flex-row lg:flex-col items-center justify-center gap-1">
-      <p className="text-primary-text/80 font-thin">visibility</p>
+      <p className="text-primary-text/80 font-extralight">visibility</p>
       <div
         onClick={() => handleUpdate(!resumeUrlVisibility)}
         className={`w-10 h-6 border-[0.5px] flex items-center rounded-full p-1 cursor-pointer transition-all duration-300 ease-out ${

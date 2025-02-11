@@ -293,9 +293,7 @@ const Tabs = () => {
         );
       })}
 
-      <AnimatePresence>
-        {selected && <Content dir={dir} selected={selected} />}
-      </AnimatePresence>
+      {selected && <Content dir={dir} selected={selected} />}
     </div>
   );
 };
@@ -479,7 +477,7 @@ const Features = () => {
           <h3 className="mb-4 text-sm font-normal text-primary-text/70 tracking-widest">
             WHAT DIFFERENTIATES US?
           </h3>
-          <div className="flex flex-col items-start justify-center gap-2 font-thin">
+          <div className="flex flex-col items-start justify-center gap-2 font-light">
             <p className="text-primary-text group/menu-item hover:text-accent-text transition-all ease-out duration-200 cursor-pointer text-sm leading-snug flex items-center justify-center">
               linkfolio vs linktree{" "}
               <MdKeyboardArrowRight className="hidden group-hover/menu-item:inline-block animate-slideIn" />
@@ -522,7 +520,7 @@ const Blogs = () => {
               <p className="text-xs text-secondary-text group-hover/menu-item:text-primary-text/80 mb-1 transition-all ease-out duration-200">
                 startups are definetly not gonna be a walk on moon typeshit
               </p>
-              <p className="text-primary-text group-hover/menu-item:text-accent-text transition-all ease-out duration-200 cursor-pointer text-xs font-thin leading-snug flex items-center justify-center">
+              <p className="text-primary-text group-hover/menu-item:text-accent-text transition-all ease-out duration-200 cursor-pointer text-xs font-extralight leading-snug flex items-center justify-center">
                 Read more
                 <MdKeyboardArrowRight className="hidden group-hover/menu-item:inline-block animate-slideIn" />
               </p>
@@ -546,7 +544,7 @@ const Blogs = () => {
               <p className="text-xs text-secondary-text group-hover/menu-item:text-primary-text/80 mb-1 transition-all ease-out duration-200">
                 how a small enterprise business can be scaled into large
               </p>
-              <p className="text-primary-text group-hover/menu-item:text-accent-text transition-all ease-out duration-200 cursor-pointer text-xs font-thin leading-snug flex items-center justify-center">
+              <p className="text-primary-text group-hover/menu-item:text-accent-text transition-all ease-out duration-200 cursor-pointer text-xs font-extralight leading-snug flex items-center justify-center">
                 Read more
                 <MdKeyboardArrowRight className="hidden group-hover/menu-item:inline-block animate-slideIn" />
               </p>
@@ -557,7 +555,7 @@ const Blogs = () => {
           <h3 className="mb-4 text-sm font-normal text-primary-text/70 tracking-widest">
             CUSTOMER STORIES
           </h3>
-          <div className="flex flex-col items-start justify-center gap-2 font-thin">
+          <div className="flex flex-col items-start justify-center gap-2 font-light">
             <p className="text-primary-text group/menu-item hover:text-accent-text transition-all ease-out duration-200 cursor-pointer text-sm leading-snug flex items-center justify-center">
               linkfolio vs linktree{" "}
               <MdKeyboardArrowRight className="hidden group-hover/menu-item:inline-block animate-slideIn" />

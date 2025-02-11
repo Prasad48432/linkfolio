@@ -2,8 +2,6 @@
 import { FlipWords } from "@/components/flipwords";
 import Image from "next/image";
 import { Spotlight } from "@/components/spotlight";
-import { Rating } from "@smastrom/react-rating";
-import "@smastrom/react-rating/style.css";
 import MobileNavbar from "@/components/mobilenavbar";
 import Navbar from "@/components/navbar";
 import { useState, useEffect } from "react";
@@ -42,7 +40,7 @@ export default function Home() {
   const [isDropdown1Open, setDropdown1Open] = useState(false);
   const [isDropdown2Open, setDropdown2Open] = useState(false);
   const [showSpotlight, setShowSpotlight] = useState(false);
-  const [user, setUser] = useState<User | null>(null); // Explicitly define the state type
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState({
     full_name: "",

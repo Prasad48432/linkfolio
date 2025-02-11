@@ -1,20 +1,16 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 import {
   BatteryLow,
-  ExternalLink,
   Eye,
   FilePlus,
   FolderPlus,
   Link,
   Loader,
-  MapPin,
   Plus,
   SignalMedium,
   X,
 } from "lucide-react";
-import MarkdownParser from "@/components/markdown-parser";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { createClient } from "@/utils/supabase/client";
 import StartupCard from "./components/startupcard";
@@ -33,7 +29,6 @@ import { handleAdd } from "./functions/addContents";
 import StartupPreviewRender from "./components/startuppreview_render";
 import ProjectPreviewRender from "./components/projectpreview_render";
 import LinkPreviewRender from "./components/linkpreview_render";
-import { MdOutlinePostAdd } from "react-icons/md";
 
 type IndexConversion = "startupAdd" | "linkAdd" | "projectAdd";
 

@@ -147,7 +147,7 @@ const ResumeSection = ({
                 />
                 <label
                   htmlFor="fileUpload"
-                  className="text-primary-text/90 transition-all duration-200 ease-out flex items-center justify-center px-1.5 font-thin py-0.5 text-sm border rounded lg:rounded-md bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-primary-text cursor-pointer"
+                  className="text-primary-text/90 transition-all duration-200 ease-out flex items-center justify-center px-1.5 font-light py-0.5 text-sm border rounded lg:rounded-md bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-primary-text cursor-pointer"
                 >
                   <Pencil className="mr-1" strokeWidth={1} size={13} /> edit
                 </label>

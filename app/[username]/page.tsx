@@ -6,6 +6,7 @@ import ContentsCard from "./components/contentscard";
 import MobileSocialsRender from "./components/mobilesocials";
 import { Metadata } from "next";
 import { CiEdit } from "react-icons/ci";
+import removeMarkdown from "remove-markdown";
 
 interface Params {
   username: string;
@@ -22,13 +23,13 @@ export async function generateMetadata({
 
   return {
     title: `${results?.full_name}`,
-    description: `${results?.bio}`,
+    description: removeMarkdown(results?.bio).replace(/\s+/g, " ").trim(),
     icons: {
       icon: results?.favicon,
     },
     openGraph: {
       title: results?.full_name,
-      description: results?.bio,
+      description: removeMarkdown(results?.bio).replace(/\s+/g, " ").trim(),
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/${params.username}`,
       images: [
         {
@@ -42,7 +43,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary",
       title: results?.full_name,
-      description: results?.bio,
+      description: removeMarkdown(results?.bio).replace(/\s+/g, " ").trim(),
       images: [results?.avatar_url],
     },
   };
@@ -115,7 +116,7 @@ export default async function UsernamePage({ params }: { params: Params }) {
       }}
       className="flex flex-col lg:flex-row relative"
     >
-      {/* {userId === profileId && (
+      {userId === profileId && (
         <a
           href="/dashboard/home"
           target="_blank"
@@ -124,11 +125,11 @@ export default async function UsernamePage({ params }: { params: Params }) {
             color: profile.theme.primary_text || "#ededed",
             borderColor: profile.theme.strongerborder || "#4d4d4d",
           }}
-          className="absolute text-xs lg:text-sm rounded-full gap-1 px-2 py-1 border-2 border-dashed top-3 lg:top-4 right-3 lg:right-8 flex items-center justify-center z-[51] cursor-pointer"
+          className="absolute text-mx w-8 h-8 lg:w-auto lg:h-auto lg:text-sm rounded-full gap-1 px-2 py-1 border-2 border-dashed top-3 lg:top-4 left-3 lg:left-auto lg:right-8 flex items-center justify-center z-[51] cursor-pointer"
         >
-          <CiEdit className="text-base lg:text-lg" /> Edit Page
+          <CiEdit className="text-base lg:text-lg" /> <p className="hidden md:block">Edit Page</p>
         </a>
-      )} */}
+      )}
       <div
         style={{
           borderColor: profile.theme.strongerborder || "#4d4d4d",

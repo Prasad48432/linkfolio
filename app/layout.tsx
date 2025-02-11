@@ -21,6 +21,20 @@ const lexend = Lexend({
 export const metadata: Metadata = {
   title: "Linkfolio",
   description: "Your portfolio on web light and powerful",
+  icons: {
+    icon: [
+      {
+        media: '(prefers-color-scheme: dark)',
+        url: '/favicons/darkfav.ico',
+        href: '/favicons/darkfav.ico',
+      },
+      {
+        media: '(prefers-color-scheme: light)',
+        url: '/favicons/lightfav.ico',
+        href: '/favicons/lightfav.ico',
+      }
+    ]
+  }
 };
 
 export default function RootLayout({

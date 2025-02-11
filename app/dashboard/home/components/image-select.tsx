@@ -78,7 +78,7 @@ const ImageSelect = ({
             <h1 className="text-lg md:text-xl text-center mt-2 font-normal text-primary-text/90">
               Select Image
             </h1>
-            <p className="text-center text-xs md:text-base mb-8 text-primary-text/70 font-thin">
+            <p className="text-center text-xs md:text-base mb-8 text-primary-text/70 font-light">
               Select from Basic Avatars or pick local image
             </p>
             <div className="divide-y divide-secondary-strongerborder">

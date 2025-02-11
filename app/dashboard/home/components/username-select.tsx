@@ -6,13 +6,13 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 
 interface profileData {
-    full_name: string;
-    username: string;
-    bio: string;
-    country: string;
-    email: string;
-    id: string;
-    avatar_url: string;
+  full_name: string;
+  username: string;
+  bio: string;
+  country: string;
+  email: string;
+  id: string;
+  avatar_url: string;
 }
 
 const UsernameSelect = ({
@@ -30,7 +30,7 @@ const UsernameSelect = ({
   const [usernameUpdateLoading, setUsernameUpdateLoading] = useState(false);
   const handleUsernameUpdate = async (username: string) => {
     if (!username) {
-      ToastError({message: "Please enter an input."})
+      ToastError({ message: "Please enter an input." });
       return;
     }
 
@@ -42,7 +42,7 @@ const UsernameSelect = ({
       .eq("username", username);
 
     if (data?.length !== 0) {
-      ToastError({message: "Username already taken."})
+      ToastError({ message: "Username already taken." });
       setUsernameUpdateLoading(false);
       return;
     }
@@ -59,12 +59,11 @@ const UsernameSelect = ({
         })
         .eq("id", user?.id);
 
-        ToastSuccess({message: "Username updated."})
-      fetch
+      ToastSuccess({ message: "Username updated." });
       setIsUsernameThere(true);
       setUsernameUpdateLoading(false);
     } catch (error) {
-      ToastError({message: "An unexpected error occurred."})
+      ToastError({ message: "An unexpected error occurred." });
       setUsernameUpdateLoading(false);
     }
   };

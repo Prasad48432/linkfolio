@@ -158,7 +158,7 @@ export default function RegisterForm() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="relative mt-2 cursor-pointer space-x-2 text-center font-thin ease-out duration-200 rounded-md outline-none transition-all outline-0 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder w-full flex items-center justify-center text-base px-4 py-2 h-[42px]"
+                  className="relative mt-2 cursor-pointer space-x-2 text-center font-light ease-out duration-200 rounded-md outline-none transition-all outline-0 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder w-full flex items-center justify-center text-base px-4 py-2 h-[42px]"
                 >
                   {isLoading ? (
                     <p className="text-primary-text/80 flex items-center justify-center">

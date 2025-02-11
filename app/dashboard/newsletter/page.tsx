@@ -225,9 +225,9 @@ const NewsletterForm = () => {
       <div className="flex gap-2 h-auto lg:h-[calc(100vh-100px)] relative">
         <div className="lg:w-[55%] w-full lg:overflow-y-auto">
           <div className="flex flex-col items-start justify-center gap-3 w-full pb-3 px-3">
-            <div className="p-2 flex items-center justify-between w-full">
-              <h1 className="text-lg lg:text-xl  text-primarytext font-semibold">
-                Manage your newsletter audience
+            <div className="p-2 flex flex-col lg:flex-row items-start justify-center lg:justify-between w-full gap-2 lg:gap-0">
+              <h1 className="text-lg lg:text-xl  text-primarytext font-semibold flex" >
+                Manage your newsletter <span className="hidden lg:block ml-1">audience</span>
               </h1>
 
               {fetchLoading ? (
@@ -341,7 +341,7 @@ const NewsletterForm = () => {
                           value: e.target.value,
                         });
                       }}
-                      className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-10 text-sm bg-secondary-bg border focus:outline-none rounded-md mt-1"
+                      className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-10 text-sm bg-secondary-bg border focus:outline-none rounded-md mt-1 truncate text-ellipsis"
                     />
                   </div>
                 </div>
@@ -485,7 +485,7 @@ const NewsletterForm = () => {
                           });
                         }}
                         placeholder="text to diplay for profile link"
-                        className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-10 text-sm bg-secondary-bg border focus:outline-none rounded-md mt-1"
+                        className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-10 text-sm bg-secondary-bg border focus:outline-none rounded-md mt-1 truncate text-ellipsis"
                       />
                     </div>
                   </div>
