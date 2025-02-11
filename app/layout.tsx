@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Rubik } from "next/font/google";
+import { Bricolage_Grotesque, Rubik, Lexend } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 
@@ -12,6 +12,11 @@ const rubik = Rubik({
   variable: "--font-rubik",
   subsets: ["latin"],
 });
+
+const lexend = Lexend({
+  variable: "--font-lexend",
+  subsets: ["latin"],
+})
 
 export const metadata: Metadata = {
   title: "Linkfolio",
@@ -26,14 +31,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script
-          defer
-          data-website-id="679db6c24f53ae869404f8ba"
-          data-domain="linkfolio-dev.vercel.app"
-          src="https://datafa.st/js/script.js"
-        ></script>
       </head>
-      <body className={`${bricolage.variable} ${rubik.variable} antialiased`}>
+      <body className={`${bricolage.variable} ${rubik.variable} ${lexend.variable} antialiased lexend`}>
         <Toaster richColors position="top-center" />
         {children}
       </body>

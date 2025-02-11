@@ -213,7 +213,7 @@ export default function Home() {
                         Boost your web presence with Linkfolio. Share your
                         startups, showcase projects, organize links, expand your
                         network, get noticed by recruiters, and discover new
-                        opportunities <b>all in one sleek portfolio.</b>
+                        opportunities <b className="text-primary-text">all in one sleek portfolio.</b>
                       </p>
                     </div>
                     {loading ? (
@@ -242,18 +242,21 @@ export default function Home() {
                         </a>
                       </div>
                     )}
-                    <div className="flex flex-col lg:flex-row items-center justify-center gap-2 w-full lg:w-3/4 mt-3 lg:mt-0">
+                    <div className="flex flex-col lg:flex-row items-center justify-center gap-2 w-full lg:w-3/4 mt-3 lg:mt-0 relative">
                       <Marquee
                         autoFill
                         speed={20}
                         pauseOnClick
                         pauseOnHover
                         gradient
-                        gradientColor="#121212"
+                        gradientColor="rgb(18 18 18/0.8)"
                         className="gap-2"
                       >
                         {imageUrls.map((image, index) => (
-                          <div key={index} className="flex flex-col items-center justify-center gap-1">
+                          <div
+                            key={index}
+                            className="flex flex-col items-center justify-center gap-1"
+                          >
                             <a
                               href={`${process.env.NEXT_PUBLIC_BASE_URL?.replace(
                                 /(^\w+:|^)\/\//,

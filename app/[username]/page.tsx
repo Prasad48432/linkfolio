@@ -26,6 +26,25 @@ export async function generateMetadata({
     icons: {
       icon: results?.favicon,
     },
+    openGraph: {
+      title: results?.full_name,
+      description: results?.bio,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/${params.username}`,
+      images: [
+        {
+          url: results?.avatar_url,
+          width: 1200,
+          height: 630,
+          alt: `${results?.full_name}'s OpenGraph Image`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary",
+      title: results?.full_name,
+      description: results?.bio,
+      images: [results?.avatar_url],
+    },
   };
 }
 

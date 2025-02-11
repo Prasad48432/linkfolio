@@ -21,12 +21,19 @@ select:-webkit-autofill:focus {
 body {
   color: #ededed;
   background: #121212;
-  font-family: "Rubik", sans-serif;
   overflow-x: hidden;
 }
 
 .bricolage {
   font-family: var(--font-bricolage);
+}
+
+.rubik {
+  font-family: var(--font-rubik);
+}
+
+.lexend {
+  font-family: var(--font-lexend);
 }
 
 ::-webkit-scrollbar {

@@ -139,11 +139,11 @@ const SocialLinks = () => {
               </h1>
               <p className="text-sm text-primarytext font-normal mb-2">
                 Leave the field blank to hide from page{" "}
-                <span className="text-primary-text/70 hidden md:inline rubik text-xs">
+                <span className="text-primary-text/70 hidden md:inline text-xs">
                   (* Fields autoupdated on change)
                 </span>
               </p>
-              <span className="text-primary-text/70 mb-5 lg:mb-0 md:hidden flex rubik text-xs text-center lg:text-start">
+              <span className="text-primary-text/70 mb-5 lg:mb-0 md:hidden flex text-xs text-center lg:text-start">
                 (* Fields autoupdated on change)
               </span>
             </div>
