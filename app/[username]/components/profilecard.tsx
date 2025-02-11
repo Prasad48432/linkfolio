@@ -58,13 +58,6 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
   const isSocialsEmpty = Object.values(profile.socials).every(
     (val) => val === ""
   );
-  const shareLink = () => {
-    const url = `https://${process.env.NEXT_PUBLIC_BASE_URL}/${profile.username}`;
-    const text = "Checkout my Linkfolio page";
-    const shareUrl = `${url}&quote=${encodeURIComponent(text)}`;
-
-    window.open(shareUrl);
-  };
 
   return (
     <div
@@ -79,9 +72,7 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
           color: profile.theme.primary_text || "#ededed",
           borderColor: profile.theme.strongerborder || "#363636",
         }}
-        onClick={() => {
-          size.width > 1024 ? setModal(true) : shareLink;
-        }}
+        onClick={() => setModal(true)}
         className="p-1 rounded-md absolute top-3 right-3 border"
       >
         <BiLinkExternal className="text-base lg:text-lg" />
