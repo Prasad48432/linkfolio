@@ -366,25 +366,31 @@ const Home = () => {
         {/* Left Part */}
         <div className="lg:w-[55%] w-full lg:overflow-y-auto bg-primary-bg pt-4 px-0 lg:px-4">
           <TabGroup>
-            <TabList className="flex p-1.5 lg:p-2 bg-secondary-bg/40 gap-1 rounded-full mx-1">
-              <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
-                Profile
-              </Tab>
-              <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
-                Skills & Resume
-              </Tab>
-              <Tab className="relative transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
-                Credentials
-                {!isUsernameThere && (
-                  <div
-                    title="claim your username now"
-                    className="h-5 w-5 text-xs border border-accent-border bg-accent-bg text-primary-text rounded-full absolute -top-2 -right-2 flex items-center justify-center"
-                  >
-                    !
-                  </div>
-                )}
-              </Tab>
-            </TabList>
+            {fetchLoading ? (
+              <div className="w-full h-[41.6px] bg-secondary-bg rounded-full relative overflow-hidden p-1.5 lg:p-2 mx-1">
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+              </div>
+            ) : (
+              <TabList className="flex p-1.5 lg:p-2 bg-secondary-bg/40 gap-1 rounded-full mx-1">
+                <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
+                  Profile
+                </Tab>
+                <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
+                  Skills & Resume
+                </Tab>
+                <Tab className="relative transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
+                  Credentials
+                  {!isUsernameThere && (
+                    <div
+                      title="claim your username now"
+                      className="h-5 w-5 text-xs border border-accent-border bg-accent-bg text-primary-text rounded-full absolute -top-2 -right-2 flex items-center justify-center"
+                    >
+                      !
+                    </div>
+                  )}
+                </Tab>
+              </TabList>
+            )}
             <TabPanels>
               <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
                 {fetchLoading ? (
