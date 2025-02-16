@@ -25,16 +25,16 @@ const ProfileHoverInfo = ({ profile }: { profile: any }) => {
       <HoverCardContent
         className="bg-primary-bg border border-secondary-strongerborder rounded-md z-50 relative"
       >
-        <div className="flex flex-col gap-3 p-2">
-          <div className="flex items-center justify-start gap-3">
+        <div className="flex flex-col gap-3 p-2 w-full">
+          <div className="flex items-center justify-start gap-3 w-full">
             <Image
               width={500}
               height={500}
               alt="user profile image"
               src={profile.avatar_url}
-              className="w-12 h-12 rounded-full object-cover"
+              className="w-12 h-12 flex-shrink-0 rounded-full object-cover"
             />
-            <div className="flex flex-col items-start justify-center">
+            <div className="flex flex-col items-start justify-center w-[calc(100%-3rem)]">
               <p className="text-primary-text/90 font-medium text-lg">
                 {profile.full_name}
               </p>

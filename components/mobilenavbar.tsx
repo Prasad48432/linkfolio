@@ -43,9 +43,9 @@ export default function MobileNavbar({
   user: User | null;
 }) {
   const navItems = [
-    { id: 1, label: "Enterprise", href: "/enterprise" },
-    { id: 2, label: "Pricing", href: "/pricing" },
-    { id: 3, label: "Docs", href: "/docs" },
+    { id: 1, label: "Pricing", href: "/pricing" },
+    { id: 2, label: "Docs", href: "/docs" },
+    { id: 3, label: "Blogs", href: "/blog" },
   ];
 
   const router = useRouter();

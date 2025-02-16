@@ -127,21 +127,6 @@ export default function Navbar({
                     </li>
                     <li className="text-sm font-medium">
                       <a
-                        className="group/menu-item flex items-center text-sm hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-accent-text-lighter group-hover:bg-transparent text-accent-text focus-visible:text-brand-link"
-                        data-radix-collection-item=""
-                        href="/enterprise"
-                      >
-                        <div className="flex flex-col justify-center">
-                          <div className="flex items-center gap-1">
-                            <p className="leading-snug text-primary-text group-hover/menu-item:text-accent-text">
-                              Enterprise
-                            </p>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li className="text-sm font-medium">
-                      <a
                         className="group/menu-item flex items-center text-sm hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-accent-text-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
                         data-radix-collection-item=""
                         href="/pricing"
@@ -179,7 +164,7 @@ export default function Navbar({
                         <div className="flex flex-col justify-center">
                           <div className="flex items-center gap-1">
                             <p className="leading-snug text-primary-text group-hover/menu-item:text-accent-text">
-                              Blog
+                              Blogs
                             </p>
                           </div>
                         </div>

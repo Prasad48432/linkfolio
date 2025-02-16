@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Info, Loader } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
+import { ToastError, ToastSuccess } from "@/components/toast";
 
 const CommentBox = ({
   blogId,
@@ -22,6 +23,7 @@ const CommentBox = ({
     avatar_url: "",
   });
   const [fetchLoading, setFetchLoading] = useState(true);
+  const [postingComment, setPostingComment] = useState(false);
 
   const fetchProfile = async () => {
     try {
@@ -46,6 +48,31 @@ const CommentBox = ({
       console.error("Error retrieving profile data:", error);
     } finally {
       setFetchLoading(false);
+    }
+  };
+
+  const publishComment = async () => {
+    setPostingComment(true);
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      const { data, error } = await supabase.from("comments").insert({
+        blog_id: blogId,
+        author_id: authorId,
+        user_id: user?.id,
+        comment: comment,
+      });
+      if (error) {
+        ToastError({ message: "Error posting comment." });
+      } else {
+        setComment("");
+        ToastSuccess({ message: "Comment posted successfully." });
+      }
+    } catch (error) {
+      ToastError({ message: "An unexpected error occurred." });
+    } finally {
+      setPostingComment(false);
     }
   };
 
@@ -127,10 +154,15 @@ const CommentBox = ({
             Cancel
           </button>
           <button
-            disabled={!comment.trim()}
-            className="bg-accent-bg text-primary-text font-light px-3 py-1 rounded-full border border-accent-border"
+            disabled={!comment.trim() || postingComment}
+            onClick={() => publishComment()}
+            className="bg-accent-bg w-36 flex items-center justify-center disabled:opacity-50 text-primary-text font-light px-3 py-1 rounded-full border border-accent-border"
           >
-            Post Comment
+            {postingComment ? (
+              <Loader strokeWidth={1} className="animate-spin" />
+            ) : (
+              "Post Comment"
+            )}
           </button>
         </motion.div>
       </div>

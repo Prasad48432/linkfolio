@@ -133,7 +133,7 @@ export default function Blogs() {
       } = await supabase.auth.getUser();
       const { data, error } = await supabase.from("blogs").insert({
         ...blog,
-        user_id: user?.id,
+        author_id: user?.id,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
         published: true,

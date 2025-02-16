@@ -28,7 +28,7 @@ const formatDate = (createdAt: string) => {
 
 export default async function BlogPage({ params }: { params: Params }) {
   const supabase = createClient();
-  const { data: user, error: usererror } = await supabase.auth.getSession();
+  const { data: user, error: usererror } = await supabase.auth.getUser();
   const { data: blog, error: blogerror } = await supabase
     .from("blogs")
     .select(
@@ -43,7 +43,7 @@ export default async function BlogPage({ params }: { params: Params }) {
     )
     .eq("id", params.blogid)
     .single();
-  const isAuthor = user.session?.user.id === blog.author_id;
+  const isAuthor = user.user?.id === blog.author_id;
 
   if (blogerror || !blog) {
     return (
@@ -58,15 +58,15 @@ export default async function BlogPage({ params }: { params: Params }) {
   return (
     <div className="min-h-screen bg-primary-bg">
       <BlogNavbar />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-primary-bg">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12 bg-primary-bg">
         <div className="flex flex-col lg:flex-row lg:space-x-12">
           {/* Main Articles */}
           <div className="flex-1">
             <div className="flex flex-col gap-3 items-start justify-center">
-              <h1 className="font-semibold text-[35px] leading-[52px] text-primary-text tracking-[-0.011em]">
+              <h1 className="font-bold text-[25px] leading-[35px] lg:text-[35px] lg:leading-[52px] text-primary-text tracking-[-0.011em]">
                 {blog.title}
               </h1>
-              <div className="flex flex-col lg:flex-row items-center justify-between w-full">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-0 justify-start lg:justify-between w-full mb-4">
                 <div className="flex items-start justify-center gap-3 pl-1">
                   <img
                     src={blog.profiles.avatar_url}
@@ -89,7 +89,7 @@ export default async function BlogPage({ params }: { params: Params }) {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center justify-center gap-4 pl-2 lg:pl-0">
                   <div
                     title="Appreciations"
                     className="flex items-center justify-center text-sm lg:text-base font-extralight cursor-pointer text-primary-text/80"
