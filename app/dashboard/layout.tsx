@@ -5,7 +5,7 @@ import MarginWidthWrapper from "./components/margin-width-wrapper";
 import Header from "./components/header";
 import HeaderMobile from "./components/header-mobile";
 import PageWrapper from "./components/page-wrapper";
-import { useCycle } from "framer-motion";
+import { useCycle } from "motion/react";
 
 interface DashboardProps {
   children: ReactNode;

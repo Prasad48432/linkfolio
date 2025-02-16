@@ -17,6 +17,10 @@ select:-webkit-autofill:focus {
   border: 2px solid #434343;
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 
 body {
   color: #ededed;
@@ -159,6 +163,57 @@ body {
 
 .animate-shimmer path {
   animation: shimmerMove 2s infinite linear;
+}
+
+
+.blog_content_renderer h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 2rem;
+  letter-spacing: -0.011em;
+}
+
+.blog_content_renderer h2{
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.75rem;
+  letter-spacing: -0.011em;
+}
+.blog_content_renderer h3 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.75rem;
+  letter-spacing: -0.011em;
+}
+
+.blog_content_renderer p {
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  font-weight: 300;
+}
+
+.blog_content_renderer ol {
+  padding-left: 25px;
+}
+
+.blog_content_renderer mark {
+  color: white;
+  background: rgb(255 87 51 / 0.5);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.blog_content_renderer {
+  color: rgb(237 237 237 / 0.8);
+}
+
+.mask_framer{
+  background-color: transparent;
+  background-image: radial-gradient(transparent 1px, rgb(15, 17, 21) 1px);
+  background-size: 4px 4px;
+  backdrop-filter: blur(3px);
+  mask: linear-gradient(rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+  opacity: 1;
 }
 
 

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { RiImageAddLine } from "react-icons/ri";
 import { IoMdCheckmark } from "react-icons/io";

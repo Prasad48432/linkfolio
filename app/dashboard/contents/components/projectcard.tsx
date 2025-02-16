@@ -14,7 +14,7 @@ import Image from "next/image";
 import { FiGithub } from "react-icons/fi";
 import { createClient } from "@/utils/supabase/client";
 import { TbCategory } from "react-icons/tb";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import CategorySelect from "./categoryselect";
 
 type HandleFieldChange = (params: {

@@ -18,7 +18,7 @@ import {
   SiWhatsapp,
   SiTelegram,
 } from "react-icons/si";
-// import { motion } from "framer-motion";
+// import { motion } from "motion/react";
 import useWindowSize from "@/hooks/useWindowSize";
 import { createClient } from "@/utils/supabase/client";
 import { subscribeUser } from "../functions/addSubscriber";

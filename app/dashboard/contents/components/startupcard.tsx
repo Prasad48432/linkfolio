@@ -15,7 +15,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import useWindowSize from "@/hooks/useWindowSize";
 import { TbCategory } from "react-icons/tb";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import CategorySelect from "./categoryselect";
 import StatusSelect from "./statusselect";
 import DeleteConfirmation from "./deleteconfirm";

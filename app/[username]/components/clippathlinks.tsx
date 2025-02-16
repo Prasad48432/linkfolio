@@ -11,7 +11,7 @@ import {
   SiSpotify,
   SiTiktok,
 } from "react-icons/si";
-import { useAnimate } from "framer-motion";
+import { useAnimate } from "motion/react";
 import { IconType } from "react-icons";
 
 export const ClipLinks = () => {

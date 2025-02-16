@@ -1,7 +1,7 @@
 "use client";
 import React, { ReactNode, useEffect, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { PiRocketLaunch, PiCubeLight } from "react-icons/pi";
 import { BiLink } from "react-icons/bi";
 import { MdKeyboardArrowRight } from "react-icons/md";

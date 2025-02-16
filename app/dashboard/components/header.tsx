@@ -5,7 +5,7 @@ import { User } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
 import { Loader, Menu, MoveUpRight, X } from "lucide-react";
 import LogoutConfiramtion from "./logout-confirmation";
-import { Cycle, motion } from "framer-motion";
+import { Cycle, motion } from "motion/react";
 import { ToastError, ToastSuccess } from "@/components/toast";
 
 type Profile = {

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { RxCookie } from "react-icons/rx";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 
 const CookieConsent = () => {
   const [showConsent, setShowConsent] = useState(false);

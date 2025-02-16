@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SIDENAV_ITEMS } from "@/app/dashboard/utils/constants";
 import { SideNavItem } from "@/app/dashboard/utils/types";
-import { Cycle, motion } from "framer-motion";
+import { Cycle, motion } from "motion/react";
 
 type MenuItemWithSubMenuProps = {
   item: SideNavItem;

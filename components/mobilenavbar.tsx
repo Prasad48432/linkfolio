@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { ChevronDown, Loader } from "lucide-react";
 import { PiRocketLaunch, PiCubeLight } from "react-icons/pi";
 import { BiLink } from "react-icons/bi";

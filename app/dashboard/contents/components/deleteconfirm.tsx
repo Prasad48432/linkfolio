@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { Loader } from "lucide-react";
 import { ToastError, ToastSuccess } from "@/components/toast";
 import { createClient } from "@/utils/supabase/client";

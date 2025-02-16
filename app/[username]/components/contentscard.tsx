@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ProfileData } from "@/types/user";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-// import { motion } from "framer-motion";
+// import { motion } from "motion/react";
 import StartupRenderCard from "./startuprendercard";
 import ProjectRenderCard from "./projectrendercard";
 import LinkRenderCard from "./linkrendercard";

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Loader, MoveRight } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 
 const variants = {
   hidden: { opacity: 0, y: 20 },

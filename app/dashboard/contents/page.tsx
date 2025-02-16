@@ -16,7 +16,7 @@ import { createClient } from "@/utils/supabase/client";
 import StartupCard from "./components/startupcard";
 import ProjectCard from "./components/projectcard";
 import LinkCard from "./components/linkcard";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { RxCross2 } from "react-icons/rx";
 import { ToastError, ToastSuccess } from "@/components/toast";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
