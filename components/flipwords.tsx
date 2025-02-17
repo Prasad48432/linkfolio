@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
-const words = ["Startup ", "Project ", "Creation "];
+const words = ["Startup ", "Project ", "Creation ", "Skills ", "Journey ", "Earnings ", "Blogs ", "Career "];
 
 interface FlipWordsProps {
   duration?: number;

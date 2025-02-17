@@ -12,30 +12,15 @@ import { createClient } from "@/utils/supabase/client";
 import { Loader } from "lucide-react";
 import Marquee from "react-fast-marquee";
 
-const imageUrls = [
-  {
-    name: "Alice",
-    photourl: "https://randomuser.me/api/portraits/women/10.jpg",
-  },
-  {
-    name: "Bob",
-    photourl: "https://randomuser.me/api/portraits/men/15.jpg",
-  },
-  {
-    name: "Charlie",
-    photourl: "https://randomuser.me/api/portraits/men/20.jpg",
-  },
-  {
-    name: "Diana",
-    photourl: "https://randomuser.me/api/portraits/women/25.jpg",
-  },
-  {
-    name: "Eve",
-    photourl: "https://randomuser.me/api/portraits/women/30.jpg",
-  },
-];
+type profile = {
+  full_name: string | null;
+  username: string;
+  avatar_url: string | null;
+  bio: string | null;
+};
 
 export default function Home() {
+  const supabase = createClient();
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const [isDropdown1Open, setDropdown1Open] = useState(false);
   const [isDropdown2Open, setDropdown2Open] = useState(false);
@@ -64,32 +49,40 @@ export default function Home() {
       strongerborder: "",
     },
   });
+  const [trendingProfiles, setTrendingProfiles] = useState<profile[]>(() => []);
+
+  const fetchTrendingProfiles = async () => {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("full_name, username, avatar_url, bio")
+      .limit(5);
+    if (error) throw error;
+    setTrendingProfiles(data);
+  };
+
+  const fetchProfile = async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select(
+          "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url, resume_url_visibility, theme"
+        )
+        .eq("id", userId)
+        .single();
+
+      if (error) {
+        console.error("Error fetching profile:", error.message);
+      } else {
+        setUserData(data);
+      }
+    } catch (error) {
+      console.error("Error retrieving profile data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const supabase = createClient();
-
-    const fetchProfile = async (userId: string) => {
-      try {
-        const { data, error } = await supabase
-          .from("profiles")
-          .select(
-            "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url, resume_url_visibility, theme"
-          )
-          .eq("id", userId)
-          .single();
-
-        if (error) {
-          console.error("Error fetching profile:", error.message);
-        } else {
-          setUserData(data);
-        }
-      } catch (error) {
-        console.error("Error retrieving profile data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     supabase.auth
       .getSession()
       .then(({ data }) => {
@@ -97,6 +90,7 @@ export default function Home() {
           const userId = data.session.user.id;
           setUser(data.session.user);
           fetchProfile(userId);
+          fetchTrendingProfiles();
         } else {
           setUser(null);
           setLoading(false);
@@ -211,7 +205,10 @@ export default function Home() {
                         Boost your web presence with Linkfolio. Share your
                         startups, showcase projects, organize links, expand your
                         network, get noticed by recruiters, and discover new
-                        opportunities <b className="text-primary-text">all in one sleek portfolio.</b>
+                        opportunities{" "}
+                        <b className="text-primary-text">
+                          all in one sleek portfolio.
+                        </b>
                       </p>
                     </div>
                     {loading ? (
@@ -250,7 +247,7 @@ export default function Home() {
                         gradientColor="rgb(18 18 18/0.8)"
                         className="gap-2"
                       >
-                        {imageUrls.map((image, index) => (
+                        {trendingProfiles.map((profile, index) => (
                           <div
                             key={index}
                             className="flex flex-col items-center justify-center gap-1"
@@ -259,13 +256,15 @@ export default function Home() {
                               href={`${process.env.NEXT_PUBLIC_BASE_URL?.replace(
                                 /(^\w+:|^)\/\//,
                                 ""
-                              )}/${image.name}`}
-                              title={image.name}
+                              )}/${profile.username}`}
+                              title={profile.full_name || ""}
                               className="mr-2 lg:mr-3 flex flex-col items-center justify-center gap-1"
                             >
                               <Image
                                 src={
-                                  image.photourl ? image.photourl : "/man.png"
+                                  profile.avatar_url
+                                    ? profile.avatar_url
+                                    : "/man.png"
                                 }
                                 width={50}
                                 height={50}
@@ -275,7 +274,7 @@ export default function Home() {
                                 className="w-12 md:w-14 h-12 md:h-14 opacity-90 rounded-full p-1 border-dashed border-2 border-secondary-strongerborder"
                               />
                               <p className="text-xs text-primary-text/70">
-                                {image.name}
+                                {profile.full_name}
                               </p>
                             </a>
                           </div>
