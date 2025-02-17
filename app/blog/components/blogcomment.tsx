@@ -57,6 +57,8 @@ const CommentBox = ({
       const {
         data: { user },
       } = await supabase.auth.getUser();
+
+
       const { data, error } = await supabase.from("comments").insert({
         blog_id: blogId,
         author_id: authorId,

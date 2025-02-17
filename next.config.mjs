@@ -33,6 +33,10 @@ const nextConfig = {
         {
           protocol: "https",
           hostname: "miro.medium.com"
+        },
+        {
+          protocol: "https",
+          hostname: "flagsapi.com"
         }
       ],
     },

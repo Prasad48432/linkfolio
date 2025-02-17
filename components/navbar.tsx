@@ -15,8 +15,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ToastError, ToastSuccess } from "./toast";
 import { HomeProfileData } from "@/types/user";
+import { createClient } from "@/utils/supabase/client";
+import type { Database } from "@/types/supabasetypes";
 
-export default function Navbar({
+type blog = Database["public"]["Tables"]["blogs"]["Row"];
+
+const Navbar = ({
   isNavbarOpen,
   setIsNavbarOpen,
   setDropdown1Open,
@@ -32,9 +36,11 @@ export default function Navbar({
   loading: boolean;
   userData: HomeProfileData;
   user: User | null;
-}) {
+}) => {
+  const [blogs, setBlogs] = useState<blog[]>(() => []);
   const size = useWindowSize();
   const router = useRouter();
+  const supabase = createClient();
 
   const handleLogout = async () => {
     try {
@@ -46,6 +52,21 @@ export default function Navbar({
     } catch (error) {
       ToastError({ message: "An unexpected error occurred." });
     }
+  };
+
+  const fetchBlogs = async () => {
+    const { data, error } = await supabase
+      .from("blogs")
+      .select("*")
+      .order("created_at", { ascending: true })
+      .limit(2);
+
+    if (error) {
+      ToastError({ message: "Error fetching blogs" });
+      return;
+    }
+
+    setBlogs(data ?? []);
   };
 
   useEffect(() => {
@@ -61,6 +82,7 @@ export default function Navbar({
       topDiv?.classList.remove("z-[42]");
       topDiv?.classList.add("z-40");
     });
+    fetchBlogs();
   }, []);
 
   useEffect(() => {
@@ -123,7 +145,7 @@ export default function Navbar({
                     dir="ltr"
                   >
                     <li className="text-sm font-medium">
-                      <Tabs />
+                      <Tabs blogs={blogs} />
                     </li>
                     <li className="text-sm font-medium">
                       <a
@@ -244,9 +266,9 @@ export default function Navbar({
       </nav>
     </div>
   );
-}
+};
 
-const Tabs = () => {
+const Tabs = ({ blogs }: { blogs: blog[] }) => {
   const [selected, setSelected] = useState<number | null>(null);
   const [dir, setDir] = useState<null | "l" | "r">(null);
 
@@ -265,20 +287,18 @@ const Tabs = () => {
       onMouseLeave={() => handleSetSelected(null)}
       className="relative flex h-fit gap-2"
     >
-      {TABS.map((t) => {
-        return (
-          <Tab
-            key={t.id}
-            selected={selected}
-            handleSetSelected={handleSetSelected}
-            tab={t.id}
-          >
-            {t.title}
-          </Tab>
-        );
-      })}
+      {TABS(blogs).map((t) => (
+        <Tab
+          key={t.id}
+          selected={selected}
+          handleSetSelected={handleSetSelected}
+          tab={t.id}
+        >
+          {t.title}
+        </Tab>
+      ))}
 
-      {selected && <Content dir={dir} selected={selected} />}
+      {selected && <Content dir={dir} selected={selected} blogs={blogs} />}
     </div>
   );
 };
@@ -316,48 +336,39 @@ const Tab = ({
 const Content = ({
   selected,
   dir,
+  blogs,
 }: {
   selected: number | null;
   dir: null | "l" | "r";
+  blogs: blog[];
 }) => {
   return (
     <motion.div
       id="overlay-content"
-      initial={{
-        opacity: 0,
-        y: 8,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
-      exit={{
-        opacity: 0,
-        y: 8,
-      }}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 8 }}
       className="absolute z-[99] left-0 top-[calc(100%_+_24px)] min-w-[38rem] rounded-xl border border-secondary-strongerborder bg-primary-bg"
     >
       <Bridge />
       <Nub selected={selected} />
 
-      {TABS.map((t) => {
-        return (
-          <div className="overflow-hidden" key={t.id}>
-            {selected === t.id && (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  x: dir === "l" ? 100 : dir === "r" ? -100 : 0,
-                }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
-              >
-                <t.Component />
-              </motion.div>
-            )}
-          </div>
-        );
-      })}
+      {TABS(blogs).map((t) => (
+        <div className="overflow-hidden" key={t.id}>
+          {selected === t.id && (
+            <motion.div
+              initial={{
+                opacity: 0,
+                x: dir === "l" ? 100 : dir === "r" ? -100 : 0,
+              }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+            >
+              <t.Component />
+            </motion.div>
+          )}
+        </div>
+      ))}
     </motion.div>
   );
 };
@@ -482,59 +493,38 @@ const Features = () => {
   );
 };
 
-const Blogs = () => {
+const Blogs = ({ blogs }: { blogs: blog[] }) => {
   return (
     <div>
       <div className="flex gap-4 divide-x divide-secondary-strongerborder">
         <div className="flex flex-col items-start justify-center gap-3 w-2/3 p-4">
-          <a
-            className="flex items-start group/menu-item justify-center gap-2"
-            href="#"
-          >
-            <Image
-              className="mb-2 h-[4.5rem] w-28 rounded object-cover opacity-75 group-hover/menu-item:opacity-100 transition-all ease-out duration-200"
-              src="https://images.pexels.com/photos/7414273/pexels-photo-7414273.jpeg?auto=compress&cs=tinysrgb&w=600"
-              alt="Placeholder image"
-              width={112}
-              height={72}
-            />
-            <div className="flex flex-col items-start justify-center">
-              <h4 className="mb-0.5 text-sm font-medium text-primary-text/80 group-hover/menu-item:text-primary-text transition-all ease-out duration-200">
-                How's startup built
-              </h4>
-              <p className="text-xs text-secondary-text group-hover/menu-item:text-primary-text/80 mb-1 transition-all ease-out duration-200">
-                startups are definetly not gonna be a walk on moon typeshit
-              </p>
-              <p className="text-primary-text group-hover/menu-item:text-accent-text transition-all ease-out duration-200 cursor-pointer text-xs font-extralight leading-snug flex items-center justify-center">
-                Read more
-                <MdKeyboardArrowRight className="hidden group-hover/menu-item:inline-block animate-slideIn" />
-              </p>
-            </div>
-          </a>
-          <a
-            className="flex items-start group/menu-item justify-center gap-2"
-            href="#"
-          >
-            <Image
-              className="mb-2 h-[4.5rem] w-28 rounded object-cover opacity-75 group-hover/menu-item:opacity-100 transition-all ease-out duration-200"
-              src="https://images.pexels.com/photos/7414283/pexels-photo-7414283.jpeg?auto=compress&cs=tinysrgb&w=600"
-              alt="Placeholder image"
-              width={112}
-              height={72}
-            />
-            <div className="flex flex-col items-start justify-center">
-              <h4 className="mb-0.5 text-sm font-medium text-primary-text/80 group-hover/menu-item:text-primary-text transition-all ease-out duration-200">
-                New biz master plan
-              </h4>
-              <p className="text-xs text-secondary-text group-hover/menu-item:text-primary-text/80 mb-1 transition-all ease-out duration-200">
-                how a small enterprise business can be scaled into large
-              </p>
-              <p className="text-primary-text group-hover/menu-item:text-accent-text transition-all ease-out duration-200 cursor-pointer text-xs font-extralight leading-snug flex items-center justify-center">
-                Read more
-                <MdKeyboardArrowRight className="hidden group-hover/menu-item:inline-block animate-slideIn" />
-              </p>
-            </div>
-          </a>
+          {blogs.map((blog, index) => (
+            <a
+              key={index}
+              className="flex items-start group/menu-item justify-center gap-2"
+              href={`/blog/${blog.id}`}
+            >
+              <Image
+                className="mb-2 h-[4.5rem] w-28 rounded object-cover opacity-75 group-hover/menu-item:opacity-100 transition-all ease-out duration-200"
+                src={blog.thumbnail_url || ""}
+                alt="Placeholder image"
+                width={112}
+                height={72}
+              />
+              <div className="flex flex-col items-start justify-center">
+                <h4 className="mb-0.5 line-clamp-1 text-sm font-medium text-primary-text/80 group-hover/menu-item:text-primary-text transition-all ease-out duration-200">
+                  {blog.title}
+                </h4>
+                <p className="text-xs line-clamp-2 text-secondary-text group-hover/menu-item:text-primary-text/80 mb-1 transition-all ease-out duration-200">
+                  {blog.content}
+                </p>
+                <p className="text-primary-text group-hover/menu-item:text-accent-text transition-all ease-out duration-200 cursor-pointer text-xs font-extralight leading-snug flex items-center justify-center">
+                  Read more
+                  <MdKeyboardArrowRight className="hidden group-hover/menu-item:inline-block animate-slideIn" />
+                </p>
+              </div>
+            </a>
+          ))}
         </div>
         <div className="pl-4 bg-[#1a1a1a] w-1/3 p-4 rounded-r-xl">
           <h3 className="mb-4 text-sm font-normal text-primary-text/70 tracking-widest">
@@ -560,13 +550,16 @@ const Blogs = () => {
   );
 };
 
-const TABS = [
-  {
-    title: "Features",
-    Component: Features,
-  },
-  {
-    title: "Blogs",
-    Component: Blogs,
-  },
-].map((n, idx) => ({ ...n, id: idx + 1 }));
+const TABS = (blogs: blog[]) =>
+  [
+    {
+      title: "Features",
+      Component: Features,
+    },
+    {
+      title: "Blogs",
+      Component: () => <Blogs blogs={blogs} />,
+    },
+  ].map((n, idx) => ({ ...n, id: idx + 1 }));
+
+export default Navbar;

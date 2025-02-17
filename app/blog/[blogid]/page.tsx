@@ -6,7 +6,7 @@ import BlogNavbar from "../components/blognavbar";
 import { LuMessageCircleMore, LuShare, LuPencil } from "react-icons/lu";
 import CommentBox from "../components/blogcomment";
 import Link from "next/link";
-import { format, differenceInDays, parseISO } from "date-fns";
+import { parseISO, differenceInMinutes, differenceInHours, differenceInDays, format } from "date-fns";
 import ProfileHoverInfo from "../components/profileinfohover";
 
 interface Params {
@@ -16,11 +16,30 @@ interface Params {
 }
 
 const formatDate = (createdAt: string) => {
-  const date = parseISO(createdAt);
-  const daysAgo = differenceInDays(new Date(), date);
+  const date = parseISO(createdAt);  // Parsed as Date object
+  console.log("Parsed Date: ", date);
 
-  if (daysAgo <= 10) {
-    return `${daysAgo} days ago`;
+  // Convert now to a Date object with IST
+  const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+  console.log("Current IST Date: ", now);
+
+  const minutesAgo = differenceInMinutes(now, date);
+  console.log('minutes', minutesAgo);
+
+  const hoursAgo = differenceInHours(now, date);
+  console.log('hours', hoursAgo);
+
+  const daysAgo = differenceInDays(now, date);
+  console.log('days', daysAgo);
+
+  if (minutesAgo < 1) {
+    return "just now";
+  } else if (minutesAgo < 60) {
+    return `${minutesAgo} minute${minutesAgo > 1 ? "s" : ""} ago`;
+  } else if (hoursAgo < 24) {
+    return `${hoursAgo} hour${hoursAgo > 1 ? "s" : ""} ago`;
+  } else if (daysAgo <= 10) {
+    return `${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
   } else {
     return format(date, "MMM d, yyyy");
   }
@@ -153,10 +172,14 @@ export default async function BlogPage({ params }: { params: Params }) {
                         src={comment.profiles.avatar_url}
                       />
                       <div className="flex flex-col items-start justify-center w-[calc(100%-2.5rem)]">
-                        <span className="group font-medium text-primary-text/90 transition duration-200">
-                          <ProfileHoverInfo profile={comment.profiles} />
-                        </span>
-                        <p className="font-light text-primary-text/70 text-sm">
+                        <div className="flex gap-1 items-center justify-start">
+                          <span className="group font-medium text-primary-text/90 transition duration-200">
+                            <ProfileHoverInfo profile={comment.profiles} />
+                          </span>
+                          <span className="font-extrabold mx-0.5 text-primary-text/80">&middot;</span>{" "}
+                          <span className="text-primary-text/70 font-light text-sm">{formatDate(comment.created_at)}</span>
+                        </div>
+                        <p className="font-light text-primary-text/80 text-sm">
                           {comment.comment}
                         </p>
                       </div>

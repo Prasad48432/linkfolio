@@ -762,11 +762,16 @@ const Home = () => {
                       height={200}
                     />
                     <div className="">
-                      <h1 className="text-white text-sm font-bold ml-3">
+                      <h1 className="text-white text-sm font-bold ml-3 max-w-32 truncate text-ellipsis">
                         {profileData.full_name}
                       </h1>
                       <div className="flex justify-center items-center text-gray-300 text-sm mt-[0.1rem] ml-[0.6rem]">
-                        <MapPin size={12} />
+                        <img
+                          src={`https://flagsapi.com/${
+                            profileData.country.split("-")[1]
+                          }/flat/64.png`}
+                          className="h-4 w-4 object-cover"
+                        />
                         <h2
                           title={profileData.country}
                           className="cursor-pointer text-xs ml-0.5 mr-1 max-w-12 text-ellipsis truncate"
@@ -813,7 +818,7 @@ const Home = () => {
                     {(profileData.user_skills as Skill[]).map((skill) => (
                       <div
                         key={skill.name}
-                        className="flex cursor-pointer items-center justify-center gap-0.5 p-0.5 border rounded border-secondary-border bg-secondary-bg text-primary-text/60 transition-all duration-200 ease-out"
+                        className="flex cursor-pointer items-center justify-center gap-0.5 p-0.5 border rounded border-secondary-border bg-secondary-bg text-primary-text/80 font-light transition-all duration-200 ease-out"
                       >
                         {ICONS_MAP_SMALL[skill.icon]}
                         <span className="text-xxs select-none pt-0.5">

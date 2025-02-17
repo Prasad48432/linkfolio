@@ -60,14 +60,18 @@ export default function Home() {
     setTrendingProfiles(data);
   };
 
-  const fetchProfile = async (userId: string) => {
+  const fetchProfile = async () => {
     try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
       const { data, error } = await supabase
         .from("profiles")
         .select(
           "full_name, username, bio, country, email, id, avatar_url, profile_link, profile_link_text, user_skills, resume_url, resume_url_visibility, theme"
         )
-        .eq("id", userId)
+        .eq("id", user?.id)
         .single();
 
       if (error) {
@@ -83,23 +87,8 @@ export default function Home() {
   };
 
   useEffect(() => {
-    supabase.auth
-      .getSession()
-      .then(({ data }) => {
-        if (data.session) {
-          const userId = data.session.user.id;
-          setUser(data.session.user);
-          fetchProfile(userId);
-          fetchTrendingProfiles();
-        } else {
-          setUser(null);
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.error("Error fetching session:", err);
-        setLoading(false);
-      });
+    fetchProfile();
+    fetchTrendingProfiles();
   }, []);
 
   useEffect(() => {
@@ -152,7 +141,7 @@ export default function Home() {
         }}
         className="relative min-h-screen"
       >
-        <div className="relative -mt-[65px]">
+        <div className="relative -mt-[65px] bg-[#fcfcfc] dark:bg-primary-bg">
           <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20 pt-8 pb-10 md:pt-16 overflow-hidden">
             <div className="relative">
               <div className="mx-auto">
@@ -169,7 +158,7 @@ export default function Home() {
                             <div className="inline-flex items-center bg-opacity-10 bg-accent-bg text-accent-text border border-secondary-strongerborder group-hover/announcement:border-secondary-border px-3 rounded-full text-sm py-1 announcement-badge">
                               50% off ends soon!
                             </div>
-                            <span className="text-foreground announcement-text">
+                            <span className="text-black dark:text-primary-text announcement-text">
                               Learn more
                             </span>
                             <svg
@@ -179,7 +168,7 @@ export default function Home() {
                               strokeWidth={2}
                               stroke="currentColor"
                               aria-hidden="true"
-                              className="announcement-icon h-4 ml-2 -translate-x-1 text-foreground transition-transform group-hover/announcement:translate-x-0"
+                              className="announcement-icon fill-black dark:fill-primary-text h-4 ml-2 -translate-x-1 text-foreground transition-transform group-hover/announcement:translate-x-0"
                             >
                               <path
                                 strokeLinecap="round"
@@ -194,14 +183,14 @@ export default function Home() {
                       <h1
                         className={`bricolage text-foreground font-extrabold text-herosize lg:text-7xl tracking-tight select-none`}
                       >
-                        <span className="block text-primary-text lg:mb-2">
+                        <span className="block text-black dark:text-primary-text lg:mb-2">
                           The spotlight your
                         </span>
                         <span className="text-accent-text block md:ml-0">
                           <FlipWords duration={3000} className="" /> deserves
                         </span>
                       </h1>
-                      <p className="pt-2 text-primary-text/80 my-3 text-sx sm:mt-5 lg:mb-0 sm:text-base lg:text-lg">
+                      <p className="pt-2 text-black dark:text-primary-text/80 my-3 text-sx sm:mt-5 lg:mb-0 sm:text-base lg:text-lg">
                         Boost your web presence with Linkfolio. Share your
                         startups, showcase projects, organize links, expand your
                         network, get noticed by recruiters, and discover new
@@ -238,13 +227,15 @@ export default function Home() {
                       </div>
                     )}
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-2 w-full lg:w-3/4 mt-3 lg:mt-0 relative">
+                    <div className="absolute h-full w-28 bg-gradient-to-r from-primary-bg to-transparent z-10 pointer-events-none left-0 top-0"></div>
+                    <div className="absolute h-full w-28 bg-gradient-to-l from-primary-bg to-transparent z-10 pointer-events-none right-0 top-0"></div>
                       <Marquee
                         autoFill
                         speed={20}
                         pauseOnClick
                         pauseOnHover
-                        gradient
-                        gradientColor="rgb(18 18 18/0.8)"
+                        // gradient
+                        // gradientColor="rgb(18 18 18/0.8)"
                         className="gap-2"
                       >
                         {trendingProfiles.map((profile, index) => (
@@ -253,10 +244,7 @@ export default function Home() {
                             className="flex flex-col items-center justify-center gap-1"
                           >
                             <a
-                              href={`${process.env.NEXT_PUBLIC_BASE_URL?.replace(
-                                /(^\w+:|^)\/\//,
-                                ""
-                              )}/${profile.username}`}
+                              href={`/${profile.username}`}
                               title={profile.full_name || ""}
                               className="mr-2 lg:mr-3 flex flex-col items-center justify-center gap-1"
                             >
@@ -273,7 +261,7 @@ export default function Home() {
                                 style={{ objectFit: "cover" }}
                                 className="w-12 md:w-14 h-12 md:h-14 opacity-90 rounded-full p-1 border-dashed border-2 border-secondary-strongerborder"
                               />
-                              <p className="text-xs text-primary-text/70">
+                              <p className="text-xs text-primary-text/70 max-w-20 truncate text-ellipsis">
                                 {profile.full_name}
                               </p>
                             </a>

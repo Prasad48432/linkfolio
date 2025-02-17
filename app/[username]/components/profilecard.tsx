@@ -261,12 +261,20 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
             }}
             className="flex items-center text-base -ml-0.5"
           >
-            <FaMapMarkerAlt className="mr-0.5 lg:mr-1 flex-shrink-0 text-sm lg:text-lg" />
+            <Image
+              src={`https://flagsapi.com/${
+                profile.country.split("-")[1]
+              }/flat/64.png`}
+              height={50}
+              width={50}
+              alt={profile.country.split("-")[0]}
+              className="h-5 w-5 object-cover mr-0.5"
+            />
             <span
-              title={profile.country}
+              title={profile.country.split("-")[0]}
               className="truncate max-w-[6rem] cursor-pointer text-sx lg:text-base"
             >
-              {profile.country}
+              {profile.country.split("-")[0]}
             </span>
             <div
               style={{

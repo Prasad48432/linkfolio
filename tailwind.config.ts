@@ -1,8 +1,4 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
- 
 const svgToDataUri = require("mini-svg-data-uri");
- 
-const colors = require("tailwindcss/colors");
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
@@ -64,11 +60,6 @@ const config: Config = {
   				border: '#ff471a',
   				strongerborder: '#ff704d',
   				foreground: 'hsl(var(--accent-foreground))'
-  			},
-  			brdr: {
-  				DEFAULT: 'hsl(0deg 0% 21.2%)',
-  				strong: '#363636',
-  				stronger: '#666666'
   			},
   			danger: {
   				DEFAULT: 'hsl(10.2deg 77.9% 53.9%)',
