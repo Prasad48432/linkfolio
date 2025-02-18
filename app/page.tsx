@@ -9,7 +9,7 @@ import CookieConsent from "@/components/cookieconsent";
 import UsernameCheck from "@/components/usernamecheck";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
-import { Loader } from "lucide-react";
+import { Loader, MoveRight } from "lucide-react";
 import Marquee from "react-fast-marquee";
 
 type profile = {
@@ -141,7 +141,7 @@ export default function Home() {
         }}
         className="relative min-h-screen"
       >
-        <div className="relative -mt-[65px] bg-[#fcfcfc] dark:bg-primary-bg">
+        <div className="relative -mt-[65px] bg-lightprimary-bg dark:bg-primary-bg">
           <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20 pt-8 pb-10 md:pt-16 overflow-hidden">
             <div className="relative">
               <div className="mx-auto">
@@ -158,24 +158,10 @@ export default function Home() {
                             <div className="inline-flex items-center bg-opacity-10 bg-accent-bg text-accent-text border border-secondary-strongerborder group-hover/announcement:border-secondary-border px-3 rounded-full text-sm py-1 announcement-badge">
                               50% off ends soon!
                             </div>
-                            <span className="text-black dark:text-primary-text announcement-text">
+                            <span className="text-lightprimary-text dark:text-primary-text announcement-text">
                               Learn more
                             </span>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={2}
-                              stroke="currentColor"
-                              aria-hidden="true"
-                              className="announcement-icon fill-black dark:fill-primary-text h-4 ml-2 -translate-x-1 text-foreground transition-transform group-hover/announcement:translate-x-0"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M17 8l4 4m0 0l-4 4m4-4H3"
-                              />
-                            </svg>
+                            <MoveRight strokeWidth={1} className="text-lightprimary-text dark:text-primary-text ml-2 -translate-x-1 transition-transform group-hover/announcement:translate-x-0" />
                             <div className="absolute inset-0 -z-10 bg-gradient-to-br opacity-70 group-hover/announcement:opacity-100 transition-opacity overflow-hidden rounded-full from-background-surface-100 to-background-surface-300 backdrop-blur-md " />
                           </a>
                         </div>
@@ -183,19 +169,19 @@ export default function Home() {
                       <h1
                         className={`bricolage text-foreground font-extrabold text-herosize lg:text-7xl tracking-tight select-none`}
                       >
-                        <span className="block text-black dark:text-primary-text lg:mb-2">
+                        <span className="block text-lightprimary-text dark:text-primary-text lg:mb-2">
                           The spotlight your
                         </span>
-                        <span className="text-accent-text block md:ml-0">
+                        <span className="text-lightaccent-text dark:text-accent-text block md:ml-0">
                           <FlipWords duration={3000} className="" /> deserves
                         </span>
                       </h1>
-                      <p className="pt-2 text-black dark:text-primary-text/80 my-3 text-sx sm:mt-5 lg:mb-0 sm:text-base lg:text-lg">
+                      <p className="pt-2 text-lightprimary-text dark:text-primary-text/80 my-3 text-sx sm:mt-5 lg:mb-0 sm:text-base lg:text-lg">
                         Boost your web presence with Linkfolio. Share your
                         startups, showcase projects, organize links, expand your
                         network, get noticed by recruiters, and discover new
                         opportunities{" "}
-                        <b className="text-primary-text">
+                        <b className="text-lightprimary-text dark:text-primary-text">
                           all in one sleek portfolio.
                         </b>
                       </p>
@@ -209,7 +195,7 @@ export default function Home() {
                         <a
                           data-size="medium"
                           type="button"
-                          className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border bg-accent-bg hover:bg-accent-selection text-primary-text border-accent-border hover:border-accent-strongerborder text-xs md:text-sm px-4 md:px-5 py-1.5"
+                          className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightaccent-bg dark:bg-accent-bg hover:bg-lightaccent-selection dark:hover:bg-accent-selection border-lightaccent-border dark:border-accent-border hover:border-lightaccent-strongerborder dark:hover:hover:border-accent-strongerborder text-xs md:text-sm px-4 md:px-5 py-1.5"
                           href="/dashboard/home"
                         >
                           <span className="truncate flex items-center justify-center">
@@ -219,7 +205,7 @@ export default function Home() {
                         <a
                           data-size="medium"
                           type="button"
-                          className="inline-flex relative justify-center cursor-pointer items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-foreground bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-xs md:text-sm px-4 md:px-5 py-1.5"
+                          className="inline-flex relative justify-center cursor-pointer items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-foreground text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg  dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder text-xs md:text-sm px-4 md:px-5 py-1.5"
                           href="/dashboard/analytics"
                         >
                           <span className="truncate">Analytics</span>
@@ -227,8 +213,8 @@ export default function Home() {
                       </div>
                     )}
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-2 w-full lg:w-3/4 mt-3 lg:mt-0 relative">
-                    <div className="absolute h-full w-28 bg-gradient-to-r from-primary-bg to-transparent z-10 pointer-events-none left-0 top-0"></div>
-                    <div className="absolute h-full w-28 bg-gradient-to-l from-primary-bg to-transparent z-10 pointer-events-none right-0 top-0"></div>
+                    <div className="absolute h-full w-28 bg-gradient-to-r from-lightprimary-bg dark:from-primary-bg to-transparent z-10 pointer-events-none left-0 top-0"></div>
+                    <div className="absolute h-full w-28 bg-gradient-to-l from-lightprimary-bg dark:from-primary-bg to-transparent z-10 pointer-events-none right-0 top-0"></div>
                       <Marquee
                         autoFill
                         speed={20}
@@ -259,7 +245,7 @@ export default function Home() {
                                 loading="lazy"
                                 alt="Picture of the author"
                                 style={{ objectFit: "cover" }}
-                                className="w-12 md:w-14 h-12 md:h-14 opacity-90 rounded-full p-1 border-dashed border-2 border-secondary-strongerborder"
+                                className="w-12 md:w-14 h-12 md:h-14 opacity-90 rounded-full p-1 border border-lightsecondary-strongerborder dark:border-secondary-strongerborder"
                               />
                               <p className="text-xs text-primary-text/70 max-w-20 truncate text-ellipsis">
                                 {profile.full_name}
@@ -275,18 +261,18 @@ export default function Home() {
             </div>
           </div>
           <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20 pt-8 pb-10 md:pt-16 grid grid-cols-4 gap-4 w-full">
-            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-            <div className="col-span-2 md:col-span-1 h-48 bg-secondary-bg hover:bg-secondary-selection border border-secondary-border hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+            <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
           </div>
         </div>
       </main>

@@ -43,6 +43,10 @@ const config: Config = {
   				text: '#ededed',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
+			lightprimary: {
+				bg: "#eeeae3",
+				text: "#3c402b",
+			},
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
   				bg: '#262626',
@@ -52,6 +56,13 @@ const config: Config = {
   				strongerborder: '#4d4d4d',
   				foreground: 'hsl(var(--secondary-foreground))'
   			},
+			lightsecondary: {
+				bg: "#ededed",
+				selection: "#d9d9d9",
+				text: "#3c402b",
+				border: "#3c402b",
+				strongerborder: "#656b47"
+			},
   			accent: {
   				DEFAULT: 'hsl(var(--accent))',
   				bg: '#991f00',
@@ -61,6 +72,13 @@ const config: Config = {
   				strongerborder: '#ff704d',
   				foreground: 'hsl(var(--accent-foreground))'
   			},
+			lightaccent: {
+				bg: "#ff9980",
+				selection: "#ff8566",
+				border: "#625053",
+				strongerborder: "#46393b",
+				text: "#ff8266"
+			},
   			danger: {
   				DEFAULT: 'hsl(10.2deg 77.9% 53.9%)',
   				bg: '#4d231d',

@@ -24,7 +24,8 @@ export const Spotlight = ({ className, fill }: SpotlightProps) => {
           rx="1924.71"
           ry="273.501"
           transform="matrix(-0.822377 -0.568943 -0.568943 0.822377 3631.88 2291.09)"
-          fill={fill || "white"}
+          // fill={fill || "#FFB027"}
+          className="fill-[#ffb027] dark:fill-white"
           fillOpacity="0.15"
         ></ellipse>
       </g>

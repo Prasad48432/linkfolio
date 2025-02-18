@@ -147,8 +147,8 @@ const Blogs = () => {
                         <p className="text-sm lg:text-base text-primary-text/70 mb-3 line-clamp-2 font-light">
                           {blog.content?.replace(/<\/?[^>]+(>|$)/g, "").trim()}
                         </p>
-                        <div className="flex items-center space-x-2 lg:space-x-4 text-gray-500">
-                          <div className="flex items-center space-x-2">
+                        <div className="flex items-center text-gray-500">
+                          <div className="flex items-center space-x-1.5 lg:space-x-2">
                             <button className="text-primary-text/70 fill-primary-text/70 hover:fill-primary-text hover:text-primary-text flex items-center justify-center gap-1">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -156,6 +156,7 @@ const Blogs = () => {
                                 height="24"
                                 viewBox="0 0 24 24"
                                 aria-label="clap"
+                                className="w-5 lg:w-6 h-5 lg:h-6"
                               >
                                 <path
                                   fillRule="evenodd"
@@ -171,7 +172,7 @@ const Blogs = () => {
                             </button>
                             <span className="font-extrabold">&middot;</span>{" "}
                             <button className="text-primary-text/70 hover:text-primary-text flex items-center justify-center gap-1">
-                              <Eye strokeWidth={1} className="w-4 h-4 lg:w-5 lg:h-5" />
+                              <Eye strokeWidth={1} className="w-5 lg:w-6 h-5 lg:h-6" />
                               <span className="text-sm font-light">3.6k</span>
                             </button>
                             <span className="font-extrabold">&middot;</span>{" "}

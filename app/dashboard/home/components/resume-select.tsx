@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { RiImageAddLine } from "react-icons/ri";
+import { RiFileAddLine } from "react-icons/ri";
 import { FileUp, Loader, Pencil } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import { ToastError, ToastSuccess } from "@/components/toast";
@@ -196,7 +196,7 @@ const ResumeSection = ({
                 htmlFor="fileUpload"
                 className="cursor-pointer text-primary-text underline"
               >
-                <RiImageAddLine className="text-primary-text/80 text-4xl md:text-5xl hover:text-gray-400 hover:border-secondary-strongerborder cursor-pointer p-2 border border-dashed border-secondary-border duration-200 transition-all ease-out" />
+                <RiFileAddLine className="text-primary-text/80 text-4xl md:text-5xl hover:text-gray-400 hover:border-secondary-strongerborder cursor-pointer p-2 border border-dashed border-secondary-border duration-200 transition-all ease-out" />
               </label>{" "}
             </>
           )}

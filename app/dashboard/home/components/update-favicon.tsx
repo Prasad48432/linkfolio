@@ -58,7 +58,7 @@ const UpdateFavicon = ({
             alt="User profile"
             width={600}
             height={600}
-            src={image || "/favicon.ico"}
+            src={image || "/lf.png"}
             className="w-[4rem] lg:w-[6rem] h-[4rem] lg:h-[6rem] rounded-full ring-2 ring-secondary-border p-1 inline-block object-cover"
             referrerPolicy="no-referrer"
           />

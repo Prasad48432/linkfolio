@@ -33,7 +33,7 @@ const ProfileHoverInfo = ({ profile }: { profile: any }) => {
               className="w-12 h-12 flex-shrink-0 rounded-full object-cover"
             />
             <div className="flex flex-col items-start justify-center w-[calc(100%-3rem)]">
-              <p className="text-primary-text/90 font-medium text-lg">
+              <p title={profile.full_name} className="text-primary-text/90 font-medium text-lg line-clamp-1">
                 {profile.full_name}
               </p>
               <div className="flex gap-1 items-center justify-start font-light text-sm">

@@ -738,7 +738,7 @@ const Home = () => {
                   </div>
                   <div className="w-full rounded-full bg-secondary-bg flex items-center justify-start p-1 gap-1 mb-4 cursor-pointer">
                     <Image
-                      src={profileData.favicon}
+                      src={profileData.favicon || "/lf.png"}
                       className="w-[20px] h-[20px] rounded-full object-cover"
                       alt="overlay"
                       referrerPolicy="no-referrer"
