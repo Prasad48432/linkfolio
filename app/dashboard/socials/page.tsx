@@ -156,17 +156,17 @@ const SocialLinks = () => {
                     style={{
                       opacity: value,
                     }}
-                    className="w-[70px] h-[20px] bg-lightsecondary-bg dark:bg-secondary-b rounded-md relative overflow-hidden mb-1"
+                    className="w-[70px] h-[20px] bg-lightsecondary-loader dark:bg-secondary-b rounded-md relative overflow-hidden mb-1"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                   </div>
                   <div
                     style={{
                       opacity: value,
                     }}
-                    className="w-full h-[40px] bg-lightsecondary-bg dark:bg-secondary-b rounded-md relative overflow-hidden"
+                    className="w-full h-[40px] bg-lightsecondary-loader dark:bg-secondary-b rounded-md relative overflow-hidden"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                   </div>
                 </div>
               ))}
@@ -378,7 +378,11 @@ const SocialLinks = () => {
             <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full"></div>
             {fetchLoading ? (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-lightprimary-bg dark:bg-primary-bg flex items-center justify-center">
-                <Loader strokeWidth={1.5} size={24} className="animate-spin text-lightprimary-text dark:text-primary-text" />
+                <Loader
+                  strokeWidth={1.5}
+                  size={24}
+                  className="animate-spin text-lightprimary-text dark:text-primary-text"
+                />
               </div>
             ) : (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg/60 dark:bg-black">
@@ -422,27 +426,27 @@ const SocialLinks = () => {
                     )}
                     {socials.instagram && (
                       <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
-                        <SiInstagram className="text-lightprimary-text dark:text-primary-text"/>
+                        <SiInstagram className="text-lightprimary-text dark:text-primary-text" />
                       </span>
                     )}
                     {socials.x && (
                       <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
-                        <SiX className="text-lightprimary-text dark:text-primary-text"/>
+                        <SiX className="text-lightprimary-text dark:text-primary-text" />
                       </span>
                     )}
                     {socials.github && (
                       <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
-                        <SiGithub className="text-lightprimary-text dark:text-primary-text"/>
+                        <SiGithub className="text-lightprimary-text dark:text-primary-text" />
                       </span>
                     )}
                     {socials.linkedin && (
                       <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
-                        <SiLinkedin className="text-lightprimary-text dark:text-primary-text"/>
+                        <SiLinkedin className="text-lightprimary-text dark:text-primary-text" />
                       </span>
                     )}
                     {socials.youtube && (
                       <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
-                        <SiYoutube className="text-lightprimary-text dark:text-primary-text"/>
+                        <SiYoutube className="text-lightprimary-text dark:text-primary-text" />
                       </span>
                     )}
                   </div>

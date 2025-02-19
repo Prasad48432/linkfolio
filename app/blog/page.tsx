@@ -104,18 +104,18 @@ const Blogs = () => {
                     }}
                     className="w-full h-64 lg:h-32 flex flex-col lg:flex-row lg:space-x-6"
                   >
-                    <div className="w-full lg:w-56 h-36 lg:h-full bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                    <div className="w-full lg:w-56 h-36 lg:h-full bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
                     <div className="w-full lg:w-[calc(100%-224px)] h-28 lg:h-full">
-                      <div className="w-[50%] lg:w-[40%] h-[28px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden mt-2 mb-1 lg:mt-0 lg:mb-2">
-                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                      <div className="w-[50%] lg:w-[40%] h-[28px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden mt-2 mb-1 lg:mt-0 lg:mb-2">
+                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                       </div>
-                      <div className="w-[90%] h-[40px] lg:h-[48px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden mb-3">
-                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                      <div className="w-[90%] h-[40px] lg:h-[48px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden mb-3">
+                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                       </div>
-                      <div className="w-[60%] h-[20px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                      <div className="w-[60%] h-[20px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                       </div>
                     </div>
                   </div>
@@ -238,9 +238,9 @@ const Blogs = () => {
                         opacity: value,
                       }}
                       key={index}
-                      className="w-full h-[48px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden mt-2 mb-1 lg:mt-0 lg:mb-2"
+                      className="w-full h-[48px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden mt-2 mb-1 lg:mt-0 lg:mb-2"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
                   ))}
                 </div>

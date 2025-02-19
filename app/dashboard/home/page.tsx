@@ -367,8 +367,8 @@ const Home = () => {
         <div className="lg:w-[55%] w-full lg:overflow-y-auto bg-lightprimary-bg dark:bg-primary-bg pt-4 px-0 lg:px-4">
           <TabGroup>
             {fetchLoading ? (
-              <div className="w-full h-[41.6px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-full relative overflow-hidden p-1.5 lg:p-2 mx-1">
-                <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-selection dark:from-secondary-bg via-gray-300/90 dark:via-gray-400/10 to-lightsecondary-selection dark:to-secondary-bg animate-shimmer" />
+              <div className="w-full h-[41.6px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-full relative overflow-hidden p-1.5 lg:p-2 mx-1">
+                <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
             ) : (
               <TabList className="flex p-1.5 lg:p-2 bg-lightsecondary-bg/40 dark:bg-secondary-bg/40 gap-1 rounded-full mx-1">
@@ -395,14 +395,14 @@ const Home = () => {
               <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
                 {fetchLoading ? (
                   <div className="flex flex-col gap-4 mt-4 px-2">
-                    <div className="w-full h-8 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-selection dark:from-secondary-bg via-gray-300/90 dark:via-gray-400/10 to-lightsecondary-selection dark:to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-8 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-[90%] h-8 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
-                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-selection dark:from-secondary-bg via-gray-300/90 dark:via-gray-400/10 to-lightsecondary-selection dark:to-secondary-bg animate-shimmer" />
+                    <div className="w-[90%] h-8 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-[80%] h-8 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
-                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-selection dark:from-secondary-bg via-gray-300/90 dark:via-gray-400/10 to-lightsecondary-selection dark:to-secondary-bg animate-shimmer" />
+                    <div className="w-[80%] h-8 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
                   </div>
                 ) : (
@@ -716,7 +716,11 @@ const Home = () => {
             <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full"></div>
             {fetchLoading ? (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-lightprimary-bg dark:bg-primary-bg flex items-center justify-center">
-                <Loader strokeWidth={1.5} size={24} className="animate-spin text-lightprimary-text dark:text-primary-text" />
+                <Loader
+                  strokeWidth={1.5}
+                  size={24}
+                  className="animate-spin text-lightprimary-text dark:text-primary-text"
+                />
               </div>
             ) : (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg/60 dark:bg-black">

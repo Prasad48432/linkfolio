@@ -521,17 +521,17 @@ const Projects = () => {
               <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
                 {fetchLoading ? (
                   <>
-                    <div className="w-full h-10 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-10 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-[260px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
-                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-[260px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-[260px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
-                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-[260px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-[260px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-40">
-                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-[260px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-40">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
                   </>
                 ) : (
@@ -683,17 +683,17 @@ const Projects = () => {
               <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
                 {fetchLoading ? (
                   <>
-                    <div className="w-full h-10 bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-10 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-36 bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-36 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-36 bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-36 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-36 bg-secondary-bg rounded-lg relative overflow-hidden opacity-40">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-36 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-40">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
                   </>
                 ) : (
@@ -845,17 +845,17 @@ const Projects = () => {
               <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
                 {fetchLoading ? (
                   <>
-                    <div className="w-full h-10 bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-10 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-[95.2px] lg:h-[103.2px] bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10  to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-[95.2px] lg:h-[103.2px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-[95.2px] lg:h-[103.2px] bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-[95.2px] lg:h-[103.2px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-[95.2px] lg:h-[103.2px] bg-secondary-bg rounded-lg relative overflow-hidden opacity-40">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-[95.2px] lg:h-[103.2px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-40">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
                   </>
                 ) : (
@@ -1038,7 +1038,11 @@ const Projects = () => {
             <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full"></div>
             {fetchLoading ? (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-lightprimary-bg dark:bg-primary-bg flex items-center justify-center">
-                <Loader strokeWidth={1.5} size={24} className="animate-spin text-lightprimary-text dark:text-primary-text" />
+                <Loader
+                  strokeWidth={1.5}
+                  size={24}
+                  className="animate-spin text-lightprimary-text dark:text-primary-text"
+                />
               </div>
             ) : (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg/60 dark:bg-black">

@@ -98,14 +98,14 @@ const Header = ({
         <div className="hidden md:block">
           {loading ? (
             <span className="flex items-center justify-center gap-2">
-              <div className="w-32 h-6 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+              <div className="w-32 h-6 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
-              <div className="w-24 h-6 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+              <div className="w-24 h-6 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
-              <div className="w-10 h-10 bg-lightsecondary-bg dark:bg-secondary-bg rounded-full relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+              <div className="w-10 h-10 bg-lightsecondary-loader dark:bg-secondary-bg rounded-full relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
             </span>
           ) : (

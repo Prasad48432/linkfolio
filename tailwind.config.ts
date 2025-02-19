@@ -46,6 +46,7 @@ const config: Config = {
           text: "#3c402b",
           border: "#3c402b",
           strongerborder: "#656b47",
+          loader: "#b8b8b8"
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",

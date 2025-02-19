@@ -1,12 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import {
-  CartesianGrid,
-  XAxis,
-  Bar,
-  BarChart,
-  YAxis,
-} from "recharts";
+import { CartesianGrid, XAxis, Bar, BarChart, YAxis } from "recharts";
 import {
   Card,
   CardDescription,
@@ -85,18 +79,18 @@ const ClicksChart = ({
         {fetchLoading ? (
           <div className="w-full lg:w-[55%] flex">
             <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
-              <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+              <div className="w-full h-12 bg-[#c4b59f] dark:bg-secondary-bg  relative overflow-hidden rounded-md">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#c4b59f] via-[#928878] to-[#c4b59f] dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
             </div>
             <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
-              <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+              <div className="w-full h-12 bg-[#c4b59f] dark:bg-secondary-bg  relative overflow-hidden rounded-md">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#c4b59f] via-[#928878] to-[#c4b59f] dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
             </div>
             <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
-              <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+              <div className="w-full h-12 bg-[#c4b59f] dark:bg-secondary-bg  relative overflow-hidden rounded-md">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#c4b59f] via-[#928878] to-[#c4b59f] dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
             </div>
           </div>
@@ -132,10 +126,10 @@ const ClicksChart = ({
                 style={{
                   height: `${height}px`,
                 }}
-                className="w-[40px] lg:w-[80px] bg-secondary-bg rounded-lg relative overflow-hidden"
+                className="w-[40px] lg:w-[80px] bg-[#c4b59f] dark:bg-secondary-bg rounded-lg relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
-              </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#c4b59f] via-[#928878] to-[#c4b59f] dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                </div>
             ))}
           </div>
         ) : (

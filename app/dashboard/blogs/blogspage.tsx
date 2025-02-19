@@ -222,17 +222,17 @@ export default function Blogs() {
     <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-4">
       {fetchLoading ? (
         <div className="lg:w-1/3 w-full h-auto py-5 flex flex-col items-center justify-start gap-2">
-          <div className="w-full h-8 lg:h-10 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+          <div className="w-full h-8 lg:h-10 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
           </div>
-          <div className="w-full h-32 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
-            <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+          <div className="w-full h-32 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
+            <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
           </div>
-          <div className="w-full h-32 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-60">
-            <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+          <div className="w-full h-32 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-60">
+            <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
           </div>
-          <div className="w-full h-32 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-45">
-            <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+          <div className="w-full h-32 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-45">
+            <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
           </div>
         </div>
       ) : (
@@ -255,7 +255,9 @@ export default function Blogs() {
                   size={75}
                   className="text-lightprimary-text/60 dark:text-primary-text/60"
                 />
-                <p className="text-lg text-lightprimary-text/60 dark:text-primary-text/60">No Blogs found.</p>
+                <p className="text-lg text-lightprimary-text/60 dark:text-primary-text/60">
+                  No Blogs found.
+                </p>
                 <p className="text-base text-lightprimary-text/60 dark:text-primary-text/60">
                   Start adding your first Blog.
                 </p>
@@ -342,7 +344,9 @@ export default function Blogs() {
           {selectedBlog ? (
             <>
               Editing{" "}
-              <span className="text-lightaccent-text dark:text-accent-text">Blog-{selectedBlog.id}</span>
+              <span className="text-lightaccent-text dark:text-accent-text">
+                Blog-{selectedBlog.id}
+              </span>
             </>
           ) : (
             "Add New Blog"
@@ -405,7 +409,9 @@ export default function Blogs() {
               name="seotags"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-lightprimary-text dark:text-primary-text">SEO Tags</FormLabel>
+                  <FormLabel className="text-lightprimary-text dark:text-primary-text">
+                    SEO Tags
+                  </FormLabel>
                   <FormControl>
                     <input
                       type="text"

@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { Info, Loader } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import { ToastError, ToastSuccess } from "@/components/toast";
+import { useRouter } from "next/navigation";
 
 const CommentBox = ({
   blogId,
@@ -14,6 +15,7 @@ const CommentBox = ({
   authorId: string;
 }) => {
   const supabase = createClient();
+  const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
   const [comment, setComment] = useState("");
   const [profileData, setProfileData] = useState({
@@ -70,6 +72,7 @@ const CommentBox = ({
       } else {
         setComment("");
         ToastSuccess({ message: "Comment posted successfully." });
+        router.refresh();
       }
     } catch (error) {
       ToastError({ message: "An unexpected error occurred." });

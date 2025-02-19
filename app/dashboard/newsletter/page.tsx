@@ -219,20 +219,26 @@ const NewsletterForm = () => {
         onClick={() => setPreview(true)}
         className="lg:hidden font-bold py-1 px-2 inline-flex items-center justify-center bg-lightsecondary-bg dark:bg-secondary-bg rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-secondary-strongerborder w-[120px] bottom-6 fixed left-1/2 translate-x-[-50%] z-[48]"
       >
-        <Eye strokeWidth={1} className="text-lightprimary-text dark:text-primary-text text-lg mr-1" />
-        <p className="text-lightprimary-text dark:text-primary-text font-semibold text-base">Preview</p>
+        <Eye
+          strokeWidth={1}
+          className="text-lightprimary-text dark:text-primary-text text-lg mr-1"
+        />
+        <p className="text-lightprimary-text dark:text-primary-text font-semibold text-base">
+          Preview
+        </p>
       </div>
       <div className="flex gap-2 h-auto lg:h-[calc(100vh-100px)] relative">
         <div className="lg:w-[55%] w-full lg:overflow-y-auto">
           <div className="flex flex-col items-start justify-center gap-3 w-full pb-3 px-3">
             <div className="p-2 flex flex-col lg:flex-row items-start justify-center lg:justify-between w-full gap-2 lg:gap-0">
-              <h1 className="text-lg lg:text-xl  text-lightprimary-text dark:text-primary-text font-semibold flex" >
-                Manage your newsletter <span className="hidden lg:block ml-1">audience</span>
+              <h1 className="text-lg lg:text-xl  text-lightprimary-text dark:text-primary-text font-semibold flex">
+                Manage your newsletter{" "}
+                <span className="hidden lg:block ml-1">audience</span>
               </h1>
 
               {fetchLoading ? (
-                <div className="flex h-[20.8px] w-[106.487px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-md relative overflow-hidden opacity-90">
-                  <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                <div className="flex h-[20.8px] w-[106.487px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-md relative overflow-hidden opacity-90">
+                  <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                 </div>
               ) : (
                 <div
@@ -251,14 +257,14 @@ const NewsletterForm = () => {
           {fetchLoading ? (
             <div className="flex flex-col items-center justify-center gap-4 w-full px-4 py-2">
               <div className="flex flex-col items-center justify-center w-full py-4">
-                <div className="h-[216px] mb-4 w-full bg-lightsecondary-bg dark:bg-secondary-bg rounded-md relative overflow-hidden opacity-90">
-                  <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                <div className="h-[216px] mb-4 w-full bg-lightsecondary-loader dark:bg-secondary-bg rounded-md relative overflow-hidden opacity-90">
+                  <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                 </div>
-                <div className="h-[98.4px] mb-4 w-full bg-lightsecondary-bg dark:bg-secondary-bg rounded-md relative overflow-hidden opacity-70">
-                  <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                <div className="h-[98.4px] mb-4 w-full bg-lightsecondary-loader dark:bg-secondary-bg rounded-md relative overflow-hidden opacity-70">
+                  <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                 </div>
-                <div className="h-[184.4px] mb-4 w-full bg-lightsecondary-bg dark:bg-secondary-bg rounded-md relative overflow-hidden opacity-50">
-                  <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                <div className="h-[184.4px] mb-4 w-full bg-lightsecondary-loader dark:bg-secondary-bg rounded-md relative overflow-hidden opacity-50">
+                  <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                 </div>
               </div>
             </div>
@@ -306,8 +312,14 @@ const NewsletterForm = () => {
                               <b className="text-lightprimary-text/80 dark:text-primary-text/80">
                                 Account & Billing
                               </b>{" "}
-                              → <b className="text-lightprimary-text/80 dark:text-primary-text/80">Extras</b> →{" "}
-                              <b className="text-lightprimary-text/80 dark:text-primary-text/80">API keys</b>
+                              →{" "}
+                              <b className="text-lightprimary-text/80 dark:text-primary-text/80">
+                                Extras
+                              </b>{" "}
+                              →{" "}
+                              <b className="text-lightprimary-text/80 dark:text-primary-text/80">
+                                API keys
+                              </b>
                             </li>
                             <li>
                               Click{" "}
@@ -374,14 +386,19 @@ const NewsletterForm = () => {
                             </li>
                             <li>
                               Go to{" "}
-                              <b className="text-lightprimary-text/80 dark:text-primary-text/80">Audience</b> →{" "}
+                              <b className="text-lightprimary-text/80 dark:text-primary-text/80">
+                                Audience
+                              </b>{" "}
+                              →{" "}
                               <b className="text-lightprimary-text/80 dark:text-primary-text/80">
                                 Audience dashboard
                               </b>
                             </li>
                             <li>
                               Click{" "}
-                              <b className="text-lightprimary-text/80 dark:text-primary-text/80">Settings</b>
+                              <b className="text-lightprimary-text/80 dark:text-primary-text/80">
+                                Settings
+                              </b>
                             </li>
                             <li>
                               Scroll down to{" "}
@@ -661,7 +678,11 @@ const NewsletterForm = () => {
             <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full"></div>
             {fetchLoading ? (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-lightprimary-bg dark:bg-primary-bg flex items-center justify-center">
-                <Loader strokeWidth={1.5} size={24} className="animate-spin text-lightprimary-text dark:text-primary-text" />
+                <Loader
+                  strokeWidth={1.5}
+                  size={24}
+                  className="animate-spin text-lightprimary-text dark:text-primary-text"
+                />
               </div>
             ) : (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg/60 dark:bg-black">

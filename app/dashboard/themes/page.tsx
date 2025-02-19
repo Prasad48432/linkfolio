@@ -205,31 +205,31 @@ const Help = () => {
             <div className="flex flex-col items-start justify-center">
               <div className="flex flex-col items-center mb-2 mt-2 px-6 py-4 w-full h-full">
                 <div className="p-4 w-full h-full">
-                  <div className="h-8 mb-4 w-24 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-90">
-                    <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                  <div className="h-8 mb-4 w-24 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-90">
+                    <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                   </div>
                   <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 mb-6">
                     {Array.from({ length: 7 }).map((_, index) => (
                       <div
                         key={index}
-                        className="col-span-1 h-12 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-90"
+                        className="col-span-1 h-12 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-90"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                       </div>
                     ))}
                   </div>
                 </div>
-                <div className="p-4 w-full h-full"> 
-                  <div className="h-8 mb-4 w-24 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-90">
-                    <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                <div className="p-4 w-full h-full">
+                  <div className="h-8 mb-4 w-24 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-90">
+                    <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                   </div>
                   <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 mb-6">
                     {Array.from({ length: 7 }).map((_, index) => (
                       <div
                         key={index}
-                        className="col-span-1 h-12 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden"
+                        className="col-span-1 h-12 bg-lightsecondary-loader dark:bg-secondary-bg rounded-lg relative overflow-hidden"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                       </div>
                     ))}
                   </div>
@@ -419,7 +419,11 @@ const Help = () => {
             <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full z-10"></div>
             {fetchLoading ? (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-lightprimary-bg dark:bg-primary-bg flex items-center justify-center">
-                <Loader strokeWidth={1.5} size={24} className="animate-spin text-lightprimary-text dark:text-primary-text" />
+                <Loader
+                  strokeWidth={1.5}
+                  size={24}
+                  className="animate-spin text-lightprimary-text dark:text-primary-text"
+                />
               </div>
             ) : (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg/60 dark:bg-black">

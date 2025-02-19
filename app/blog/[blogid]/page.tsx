@@ -20,7 +20,7 @@ const formatDate = (createdAt: string) => {
   console.log("Parsed Date: ", date);
 
   // Convert now to a Date object with IST
-  const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+  const now = new Date(new Date().toLocaleString('en-US'));
   console.log("Current IST Date: ", now);
 
   const minutesAgo = differenceInMinutes(now, date);
@@ -62,6 +62,7 @@ export default async function BlogPage({ params }: { params: Params }) {
     )
     .eq("id", params.blogid)
     .single();
+    
   const isAuthor = user.user?.id === blog.author_id;
 
   if (blogerror || !blog) {
