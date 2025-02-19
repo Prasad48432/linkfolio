@@ -21,7 +21,7 @@ select:-webkit-autofill:focus {
 
 /* Ruby */
 @layer base {
-  :root {
+  .dark {
     --background: 0 0% 7%;
     --foreground: 0 0% 98%;
     --card: 0 0% 10%;
@@ -47,12 +47,41 @@ select:-webkit-autofill:focus {
     --chart-4: 16 87% 82%;
     --chart-5: 17 100% 91%;
   }
+
+  .light {
+    --background: 36 39% 88%;
+    --foreground: 36 45% 15%;
+    --primary: 36 45% 70%;
+    --primary-foreground: 36 45% 11%;
+    --secondary: 40 35% 77%;
+    --secondary-foreground: 36 45% 25%;
+    --accent: 36 64% 57%;
+    --accent-foreground: 36 72% 17%;
+    --destructive: 0 84% 37%;
+    --destructive-foreground: 0 0% 98%;
+    --muted: 36 33% 75%;
+    --muted-foreground: 36 45% 25%;
+    --card: 36 46% 82%;
+    --card-foreground: 36 45% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --border: 36 45% 60%;
+    --input: 36 45% 60%;
+    --ring: 36 45% 30%;
+    --chart-1: 25 34% 28%;
+    --chart-2: 26 36% 34%;
+    --chart-3: 28 40% 40%;
+    --chart-4: 31 41% 48%;
+    --chart-5: 35 43% 53%;
+  }
 }
+
 
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -63,7 +92,7 @@ select:-webkit-autofill:focus {
 
 
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
@@ -85,22 +114,37 @@ body {
   font-family: var(--font-lexend);
 }
 
+.light {
+  --scrollbar-track: rgb(201, 201, 201);
+  --scrollbar-thumb: #3c402b;
+  --scrollbar-thumb-gradient: linear-gradient(360deg,
+      #3c402b 0%,
+      #494c3c 47%,
+      #3c402b 100%);
+}
+
+/* Dark Theme */
+.dark {
+  --scrollbar-track: rgb(47, 47, 47);
+  --scrollbar-thumb: rgb(207, 207, 207);
+  --scrollbar-thumb-gradient: linear-gradient(360deg,
+      rgb(115, 115, 115) 0%,
+      rgb(105, 105, 105) 47%,
+      rgb(115, 115, 115) 100%);
+}
+
+/* Apply Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: rgb(47, 47, 47);
-  border-radius: 10px;
-  margin-block: 10px;
+  background: var(--scrollbar-track);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: rgb(207, 207, 207);
-  background: linear-gradient(
-    360deg,
-    rgb(115, 115, 115) 0%,
-    rgb(105, 105, 105) 47%,
-    rgb(115, 115, 115) 100%
-  );
+  background: var(--scrollbar-thumb);
+  background: var(--scrollbar-thumb-gradient);
   border-radius: 10px;
 }
 
@@ -108,6 +152,7 @@ body {
   display: flex;
   overflow: hidden;
 }
+
 .avatar {
   position: relative;
   display: inline-flex;
@@ -126,6 +171,7 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
   .no_scrollbar::-webkit-scrollbar {
     display: none;
   }
@@ -133,7 +179,7 @@ body {
   .scrollbar-hidden {
     overflow: auto;
   }
-  
+
   /* Hide the scrollbar */
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
@@ -162,57 +208,108 @@ body {
 
 
 @keyframes shimmerMove {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .animate-shimmer path {
   animation: shimmerMove 2s infinite linear;
 }
 
+.dark {
+  .blog_content_renderer h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 2rem;
+    letter-spacing: -0.011em;
+  }
 
-.blog_content_renderer h1 {
-  font-size: 1.75rem;
-  font-weight: 600;
-  line-height: 2rem;
-  letter-spacing: -0.011em;
+  .blog_content_renderer h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1.75rem;
+    letter-spacing: -0.011em;
+  }
+
+  .blog_content_renderer h3 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.75rem;
+    letter-spacing: -0.011em;
+  }
+
+  .blog_content_renderer p {
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    font-weight: 300;
+  }
+
+  .blog_content_renderer ol {
+    padding-left: 25px;
+  }
+
+  .blog_content_renderer mark {
+    color: white;
+    background: rgb(255 87 51 / 0.5);
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .blog_content_renderer {
+    color: rgb(237 237 237 / 0.8);
+  }
 }
 
-.blog_content_renderer h2{
-  font-size: 1.6rem;
-  font-weight: 500;
-  line-height: 1.75rem;
-  letter-spacing: -0.011em;
-}
-.blog_content_renderer h3 {
-  font-size: 1.4rem;
-  font-weight: 500;
-  line-height: 1.75rem;
-  letter-spacing: -0.011em;
+.light{
+  .blog_content_renderer h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 2rem;
+    letter-spacing: -0.011em;
+  }
+
+  .blog_content_renderer h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1.75rem;
+    letter-spacing: -0.011em;
+  }
+
+  .blog_content_renderer h3 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.75rem;
+    letter-spacing: -0.011em;
+  }
+
+  .blog_content_renderer p {
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    font-weight: 300;
+  }
+
+  .blog_content_renderer ol {
+    padding-left: 25px;
+  }
+
+  .blog_content_renderer mark {
+    color: #3c402b;
+    background: rgba(255, 245, 51, 0.5);
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .blog_content_renderer {
+    color: #3c402b;
+  }
 }
 
-.blog_content_renderer p {
-  font-size: 1.2rem;
-  line-height: 1.4rem;
-  font-weight: 300;
-}
-
-.blog_content_renderer ol {
-  padding-left: 25px;
-}
-
-.blog_content_renderer mark {
-  color: white;
-  background: rgb(255 87 51 / 0.5);
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.blog_content_renderer {
-  color: rgb(237 237 237 / 0.8);
-}
-
-.mask_framer{
+.mask_framer {
   background-color: transparent;
   background-image: radial-gradient(transparent 1px, rgb(15, 17, 21) 1px);
   background-size: 4px 4px;
@@ -220,6 +317,3 @@ body {
   mask: linear-gradient(rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
   opacity: 1;
 }
-
-
-

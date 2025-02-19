@@ -488,8 +488,8 @@ const Projects = () => {
       </div>
       <div className="flex gap-2 h-auto lg:h-[calc(100vh-100px)] relative">
         <div className="lg:w-[55%] w-full lg:overflow-y-auto">
-          <div className="hidden lg:block absolute -top-3 left-0 lg:w-[55%] w-full h-[1.7rem] bg-gradient-to-t from-primary-bg/10 to-primary-bg to-90% z-10 pointer-events-none"></div>
-          <div className="hidden lg:block absolute -bottom-3 left-0 lg:w-[55%] w-full h-[1.7rem] bg-gradient-to-b from-primary-bg/10 to-primary-bg to-90% z-10 pointer-events-none"></div>
+          <div className="hidden dark:lg:block absolute -top-3 left-0 lg:w-[55%] w-full h-[1.7rem] bg-gradient-to-t from-lightprimary-bg/10 to-lightprimary-bg dark:from-primary-bg/10 dark:to-primary-bg to-90% z-10 pointer-events-none"></div>
+          <div className="hidden dark:lg:block absolute -bottom-3 left-0 lg:w-[55%] w-full h-[1.7rem] bg-gradient-to-b from-lightprimary-bg/10 to-lightprimary-bg dark:from-primary-bg/10 dark:to-primary-bg to-90% z-10 pointer-events-none"></div>
           <TabGroup
             selectedIndex={tabToggles}
             onChange={(e) => {
@@ -506,14 +506,14 @@ const Projects = () => {
               });
             }}
           >
-            <TabList className="flex p-1.5 lg:p-2 bg-secondary-bg/40 gap-1 rounded-full mx-1">
-              <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
+            <TabList className="flex p-1.5 lg:p-2 bg-lightsecondary-bg/40 dark:bg-secondary-bg/40 gap-1 rounded-full mx-1">
+              <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-lightprimary-text dark:text-primary-text focus:outline-none data-[selected]:bg-lightaccent-bg dark:data-[selected]:bg-accent-bg border border-lightsecondary-border dark:border-secondary-border data-[selected]:border-lightaccent-border dark:data-[selected]:border-accent-border data-[hover]:bg-lightsecondary-selection dark:data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-lightaccent-bg/80 dark:data-[selected]:data-[hover]:bg-accent-bg/80">
                 Startups
               </Tab>
-              <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
+              <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-lightprimary-text dark:text-primary-text focus:outline-none data-[selected]:bg-lightaccent-bg dark:data-[selected]:bg-accent-bg border border-lightsecondary-border dark:border-secondary-border data-[selected]:border-lightaccent-border dark:data-[selected]:border-accent-border data-[hover]:bg-lightsecondary-selection dark:data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-lightaccent-bg/80 dark:data-[selected]:data-[hover]:bg-accent-bg/80">
                 Projects
               </Tab>
-              <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-primary-text focus:outline-none data-[selected]:bg-accent-bg border border-secondary-border data-[selected]:border-accent-border data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-accent-bg/80 data-[focus]:outline-1 data-[focus]:outline-white">
+              <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-lightprimary-text dark:text-primary-text focus:outline-none data-[selected]:bg-lightaccent-bg dark:data-[selected]:bg-accent-bg border border-lightsecondary-border dark:border-secondary-border data-[selected]:border-lightaccent-border dark:data-[selected]:border-accent-border data-[hover]:bg-lightsecondary-selection dark:data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-lightaccent-bg/80 dark:data-[selected]:data-[hover]:bg-accent-bg/80">
                 Links
               </Tab>
             </TabList>
@@ -521,17 +521,17 @@ const Projects = () => {
               <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
                 {fetchLoading ? (
                   <>
-                    <div className="w-full h-10 bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-10 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-[260px] bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-[260px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-[260px] bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-[260px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-50">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
-                    <div className="w-full h-[260px] bg-secondary-bg rounded-lg relative overflow-hidden opacity-40">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="w-full h-[260px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-40">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
                   </>
                 ) : (
@@ -543,7 +543,7 @@ const Projects = () => {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
                         onClick={() => toggleHandler("startupAdd")}
-                        className="w-full h-10 cursor-pointer rounded-md bg-secondary-bg/40 hover:bg-secondary-bg/70 text-primary-text/70 hover:text-primary-text transition-all duration-200 ease-out flex gap-2 items-center justify-center border border-secondary-border hover:border-secondary-strongerborder"
+                        className="w-full h-10 cursor-pointer rounded-md bg-lightsecondary-bg/40 hover:bg-lightsecondary-bg/70 text-lightprimary-text/70 hover:text-lightprimary-text dark:bg-secondary-bg/40 dark:hover:bg-secondary-bg/70 dark:text-primary-text/70 dark:hover:text-primary-text transition-all duration-200 ease-out flex gap-2 items-center justify-center border border-secondary-border hover:border-secondary-strongerborder"
                       >
                         <Plus strokeWidth={1} />
                         Add
@@ -555,11 +555,11 @@ const Projects = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="w-full h-14 rounded-md p-1 bg-secondary-bg/50 text-primary-text border border-secondary-border flex items-center justify-center"
+                        className="w-full h-14 rounded-md p-1 bg-lightsecondary-bg/50 text-lightprimary-text border border-lightsecondary-border dark:bg-secondary-bg/50 dark:text-primary-text dark:border-secondary-border flex items-center justify-center"
                       >
                         <div className="flex rounded-md shadow-sm items-center justify-center w-[90%] gap-1 lg:gap-2">
                           <div className="w-full flex items-center justify-center">
-                            <span className="inline-flex bg-secondary-bg h-8 lg:h-10 items-center pl-1.5 lg:pl-3 rounded-l-md border border-r-0 border-secondary-strongerborder text-gray-400 text-xs sm:text-sm">
+                            <span className="inline-flex bg-lightsecondary-bg dark:bg-secondary-bg h-8 lg:h-10 items-center pl-1.5 lg:pl-3 rounded-l-md border border-r-0 border-lightsecondary-strongerborder dark:border-secondary-strongerborder text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
                               https://
                             </span>
                             <input
@@ -573,7 +573,7 @@ const Projects = () => {
                                 });
                               }}
                               autoComplete="off"
-                              className="flex-1 h-8 lg:h-10 text-primary-text placeholder-secondary-text form-input bg-secondary-bg pr-3 block w-[70%] focus:outline-none rounded-none border border-l-0 border-secondary-strongerborder transition duration-150 ease-in-out text-xs sm:text-sm"
+                              className="flex-1 h-8 lg:h-10 text-lightprimary-text dark:text-primary-text placeholder-lightsecondary-text/70 dark:placeholder-secondary-text form-input bg-lightsecondary-bg dark:bg-secondary-bg pr-3 block w-[70%] focus:outline-none rounded-none border border-l-0 border-lightsecondary-strongerborder dark:border-secondary-strongerborder transition duration-150 ease-in-out text-xs sm:text-sm"
                             />
                             <button
                               onClick={(e) => {
@@ -586,12 +586,12 @@ const Projects = () => {
                                   setValues: setValues,
                                 });
                               }}
-                              className="bg-secondary-bg h-8 lg:h-10 w-16 lg:w-20 text-primary-text font-medium py-2 px-4 rounded-r-md border border-l-0 border-secondary-strongerborder text-xs sm:text-sm flex items-center justify-center"
+                              className="bg-lightsecondary-bg dark:bg-secondary-bg h-8 lg:h-10 w-16 lg:w-20 text-lightprimary-text dark:text-primary-text font-medium py-2 px-4 rounded-r-md border border-l-0 border-lightsecondary-strongerborder dark:border-secondary-strongerborder text-xs sm:text-sm flex items-center justify-center"
                             >
                               {addLoading ? (
                                 <Loader
                                   strokeWidth={1}
-                                  className="animate-spin"
+                                  className="animate-spin text-lightprimary-text dark:text-primary-text"
                                 />
                               ) : (
                                 "Add"
@@ -618,12 +618,12 @@ const Projects = () => {
                           <FilePlus
                             strokeWidth={1}
                             size={75}
-                            className="text-primary-text/60"
+                            className="text-lightprimary-text/60 dark:text-primary-text/60"
                           />
-                          <p className="text-xl text-primary-text/60">
+                          <p className="text-xl text-lightprimary-text/60 dark:text-primary-text/60">
                             No Startups found.
                           </p>
-                          <p className="text-lg text-primary-text/60">
+                          <p className="text-lg text-lightprimary-text/60 dark:text-primary-text/60">
                             Start adding your first Startup.
                           </p>
                         </div>
@@ -653,10 +653,10 @@ const Projects = () => {
                                         {...provided.dragHandleProps}
                                         className={`transition-colors duration-300 border rounded-md mb-3 ${
                                           startupDraggingItemId === startup.id
-                                            ? "border-primary-text border-dashed opacity-100"
+                                            ? "border-lightprimary-text dark:border-primary-text border-dashed opacity-100"
                                             : startupDraggingItemId
-                                            ? "opacity-50 border border-dashed border-secondary-border"
-                                            : "opacity-100 border border-secondary-border"
+                                            ? "opacity-50 border border-dashed border-lightsecondary-border dark:border-secondary-border"
+                                            : "opacity-100 border border-lightsecondary-border dark:border-secondary-border"
                                         }`}
                                       >
                                         <StartupCard
@@ -705,7 +705,7 @@ const Projects = () => {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
                         onClick={() => toggleHandler("projectAdd")}
-                        className="w-full h-10 cursor-pointer rounded-md bg-secondary-bg/40 hover:bg-secondary-bg/70 text-primary-text/70 hover:text-primary-text transition-all duration-200 ease-out flex gap-2 items-center justify-center border border-secondary-border hover:border-secondary-strongerborder"
+                        className="w-full h-10 cursor-pointer rounded-md bg-lightsecondary-bg/40 hover:bg-lightsecondary-bg/70 text-lightprimary-text/70 hover:text-lightprimary-text dark:bg-secondary-bg/40 dark:hover:bg-secondary-bg/70 dark:text-primary-text/70 dark:hover:text-primary-text transition-all duration-200 ease-out flex gap-2 items-center justify-center border border-secondary-border hover:border-secondary-strongerborder"
                       >
                         <Plus strokeWidth={1} />
                         Add
@@ -717,11 +717,11 @@ const Projects = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="w-full h-12 rounded-md p-1 bg-secondary-bg/50 text-primary-text border border-secondary-border flex items-center justify-center"
+                        className="w-full h-14 rounded-md p-1 bg-lightsecondary-bg/50 text-lightprimary-text border border-lightsecondary-border dark:bg-secondary-bg/50 dark:text-primary-text dark:border-secondary-border flex items-center justify-center"
                       >
                         <div className="flex rounded-md shadow-sm items-center justify-center w-[90%] gap-1 lg:gap-2">
                           <div className="w-full flex items-center justify-center">
-                            <span className="inline-flex bg-secondary-bg h-8 lg:h-10 items-center pl-3 rounded-l-md border border-r-0 border-secondary-strongerborder text-gray-400 text-xs sm:text-sm">
+                            <span className="inline-flex bg-lightsecondary-bg dark:bg-secondary-bg h-8 lg:h-10 items-center pl-1.5 lg:pl-3 rounded-l-md border border-r-0 border-lightsecondary-strongerborder dark:border-secondary-strongerborder text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
                               https://
                             </span>
                             <input
@@ -735,7 +735,7 @@ const Projects = () => {
                                 });
                               }}
                               autoComplete="off"
-                              className="flex-1 h-8 lg:h-10 text-primary-text placeholder-secondary-text form-input bg-secondary-bg pr-3 block w-[70%] focus:outline-none rounded-none border border-l-0 border-secondary-strongerborder transition duration-150 ease-in-out text-xs sm:text-sm"
+                              className="flex-1 h-8 lg:h-10 text-lightprimary-text dark:text-primary-text placeholder-lightsecondary-text/70 dark:placeholder-secondary-text form-input bg-lightsecondary-bg dark:bg-secondary-bg pr-3 block w-[70%] focus:outline-none rounded-none border border-l-0 border-lightsecondary-strongerborder dark:border-secondary-strongerborder transition duration-150 ease-in-out text-xs sm:text-sm"
                             />
                             <button
                               onClick={(e) => {
@@ -748,12 +748,12 @@ const Projects = () => {
                                   setValues: setValues,
                                 });
                               }}
-                              className="bg-secondary-bg h-8 lg:h-10 w-16 lg:w-20 text-primary-text font-medium py-2 px-4 rounded-r-md border border-l-0 border-secondary-strongerborder text-xs sm:text-sm flex items-center justify-center"
+                              className="bg-lightsecondary-bg dark:bg-secondary-bg h-8 lg:h-10 w-16 lg:w-20 text-lightprimary-text dark:text-primary-text font-medium py-2 px-4 rounded-r-md border border-l-0 border-lightsecondary-strongerborder dark:border-secondary-strongerborder text-xs sm:text-sm flex items-center justify-center"
                             >
                               {addLoading ? (
                                 <Loader
                                   strokeWidth={1}
-                                  className="animate-spin"
+                                  className="animate-spin text-lightprimary-text dark:text-primary-text"
                                 />
                               ) : (
                                 "Add"
@@ -867,7 +867,7 @@ const Projects = () => {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
                         onClick={() => toggleHandler("linkAdd")}
-                        className="w-full h-10 cursor-pointer rounded-md bg-secondary-bg/40 hover:bg-secondary-bg/70 text-primary-text/70 hover:text-primary-text transition-all duration-200 ease-out flex gap-2 items-center justify-center border border-secondary-border hover:border-secondary-strongerborder"
+                        className="w-full h-10 cursor-pointer rounded-md bg-lightsecondary-bg/40 hover:bg-lightsecondary-bg/70 text-lightprimary-text/70 hover:text-lightprimary-text dark:bg-secondary-bg/40 dark:hover:bg-secondary-bg/70 dark:text-primary-text/70 dark:hover:text-primary-text transition-all duration-200 ease-out flex gap-2 items-center justify-center border border-secondary-border hover:border-secondary-strongerborder"
                       >
                         <Plus strokeWidth={1} />
                         Add
@@ -879,11 +879,11 @@ const Projects = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="w-full h-12 rounded-md p-1 bg-secondary-bg/50 text-primary-text border border-secondary-border flex items-center justify-center"
+                        className="w-full h-14 rounded-md p-1 bg-lightsecondary-bg/50 text-lightprimary-text border border-lightsecondary-border dark:bg-secondary-bg/50 dark:text-primary-text dark:border-secondary-border flex items-center justify-center"
                       >
                         <div className="flex rounded-md shadow-sm items-center justify-center w-[90%] gap-1 lg:gap-2">
                           <div className="w-full flex items-center justify-center">
-                            <span className="inline-flex bg-secondary-bg h-8 lg:h-10 items-center pl-3 rounded-l-md border border-r-0 border-secondary-strongerborder text-gray-400 text-xs sm:text-sm">
+                            <span className="inline-flex bg-lightsecondary-bg dark:bg-secondary-bg h-8 lg:h-10 items-center pl-1.5 lg:pl-3 rounded-l-md border border-r-0 border-lightsecondary-strongerborder dark:border-secondary-strongerborder text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
                               https://
                             </span>
                             <input
@@ -897,7 +897,7 @@ const Projects = () => {
                                 });
                               }}
                               autoComplete="off"
-                              className="flex-1 h-8 lg:h-10 text-primary-text placeholder-secondary-text form-input bg-secondary-bg pr-3 block w-[70%] focus:outline-none rounded-none border border-l-0 border-secondary-strongerborder transition duration-150 ease-in-out text-xs sm:text-sm"
+                              className="flex-1 h-8 lg:h-10 text-lightprimary-text dark:text-primary-text placeholder-lightsecondary-text/70 dark:placeholder-secondary-text form-input bg-lightsecondary-bg dark:bg-secondary-bg pr-3 block w-[70%] focus:outline-none rounded-none border border-l-0 border-lightsecondary-strongerborder dark:border-secondary-strongerborder transition duration-150 ease-in-out text-xs sm:text-sm"
                             />
                             <button
                               onClick={(e) => {
@@ -910,12 +910,12 @@ const Projects = () => {
                                   setValues: setValues,
                                 });
                               }}
-                              className="bg-secondary-bg h-8 lg:h-10 w-16 lg:w-20 text-primary-text font-medium py-2 px-4 rounded-r-md border border-l-0 border-secondary-strongerborder text-xs sm:text-sm flex items-center justify-center"
+                              className="bg-lightsecondary-bg dark:bg-secondary-bg h-8 lg:h-10 w-16 lg:w-20 text-lightprimary-text dark:text-primary-text font-medium py-2 px-4 rounded-r-md border border-l-0 border-lightsecondary-strongerborder dark:border-secondary-strongerborder text-xs sm:text-sm flex items-center justify-center"
                             >
                               {addLoading ? (
                                 <Loader
                                   strokeWidth={1}
-                                  className="animate-spin"
+                                  className="animate-spin text-lightprimary-text dark:text-primary-text"
                                 />
                               ) : (
                                 "Add"
@@ -1010,75 +1010,75 @@ const Projects = () => {
         <div
           className={`${
             preview ? "flex" : "hidden"
-          } lg:flex z-[49] bg-primary-bg lg:bg-transparent lg:z-10 w-full bg-darkbg rounded-lg p-6 lg:p-4 fixed right-1/2 top-1/2 translate-x-1/2 -translate-y-[calc(50%-31px)] lg:translate-x-0 lg:translate-y-0 lg:static lg:right-auto lg:top-auto lg:w-[45%] h-[calc(100vh-60px)] lg:h-[85vh]`}
+          } lg:flex z-[49] bg-lightprimary-bg dark:bg-primary-bg lg:bg-transparent lg:z-10 w-full bg-darkbg rounded-lg p-6 lg:p-4 fixed right-1/2 top-1/2 translate-x-1/2 -translate-y-[calc(50%-31px)] lg:translate-x-0 lg:translate-y-0 lg:static lg:right-auto lg:top-auto lg:w-[45%] h-[calc(100vh-60px)] lg:h-[85vh]`}
         >
           <p
             onClick={() => setPreview(false)}
-            className="block lg:hidden absolute top-3 right-3 text-primary-text cursor-pointer"
+            className="block lg:hidden absolute top-3 right-3 text-lightprimary-text dark:text-primary-text cursor-pointer"
           >
             <X />
           </p>
-          <div className="scale-90 md:scale-100 relative mx-auto border-black dark:border-black bg-black border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
-            <div className="w-[130px] h-[18px] bg-black top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
+          <div className="scale-90 md:scale-100 relative mx-auto border-primary-bg/60 dark:border-black bg-primary-bg/60 dark:bg-black border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
+            <div className="w-[130px] h-[18px] bg-primary-bg/60 dark:bg-black top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
             <div className="w-[90px] h-[5px] bg-gray-400 bottom-0.5 z-50 rounded-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
-            <div className="w-[30] h-[18px] text-primarytext text-xs top-0.5 left-[17%] -translate-x-1/2 absolute">
+            <div className="w-[30] h-[18px] text-lightprimary-text dark:text-primary-text text-xs top-0.5 left-[17%] -translate-x-1/2 absolute">
               9:41
             </div>
-            <div className="w-[30] h-[18px] text-primarytext text-xs top-[0.3rem] left-[85%] -translate-x-1/2 absolute">
+            <div className="w-[30] h-[18px] text-lightprimary-text dark:text-primary-text text-xs top-[0.3rem] left-[85%] -translate-x-1/2 absolute">
               <BatteryLow size={15} />
             </div>
-            <div className="w-[30] h-[18px] text-primarytext text-xs top-0.5 left-[78%] -translate-x-1/2 absolute">
+            <div className="w-[30] h-[18px] text-lightprimary-text dark:text-primary-text text-xs top-0.5 left-[78%] -translate-x-1/2 absolute">
               <SignalMedium size={15} />
             </div>
-            <div className="h-[46px] w-[5px] bg-black absolute -start-[17px] top-[124px] rounded-s-lg"></div>
-            <div className="h-[46px] w-[5px] bg-black absolute -start-[17px] top-[178px] rounded-s-lg"></div>
-            <div className="h-[64px] w-[5px] bg-black absolute -end-[17px] top-[142px] rounded-e-lg"></div>
+            <div className="h-[46px] w-[5px] bg-primary-bg/60 dark:bg-black absolute -start-[17px] top-[124px] rounded-s-lg"></div>
+            <div className="h-[46px] w-[5px] bg-primary-bg/60 dark:bg-black absolute -start-[17px] top-[178px] rounded-s-lg"></div>
+            <div className="h-[64px] w-[5px] bg-primary-bg/60 dark:bg-black absolute -end-[17px] top-[142px] rounded-e-lg"></div>
             <div className="h-[10px] w-[10px] bg-white/10 absolute top-0 left-[40%] -translate-x-1/2 rounded-full"></div>
             <div className="h-[5px] w-[5px] bg-white/20 absolute top-[2.5px] left-[40%] -translate-x-1/2 rounded-full"></div>
             <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full"></div>
             {fetchLoading ? (
-              <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg flex items-center justify-center">
-                <Loader strokeWidth={1.5} size={24} className="animate-spin" />
+              <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-lightprimary-bg dark:bg-primary-bg flex items-center justify-center">
+                <Loader strokeWidth={1.5} size={24} className="animate-spin text-lightprimary-text dark:text-primary-text" />
               </div>
             ) : (
-              <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-black">
-                <div className="bg-primary-bg/80 w-[272px] h-[572px]"></div>
+              <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg/60 dark:bg-black">
+                <div className="bg-lightprimary-bg/80 dark:bg-primary-bg/80 w-[272px] h-[572px]"></div>
                 <div className="absolute top-4 right-1 w-full h-[97.3%] rounded-b-[2.1rem] p-4 overflow-y-auto scrollbar_hidden">
                   <div className="flex items-center justify-center">
-                    <div className="bg-secondary-bg w-[50px] h-[50px] rounded-full p-1 border border-secondary-border object-cover"></div>
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg w-[50px] h-[50px] rounded-full p-1 border border-lightsecondary-border dark:border-secondary-border object-cover"></div>
                     <div className="ml-3">
-                      <div className="bg-secondary-bg h-[18px] w-[110px] rounded-sm border border-secondary-border"></div>
+                      <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[18px] w-[110px] rounded-sm border border-lightsecondary-border dark:border-secondary-border"></div>
                       <div className="flex items-center text-primary-text text-sm mt-1">
-                        <div className="bg-secondary-bg h-[12px] w-[40px] rounded-sm border border-secondary-border"></div>
-                        <div className="ml-1 h-3 border-l border-secondary-strongerborder mr-1 "></div>
-                        <span className="bg-secondary-bg h-[12px] w-[50px] rounded-sm border border-secondary-border"></span>
+                        <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[12px] w-[40px] rounded-sm border border-lightsecondary-border dark:border-secondary-border"></div>
+                        <div className="ml-1 h-3 border-l border-lightsecondary-strongerborder dark:border-secondary-strongerborder mr-1 "></div>
+                        <span className="bg-lightsecondary-bg dark:bg-secondary-bg h-[12px] w-[50px] rounded-sm border border-lightsecondary-border dark:border-secondary-border"></span>
                       </div>
                     </div>
                   </div>
                   <div className="mt-2 flex items-center justify-center gap-1">
-                    <div className="bg-secondary-bg h-[18px] w-[40px] rounded-[0.1875rem] border border-secondary-border"></div>
-                    <div className="bg-secondary-bg h-[18px] w-[50px] rounded-[0.1875rem] border border-secondary-border"></div>
-                    <div className="bg-secondary-bg h-[18px] w-[30px] rounded-[0.1875rem] border border-secondary-border"></div>
-                    <div className="bg-secondary-bg h-[18px] w-[40px] rounded-[0.1875rem] border border-secondary-border"></div>
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[18px] w-[40px] rounded-[0.1875rem] border border-lightsecondary-border dark:border-secondary-border"></div>
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[18px] w-[50px] rounded-[0.1875rem] border border-lightsecondary-border dark:border-secondary-border"></div>
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[18px] w-[30px] rounded-[0.1875rem] border border-lightsecondary-border dark:border-secondary-border"></div>
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[18px] w-[40px] rounded-[0.1875rem] border border-lightsecondary-border dark:border-secondary-border"></div>
                   </div>
                   <div className="w-full flex items-center justify-center ">
-                    <div className="bg-secondary-bg h-[40px] w-[95%] mt-2 rounded-[0.1875rem] border border-secondary-border"></div>
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[40px] w-[95%] mt-2 rounded-[0.1875rem] border border-lightsecondary-border dark:border-secondary-border"></div>
                   </div>
 
-                  <div className="mt-4 border-t border-secondary-border"></div>
+                  <div className="mt-4 border-t border-lightsecondary-border dark:border-secondary-border"></div>
                   <div className="mt-4">
                     <TabGroup
                       onChange={(e) => setTabToggles(e)}
                       selectedIndex={tabToggles}
                     >
                       <TabList className="flex p-0.5 gap-2 rounded-full mx-0.5 items-center justify-center">
-                        <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-primary-text data-[selected]:text-accent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2  data-[selected]:decoration-accent-bg">
+                        <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-lightprimary-text data-[selected]:text-lightaccent-text dark:text-lightprimary-text dark:data-[selected]:text-lightaccent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2 data-[selected]:decoration-lightaccent-bg  dark:data-[selected]:decoration-accent-bg">
                           Startups
                         </Tab>
-                        <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-primary-text data-[selected]:text-accent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2  data-[selected]:decoration-accent-bg">
+                        <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-lightprimary-text data-[selected]:text-lightaccent-text dark:text-lightprimary-text dark:data-[selected]:text-lightaccent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2 data-[selected]:decoration-lightaccent-bg  dark:data-[selected]:decoration-accent-bg">
                           Projects
                         </Tab>
-                        <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-primary-text data-[selected]:text-accent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2  data-[selected]:decoration-accent-bg">
+                        <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-lightprimary-text data-[selected]:text-lightaccent-text dark:text-lightprimary-text dark:data-[selected]:text-lightaccent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2 data-[selected]:decoration-lightaccent-bg  dark:data-[selected]:decoration-accent-bg">
                           Links
                         </Tab>
                       </TabList>

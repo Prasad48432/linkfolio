@@ -58,10 +58,10 @@ const SourcesChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row mb-4 lg:mb-0">
         <div className="flex w-full items-center justify-between">
           <div className="w-1/2 relative flex flex-col items-start justify-center gap-1 border-t px-6 py-4 text-left data-[active=true]:bg-secondary-selection border-l-0 sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
-            <CardTitle className="text-lg leading-none text-primary-text">
+            <CardTitle className="text-lg leading-none text-lightprimary-text dark:text-primary-text">
               Vistor Sources
             </CardTitle>
-            <CardDescription className="text-primary-text/60">
+            <CardDescription className="text-lightprimary-text/60 dark:text-primary-text/60">
               Sources of vistors of page
             </CardDescription>
           </div>

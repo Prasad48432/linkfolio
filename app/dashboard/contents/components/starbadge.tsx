@@ -59,11 +59,11 @@ const GithubStarBadge = ({
   return (
     <span
       style={{
-        background: theme ? theme.primary_bg : "#121212",
-        borderColor: theme ? theme.strongerborder : "#4d4d4d",
-        color: theme ? theme.primary_text : "#ededed",
+        background: theme ? theme.primary_bg : "",
+        borderColor: theme ? theme.strongerborder : "",
+        color: theme ? theme.primary_text : "",
       }}
-      className={`flex bg-primary-bg items-center justify-center rounded border border-secondary-strongerborder ${
+      className={`flex bg-lightprimary-bg dark:bg-primary-bg text-lightprimary-text dark:text-primary-text items-center justify-center rounded border border-lightsecondary-strongerborder dark:border-secondary-strongerborder ${
         size === "sm"
           ? "text-[0.4rem] lg:text-[0.5rem]"
           : "text-[0.5rem] lg:text-[0.7rem]"

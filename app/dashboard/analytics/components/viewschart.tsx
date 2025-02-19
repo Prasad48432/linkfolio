@@ -75,8 +75,8 @@ const ViewsChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
               <span className="text-lg font-bold leading-none sm:text-xl relative">
                 345
                 <span className="absolute top-1/2 -translate-y-1/2 -right-4 w-2 h-2 flex items-center justify-center">
-                  <span className="absolute w-full h-full bg-green-500 rounded-full"></span>
-                  <span className="absolute w-full h-full bg-green-500 rounded-full opacity-75 animate-ping"></span>
+                  <span className="absolute w-full h-full bg-green-600 dark:bg-green-500 rounded-full"></span>
+                  <span className="absolute w-full h-full bg-green-600 dark:bg-green-500 rounded-full opacity-75 animate-ping"></span>
                 </span>
               </span>
             </div>
@@ -148,8 +148,8 @@ const ViewsChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by <span className="text-success-border">5.2%</span>{" "}
-              this month <TrendingUp className="h-4 w-4 text-success-border" />
+              Trending up by <span className="text-lightsuccess-border dark:text-success-border">5.2%</span>{" "}
+              this month <TrendingUp className="h-4 w-4 text-lightsuccess-border dark:text-success-border" />
             </div>
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
               January - June 2024

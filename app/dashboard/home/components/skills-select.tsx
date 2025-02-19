@@ -67,10 +67,10 @@ const SkillsSection = ({ fetchedSkills }: { fetchedSkills: Skills }) => {
   return (
     <div className="flex flex-col gap-2 focus:outline-none mb-10 relative">
       <div className="flex flex-col">
-        <h1 className="text-primary-text/90 font-medium text-base lg:text-xl px-1">
+        <h1 className="text-lightprimary-text/90 dark:text-primary-text/90 font-medium text-base lg:text-xl px-1">
           Skills Section
         </h1>
-        <p className="text-primary-text/70 font-normal text-xs lg:text-sm mb-1 px-1">
+        <p className="text-lightprimary-text/70 dark:text-primary-text/70 font-normal text-xs lg:text-sm mb-1 px-1">
           Pick up to 7 skills that represent you best.
         </p>
       </div>
@@ -124,8 +124,8 @@ const SkillSection = ({
     icon: keyof typeof ICONS_MAP;
   }) => void;
 }) => (
-  <div className="px-3 pt-3 pb-4 border border-secondary-strongerborder rounded-md border-dashed">
-    <p className="text-primary-text/80 font-medium text-base lg:text-lg mb-3">{title}</p>
+  <div className="px-3 pt-3 pb-4 border border-lightsecondary-strongerborder dark:border-secondary-strongerborder rounded-md border-dashed">
+    <p className="text-lightprimary-text/80 dark:text-primary-text/80 font-medium text-base lg:text-lg mb-3">{title}</p>
     <div className="flex items-center justify-start flex-wrap gap-2.5">
       {skills.map((skill) => {
         const isSelected = selectedSkills.some((s) => s.name === skill.name);
@@ -139,10 +139,10 @@ const SkillSection = ({
             }}
             className={`flex cursor-pointer items-center gap-2 p-2 border rounded-lg ${
               isSelected
-                ? "border-accent-border bg-accent-bg text-primary-text"
+                ? "border-lightaccent-border bg-lightaccent-bg text-lightprimary-text dark:border-accent-border dark:bg-accent-bg dark:text-primary-text"
                 : selectedSkills.length < 7
-                ? "border-secondary-border bg-secondary-bg text-primary-text/60 hover:bg-secondary-selection hover:border-secondary-strongerborder"
-                : "border-secondary-border bg-secondary-bg text-primary-text/60 opacity-50 cursor-not-allowed"
+                ? "border-lightsecondary-border bg-lightsecondary-bg text-lightprimary-text/60 hover:bg-lightsecondary-selection hover:border-lightsecondary-strongerborder dark:border-secondary-border dark:bg-secondary-bg dark:text-primary-text/60 dark:hover:bg-secondary-selection dark:hover:border-secondary-strongerborder"
+                : "border-lightsecondary-border bg-lightsecondary-bg text-lightprimary-text/60 dark:border-secondary-border dark:bg-secondary-bg dark:text-primary-text/60 opacity-50 cursor-not-allowed"
             } transition-all duration-200 ease-out`}
           >
             {ICONS_MAP[skill.icon]}

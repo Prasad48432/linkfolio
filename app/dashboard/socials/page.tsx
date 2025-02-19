@@ -134,16 +134,16 @@ const SocialLinks = () => {
         <div className="lg:w-[55%] w-full lg:overflow-y-auto">
           <div className="flex flex-col items-start justify-center gap-3 w-full pb-3 px-3">
             <div className="p-2">
-              <h1 className="text-xl text-primarytext font-semibold">
+              <h1 className="text-xl text-lightprimary-text dark:text-primary-text font-semibold">
                 Update Your Social Media Links
               </h1>
-              <p className="text-sm text-primarytext font-normal mb-2">
+              <p className="text-sm text-lightprimary-text dark:text-primary-text font-normal mb-2">
                 Leave the field blank to hide from page{" "}
-                <span className="text-primary-text/70 hidden md:inline text-xs">
+                <span className="text-lightprimary-text/70 dark:text-primary-text/70 hidden md:inline text-xs">
                   (* Fields autoupdated on change)
                 </span>
               </p>
-              <span className="text-primary-text/70 mb-5 lg:mb-0 md:hidden flex text-xs text-center lg:text-start">
+              <span className="text-lightprimary-text/70 dark:text-primary-text/70 mb-5 lg:mb-0 md:hidden flex text-xs text-center lg:text-start">
                 (* Fields autoupdated on change)
               </span>
             </div>
@@ -156,17 +156,17 @@ const SocialLinks = () => {
                     style={{
                       opacity: value,
                     }}
-                    className="w-[70px] h-[20px] bg-secondary-bg rounded-md relative overflow-hidden mb-1"
+                    className="w-[70px] h-[20px] bg-lightsecondary-bg dark:bg-secondary-b rounded-md relative overflow-hidden mb-1"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                   </div>
                   <div
                     style={{
                       opacity: value,
                     }}
-                    className="w-full h-[40px] bg-secondary-bg rounded-md relative overflow-hidden"
+                    className="w-full h-[40px] bg-lightsecondary-bg dark:bg-secondary-b rounded-md relative overflow-hidden"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                   </div>
                 </div>
               ))}
@@ -174,7 +174,7 @@ const SocialLinks = () => {
           ) : (
             <div className="flex flex-col gap-4">
               <div className="w-full px-5">
-                <label className="block text-sm font-medium text-primary-text/80 px-1 mb-0.5">
+                <label className="block text-sm font-medium text-lightprimary-text/80 dark:text-primary-text/80 px-1 mb-0.5">
                   Instagram
                 </label>
                 <div className="relative flex items-center justify-center">
@@ -182,10 +182,10 @@ const SocialLinks = () => {
                     <SiInstagram
                       strokeWidth={1}
                       size={20}
-                      className="text-primary-text/80 text-xl"
+                      className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                     />
                   </span>
-                  <p className="py-2 pl-9 rounded-l-md text-sm bg-secondary-bg border border-r-0 border-secondary-border w-fit mt-1">
+                  <p className="py-2 pl-9 rounded-l-md text-sm text-lightprimary-text/80 dark:text-primary-text/80 bg-lightsecondary-bg dark:bg-secondary-bg border border-r-0 border-lightsecondary-border dark:border-secondary-border w-fit mt-1">
                     https://instagram.com/
                   </p>
                   <input
@@ -198,12 +198,12 @@ const SocialLinks = () => {
                         value: e.target.value,
                       })
                     }
-                    className="border-secondary-border w-full py-2 text-accent-text text-sm bg-secondary-bg border border-l-0 focus:outline-none rounded-r-md mt-1"
+                    className="border-lightsecondary-border dark:border-secondary-border w-full py-2 text-lightaccent-text dark:text-accent-text text-sm bg-lightsecondary-bg dark:bg-secondary-bg border border-l-0 focus:outline-none rounded-r-md mt-1"
                   />
                 </div>
               </div>
               <div className="w-full px-5">
-                <label className="block text-sm font-medium text-primary-text/80 px-1 mb-0.5">
+                <label className="block text-sm font-medium text-lightprimary-text/80 dark:text-primary-text/80 px-1 mb-0.5">
                   Facebook
                 </label>
                 <div className="relative flex items-center justify-center">
@@ -211,10 +211,10 @@ const SocialLinks = () => {
                     <SiFacebook
                       strokeWidth={1}
                       size={20}
-                      className="text-primary-text/80 text-xl"
+                      className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                     />
                   </span>
-                  <p className="py-2 pl-9 rounded-l-md text-sm bg-secondary-bg border border-r-0 border-secondary-border w-fit mt-1">
+                  <p className="py-2 pl-9 rounded-l-md text-sm text-lightprimary-text/80 dark:text-primary-text/80 bg-lightsecondary-bg dark:bg-secondary-bg border border-r-0 border-lightsecondary-border dark:border-secondary-border w-fit mt-1">
                     https://facebook.com/
                   </p>
                   <input
@@ -227,12 +227,12 @@ const SocialLinks = () => {
                         value: e.target.value,
                       })
                     }
-                    className="border-secondary-border w-full py-2 text-accent-text text-sm bg-secondary-bg border border-l-0 focus:outline-none rounded-r-md mt-1"
+                    className="border-lightsecondary-border dark:border-secondary-border w-full py-2 text-lightaccent-text dark:text-accent-text text-sm bg-lightsecondary-bg dark:bg-secondary-bg border border-l-0 focus:outline-none rounded-r-md mt-1"
                   />
                 </div>
               </div>
               <div className="w-full px-5">
-                <label className="block text-sm font-medium text-primary-text/80 px-1 mb-0.5">
+                <label className="block text-sm font-medium text-lightprimary-text/80 dark:text-primary-text/80 px-1 mb-0.5">
                   X
                 </label>
                 <div className="relative flex items-center justify-center">
@@ -240,10 +240,10 @@ const SocialLinks = () => {
                     <SiX
                       strokeWidth={1}
                       size={20}
-                      className="text-primary-text/80 text-xl"
+                      className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                     />
                   </span>
-                  <p className="py-2 pl-9 rounded-l-md text-sm bg-secondary-bg border border-r-0 border-secondary-border w-fit mt-1">
+                  <p className="py-2 pl-9 rounded-l-md text-sm text-lightprimary-text/80 dark:text-primary-text/80 bg-lightsecondary-bg dark:bg-secondary-bg border border-r-0 border-lightsecondary-border dark:border-secondary-border w-fit mt-1">
                     https://x.com/
                   </p>
                   <input
@@ -253,12 +253,12 @@ const SocialLinks = () => {
                     onChange={(e) =>
                       handleFieldChange({ field: "x", value: e.target.value })
                     }
-                    className="border-secondary-border w-full py-2 text-accent-text text-sm bg-secondary-bg border border-l-0 focus:outline-none rounded-r-md mt-1"
+                    className="border-lightsecondary-border dark:border-secondary-border w-full py-2 text-lightaccent-text dark:text-accent-text text-sm bg-lightsecondary-bg dark:bg-secondary-bg border border-l-0 focus:outline-none rounded-r-md mt-1"
                   />
                 </div>
               </div>
               <div className="w-full px-5">
-                <label className="block text-sm font-medium text-primary-text/80 px-1 mb-0.5">
+                <label className="block text-sm font-medium text-lightprimary-text/80 dark:text-primary-text/80 px-1 mb-0.5">
                   Github
                 </label>
                 <div className="relative flex items-center justify-center">
@@ -266,10 +266,10 @@ const SocialLinks = () => {
                     <SiGithub
                       strokeWidth={1}
                       size={20}
-                      className="text-primary-text/80 text-xl"
+                      className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                     />
                   </span>
-                  <p className="py-2 pl-9 rounded-l-md text-sm bg-secondary-bg border border-r-0 border-secondary-border w-fit mt-1">
+                  <p className="py-2 pl-9 rounded-l-md text-sm text-lightprimary-text/80 dark:text-primary-text/80 bg-lightsecondary-bg dark:bg-secondary-bg border border-r-0 border-lightsecondary-border dark:border-secondary-border w-fit mt-1">
                     https://github.com/
                   </p>
                   <input
@@ -282,12 +282,12 @@ const SocialLinks = () => {
                         value: e.target.value,
                       })
                     }
-                    className="border-secondary-border w-full py-2 text-accent-text text-sm bg-secondary-bg border border-l-0 focus:outline-none rounded-r-md mt-1"
+                    className="border-lightsecondary-border dark:border-secondary-border w-full py-2 text-lightaccent-text dark:text-accent-text text-sm bg-lightsecondary-bg dark:bg-secondary-bg border border-l-0 focus:outline-none rounded-r-md mt-1"
                   />
                 </div>
               </div>
               <div className="w-full px-5">
-                <label className="block text-sm font-medium text-primary-text/80 px-1 mb-0.5">
+                <label className="block text-sm font-medium text-lightprimary-text/80 dark:text-primary-text/80 px-1 mb-0.5">
                   Linkedin
                 </label>
                 <div className="relative flex items-center justify-center">
@@ -295,10 +295,10 @@ const SocialLinks = () => {
                     <SiLinkedin
                       strokeWidth={1}
                       size={20}
-                      className="text-primary-text/80 text-xl"
+                      className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                     />
                   </span>
-                  <p className="py-2 pl-9 rounded-l-md text-sm bg-secondary-bg border border-r-0 border-secondary-border w-fit mt-1">
+                  <p className="py-2 pl-9 rounded-l-md text-sm text-lightprimary-text/80 dark:text-primary-text/80 bg-lightsecondary-bg dark:bg-secondary-bg border border-r-0 border-lightsecondary-border dark:border-secondary-border w-fit mt-1">
                     https://linkedin.com/
                   </p>
                   <input
@@ -311,12 +311,12 @@ const SocialLinks = () => {
                         value: e.target.value,
                       })
                     }
-                    className="border-secondary-border w-full py-2 text-accent-text text-sm bg-secondary-bg border border-l-0 focus:outline-none rounded-r-md mt-1"
+                    className="border-lightsecondary-border dark:border-secondary-border w-full py-2 text-lightaccent-text dark:text-accent-text text-sm bg-lightsecondary-bg dark:bg-secondary-bg border border-l-0 focus:outline-none rounded-r-md mt-1"
                   />
                 </div>
               </div>
               <div className="w-full px-5">
-                <label className="block text-sm font-medium text-primary-text/80 px-1 mb-0.5">
+                <label className="block text-sm font-medium text-lightprimary-text/80 dark:text-primary-text/80 px-1 mb-0.5">
                   Youtube
                 </label>
                 <div className="relative flex items-center justify-center">
@@ -324,10 +324,10 @@ const SocialLinks = () => {
                     <SiYoutube
                       strokeWidth={1}
                       size={20}
-                      className="text-primary-text/80 text-xl"
+                      className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                     />
                   </span>
-                  <p className="py-2 pl-9 rounded-l-md text-sm bg-secondary-bg border border-r-0 border-secondary-border w-fit mt-1">
+                  <p className="py-2 pl-9 rounded-l-md text-sm text-lightprimary-text/80 dark:text-primary-text/80 bg-lightsecondary-bg dark:bg-secondary-bg border border-r-0 border-lightsecondary-border dark:border-secondary-border w-fit mt-1">
                     https://youtube.com/@
                   </p>
                   <input
@@ -340,7 +340,7 @@ const SocialLinks = () => {
                         value: e.target.value,
                       })
                     }
-                    className="border-secondary-border w-full py-2 text-accent-text text-sm bg-secondary-bg border border-l-0 focus:outline-none rounded-r-md mt-1"
+                    className="border-lightsecondary-border dark:border-secondary-border w-full py-2 text-lightaccent-text dark:text-accent-text text-sm bg-lightsecondary-bg dark:bg-secondary-bg border border-l-0 focus:outline-none rounded-r-md mt-1"
                   />
                 </div>
               </div>
@@ -350,99 +350,99 @@ const SocialLinks = () => {
         <div
           className={`${
             preview ? "flex" : "hidden"
-          } lg:flex z-[49] bg-primary-bg lg:bg-transparent lg:z-10 w-full bg-darkbg rounded-lg p-6 lg:p-4 fixed right-1/2 top-1/2 translate-x-1/2 -translate-y-[calc(50%-31px)] lg:translate-x-0 lg:translate-y-0 lg:static lg:right-auto lg:top-auto lg:w-[45%] h-[calc(100vh-60px)] lg:h-[85vh]`}
+          } lg:flex z-[49] bg-lightprimary-bg dark:bg-primary-bg lg:bg-transparent lg:z-10 w-full bg-darkbg rounded-lg p-6 lg:p-4 fixed right-1/2 top-1/2 translate-x-1/2 -translate-y-[calc(50%-31px)] lg:translate-x-0 lg:translate-y-0 lg:static lg:right-auto lg:top-auto lg:w-[45%] h-[calc(100vh-60px)] lg:h-[85vh]`}
         >
           <p
             onClick={() => setPreview(false)}
-            className="block lg:hidden absolute top-3 right-3 text-primary-text cursor-pointer"
+            className="block lg:hidden absolute top-3 right-3 text-lightprimary-text dark:text-primary-text cursor-pointer"
           >
             <X />
           </p>
-          <div className="scale-90 md:scale-100 relative mx-auto border-black dark:border-black bg-black border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
-            <div className="w-[130px] h-[18px] bg-black top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
+          <div className="scale-90 md:scale-100 relative mx-auto border-primary-bg/60 dark:border-black bg-primary-bg/60 dark:bg-black border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
+            <div className="w-[130px] h-[18px] bg-primary-bg/60 dark:bg-black top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
             <div className="w-[90px] h-[5px] bg-gray-400 bottom-0.5 z-50 rounded-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
-            <div className="w-[30] h-[18px] text-primarytext text-xs top-0.5 left-[17%] -translate-x-1/2 absolute">
+            <div className="w-[30] h-[18px] text-lightprimary-text dark:text-primary-text text-xs top-0.5 left-[17%] -translate-x-1/2 absolute">
               9:41
             </div>
-            <div className="w-[30] h-[18px] text-primarytext text-xs top-[0.3rem] left-[85%] -translate-x-1/2 absolute">
+            <div className="w-[30] h-[18px] text-lightprimary-text dark:text-primary-text text-xs top-[0.3rem] left-[85%] -translate-x-1/2 absolute">
               <BatteryLow size={15} />
             </div>
-            <div className="w-[30] h-[18px] text-primarytext text-xs top-0.5 left-[78%] -translate-x-1/2 absolute">
+            <div className="w-[30] h-[18px] text-lightprimary-text dark:text-primary-text text-xs top-0.5 left-[78%] -translate-x-1/2 absolute">
               <SignalMedium size={15} />
             </div>
-            <div className="h-[46px] w-[5px] bg-black absolute -start-[17px] top-[124px] rounded-s-lg"></div>
-            <div className="h-[46px] w-[5px] bg-black absolute -start-[17px] top-[178px] rounded-s-lg"></div>
-            <div className="h-[64px] w-[5px] bg-black absolute -end-[17px] top-[142px] rounded-e-lg"></div>
+            <div className="h-[46px] w-[5px] bg-primary-bg/60 dark:bg-black absolute -start-[17px] top-[124px] rounded-s-lg"></div>
+            <div className="h-[46px] w-[5px] bg-primary-bg/60 dark:bg-black absolute -start-[17px] top-[178px] rounded-s-lg"></div>
+            <div className="h-[64px] w-[5px] bg-primary-bg/60 dark:bg-black absolute -end-[17px] top-[142px] rounded-e-lg"></div>
             <div className="h-[10px] w-[10px] bg-white/10 absolute top-0 left-[40%] -translate-x-1/2 rounded-full"></div>
             <div className="h-[5px] w-[5px] bg-white/20 absolute top-[2.5px] left-[40%] -translate-x-1/2 rounded-full"></div>
             <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full"></div>
             {fetchLoading ? (
-              <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg flex items-center justify-center">
-                <Loader strokeWidth={1.5} size={24} className="animate-spin" />
+              <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-lightprimary-bg dark:bg-primary-bg flex items-center justify-center">
+                <Loader strokeWidth={1.5} size={24} className="animate-spin text-lightprimary-text dark:text-primary-text" />
               </div>
             ) : (
-              <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-black">
-                <div className="bg-primary-bg/80 w-[272px] h-[572px]"></div>
+              <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg/60 dark:bg-black">
+                <div className="bg-lightprimary-bg/80 dark:bg-primary-bg/80 w-[272px] h-[572px]"></div>
                 <div className="absolute top-4 left-0 w-full h-full p-4">
                   <div className="flex items-center justify-center">
-                    <div className="bg-secondary-bg w-[50px] h-[50px] rounded-full p-1 border border-secondary-border object-cover"></div>
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg w-[50px] h-[50px] rounded-full p-1 border border-lightsecondary-border dark:border-secondary-border object-cover"></div>
                     <div className="ml-3">
-                      <div className="bg-secondary-bg h-[18px] w-[110px] rounded-sm border border-secondary-border"></div>
+                      <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[18px] w-[110px] rounded-sm border border-lightsecondary-border dark:border-secondary-border"></div>
                       <div className="flex items-center text-primary-text text-sm mt-1">
-                        <div className="bg-secondary-bg h-[12px] w-[40px] rounded-sm border border-secondary-border"></div>
+                        <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[12px] w-[40px] rounded-sm border border-lightsecondary-border dark:border-secondary-border"></div>
                         <div className="ml-1 h-3 border-l border-secondary-strongerborder mr-1 "></div>
-                        <span className="bg-secondary-bg h-[12px] w-[50px] rounded-sm border border-secondary-border"></span>
+                        <span className="bg-lightsecondary-bg dark:bg-secondary-bg h-[12px] w-[50px] rounded-sm border border-lightsecondary-border dark:border-secondary-border"></span>
                       </div>
                     </div>
                   </div>
                   <div className="mt-2 flex items-center justify-center gap-1">
-                    <div className="bg-secondary-bg h-[18px] w-[40px] rounded-[0.1875rem] border border-secondary-border"></div>
-                    <div className="bg-secondary-bg h-[18px] w-[50px] rounded-[0.1875rem] border border-secondary-border"></div>
-                    <div className="bg-secondary-bg h-[18px] w-[30px] rounded-[0.1875rem] border border-secondary-border"></div>
-                    <div className="bg-secondary-bg h-[18px] w-[40px] rounded-[0.1875rem] border border-secondary-border"></div>
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[18px] w-[40px] rounded-[0.1875rem] border border-lightsecondary-border dark:border-secondary-border"></div>
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[18px] w-[50px] rounded-[0.1875rem] border border-lightsecondary-border dark:border-secondary-border"></div>
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[18px] w-[30px] rounded-[0.1875rem] border border-lightsecondary-border dark:border-secondary-border"></div>
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[18px] w-[40px] rounded-[0.1875rem] border border-lightsecondary-border dark:border-secondary-border"></div>
                   </div>
                   <div className="w-full flex items-center justify-center ">
-                    <div className="bg-secondary-bg h-[40px] w-[95%] mt-2 rounded-[0.1875rem] border border-secondary-border"></div>
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg h-[40px] w-[95%] mt-2 rounded-[0.1875rem] border border-lightsecondary-border dark:border-secondary-border"></div>
                   </div>
-                  <div className="mt-4 border-t border-secondary-border"></div>
+                  <div className="mt-4 border-t border-lightsecondary-border dark:border-secondary-border"></div>
                   <div className="mt-4">
-                    <div className="bg-secondary-bg border border-secondary-border  h-[18px] w-60 rounded-[0.1875rem]"></div>
-                    <div className="w-60 h-16 border border-secondary-border rounded-md mt-2 bg-secondary-bg transition-all ease-out duration-200"></div>
-                    <div className="w-60 h-20 border border-secondary-border rounded-md mt-2 bg-secondary-bg transition-all ease-out duration-200"></div>{" "}
+                    <div className="bg-lightsecondary-bg dark:bg-secondary-bg border border-lightsecondary-border dark:border-secondary-border  h-[18px] w-60 rounded-[0.1875rem]"></div>
+                    <div className="w-60 h-16 border border-lightsecondary-border dark:border-secondary-border rounded-md mt-2 bg-lightsecondary-bg dark:bg-secondary-bg transition-all ease-out duration-200"></div>
+                    <div className="w-60 h-20 border border-lightsecondary-border dark:border-secondary-border rounded-md mt-2 bg-lightsecondary-bg dark:bg-secondary-bg transition-all ease-out duration-200"></div>{" "}
                   </div>
-                  <div className="mt-4 border-t border-secondary-border"></div>
+                  <div className="mt-4 border-t border-lightsecondary-border dark:border-secondary-border"></div>
                   <p className="mt-4 text-center text-xs text-primary-text font-medium">
                     Follow my socials !
                   </p>
                   <div className="mt-3 flex items-center justify-center gap-2">
                     {socials.facebook && (
-                      <span className="w-8 h-8 rounded-full bg-secondary-bg flex items-center justify-center">
-                        <SiFacebook />
+                      <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
+                        <SiFacebook className="text-lightprimary-text dark:text-primary-text" />
                       </span>
                     )}
                     {socials.instagram && (
-                      <span className="w-8 h-8 rounded-full bg-secondary-bg flex items-center justify-center">
-                        <SiInstagram />
+                      <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
+                        <SiInstagram className="text-lightprimary-text dark:text-primary-text"/>
                       </span>
                     )}
                     {socials.x && (
-                      <span className="w-8 h-8 rounded-full bg-secondary-bg flex items-center justify-center">
-                        <SiX />
+                      <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
+                        <SiX className="text-lightprimary-text dark:text-primary-text"/>
                       </span>
                     )}
                     {socials.github && (
-                      <span className="w-8 h-8 rounded-full bg-secondary-bg flex items-center justify-center">
-                        <SiGithub />
+                      <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
+                        <SiGithub className="text-lightprimary-text dark:text-primary-text"/>
                       </span>
                     )}
                     {socials.linkedin && (
-                      <span className="w-8 h-8 rounded-full bg-secondary-bg flex items-center justify-center">
-                        <SiLinkedin />
+                      <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
+                        <SiLinkedin className="text-lightprimary-text dark:text-primary-text"/>
                       </span>
                     )}
                     {socials.youtube && (
-                      <span className="w-8 h-8 rounded-full bg-secondary-bg flex items-center justify-center">
-                        <SiYoutube />
+                      <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
+                        <SiYoutube className="text-lightprimary-text dark:text-primary-text"/>
                       </span>
                     )}
                   </div>

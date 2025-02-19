@@ -221,12 +221,12 @@ const CountrySelect = ({
         <MapPin
           strokeWidth={1}
           size={20}
-          className="text-primary-text/80 text-xl"
+          className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
         />
       </span>
       <select
         name="country"
-        className="relative  bg-secondary-bg mt-2 text-sm rounded-md pl-8 text-primarytext border border-secondary-border focus:border-secondary-strongerborder focus:outline-none transition duration-150 ease-in-out block w-full px-3 py-2"
+        className="relative text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg mt-2 text-sm rounded-md pl-8 text-primarytext border border-lightsecondary-border dark:border-secondary-border focus:border-lightsecondary-strongerborder dark:focus:border-secondary-strongerborder focus:outline-none transition duration-150 ease-in-out block w-full px-3 py-2"
         value={value}
         onChange={(e) => {
           handleFieldChange({

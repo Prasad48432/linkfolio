@@ -19,41 +19,41 @@ const ProjectPreviewRender = ({
       <div className="absolute top-5 right-3 flex flex-col gap-1 items-center justify-center">
         <Link
           style={{
-            background: theme ? theme.primary_bg : "#121212",
-            borderColor: theme ? theme.border : "#4d4d4d",
+            background: theme ? theme.primary_bg : "",
+            borderColor: theme ? theme.border : "",
           }}
           href={`${project.github_link}`}
-          className="cursor-pointer px-1 py-0.5 flex items-center justify-center gap-2 rounded-md border"
+          className="cursor-pointer px-1 py-0.5 bg-lightprimary-bg border-lightsecondary-border dark:bg-primary-bg dark:border-secondary-border flex items-center justify-center gap-2 rounded-md border"
         >
           <IoLogoGithub
             style={{
-              color: theme ? theme.primary_text : "#ededed",
+              color: theme ? theme.primary_text : "",
             }}
-            className="text-sm "
+            className="text-sm text-lightprimary-text dark:text-primary-text"
           />
         </Link>
         <Link
           style={{
-            background: theme ? theme.primary_bg : "#121212",
-            borderColor: theme ? theme.strongerborder : "#4d4d4d",
+            background: theme ? theme.primary_bg : "",
+            borderColor: theme ? theme.strongerborder : "",
           }}
           href={`${project.website_link}`}
-          className="cursor-pointer px-1 py-0.5 flex items-center justify-center gap-2 rounded-md border"
+          className="cursor-pointer px-1 py-0.5 flex bg-lightprimary-bg border-lightsecondary-strongerborder dark:bg-primary-bg dark:border-secondary-strongerborder items-center justify-center gap-2 rounded-md border"
         >
           <FiLink
             style={{
-              color: theme ? theme.primary_text : "#ededed",
+              color: theme ? theme.primary_text : "",
             }}
-            className="text-sm "
+            className="text-sm text-lightprimary-text dark:text-primary-text"
           />
         </Link>
       </div>
       <div
         style={{
-          background: theme ? theme.secondary_bg : "#262626",
-          borderColor: theme ? theme.strongerborder : "#4d4d4d",
+          background: theme ? theme.secondary_bg : "",
+          borderColor: theme ? theme.strongerborder : "",
         }}
-        className="w-60 rounded-md mt-2  p-4 border-[0.5px]"
+        className="w-60 rounded-md mt-2  p-4 border-[0.5px] bg-lightsecondary-bg border-lightsecondary-strongerborder dark:bg-secondary-bg dark:border-secondary-strongerborder"
       >
         <div className="flex items-center">
           <div className="w-[2.4rem] h-[2.4rem] p-0.5 rounded-full border border-dashed mr-2">
@@ -70,9 +70,9 @@ const ProjectPreviewRender = ({
             <a target="_blank" href={`${project.website_link}`}>
               <p
                 style={{
-                  color: theme ? theme.primary_text : "#ededed",
+                  color: theme ? theme.primary_text : "",
                 }}
-                className="hover:underline font-semibold text-sm -mb-1.5"
+                className="hover:underline font-semibold text-sm -mb-1.5 text-lightprimary-text dark:text-primary-text"
               >
                 {project.name}
               </p>
@@ -89,15 +89,15 @@ const ProjectPreviewRender = ({
         </div>
         <hr
           style={{
-            borderColor: theme ? theme.strongerborder : "#4d4d4d",
+            borderColor: theme ? theme.strongerborder : "",
           }}
-          className="border-t  my-2 w-full"
+          className="border-t  my-2 w-full border-lightsecondary-strongerborder dark:border-secondary-strongerborder"
         />
         <span
           style={{
-            color: theme ? theme.primary_text : "#ededed",
+            color: theme ? theme.primary_text : "",
           }}
-          className="text-primary-text mt-2 text-mx markdown_content"
+          className="text-lightprimary-text dark:text-primary-text mt-2 text-mx markdown_content"
         >
           <ReactMarkdown>{project.description}</ReactMarkdown>
         </span>

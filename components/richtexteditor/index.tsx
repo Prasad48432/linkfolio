@@ -41,7 +41,7 @@ export default function RichTextEditor({ content, onChange }: { content: any; on
     content: content || "",  // Initial content
     editorProps: {
       attributes: {
-        class: "min-h-[156px] border rounded-md bg-primary-bg text-primary-text py-2 px-3",
+        class: "min-h-[156px] border rounded-md bg-lightprimary-bg text-lightprimary-text dark:bg-primary-bg dark:text-primary-text py-2 px-3",
       },
     },
     onUpdate: ({ editor }) => {

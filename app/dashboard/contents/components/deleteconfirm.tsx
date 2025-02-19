@@ -100,7 +100,7 @@ const DeleteConfirmation = ({
     <AnimatePresence>
       {modal && (
         <div
-          className="px-5 z-[100] fixed h-full w-full flex items-center justify-center top-0 left-0 bg-black/20 backdrop-blur"
+          className="px-5 z-[100] fixed h-full w-full flex items-center justify-center top-0 left-0 bg-lightprimary-bg/20 dark:bg-black/20 backdrop-blur pointer-events-none"
           style={{ pointerEvents: "auto" }}
         >
           <motion.div
@@ -114,31 +114,31 @@ const DeleteConfirmation = ({
               opacity: 0,
             }}
             transition={{ type: "spring", bounce: 0.3, duration: 0.4 }}
-            className="relative z-50 w-full border border-secondary-border bg-primary-bg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-[0%] data-[state=closed]:slide-out-to-top-[0%] data-[state=open]:slide-in-from-left-[0%] data-[state=open]:slide-in-from-top-[0%] sm:rounded-lg md:w-full bg-dash-sidebar sm:align-middle sm:w-full sm:max-w-sm p-0 gap-0 pb-5 !block"
+            className="relative z-50 w-full border border-lightsecondary-border bg-lightprimary-bg dark:border-secondary-border dark:bg-primary-bg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-[0%] data-[state=closed]:slide-out-to-top-[0%] data-[state=open]:slide-in-from-left-[0%] data-[state=open]:slide-in-from-top-[0%] sm:rounded-lg md:w-full bg-dash-sidebar sm:align-middle sm:w-full sm:max-w-sm p-0 gap-0 pb-5 !block"
             style={{ pointerEvents: "auto" }}
           >
-            <div className="flex flex-col gap-1.5 text-center sm:text-left py-4 px-5 border-b border-secondary-border">
+            <div className="flex flex-col gap-1.5 text-center sm:text-left py-4 px-5 border-b border-lightsecondary-border dark:border-secondary-border">
               <h2 className="text-base leading-none font-normal">
-                <span className="break-words">Confirm Delete</span>
+                <span className="break-words text-lightprimary-text dark:text-primary-text">Confirm Delete</span>
               </h2>
             </div>
             <div className="py-4 px-5 overflow-hidden">
               <div className="space-y-4">
-                <p className="text-sm text-foreground-light">
+                <p className="text-sm text-lightprimary-text/80 dark:text-primary-text/80">
                   Are you sure? you want to delete{" "}
-                  <span className="font-semibold text-accent-text">
+                  <span className="font-semibold text-lightaccent-text dark:text-accent-text">
                     {table === "links" ? object.title : object.name}
                   </span>
                 </p>
               </div>
             </div>
-            <div className="w-full h-px bg-border" />
+            <div className="w-full h-px bg-lightsecondary-border dark:bg-secondary-border" />
             <div className="flex gap-2 px-5 pt-5">
               <button
                 onClick={() => setModal(false)}
                 data-size="medium"
                 type="button"
-                className="relative cursor-pointer space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border border-secondary-border text-primary-text hover:bg-secondary-selection bg-secondary-bg hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover w-full flex items-center justify-center text-sm px-4 py-2 h-[38px]"
+                className="relative cursor-pointer space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border border-lightsecondary-border text-lightprimary-text hover:bg-lightsecondary-selection bg-lightsecondary-bg hover:border-lightsecondary-strongerborder dark:border-secondary-border dark:text-primary-text dark:hover:bg-secondary-selection dark:bg-secondary-bg dark:hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover w-full flex items-center justify-center text-sm px-4 py-2 h-[38px]"
               >
                 {" "}
                 <span className="truncate">Cancel</span>{" "}
@@ -149,8 +149,8 @@ const DeleteConfirmation = ({
                 onClick={() => handleDelete(object)}
                 className={`relative cursor-pointer space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border border-danger-border ${
                   !deleteLoading &&
-                  "hover:bg-danger-selection hover:border-danger-strongerborder"
-                } text-primary-text bg-danger-bg data-[state=open]:border-destructive data-[state=open]:bg-destructive-400 dark:data-[state=open]:bg-destructive-/50 data-[state=open]:outline-destructive w-full flex items-center justify-center text-sm px-4 py-2 h-[38px] truncate`}
+                  "hover:bg-lightdanger-selection hover:border-lightdanger-strongerborder dark:hover:bg-danger-selection dark:hover:border-danger-strongerborder"
+                } text-lightprimary-text bg-lightdanger-bg dark:text-primary-text dark:bg-danger-bg data-[state=open]:border-destructive data-[state=open]:bg-destructive-400 dark:data-[state=open]:bg-destructive-/50 data-[state=open]:outline-destructive w-full flex items-center justify-center text-sm px-4 py-2 h-[38px] truncate`}
               >
                 {deleteLoading ? (
                   <Loader size={20} strokeWidth={1} className="animate-spin" />
@@ -162,7 +162,7 @@ const DeleteConfirmation = ({
             <button
               onClick={() => setModal(false)}
               type="button"
-              className="absolute right-4 top-4 rounded-sm opacity-20 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none  disabled:pointer-events-none "
+              className="absolute right-4 text-lightprimary-text/60 dark:text-primary-text/60 top-4 rounded-sm opacity-50 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none  disabled:pointer-events-none "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

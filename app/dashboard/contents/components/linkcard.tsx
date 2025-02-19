@@ -27,7 +27,7 @@ const LinkCard = ({ link, handleFieldChange }: LinkCardProps) => {
         object={link}
         table="links"
       />
-      <div className="w-full h-fit rounded-md bg-secondary-bg flex flex-col items-center justify-center text-primary-text px-2 py-2 relative">
+      <div className="w-full h-fit rounded-md bg-lightsecondary-bg dark:bg-secondary-bg flex flex-col items-center justify-center text-lightprimary-text  dark:text-primary-text px-2 py-2 relative">
         <span title="Drag handle" className="absolute top-3 left-2 lg:left-3">
           <GripVertical size={size.width > 1000 ? 18 : 15} />
         </span>
@@ -51,7 +51,7 @@ const LinkCard = ({ link, handleFieldChange }: LinkCardProps) => {
                 <Link
                   strokeWidth={1}
                   size={size.width > 1000 ? 20 : 15}
-                  className="text-primary-text/80 text-xl"
+                  className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                 />
               </span>
               <input
@@ -59,7 +59,7 @@ const LinkCard = ({ link, handleFieldChange }: LinkCardProps) => {
                 name="link_text"
                 value={link.link}
                 readOnly
-                className="border-secondary-border cursor-not-allowed w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
+                className="border-lightsecondary-border dark:border-secondary-border cursor-not-allowed w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-lightprimary-bg/70 dark:bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
               />
             </div>
             <div className="relative w-full">
@@ -70,7 +70,7 @@ const LinkCard = ({ link, handleFieldChange }: LinkCardProps) => {
                 <Tag
                   strokeWidth={1}
                   size={size.width > 1000 ? 20 : 15}
-                  className="text-primary-text/80 text-xl"
+                  className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                 />
               </span>
               <input
@@ -84,7 +84,7 @@ const LinkCard = ({ link, handleFieldChange }: LinkCardProps) => {
                     value: e.target.value,
                   })
                 }
-                className="border-secondary-border w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
+                className="border-lightsecondary-border dark:border-secondary-border w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-lightprimary-bg/70 dark:bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
               />
             </div>
           </div>

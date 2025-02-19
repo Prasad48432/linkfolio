@@ -222,17 +222,17 @@ export default function Blogs() {
     <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-4">
       {fetchLoading ? (
         <div className="lg:w-1/3 w-full h-auto py-5 flex flex-col items-center justify-start gap-2">
-          <div className="w-full h-8 lg:h-10 bg-secondary-bg rounded-lg relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+          <div className="w-full h-8 lg:h-10 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
           </div>
-          <div className="w-full h-32 bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
-            <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+          <div className="w-full h-32 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-75">
+            <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
           </div>
-          <div className="w-full h-32 bg-secondary-bg rounded-lg relative overflow-hidden opacity-60">
-            <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+          <div className="w-full h-32 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-60">
+            <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
           </div>
-          <div className="w-full h-32 bg-secondary-bg rounded-lg relative overflow-hidden opacity-45">
-            <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+          <div className="w-full h-32 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-45">
+            <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
           </div>
         </div>
       ) : (
@@ -243,7 +243,7 @@ export default function Blogs() {
               form.reset();
             }}
             data-active={selectedBlog === null}
-            className="bg-secondary-bg cursor-pointer w-full h-8 lg:h-10 data-[active=true]:text-primary-text data-[active=true]:bg-secondary-bg data-[active=false]:text-primary-text/70 data-[active=false]:hover:text-primary-text font-medium py-2 px-4 rounded-md border data-[active=true]:border-primary-text/60 data-[active=true]:hover:border-primary-text/60 data-[active=false]:border-secondary-border data-[active=false]:hover:bg-secondary-selection/80 data-[active=false]:hover:border-secondary-strongerborder transition-all duration-200 ease-out  text-xs sm:text-sm flex items-center justify-center"
+            className="bg-lightsecondary-bg dark:bg-secondary-bg cursor-pointer w-full h-8 lg:h-10 data-[active=true]:text-lightprimary-text dark:data-[active=true]:text-primary-text data-[active=true]:bg-lightsecondary-bg dark:data-[active=true]:bg-secondary-bg data-[active=false]:text-lightprimary-text/70 dark:data-[active=false]:text-primary-text/70 data-[active=false]:hover:text-lightprimary-text dark:data-[active=false]:hover:text-primary-text font-medium py-2 px-4 rounded-md border data-[active=true]:border-lightaccent-text dark:data-[active=true]:border-primary-text/60 data-[active=true]:hover:border-lightaccent-text dark:data-[active=true]:hover:border-primary-text/60 data-[active=false]:border-lightsecondary-border dark:data-[active=false]:border-secondary-border data-[active=false]:hover:bg-lightsecondary-selection/80 dark:data-[active=false]:hover:bg-secondary-selection/80 data-[active=false]:hover:border-lightsecondary-strongerborder dark:data-[active=false]:hover:border-secondary-strongerborder transition-all duration-200 ease-out  text-xs sm:text-sm flex items-center justify-center"
           >
             <Plus className="mr-1" size={15} /> Add new
           </div>
@@ -253,10 +253,10 @@ export default function Blogs() {
                 <BookText
                   strokeWidth={1}
                   size={75}
-                  className="text-primary-text/60"
+                  className="text-lightprimary-text/60 dark:text-primary-text/60"
                 />
-                <p className="text-lg text-primary-text/60">No Blogs found.</p>
-                <p className="text-base text-primary-text/60">
+                <p className="text-lg text-lightprimary-text/60 dark:text-primary-text/60">No Blogs found.</p>
+                <p className="text-base text-lightprimary-text/60 dark:text-primary-text/60">
                   Start adding your first Blog.
                 </p>
               </div>
@@ -265,28 +265,28 @@ export default function Blogs() {
                 <div
                   key={index}
                   data-active={selectedBlog?.id === blog.id}
-                  className="p-3 group/blogcard gap-2 w-full h-32 flex items-center justify-center bg-secondary-bg data-[active=true]:hover:bg-secondary-bg data-[active=false]:hover:bg-secondary-selection/80 border border-secondary-border data-[active=true]:border-primary-text/60 hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"
+                  className="p-3 group/blogcard gap-2 w-full h-32 flex items-center justify-center bg-lightsecondary-bg dark:bg-secondary-bg data-[active=true]:hover:bg-lightsecondary-bg dark:data-[active=true]:hover:bg-secondary-bg data-[active=false]:hover:bg-lightsecondary-selection/80 dark:data-[active=false]:hover:bg-secondary-selection/80 border border-lightsecondary-border dark:border-secondary-border data-[active=true]:border-lightaccent-text dark:data-[active=true]:border-primary-text/60 hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"
                 >
                   <div className="flex flex-col items-center justify-center w-[95%] h-full gap-2">
                     <div className="flex items-center justify-center gap-2 w-full h-2/3">
                       <img
                         src={blog.thumbnail_url || ""}
                         data-active={selectedBlog?.id === blog.id}
-                        className="w-2/6 h-full rounded-md object-cover data-[active=true]:opacity-100 data-[active=false]:opacity-80 group-hover/blogcard:opacity-100"
+                        className="w-2/6 h-full rounded-md object-cover data-[active=true]:opacity-100 data-[active=false]:opacity-90 dark:data-[active=false]:opacity-80 group-hover/blogcard:opacity-100"
                       />
                       <div className="w-4/6 h-full flex flex-col items-start justify-center">
-                        <p className="text-primary-text font-normal text-sm line-clamp-1">
+                        <p className="text-lightprimary-text dark:text-primary-text font-normal text-sm line-clamp-1">
                           {blog.title}
                         </p>
-                        <p className="text-primary-text/80 font-normal w-full text-xs line-clamp-3">
+                        <p className="text-lightprimary-text/80 dark:text-primary-text/80 font-normal w-full text-xs line-clamp-3">
                           {blog.content}
                         </p>
                       </div>
                     </div>
-                    <div className="h-1/3 w-full flex items-center justify-start gap-2 divide-x divide-secondary-strongerborder">
+                    <div className="h-1/3 w-full flex items-center justify-start gap-2 divide-x divide-lightsecondary-strongerborder dark:divide-secondary-strongerborder">
                       <div
                         title="Appreciations"
-                        className="flex items-center justify-center text-xs lg:text-sm font-normal cursor-pointer text-primary-text/80"
+                        className="flex items-center justify-center text-xs lg:text-sm font-normal cursor-pointer text-lightprimary-text/80 dark:text-primary-text/80"
                       >
                         <PiHandsClappingLight
                           strokeWidth={1}
@@ -296,7 +296,7 @@ export default function Blogs() {
                       </div>
                       <div
                         title="Views"
-                        className="flex items-center justify-center text-xs lg:text-sm font-normal pl-1 lg:pl-2 cursor-pointer text-primary-text/80"
+                        className="flex items-center justify-center text-xs lg:text-sm font-normal pl-1 lg:pl-2 cursor-pointer text-lightprimary-text/80 dark:text-primary-text/80"
                       >
                         <IoEyeOutline strokeWidth={1} className="mr-1" />
                         1.4k
@@ -304,7 +304,7 @@ export default function Blogs() {
                       <a
                         target="_blank"
                         href={`/blog/${blog.id}`}
-                        className="flex items-center justify-center text-xs lg:text-sm font-normal pl-1 lg:pl-2 cursor-pointer text-primary-text/80"
+                        className="flex items-center justify-center text-xs lg:text-sm font-normal pl-1 lg:pl-2 cursor-pointer text-lightprimary-text/80 dark:text-primary-text/80"
                       >
                         <LiaExternalLinkAltSolid
                           strokeWidth={1}
@@ -317,7 +317,7 @@ export default function Blogs() {
                           setSelectedBlog(blog);
                           handleBlogClick(blog);
                         }}
-                        className="flex items-center justify-center text-xs lg:text-sm font-normal pl-1 lg:pl-2 cursor-pointer text-primary-text/80"
+                        className="flex items-center justify-center text-xs lg:text-sm font-normal pl-1 lg:pl-2 cursor-pointer text-lightprimary-text/80 dark:text-primary-text/80"
                       >
                         <CiEdit strokeWidth={1} className="mr-1" />
                         Edit
@@ -328,7 +328,7 @@ export default function Blogs() {
                       </div>
                     </div>
                   </div>
-                  <div className="w-[5%] cursor-pointer h-full flex items-center justify-center group-hover/blogcard:translate-x-1 transition-all duration-200 ease-out">
+                  <div className="w-[5%] cursor-pointer h-full flex items-center justify-center group-hover/blogcard:translate-x-1 transition-all duration-200 ease-out text-lightprimary-text/80 dark:text-primary-text/80">
                     <ChevronRight />
                   </div>
                 </div>
@@ -338,11 +338,11 @@ export default function Blogs() {
         </div>
       )}
       <div className="lg:w-2/3 w-full py-5 h-auto">
-        <p className="text-primary-text text-lg lg:text-xl font-medium mb-4 w-full">
+        <p className="text-lightprimary-text dark:text-primary-text text-lg lg:text-xl font-medium mb-4 w-full">
           {selectedBlog ? (
             <>
               Editing{" "}
-              <span className="text-accent-text">Blog-{selectedBlog.id}</span>
+              <span className="text-lightaccent-text dark:text-accent-text">Blog-{selectedBlog.id}</span>
             </>
           ) : (
             "Add New Blog"
@@ -384,14 +384,14 @@ export default function Blogs() {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-primary-text">
+                  <FormLabel className="text-lightprimary-text dark:text-primary-text">
                     Blog Title
                   </FormLabel>
                   <FormControl>
                     <input
                       type="text"
                       placeholder="Enter blog title"
-                      className="w-full p-2 border rounded-md bg-primary-bg text-primary-text mb-2"
+                      className="w-full p-2 border rounded-md bg-lightprimary-bg dark:bg-primary-bg text-lightprimary-text dark:text-primary-text mb-2"
                       {...field}
                     />
                   </FormControl>
@@ -405,12 +405,12 @@ export default function Blogs() {
               name="seotags"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-primary-text">SEO Tags</FormLabel>
+                  <FormLabel className="text-lightprimary-text dark:text-primary-text">SEO Tags</FormLabel>
                   <FormControl>
                     <input
                       type="text"
                       placeholder="Enter SEO tags"
-                      className="w-full p-2 border rounded-md bg-primary-bg text-primary-text mb-2"
+                      className="w-full p-2 border rounded-md bg-lightprimary-bg dark:bg-primary-bg text-lightprimary-text dark:text-primary-text mb-2"
                       {...field}
                     />
                   </FormControl>
@@ -424,14 +424,14 @@ export default function Blogs() {
               name="thumbnail_url"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-primary-text">
+                  <FormLabel className="text-lightprimary-text dark:text-primary-text">
                     Thumbnail URL
                   </FormLabel>
                   <FormControl>
                     <input
                       type="text"
                       placeholder="Enter Thumbnail image url"
-                      className="w-full p-2 border rounded-md bg-primary-bg text-primary-text mb-2"
+                      className="w-full p-2 border rounded-md bg-lightprimary-bg dark:bg-primary-bg text-lightprimary-text dark:text-primary-text mb-2"
                       {...field}
                     />
                   </FormControl>
@@ -445,7 +445,7 @@ export default function Blogs() {
               name="content"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-primary-text">
+                  <FormLabel className="text-lightprimary-text dark:text-primary-text">
                     Blog Content
                   </FormLabel>
                   <FormControl>
@@ -462,7 +462,7 @@ export default function Blogs() {
             {selectedBlog ? (
               <Button
                 type="submit"
-                className="mt-4 bg-secondary-bg w-full h-10 text-primary-text font-medium py-2 px-4 rounded-md border hover:bg-secondary-selection hover:border-secondary-strongerborder transition-all duration-200"
+                className="mt-4 bg-lightsecondary-bg dark:bg-secondary-bg w-full h-10 text-lightprimary-text dark:text-primary-text font-medium py-2 px-4 rounded-md border hover:bg-lightsecondary-selection hover:border-lightsecondary-strongerborder dark:hover:bg-secondary-selection dark:hover:border-secondary-strongerborder transition-all duration-200"
               >
                 <Save className="mr-1" />
                 Save Changes
@@ -470,7 +470,7 @@ export default function Blogs() {
             ) : (
               <Button
                 type="submit"
-                className="mt-4 bg-accent-bg w-full h-10 text-white font-medium py-2 px-4 rounded-md hover:bg-accent-hover transition-all duration-200"
+                className="mt-4 bg-lightaccent-bg dark:bg-accent-bg w-full h-10 text-lightprimary-text dark:text-primary-text font-medium py-2 px-4 rounded-md hover:bg-accent-hover transition-all duration-200 border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:hover:bg-secondary-selection dark:hover:border-secondary-strongerborder"
               >
                 <Upload className="mr-1" />
                 Publish

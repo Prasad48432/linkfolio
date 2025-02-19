@@ -161,7 +161,10 @@ export default function Home() {
                             <span className="text-lightprimary-text dark:text-primary-text announcement-text">
                               Learn more
                             </span>
-                            <MoveRight strokeWidth={1} className="text-lightprimary-text dark:text-primary-text ml-2 -translate-x-1 transition-transform group-hover/announcement:translate-x-0" />
+                            <MoveRight
+                              strokeWidth={1}
+                              className="text-lightprimary-text dark:text-primary-text ml-2 -translate-x-1 transition-transform group-hover/announcement:translate-x-0"
+                            />
                             <div className="absolute inset-0 -z-10 bg-gradient-to-br opacity-70 group-hover/announcement:opacity-100 transition-opacity overflow-hidden rounded-full from-background-surface-100 to-background-surface-300 backdrop-blur-md " />
                           </a>
                         </div>
@@ -213,8 +216,8 @@ export default function Home() {
                       </div>
                     )}
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-2 w-full lg:w-3/4 mt-3 lg:mt-0 relative">
-                    <div className="absolute h-full w-28 bg-gradient-to-r from-lightprimary-bg dark:from-primary-bg to-transparent z-10 pointer-events-none left-0 top-0"></div>
-                    <div className="absolute h-full w-28 bg-gradient-to-l from-lightprimary-bg dark:from-primary-bg to-transparent z-10 pointer-events-none right-0 top-0"></div>
+                      <div className="absolute h-full w-28 bg-gradient-to-r from-lightprimary-bg dark:from-primary-bg to-transparent z-10 pointer-events-none left-0 top-0"></div>
+                      <div className="absolute h-full w-28 bg-gradient-to-l from-lightprimary-bg dark:from-primary-bg to-transparent z-10 pointer-events-none right-0 top-0"></div>
                       <Marquee
                         autoFill
                         speed={20}

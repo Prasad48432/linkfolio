@@ -99,7 +99,7 @@ const CommentBox = ({
         transition={{ duration: 0.2 }}
       >
         {fetchLoading ? (
-          <Loader strokeWidth={1} className="animate-spin" />
+          <Loader strokeWidth={1} className="animate-spin text-lightprimary-text dark:text-primary-text" />
         ) : (
           <>
             <img
@@ -107,7 +107,7 @@ const CommentBox = ({
               alt="Profile"
               className="w-8 h-8 rounded-full"
             />
-            <span className="font-normal">{profileData.full_name}</span>
+            <span className="font-normal text-lightprimary-text dark:text-primary-text">{profileData.full_name}</span>
           </>
         )}
       </motion.div>
@@ -116,7 +116,7 @@ const CommentBox = ({
       <div className="relative flex items-center">
         <input
           type="text"
-          className="w-full px-3 py-2 font-light border rounded-full focus:outline-none border-secondary-border bg-secondary-bg focus:border-secondary-strongerborder transition-all duration-200 ease-out"
+          className="text-lightprimary-text dark:text-primary-text w-full px-3 py-2 font-light border rounded-full focus:outline-none border-lightsecondary-border bg-lightsecondary-bg focus:border-lightsecondary-strongerborder dark:border-secondary-border dark:bg-secondary-bg dark:focus:border-secondary-strongerborder transition-all duration-200 ease-out"
           placeholder="Share your thoughts"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
@@ -124,7 +124,7 @@ const CommentBox = ({
         />
         {!isExpanded && (
           <button
-            className="absolute opacity-50 right-2 bg-accent-bg text-primary-text font-light px-3 py-1 rounded-full border border-accent-border"
+            className="absolute opacity-50 right-2 bg-lightaccent-bg text-lightprimary-text dark:bg-accent-bg dark:text-primary-text font-light px-3 py-1 rounded-full border border-lightaccent-border dark:border-accent-border"
             onClick={() => setIsExpanded(true)}
           >
             Comment
@@ -134,7 +134,7 @@ const CommentBox = ({
 
       <div className="flex items-center justify-between px-3">
         <motion.div
-          className={`flex items-center text-sm font-light justify-start gap-1 mt-3 overflow-hidden ${
+          className={`flex text-lightprimary-text dark:text-primary-text items-center text-sm font-light justify-start gap-1 mt-3 overflow-hidden ${
             isExpanded ? "block" : "hidden"
           }`}
           initial={{ opacity: 0, y: 10 }}
@@ -152,16 +152,16 @@ const CommentBox = ({
           animate={{ opacity: isExpanded ? 1 : 0, y: isExpanded ? 0 : 10 }}
           transition={{ duration: 0.2 }}
         >
-          <button className="underline" onClick={() => setIsExpanded(false)}>
+          <button className="underline text-lightprimary-text dark:text-primary-text" onClick={() => setIsExpanded(false)}>
             Cancel
           </button>
           <button
             disabled={!comment.trim() || postingComment}
             onClick={() => publishComment()}
-            className="bg-accent-bg w-36 flex items-center justify-center disabled:opacity-50 text-primary-text font-light px-3 py-1 rounded-full border border-accent-border"
+            className="bg-lightaccent-bg dark:bg-accent-bg w-36 flex items-center justify-center disabled:opacity-50 text-lightprimary-text dark:text-primary-text font-light px-3 py-1 rounded-full border border-lightaccent-border dark:border-accent-border"
           >
             {postingComment ? (
-              <Loader strokeWidth={1} className="animate-spin" />
+              <Loader strokeWidth={1} className="animate-spin text-lightprimary-text dark:text-primary-text" />
             ) : (
               "Post Comment"
             )}

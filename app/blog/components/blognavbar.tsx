@@ -46,9 +46,12 @@ const BlogNavbar = () => {
   }, []);
 
   return (
-    <div id="topdiv" className="sticky top-0 transform z-40 bg-primary-bg/90">
-      <div className="absolute inset-0 h-full w-full bg-primary-bg/90 !opacity-100 transition-opacity"></div>
-      <nav className="border-b relative z-40 border-brdr backdrop-blur-sm transition-opacity shadow-lg shadow-primary-bg/80">
+    <div
+      id="topdiv"
+      className="sticky top-0 transform z-40 bg-lightprimary-bg dark:bg-primary-bg/90"
+    >
+      <div className="absolute inset-0 h-full w-full bg-lightprimary-bg/70 dark:bg-primary-bg/90 !opacity-100 transition-opacity"></div>
+      <nav className="border-b relative z-40 border-lightsecondary-border dark:border-secondary-border backdrop-blur-sm transition-opacity dark:shadow-lg dark:shadow-primary-bg/80">
         <div className="relative flex justify-between h-16 mx-auto lg:container lg:px-16 xl:px-20">
           <div className="flex items-center px-6 lg:px-0 flex-1 sm:items-stretch justify-between">
             <div id="bottomdiv" className="flex items-center">
@@ -63,15 +66,31 @@ const BlogNavbar = () => {
                   href="/"
                 >
                   <Image
-                    className="w-[103.5px] h-[22.45px]"
-                    src="/logotight.png"
+                    className="w-[116.1px] h-[22.45px] block dark:hidden"
+                    src="/darkheaderlogo.png"
                     alt="Header Logo"
-                    width={103.5}
+                    width={116.1}
                     height={22.45}
                     priority
                   />
                   <Image
-                    className="w-[52.8px] h-[29.634px] mt-[5px]"
+                    className="w-[52.8px] h-[29.634px] -ml-2 mt-[5px] block dark:hidden"
+                    src="/blogdark.png"
+                    alt="Header Logo"
+                    width={52.8}
+                    height={29.634}
+                    priority
+                  />
+                  <Image
+                    className="w-[116.1px] h-[22.45px] hidden dark:block"
+                    src="/headerlogo.png"
+                    alt="Header Logo"
+                    width={116.1}
+                    height={22.45}
+                    priority
+                  />
+                  <Image
+                    className="w-[52.8px] h-[29.634px] -ml-2 mt-[5px] hidden dark:block"
                     src="/blog.png"
                     alt="Header Logo"
                     width={52.8}
@@ -94,28 +113,13 @@ const BlogNavbar = () => {
                   >
                     <li className="text-sm font-medium">
                       <a
-                        className="group/menu-item flex items-center text-sm hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-accent-text-lighter group-hover:bg-transparent text-accent-text focus-visible:text-brand-link"
-                        data-radix-collection-item=""
-                        href="/enterprise"
-                      >
-                        <div className="flex flex-col justify-center">
-                          <div className="flex items-center gap-1">
-                            <p className="leading-snug text-primary-text group-hover/menu-item:text-accent-text">
-                              Enterprise
-                            </p>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li className="text-sm font-medium">
-                      <a
-                        className="group/menu-item flex items-center text-sm hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-accent-text-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
+                        className="group/menu-item flex items-center text-sm hover:text-lightaccent-selection dark:hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-accent-text-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
                         data-radix-collection-item=""
                         href="/pricing"
                       >
                         <div className="flex flex-col justify-center">
                           <div className="flex items-center gap-1">
-                            <p className="leading-snug text-primary-text group-hover/menu-item:text-accent-text">
+                            <p className="leading-snug text-lightprimary-text dark:text-primary-text group-hover/menu-item:text-lightaccent-selection dark:group-hover/menu-item:text-accent-text">
                               Pricing
                             </p>
                           </div>
@@ -124,13 +128,13 @@ const BlogNavbar = () => {
                     </li>
                     <li className="text-sm font-medium">
                       <a
-                        className="group/menu-item flex items-center text-sm hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-accent-text-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
+                        className="group/menu-item flex items-center text-sm hover:text-lightaccent-selection dark:hover:text-accent-text  select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-accent-text-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
                         data-radix-collection-item=""
                         href="/docs"
                       >
                         <div className="flex flex-col justify-center">
                           <div className="flex items-center gap-1">
-                            <p className="leading-snug text-primary-text group-hover/menu-item:text-accent-text">
+                            <p className="leading-snug text-lightprimary-text dark:text-primary-text group-hover/menu-item:text-lightaccent-selection dark:group-hover/menu-item:text-accent-text">
                               Docs
                             </p>
                           </div>
@@ -139,14 +143,14 @@ const BlogNavbar = () => {
                     </li>
                     <li className="text-sm font-medium">
                       <a
-                        className="group/menu-item flex items-center text-sm hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-foreground-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
+                        className="group/menu-item flex items-center text-sm hover:text-lightaccent-selection dark:hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-foreground-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
                         data-radix-collection-item=""
                         href="/blog"
                       >
                         <div className="flex flex-col justify-center">
                           <div className="flex items-center gap-1">
-                            <p className="leading-snug text-primary-text group-hover/menu-item:text-accent-text">
-                              Blog
+                            <p className="leading-snug text-lightprimary-text dark:text-primary-text group-hover/menu-item:text-lightaccent-selection dark:group-hover/menu-item:text-accent-text">
+                              Blogs
                             </p>
                           </div>
                         </div>
@@ -159,20 +163,20 @@ const BlogNavbar = () => {
             </div>
             <div className="flex items-center gap-2 select-none">
               {loading ? (
-                <Loader className="mr-2 h-4 w-4 animate-spin" />
+                <Loader className="mr-2 h-4 w-4 animate-spin text-lightprimary-text dark:text-primary-text" />
               ) : !user ? (
                 <>
                   <a
                     data-size="tiny"
                     type="button"
-                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg  dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
                     href="/login"
                   >
                     <span className="truncate">Login</span>
                   </a>
                   <Link
                     href="/register?next=/dashboard/home"
-                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightaccent-bg dark:bg-accent-bg hover:bg-lightaccent-selection dark:hover:bg-accent-selection border-lightaccent-border dark:border-accent-border hover:border-lightaccent-strongerborder dark:hover:hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
                   >
                     <span className="truncate">Create your page</span>
                   </Link>
@@ -182,14 +186,14 @@ const BlogNavbar = () => {
                   <a
                     data-size="tiny"
                     type="button"
-                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-accent-bg hover:bg-accent-selection border-accent-border hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightaccent-bg dark:bg-accent-bg hover:bg-lightaccent-selection dark:hover:bg-accent-selection border-lightaccent-border dark:border-accent-border hover:border-lightaccent-strongerborder dark:hover:hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
                     href="/dashboard/home"
                   >
                     <span className="truncate">Dashboard</span>
                   </a>
                   <p
                     onClick={() => handleLogout()}
-                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightdanger-bg dark:bg-danger-bg hover:bg-lightdanger-selection dark:hover:bg-danger-selection border-lightdanger-border dark:border-danger-border hover:border-lightdanger-strongerborder dark:hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
                   >
                     <span className="truncate">Logout</span>
                   </p>

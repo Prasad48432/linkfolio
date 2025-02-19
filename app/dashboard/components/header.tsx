@@ -65,7 +65,7 @@ const Header = ({
   }, [user]);
 
   return (
-    <div className="sticky inset-x-0 top-0 z-30 w-full transition-all bg-primary-bg border-b border-secondary-border">
+    <div className="sticky inset-x-0 top-0 z-30 w-full transition-all bg-lightprimary-bg dark:bg-primary-bg border-b border-lightsecondary-border dark:border-secondary-border">
       <div className="flex h-[60px] items-center justify-between px-4 relative">
         <LogoutConfiramtion modal={logoutModal} setModal={setLogoutModal} />
         <div className="flex items-center space-x-4">
@@ -78,7 +78,7 @@ const Header = ({
         </div>
 
         <motion.div
-          className="block lg:hidden cursor-pointer text-primary-text"
+          className="block lg:hidden cursor-pointer text-lightprimary-text dark:text-primary-text"
           onClick={() => {
             loading ? null : toggleOpen();
           }}
@@ -98,14 +98,14 @@ const Header = ({
         <div className="hidden md:block">
           {loading ? (
             <span className="flex items-center justify-center gap-2">
-              <div className="w-32 h-6 bg-secondary-bg rounded-lg relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+              <div className="w-32 h-6 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
-              <div className="w-24 h-6 bg-secondary-bg rounded-lg relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+              <div className="w-24 h-6 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
-              <div className="w-10 h-10 bg-secondary-bg rounded-full relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+              <div className="w-10 h-10 bg-lightsecondary-bg dark:bg-secondary-bg rounded-full relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
             </span>
           ) : (
@@ -114,7 +114,7 @@ const Header = ({
                 <a
                   target="_blank"
                   href={`/${profile?.username}`}
-                  className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                  className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg  dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
                 >
                   <span className="truncate flex items-center justify-center gap-1">
                     {process.env.NEXT_PUBLIC_BASE_URL?.replace(
@@ -127,12 +127,12 @@ const Header = ({
               )}
               <p
                 onClick={() => setLogoutModal(true)}
-                className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightdanger-bg dark:bg-danger-bg hover:bg-lightdanger-selection dark:hover:bg-danger-selection border-lightdanger-border dark:border-danger-border hover:border-lightdanger-strongerborder dark:hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
               >
                 <span className="truncate">Logout</span>
               </p>
               <img
-                className="bg-accent-bg/20 h-8 md:h-10 w-8 md:w-10 rounded-full"
+                className="h-8 md:h-10 w-8 md:w-10 rounded-full"
                 referrerPolicy="no-referrer"
                 src={user?.identities?.[0]?.identity_data?.avatar_url}
                 alt="User Avatar"

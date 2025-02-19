@@ -17,6 +17,7 @@ import { ToastError, ToastSuccess } from "./toast";
 import { HomeProfileData } from "@/types/user";
 import { createClient } from "@/utils/supabase/client";
 import type { Database } from "@/types/supabasetypes";
+import { IoMoon, IoSunny } from "react-icons/io5";
 
 type blog = Database["public"]["Tables"]["blogs"]["Row"];
 
@@ -105,9 +106,11 @@ const Navbar = ({
     >
       <div className="absolute inset-0 h-full w-full bg-lightprimary-bg/70 dark:bg-primary-bg/90 !opacity-100 transition-opacity"></div>
       <nav
-        style={{
-          // background: isNavbarOpen ? "#121212" : "transparent",
-        }}
+        style={
+          {
+            // background: isNavbarOpen ? "#121212" : "transparent",
+          }
+        }
         className={`${
           isNavbarOpen && size.width < 1024 ? "border-none" : "border-b"
         } relative z-40 border-brdr backdrop-blur-sm transition-opacity bg-lightprimary-bg dark:bg-primary-bg  border-lightsecondary-border dark:border-secondary-border dark:shadow-lg dark:shadow-primary-bg/80`}
@@ -242,7 +245,7 @@ const Navbar = ({
                   </a>
                   <p
                     onClick={() => handleLogout()}
-                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-primary-text bg-danger-bg hover:bg-danger-selection border-danger-border hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightdanger-bg dark:bg-danger-bg hover:bg-lightdanger-selection dark:hover:bg-danger-selection border-lightdanger-border dark:border-danger-border hover:border-lightdanger-strongerborder dark:hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
                   >
                     <span className="truncate">Logout</span>
                   </p>

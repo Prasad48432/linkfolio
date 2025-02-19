@@ -14,7 +14,7 @@ interface DashboardProps {
 const Dashboard = ({ children }: DashboardProps) => {
   const [isOpen, toggleOpen] = useCycle(false, true);
   return (
-    <div className="flex bg-primary-bg">
+    <div className="flex bg-lightprimary-bg dark:bg-primary-bg">
       <SideNav />
       <main className="flex-1">
         <MarginWidthWrapper>

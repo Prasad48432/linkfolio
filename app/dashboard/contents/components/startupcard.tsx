@@ -76,7 +76,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
         object={startup}
         table="startups"
       />
-      <div className="w-full h-fit rounded-md bg-secondary-bg flex flex-col items-center justify-center text-primary-text px-2 py-2 relative">
+      <div className="w-full h-fit rounded-md bg-lightsecondary-bg dark:bg-secondary-bg flex flex-col items-center justify-center text-lightprimary-text  dark:text-primary-text px-2 py-2 relative">
         <span title="Drag handle" className="absolute top-3 left-2 lg:left-3">
           <GripVertical size={size.width > 1000 ? 18 : 15} />
         </span>
@@ -101,7 +101,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                   <Link
                     strokeWidth={1}
                     size={size.width > 1000 ? 20 : 15}
-                    className="text-primary-text/80 text-xl"
+                    className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                   />
                 </span>
                 <input
@@ -109,7 +109,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                   name="startup_website"
                   value={startup.website}
                   readOnly
-                  className="border-secondary-border cursor-not-allowed w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
+                  className="border-lightsecondary-border dark:border-secondary-border cursor-not-allowed w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-lightprimary-bg/70 dark:bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
                 />
               </div>
               <div className="flex items-center justify-center gap-2 w-full">
@@ -121,7 +121,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                     <Tag
                       strokeWidth={1}
                       size={size.width > 1000 ? 20 : 15}
-                      className="text-primary-text/80 text-xl"
+                      className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                     />
                   </span>
                   <input
@@ -136,7 +136,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                         value: e.target.value,
                       })
                     }
-                    className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
+                    className="border-lightsecondary-border focus:border-lightsecondary-strongerborder dark:border-secondary-border dark:focus:border-secondary-strongerborder w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-lightprimary-bg/70 dark:bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
                   />
                 </div>
                 <div className="relative w-1/2">
@@ -147,7 +147,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                     <Banknote
                       strokeWidth={1}
                       size={size.width > 1000 ? 20 : 15}
-                      className="text-primary-text/80 text-xl"
+                      className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                     />
                   </span>
                   <input
@@ -163,7 +163,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                         isNumber: true,
                       })
                     }
-                    className="border-secondary-border focus:border-secondary-strongerborder w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="border-lightsecondary-border focus:border-lightsecondary-strongerborder dark:border-secondary-border dark:focus:border-secondary-strongerborder w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-lightprimary-bg/70 dark:bg-primary-bg/70 border focus:outline-none rounded-md mt-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                 </div>
               </div>
@@ -183,9 +183,9 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
               }
               maxLength={160}
               rows={3}
-              className="border-secondary-border resize-none placeholder-gray-500 focus:border-secondary-strongerborder w-full p-2 lg:p-3 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
+              className="border-lightsecondary-border dark:border-secondary-border resize-none placeholder-secondary-text/70 dark:placeholder-gray-500 focus:border-lightsecondary-strongerborder dark:focus:border-secondary-strongerborder w-full p-2 lg:p-3 text-xs lg:text-sm bg-lightprimary-bg/70 dark:bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
             />
-            <div className="absolute bottom-4 right-2 text-[0.6rem] text-gray-500">
+            <div className="absolute bottom-4 right-2 text-[0.6rem] text-gray-500 dark:text-gray-500">
               {startup.description.length}/160
             </div>
           </div>
@@ -204,12 +204,12 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
               }
               className={`relative inline-flex items-center h-4 w-[1.9rem] lg:h-5 rounded-full lg:w-[2.4rem] focus:outline-none border ${
                 startup.visibility_on_profile
-                  ? "bg-success-bg border-success-border"
-                  : "bg-[#1a1a1a] border-secondary-strongerborder"
+                  ? "bg-lightsuccess-bg border-lightsuccess-border dark:bg-success-bg dark:border-success-border"
+                  : "bg-lightprimary-bg border-lightsecondary-strongerborder dark:bg-primary-bg dark:border-secondary-strongerborder"
               }`}
             >
               <span
-                className={`inline-block w-[0.7rem] h-[0.7rem] lg:w-[0.9rem] lg:h-[0.9rem] transform bg-primary-text rounded-full transition-transform duration-200 ${
+                className={`inline-block w-[0.7rem] h-[0.7rem] lg:w-[0.9rem] lg:h-[0.9rem] transform bg-lightprimary-text dark:bg-primary-text rounded-full transition-transform duration-200 ${
                   startup.visibility_on_profile
                     ? "translate-x-[1rem] lg:translate-x-5"
                     : "translate-x-[0.2rem]"
@@ -231,8 +231,8 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
               onClick={() => toggleHandler("settingsSelected")}
               className={`w-6 lg:w-8 h-6 lg:h-8 ${
                 toggles.settingsSelected
-                  ? "bg-primary-text border-secondary-border text-primary-bg"
-                  : "bg-primary-bg border-secondary-border text-primary-text"
+                  ? "bg-lightprimary-text border-lightsecondary-border text-lightprimary-bg dark:bg-primary-text dark:border-secondary-border dark:text-primary-bg"
+                  : "bg-lightprimary-bg border-lightsecondary-border text-lightprimary-text dark:bg-primary-bg dark:border-secondary-border dark:text-primary-text"
               }  border rounded-full flex items-center justify-center cursor-pointer`}
             >
               <Settings strokeWidth={1} size={size.width > 1000 ? 18 : 12} />
@@ -241,8 +241,8 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
               onClick={() => toggleHandler("statusSelected")}
               className={`w-6 lg:w-8 h-6 lg:h-8 ${
                 toggles.statusSelected
-                  ? "bg-primary-text border-secondary-border text-primary-bg"
-                  : "bg-primary-bg border-secondary-border text-primary-text"
+                  ? "bg-lightprimary-text border-lightsecondary-border text-lightprimary-bg dark:bg-primary-text dark:border-secondary-border dark:text-primary-bg"
+                  : "bg-lightprimary-bg border-lightsecondary-border text-lightprimary-text dark:bg-primary-bg dark:border-secondary-border dark:text-primary-text"
               } border rounded-full flex items-center justify-center cursor-pointer`}
             >
               <Flag strokeWidth={1} size={size.width > 1000 ? 18 : 12} />
@@ -251,8 +251,8 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
               onClick={() => toggleHandler("categorySelected")}
               className={`w-6 lg:w-8 h-6 lg:h-8 ${
                 toggles.categorySelected
-                  ? "bg-primary-text border-secondary-border text-primary-bg"
-                  : "bg-primary-bg border-secondary-border text-primary-text"
+                  ? "bg-lightprimary-text border-lightsecondary-border text-lightprimary-bg dark:bg-primary-text dark:border-secondary-border dark:text-primary-bg"
+                  : "bg-lightprimary-bg border-lightsecondary-border text-lightprimary-text dark:bg-primary-bg dark:border-secondary-border dark:text-primary-text"
               } border rounded-full flex items-center justify-center cursor-pointer`}
             >
               <TbCategory strokeWidth={1} size={size.width > 1000 ? 18 : 12} />
@@ -319,10 +319,10 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
               <div className="h-20 p-2 mt-2 rounded-md flex flex-col items-center justify-center text-primarytext">
                 <TabGroup>
                   <TabList className="flex gap-1 lg:gap-2 p-1 bg-primarybg rounded-md">
-                    <Tab className="rounded-[0.00875rem] lg:rounded-md py-1 px-3 text-[0.8rem] font-semibold text-primary-text focus:outline-none data-[selected]:bg-primary-bg data-[hover]:bg-primary-bg/40 data-[selected]:data-[hover]:bg-primary-bg/70 data-[focus]:outline-1 data-[focus]:outline-white">
+                    <Tab className="rounded-[0.00875rem] border dark:border-0 border-lightsecondary-border lg:rounded-md py-1 px-3 text-[0.8rem] font-semibold text-lightprimary-text dark:text-primary-text focus:outline-none data-[selected]:bg-lightsecondary-selection data-[hover]:bg-lightprimary-bg/40 data-[selected]:data-[hover]:bg-lightprimary-bg/70 dark:data-[selected]:bg-primary-bg dark:data-[hover]:bg-primary-bg/40 dark:data-[selected]:data-[hover]:bg-primary-bg/70">
                       Visibility on Profile
                     </Tab>
-                    <Tab className="rounded-[0.00875rem] lg:rounded-md py-1 px-1.5 text-[0.8rem] font-semibold text-primary-text focus:outline-none data-[selected]:bg-primary-bg data-[hover]:bg-primary-bg/40 data-[selected]:data-[hover]:bg-primary-bg/70 data-[focus]:outline-1 data-[focus]:outline-white">
+                    <Tab className="rounded-[0.00875rem] border dark:border-0 border-lightsecondary-border lg:rounded-md py-1 px-1.5 text-[0.8rem] font-semibold text-lightprimary-text dark:text-primary-text focus:outline-none data-[selected]:bg-lightsecondary-selection data-[hover]:bg-lightprimary-bg/40 data-[selected]:data-[hover]:bg-lightprimary-bg/70 dark:data-[selected]:bg-primary-bg dark:data-[hover]:bg-primary-bg/40 dark:data-[selected]:data-[hover]:bg-primary-bg/70">
                       API Keys
                     </Tab>
                   </TabList>
@@ -344,11 +344,11 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                               })
                             }
                             checked={startup.show_toggle === "none"}
-                            className="w-3 h-3 text-blue-600 bg-gray-100 "
+                            className="w-3 h-3 text-blue-600 bg-gray-100"
                           />
                           <label
                             htmlFor="default-radio-1"
-                            className="ms-1 text-base font-medium text-gray-300"
+                            className="ms-1 text-base font-medium text-lightprimary-text dark:text-gray-300"
                           >
                             None
                           </label>
@@ -372,7 +372,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                           />
                           <label
                             htmlFor="default-radio-1"
-                            className="ms-1 text-base underline underline-offset-4 decoration-dashed font-medium text-gray-300 interactable"
+                            className="ms-1 text-base underline underline-offset-4 decoration-dashed font-medium text-lightprimary-text dark:text-gray-300 interactable"
                             data-type="desc_place"
                           >
                             Description
@@ -410,8 +410,8 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                             data-type="revenue_place"
                             className={`interactable underline underline-offset-4 decoration-dashed ms-1 text-base font-medium ${
                               startup.api_info
-                                ? "text-gray-300"
-                                : "text-gray-500"
+                                ? "text-lightprimary-text/70 dark:text-gray-300"
+                                : "text-lightprimary-text dark:text-gray-500"
                             }`}
                           >
                             Revenue Chart
@@ -424,7 +424,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                         {Object.keys(startup.api_info).length === 0 && (
                           <span
                             onClick={() => {}}
-                            className="bg-primary-bg p-1 rounded-md cursor-pointer"
+                            className="bg-lightprimary-bg dark:bg-primary-bg p-1 rounded-md cursor-pointer"
                           >
                             <IoAdd size={20} />
                           </span>
@@ -432,8 +432,8 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                         <span
                           className={`${
                             Object.keys(startup.api_info).length !== 0
-                              ? "text-primarytext"
-                              : "text-primary-text/60"
+                              ? "text-lightprimary-text dark:text-primary-text"
+                              : "text-lightprimary-text/60 dark:text-primary-text/60"
                           }  p-1 pl-2  pr-2 bg-lightbg rounded-md w-[50%] text-sm`}
                         >
                           {Object.keys(startup.api_info).length !== 0
@@ -443,8 +443,8 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                         <span
                           className={`${
                             Object.keys(startup.api_info).length !== 0
-                              ? "text-primarytext"
-                              : "text-primary-text/60"
+                              ? "text-lightprimary-text dark:text-primary-text"
+                              : "text-lightprimary-text/60 dark:text-primary-text/60"
                           } p-1 pl-2 pr-2 bg-lightbg rounded-md w-[50%] text-sm`}
                         >
                           {Object.keys(startup.api_info).length !== 0
@@ -525,12 +525,12 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                   }
                   className={`relative inline-flex items-center h-4 w-[1.9rem] lg:h-5 rounded-full lg:w-[2.4rem] focus:outline-none border ${
                     startup.show_status
-                      ? "bg-success-bg border-success-border"
-                      : "bg-[#1a1a1a]  border-secondary-strongerborder"
+                      ? "bg-lightsuccess-bg border-lightsuccess-border dark:bg-success-bg dark:border-success-border"
+                      : "bg-lightprimary-bg border-lightsecondary-strongerborder dark:bg-primary-bg dark:border-secondary-strongerborder"
                   }`}
                 >
                   <span
-                    className={`inline-block w-[0.7rem] h-[0.7rem] lg:w-[0.9rem] lg:h-[0.9rem] transform bg-white rounded-full transition-transform duration-200 ${
+                    className={`inline-block w-[0.7rem] h-[0.7rem] lg:w-[0.9rem] lg:h-[0.9rem] transform bg-lightprimary-text dark:bg-primary-text rounded-full transition-transform duration-200 ${
                       startup.show_status
                         ? "translate-x-[1rem] lg:translate-x-5"
                         : "translate-x-[0.2rem]"

@@ -17,12 +17,12 @@ interface Skill {
 const ProfileHoverInfo = ({ profile }: { profile: any }) => {
   return (
     <HoverCard openDelay={200}>
-      <HoverCardTrigger className="font-medium text-primary-text/80 cursor-pointer">
+      <HoverCardTrigger className="font-medium text-lightprimary-text/80 dark:text-primary-text/80 cursor-pointer">
         {profile.full_name}
-        <span className="block -mt-0.5 max-w-0 group-hover:max-w-full transition-all duration-300 h-[2px] bg-primary-text/80"></span>
+        <span className="block -mt-0.5 max-w-0 group-hover:max-w-full transition-all duration-300 h-[2px] text-lightprimary-text/80 dark:text-primary-text/80"></span>
       </HoverCardTrigger>
 
-      <HoverCardContent className="bg-primary-bg border border-secondary-strongerborder rounded-md z-50 relative">
+      <HoverCardContent className="bg-lightprimary-bg dark:bg-primary-bg  border border-lightsecondary-strongerborder dark:border-secondary-strongerborder rounded-md z-50 relative">
         <div className="flex flex-col gap-3 p-2 w-full">
           <div className="flex items-center justify-start gap-3 w-full">
             <Image
@@ -33,11 +33,11 @@ const ProfileHoverInfo = ({ profile }: { profile: any }) => {
               className="w-12 h-12 flex-shrink-0 rounded-full object-cover"
             />
             <div className="flex flex-col items-start justify-center w-[calc(100%-3rem)]">
-              <p title={profile.full_name} className="text-primary-text/90 font-medium text-lg line-clamp-1">
+              <p title={profile.full_name} className="text-lightprimary-text/90 dark:text-primary-text/90 font-medium text-lg line-clamp-1">
                 {profile.full_name}
               </p>
               <div className="flex gap-1 items-center justify-start font-light text-sm">
-                <p title={profile.country.split("-")[0]} className="text-primary-text/80 flex items-center justify-start gap-0.5 max-w-20">
+                <p title={profile.country.split("-")[0]} className="text-lightprimary-text/80 dark:text-primary-text/80 flex items-center justify-start gap-0.5 max-w-20">
                   <Image
                     src={`https://flagsapi.com/${
                       profile.country.split("-")[1]
@@ -49,8 +49,8 @@ const ProfileHoverInfo = ({ profile }: { profile: any }) => {
                   />
                   <span className="text-ellipsis truncate">{profile.country.split("-")[0]}</span>
                 </p>
-                <div className="h-3 w-px bg-primary-text/70 flex-shrink-0"></div>
-                <p className="text-primary-text/80 flex items-center justify-start gap-0.5">
+                <div className="h-3 w-px text-lightprimary-text/70 dark:text-primary-text/70 flex-shrink-0"></div>
+                <p className="text-lightprimary-text/80 dark:text-primary-text/80 flex items-center justify-start gap-0.5">
                   <FaRupeeSign />
                   2.6cr/m
                 </p>
@@ -58,14 +58,14 @@ const ProfileHoverInfo = ({ profile }: { profile: any }) => {
             </div>
           </div>
           <MarkdownParser
-            className="text-primary-text/80 text-sm font-light line-clamp-3 text-center"
+            className="text-lightprimary-text/80 dark:text-primary-text/80 text-sm font-light line-clamp-3 text-center"
             text={profile.bio}
           />
           <div className="flex items-center justify-center flex-wrap gap-1">
             {(profile.user_skills as Skill[]).map((skill) => (
               <div
                 key={skill.name}
-                className="flex bg-secondary-bg border-secondary-strongerborder cursor-pointer items-center justify-center gap-1 px-1.5 py-1 border rounded-md"
+                className="flex bg-lightsecondary-bg dark:bg-secondary-bg border-lightsecondary-strongerborder dark:border-secondary-strongerborder cursor-pointer items-center justify-center gap-1 px-1.5 py-1 border rounded-md"
               >
                 <span className="">{ICONS_MAP_SMALL[skill.icon]}</span>
                 <span className="text-xs font-light select-none">

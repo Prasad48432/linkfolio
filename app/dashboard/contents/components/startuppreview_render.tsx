@@ -51,13 +51,13 @@ const StartupPreviewRender = ({
   const chartConfig = {
     revenue: {
       label: "Revenue",
-      color: theme ? hexToRgba(theme.primary_text, 0.6) : hexToRgba("#ededed", 0.6),
+      color: theme ? hexToRgba(theme.primary_text, 0.6) : hexToRgba("#9ca3af", 0.6),
     },
   } satisfies ChartConfig;
   return (
     <div key={startup.id} className="relative">
       <div className="absolute top-5 right-2 flex items-center">
-        <div className="text-primary-text flex items-center justify-between">
+        <div className="text-primary-text flex items-center justify-between ">
           <div className="flex items-center justify-center">
             {startup.status === "discontinued" ? (
               <span className="text-[0.6rem] bg-red-200 font-bold pl-1 rounded-l-full">
@@ -73,7 +73,7 @@ const StartupPreviewRender = ({
                 discontinued
               </span>
             ) : (
-              <span className="text-[0.5rem] bg-primary-text text-black rounded-r-lg pl-0.5 pr-0.5 ">
+              <span className="text-[0.5rem]  bg-gray-300 dark:bg-primary-text text-black rounded-r-lg pl-0.5 pr-0.5 ">
                 {formatEarnings(startup.estimated_revenue)}/m
               </span>
             )}
@@ -83,17 +83,17 @@ const StartupPreviewRender = ({
 
       <div
         style={{
-          background: theme ? theme.secondary_bg : "#262626",
-          borderColor: theme ? theme.strongerborder : "#4d4d4d",
+          background: theme ? theme.secondary_bg : "",
+          borderColor: theme ? theme.strongerborder : "",
         }}
-        className="w-60 rounded-md mt-2 p-4 border-[0.5px]"
+        className="w-60 rounded-md mt-2 p-4 border-[0.5px] bg-lightprimary-bg dark:bg-primary-bg"
       >
         <div className="flex items-center">
           <div
             style={{
-              borderColor: theme ? theme.strongerborder : "#4d4d4d",
+              borderColor: theme ? theme.strongerborder : "",
             }}
-            className="w-[2.4rem] h-[2.4rem] p-0.5 rounded-full border border-dashed mr-2"
+            className="w-[2.4rem] h-[2.4rem] p-0.5 rounded-full border border-dashed mr-2 border-lightsecondary-strongerborder dark:border-secondary-strongerborder"
           >
             <Image
               src={`https://www.google.com/s2/favicons?sz=128&domain_url=${startup.website}`}
@@ -107,9 +107,10 @@ const StartupPreviewRender = ({
           <div className="">
             <a
               style={{
-                color: theme ? theme.primary_text : "#ededed",
+                color: theme ? theme.primary_text : "",
               }}
               target="_blank"
+              className="text-lightprimary-text dark:text-primary-text"
               href={`${startup.website}`}
             >
               <p className="hover:underline font-semibold text-sm -mb-1.5">
@@ -126,18 +127,18 @@ const StartupPreviewRender = ({
           startup.show_toggle !== "none" && (
             <hr
               style={{
-                borderColor: theme ? theme.strongerborder : "#4d4d4d",
+                borderColor: theme ? theme.strongerborder : "",
               }}
-              className="border-t  my-2 w-full"
+              className="border-t  my-2 w-full border-lightsecondary-strongerborder dark:border-secondary-strongerborder"
             />
           )}
         {startup.status !== "discontinued" &&
           startup.show_toggle !== "none" && (
             <span
               style={{
-                color: theme ? theme.primary_text : "#ededed",
+                color: theme ? theme.primary_text : "",
               }}
-              className="mt-2 text-mx markdown_content"
+              className="mt-2 text-mx markdown_content text-lightprimary-text dark:text-primary-text"
             >
               {startup.status !== "discontinued" &&
                 startup.show_toggle !== "none" && (

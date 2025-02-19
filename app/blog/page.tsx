@@ -68,10 +68,10 @@ const Blogs = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-primary-bg">
+    <div className="min-h-screen bg-lightprimary-bg dark:bg-primary-bg">
       <BlogNavbar />
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-primary-bg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-lightprimary-bg dark:bg-primary-bg">
         <div className="flex flex-col lg:flex-row lg:space-x-12">
           {/* Main Articles */}
           <div className="flex-1">
@@ -89,7 +89,7 @@ const Blogs = () => {
                 </button>
               </div>
             </div> */}
-            <div className="flex items-center space-x-2 mb-8">
+            <div className="flex items-center space-x-2 mb-8 text-lightprimary-text dark:text-primary-text">
               <TrendingUp className="w-5 h-5" />
               <span className="font-semibold">Trending on Linkfolio</span>
             </div>
@@ -104,18 +104,18 @@ const Blogs = () => {
                     }}
                     className="w-full h-64 lg:h-32 flex flex-col lg:flex-row lg:space-x-6"
                   >
-                    <div className="w-full lg:w-56 h-36 lg:h-full bg-secondary-bg rounded-lg relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                    <div className="w-full lg:w-56 h-36 lg:h-full bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
                     <div className="w-full lg:w-[calc(100%-224px)] h-28 lg:h-full">
-                      <div className="w-[50%] lg:w-[40%] h-[28px] bg-secondary-bg rounded-lg relative overflow-hidden mt-2 mb-1 lg:mt-0 lg:mb-2">
-                        <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                      <div className="w-[50%] lg:w-[40%] h-[28px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden mt-2 mb-1 lg:mt-0 lg:mb-2">
+                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                       </div>
-                      <div className="w-[90%] h-[40px] lg:h-[48px] bg-secondary-bg rounded-lg relative overflow-hidden mb-3">
-                        <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                      <div className="w-[90%] h-[40px] lg:h-[48px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden mb-3">
+                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                       </div>
-                      <div className="w-[60%] h-[20px] bg-secondary-bg rounded-lg relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                      <div className="w-[60%] h-[20px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                       </div>
                     </div>
                   </div>
@@ -141,15 +141,15 @@ const Blogs = () => {
                         className="w-full lg:w-56 h-36 lg:h-32 object-cover rounded"
                       />
                       <div className="flex-1 mt-2 lg:-mt-1">
-                        <h2 className="text-lg lg:text-xl font-bold mb-1 lg:mb-2 text-primary-text">
+                        <h2 className="text-lg lg:text-xl font-bold mb-1 lg:mb-2 text-lightprimary-text dark:text-primary-text">
                           {blog.title}
                         </h2>
-                        <p className="text-sm lg:text-base text-primary-text/70 mb-3 line-clamp-2 font-light">
+                        <p className="text-sm lg:text-base text-lightprimary-text/70 dark:text-primary-text/70 mb-3 line-clamp-2 font-light">
                           {blog.content?.replace(/<\/?[^>]+(>|$)/g, "").trim()}
                         </p>
                         <div className="flex items-center text-gray-500">
                           <div className="flex items-center space-x-1.5 lg:space-x-2">
-                            <button className="text-primary-text/70 fill-primary-text/70 hover:fill-primary-text hover:text-primary-text flex items-center justify-center gap-1">
+                            <button className="text-lightprimary-text/70 dark:text-primary-text/70 fill-lightprimary-text/70 dark:fill-primary-text/70 hover:fill-lightprimary-text hover:text-lightprimary-text dark:hover:fill-primary-text dark:hover:text-primary-text flex items-center justify-center gap-1">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -171,22 +171,22 @@ const Blogs = () => {
                               </span>
                             </button>
                             <span className="font-extrabold">&middot;</span>{" "}
-                            <button className="text-primary-text/70 hover:text-primary-text flex items-center justify-center gap-1">
+                            <button className="text-lightprimary-text/70 hover:text-lightprimary-text dark:text-primary-text/70 dark:hover:text-primary-text flex items-center justify-center gap-1">
                               <Eye strokeWidth={1} className="w-5 lg:w-6 h-5 lg:h-6" />
                               <span className="text-sm font-light">3.6k</span>
                             </button>
                             <span className="font-extrabold">&middot;</span>{" "}
-                            <span className="text-sm text-primary-text/80 font-extralight">
+                            <span className="text-sm text-lightprimary-text/80 dark:text-primary-text/80 font-extralight">
                               6 Days ago
                             </span>
                             <span className="font-extrabold">&middot;</span>{" "}
-                            <div className="flex gap-1 items-center justify-center text-primary-text/70 text-sm font-light">
+                            <div className="flex gap-1 items-center justify-center text-lightprimary-text/70 dark:text-primary-text/70 text-sm font-light">
                               {/* <img
                               className="h-7 w-7 rounded-full object-cover"
                               src={blog.profiles.avatar_url}
                             /> */}
                               by
-                              <span className="font-medium text-accent-text hover:underline max-w-24 lg:max-w-56 truncate text-ellipsis">
+                              <span className="font-medium text-lightaccent-text dark:text-accent-text hover:underline max-w-24 lg:max-w-56 truncate text-ellipsis">
                                 {" "}
                                 {blog.profiles.full_name}
                               </span>
@@ -204,7 +204,7 @@ const Blogs = () => {
           {/* Sidebar */}
           <div className="w-full lg:w-80">
             <div className="relative lg:sticky top-10 lg:top-20 flex flex-col items-start justify-center">
-              <h3 className="font-semibold mb-4 text-lg">
+              <h3 className="font-semibold mb-4 text-lg text-lightprimary-text dark:text-primary-text">
                 Discover more topics
               </h3>
               <div className="flex flex-wrap gap-2 mb-8">
@@ -220,13 +220,13 @@ const Blogs = () => {
                 ].map((topic, index) => (
                   <button
                     key={index}
-                    className="px-4 py-2 rounded-full text-primary-text border border-secondary-border text-sm bg-secondary-bg"
+                    className="px-4 py-2 rounded-full text-lightprimary-text dark:text-primary-text border border-lightsecondary-border dark:border-secondary-border text-sm bg-lightsecondary-bg dark:bg-secondary-bg"
                   >
                     {topic}
                   </button>
                 ))}
               </div>
-              <h3 className="font-semibold mb-4 text-lg flex items-center justify-center gap-2">
+              <h3 className="font-semibold mb-4 text-lg flex items-center justify-center gap-2 text-lightprimary-text dark:text-primary-text">
                 Discover trending profiles <TrendingUp className="w-5 h-5" />
               </h3>
 
@@ -238,9 +238,9 @@ const Blogs = () => {
                         opacity: value,
                       }}
                       key={index}
-                      className="w-full h-[48px] bg-secondary-bg rounded-lg relative overflow-hidden mt-2 mb-1 lg:mt-0 lg:mb-2"
+                      className="w-full h-[48px] bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden mt-2 mb-1 lg:mt-0 lg:mb-2"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                     </div>
                   ))}
                 </div>
@@ -260,10 +260,10 @@ const Blogs = () => {
                         />
                       </div>
                       <div className="flex flex-col items-start justify-center w-[calc(100%-3rem)]">
-                        <span className="group font-medium text-primary-text  transition duration-200">
+                        <span className="group font-medium text-lightprimary-text dark:text-primary-text transition duration-200">
                           <ProfileHoverInfo profile={profile} />
                         </span>
-                        <p className="font-light text-primary-text text-sm line-clamp-1">
+                        <p className="font-light text-lightprimary-text dark:text-primary-text text-sm line-clamp-1">
                           {profile.bio &&
                             removeMarkdown(profile.bio)
                               .replace(/\s+/g, " ")

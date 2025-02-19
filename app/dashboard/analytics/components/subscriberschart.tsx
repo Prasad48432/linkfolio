@@ -39,10 +39,10 @@ const SubscribersChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row mb-4 lg:mb-0">
         <div className="flex w-full items-center justify-between">
           <div className="w-1/2 relative flex flex-col items-start justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
-            <CardTitle className="text-lg leading-none text-primary-text">
+            <CardTitle className="text-lg leading-none text-lightprimary-text dark:text-primary-text">
               Newsletter Subscribers
             </CardTitle>
-            <CardDescription className="text-primary-text/60">
+            <CardDescription className="text-lightprimary-text/60 dark:text-primary-text/60">
               Analyse and export subscribers
             </CardDescription>
           </div>
@@ -72,7 +72,7 @@ const SubscribersChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
               <div className="w-1/2 relative  flex flex-col items-center justify-center gap-2 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
                 <span className="text-xs text-muted-foreground">Export as</span>
                 <div className="flex  items-center justify-center cursor-pointer">
-                  <p className="py-1 px-2 flex text-primarytext items-center justify-center gap-1 text-xs bg-secondary-bg rounded-md border border-secondary-border">
+                  <p className="py-1 px-2 flex text-primarytext items-center justify-center gap-1 text-xs bg-[#c1aa89] dark:bg-secondary-bg rounded-md border border-lightsecondary-border dark:border-secondary-border">
                     <BsFiletypeCsv size={15} /> CSV
                   </p>
                 </div>
@@ -146,8 +146,8 @@ const SubscribersChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by <span className="text-success-border">5.2%</span>{" "}
-              this month <TrendingUp className="h-4 w-4 text-success-border" />
+              Trending up by <span className="text-lightsuccess-border dark:text-success-border">5.2%</span>{" "}
+              this month <TrendingUp className="h-4 w-4 text-lightsuccess-border dark:text-success-border" />
             </div>
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
               January - June 2024

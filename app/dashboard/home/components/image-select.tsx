@@ -64,24 +64,24 @@ const ImageSelect = ({
             }}
             transition={{ type: "spring", bounce: 0.3, duration: 0.4 }}
             style={{ pointerEvents: "auto" }}
-            className="absolute z-10 py-5 bg-primary-bg h-[60vh] lg:h-[60vh] w-[90vw] sm:w-[40vw] rounded-lg border border-secondary-border text-primary-text"
+            className="absolute z-10 py-5 bg-lightprimary-bg dark:bg-primary-bg h-[60vh] lg:h-[60vh] w-[90vw] sm:w-[40vw] rounded-lg border border-secondary-border text-primary-text"
           >
             <button
               onClick={() => {
                 setModal((modal) => !modal);
                 setLoading(false);
               }}
-              className="absolute top-0 right-0 -mt-4 -mr-4 bg-primary-bg text-primarytext border border-secondary-border hover:border-secondary-strongerborder h-8 w-8 block mb-2 rounded-full font-bold text-lg duration-200 transition-all ease-out"
+              className="absolute top-0 right-0 -mt-4 -mr-4 bg-lightprimary-bg dark:bg-primary-bg text-lightprimary-text dark:text-primary-text border border-secondary-border hover:border-secondary-strongerborder h-8 w-8 block mb-2 rounded-full font-bold text-lg duration-200 transition-all ease-out"
             >
               &times;
             </button>
-            <h1 className="text-lg md:text-xl text-center mt-2 font-normal text-primary-text/90">
+            <h1 className="text-lg md:text-xl text-center mt-2 font-normal text-lightprimary-text/90 dark:text-primary-text/90">
               Select Image
             </h1>
-            <p className="text-center text-xs md:text-base mb-8 text-primary-text/70 font-light">
+            <p className="text-center text-xs md:text-base mb-8 text-lightprimary-text/70 dark:text-primary-text/70 font-light">
               Select from Basic Avatars or pick local image
             </p>
-            <div className="divide-y divide-secondary-strongerborder">
+            <div className="divide-y divide-lightsecondary-strongerborder dark:divide-secondary-strongerborder">
               <div
                 onClick={() => {
                   document.getElementById("fileInput")?.click();
@@ -92,12 +92,12 @@ const ImageSelect = ({
               >
                 {loading ? (
                   <Loader
-                    className="animate-spin text-primary-text/70"
+                    className="animate-spin text-lightprimary-text/70 dark:text-primary-text/70"
                     strokeWidth={1}
                     size={30}
                   />
                 ) : (
-                  <RiImageAddLine className="text-primary-text/80 text-4xl md:text-5xl hover:text-gray-400 hover:border-secondary-strongerborder cursor-pointer p-2 border border-dashed border-secondary-border duration-200 transition-all ease-out" />
+                  <RiImageAddLine className="text-lightprimary-text/80 dark:text-primary-text/80 text-4xl md:text-5xl hover:text-gray-500 dark:hover:text-gray-400 hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder cursor-pointer p-2 border border-dashed border-lightsecondary-border dark:border-secondary-border duration-200 transition-all ease-out" />
                 )}
               </div>
               <div className="mt-8 sm:mx-auto sm:w-full px-8 lg:px-12 grid grid-cols-6 lg:grid-cols-8 gap-2 pt-6 md:pt-8">
@@ -131,7 +131,7 @@ const ImageSelect = ({
                       height={500}
                       className={`${
                         image === `/avatars/${simage}.png`
-                          ? "border p-0.5 border-white opacity-75"
+                          ? "border p-0.5 border-lightprimary-text dark:border-primary-text opacity-75"
                           : ""
                       } col-span-1 rounded-full`}
                       referrerPolicy="no-referrer"

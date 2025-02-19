@@ -46,17 +46,17 @@ const ToggleSwitch = ({
 
   return (
     <div className="absolute bottom-0 lg:bottom-auto right-1/2 translate-x-1/2 lg:translate-x-0 lg:right-3 lg:top-1/2 -translate-y-1/2 flex flex-row lg:flex-col items-center justify-center gap-1">
-      <p className="text-primary-text/80 font-extralight">visibility</p>
+      <p className="text-lightprimary-text/80 dark:text-primary-text/80 font-extralight">visibility</p>
       <div
         onClick={() => handleUpdate(!resumeUrlVisibility)}
         className={`w-10 h-6 border-[0.5px] flex items-center rounded-full p-1 cursor-pointer transition-all duration-300 ease-out ${
           resumeUrlVisibility
-            ? "bg-success-bg border-success-border"
-            : "bg-[#1a1a1a] border-secondary-strongerborder"
+            ? "bg-lightsuccess-bg dark:bg-success-bg border-lightsuccess-border dark:border-success-border"
+            : "bg-lightprimary-bg dark:bg-primary-bg border-lightsecondary-strongerborder dark:border-secondary-strongerborder"
         }`}
       >
         <motion.div
-          className="w-4 h-4 bg-gray-300 rounded-full shadow-md flex items-center justify-center"
+          className="w-4 h-4 bg-gray-500 dark:bg-gray-300 rounded-full shadow-md flex items-center justify-center"
           layout
           transition={{ type: "spring", stiffness: 700, damping: 30 }}
           animate={{ x: resumeUrlVisibility ? 16 : 0 }}

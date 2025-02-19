@@ -6,10 +6,10 @@ const LinkPreviewRender = ({ link, theme }: { link: any; theme?: any }) => {
     <div key={link.id} className="relative">
       <div
         style={{
-          background: theme ? theme.secondary_bg : "#262626",
-          borderColor: theme ? theme.strongerborder : "#4d4d4d",
+          background: theme ? theme.secondary_bg : "",
+          borderColor: theme ? theme.strongerborder : "",
         }}
-        className="w-60 rounded-md mt-2  px-4 py-2 border-[0.5px] "
+        className="w-60 rounded-md mt-2  px-4 py-2 border-[0.5px] bg-lightsecondary-bg border-lightsecondary-strongerborder dark:bg-secondary-bg dark:border-secondary-strongerborder"
       >
         <div className="flex items-center w-full">
           <div className="w-[2.4rem] h-[2.4rem] p-0.5 rounded-full border border-dashed mr-2">
@@ -26,18 +26,18 @@ const LinkPreviewRender = ({ link, theme }: { link: any; theme?: any }) => {
             <a target="_blank" href={`${link.link}`}>
               <p
                 style={{
-                  color: theme ? theme.primary_text : "#ededed",
+                  color: theme ? theme.primary_text : "",
                 }}
-                className=" hover:underline font-semibold text-sm"
+                className=" hover:underline font-semibold text-sm text-lightprimary-text dark:text-primary-text"
               >
                 {link.title}
               </p>
             </a>
             <p
               style={{
-                color: theme ? theme.primary_text : "#ededed",
+                color: theme ? theme.primary_text : "",
               }}
-              className="text-mx -mt-0.5 cursor-default overflow-hidden whitespace-nowrap overflow-ellipsis"
+              className="text-mx -mt-0.5 cursor-default overflow-hidden whitespace-nowrap overflow-ellipsis text-lightprimary-text dark:text-primary-text"
             >
               {link.link}
             </p>

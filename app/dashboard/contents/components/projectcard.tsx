@@ -66,7 +66,7 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
         object={project}
         table="projects"
       />
-      <div className="w-full h-fit rounded-md bg-secondary-bg flex flex-col items-center justify-center text-primary-text px-2 py-2 relative">
+      <div className="w-full h-fit rounded-md bg-lightsecondary-bg dark:bg-secondary-bg flex flex-col items-center justify-center text-lightprimary-text  dark:text-primary-text px-2 py-2 relative">
         <span title="Drag handle" className="absolute top-3 left-2 lg:left-3">
           <GripVertical size={size.width > 1000 ? 18 : 15} />
         </span>
@@ -91,7 +91,7 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
                   <Tag
                     strokeWidth={1}
                     size={size.width > 1000 ? 20 : 15}
-                    className="text-primary-text/80 text-xl"
+                    className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                   />
                 </span>
                 <input
@@ -106,7 +106,7 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
                       value: e.target.value,
                     });
                   }}
-                  className="border-secondary-border placeholder-gray-500 focus:border-secondary-strongerborder w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
+                  className="border-lightsecondary-border placeholder-gray-500 focus:border-lightsecondary-strongerborder dark:border-secondary-border dark:placeholder-gray-500 dark:focus:border-secondary-strongerborder w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-lightprimary-bg/70 dark:bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
                 />
               </div>
               <div className="flex items-center justify-center gap-2 w-full">
@@ -118,7 +118,7 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
                     <Link
                       strokeWidth={1}
                       size={size.width > 1000 ? 20 : 15}
-                      className="text-primary-text/80 text-xl"
+                      className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                     />
                   </span>
                   <input
@@ -134,7 +134,7 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
                         isLink: true,
                       });
                     }}
-                    className="border-secondary-border placeholder-gray-500 focus:border-secondary-strongerborder w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
+                    className="border-lightsecondary-border placeholder-gray-500 focus:border-lightsecondary-strongerborder dark:border-secondary-border dark:placeholder-gray-500 dark:focus:border-secondary-strongerborder w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-lightprimary-bg/70 dark:bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
                   />
                 </div>
                 <div className="relative w-1/2">
@@ -145,7 +145,7 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
                     <FiGithub
                       strokeWidth={1}
                       size={size.width > 1000 ? 20 : 15}
-                      className="text-primary-text/80 text-xl"
+                      className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
                     />
                   </span>
                   <input
@@ -154,7 +154,7 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
                     placeholder="Enter github link"
                     value={project.github_link}
                     readOnly
-                    className="border-secondary-border placeholder-gray-500 cursor-default w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
+                    className="border-lightsecondary-border placeholder-gray-500 dark:border-secondary-border dark:placeholder-gray-500 cursor-default w-full py-2 pl-[1.6rem] lg:pl-9 text-xs lg:text-sm bg-lightprimary-bg/70 dark:bg-primary-bg/70 border focus:outline-none rounded-md mt-1 truncate overflow-hidden text-ellipsis whitespace-nowrap"
                   />
                 </div>
               </div>
@@ -174,7 +174,7 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
               }
               maxLength={160}
               rows={3}
-              className="border-secondary-border placeholder-gray-500 focus:border-secondary-strongerborder w-full p-2 lg:p-3 text-xs lg:text-sm bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
+              className="border-lightsecondary-border placeholder-gray-500 focus:border-lightsecondary-strongerborder dark:border-secondary-border dark:placeholder-gray-500 dark:focus:border-secondary-strongerborder w-full p-2 lg:p-3 text-xs lg:text-sm bg-lightprimary-bg/70 dark:bg-primary-bg/70 border focus:outline-none rounded-md mt-1"
             />
             <div className="absolute bottom-4 right-2 text-[0.6rem] text-gray-500">
               {project.description.length}/160
@@ -194,12 +194,12 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
               }
               className={`relative inline-flex items-center h-4 w-[1.9rem] lg:h-5 rounded-full lg:w-[2.4rem] focus:outline-none border ${
                 project.visibility_on_profile
-                  ? "bg-success-bg border-success-border"
-                  : "bg-[#1a1a1a] border-secondary-strongerborder"
+                  ? "bg-lightsuccess-bg border-lightsuccess-border dark:bg-success-bg dark:border-success-border"
+                  : "bg-lightprimary-bg border-lightsecondary-strongerborder dark:bg-primary-bg dark:border-secondary-strongerborder"
               }`}
             >
               <span
-                className={`inline-block w-[0.7rem] h-[0.7rem] lg:w-[0.9rem] lg:h-[0.9rem] transform bg-primary-text rounded-full transition-transform duration-200 ${
+                className={`inline-block w-[0.7rem] h-[0.7rem] lg:w-[0.9rem] lg:h-[0.9rem] transform bg-lightprimary-text dark:bg-primary-text rounded-full transition-transform duration-200 ${
                   project.visibility_on_profile
                     ? "translate-x-[1rem] lg:translate-x-5"
                     : "translate-x-[0.2rem]"
@@ -221,8 +221,8 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
               onClick={() => toggleHandler("settingsSelected")}
               className={`w-6 lg:w-8 h-6 lg:h-8 ${
                 toggles.settingsSelected
-                  ? "bg-primary-text border-secondary-border text-primary-bg"
-                  : "bg-primary-bg border-secondary-border text-primary-text"
+                  ? "bg-lightprimary-text border-lightsecondary-border text-lightprimary-bg dark:bg-primary-text dark:border-secondary-border dark:text-primary-bg"
+                  : "bg-lightprimary-bg border-lightsecondary-border text-lightprimary-text dark:bg-primary-bg dark:border-secondary-border dark:text-primary-text"
               }  border rounded-full flex items-center justify-center cursor-pointer`}
             >
               <Settings strokeWidth={1} size={size.width > 1000 ? 18 : 12} />
@@ -231,8 +231,8 @@ const ProjectCard = ({ project, handleFieldChange }: ProjectCardProps) => {
               onClick={() => toggleHandler("categorySelected")}
               className={`w-6 lg:w-8 h-6 lg:h-8 ${
                 toggles.categorySelected
-                  ? "bg-primary-text border-secondary-border text-primary-bg"
-                  : "bg-primary-bg border-secondary-border text-primary-text"
+                  ? "bg-lightprimary-text border-lightsecondary-border text-lightprimary-bg dark:bg-primary-text dark:border-secondary-border dark:text-primary-bg"
+                  : "bg-lightprimary-bg border-lightsecondary-border text-lightprimary-text dark:bg-primary-bg dark:border-secondary-border dark:text-primary-text"
               } border rounded-full flex items-center justify-center cursor-pointer`}
             >
               <TbCategory strokeWidth={1} size={size.width > 1000 ? 18 : 12} />

@@ -43,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className="light" lang="en">
+    <html lang="en">
       <head>
       </head>
       <body className={`${bricolage.variable} ${rubik.variable} ${lexend.variable} antialiased lexend`}>

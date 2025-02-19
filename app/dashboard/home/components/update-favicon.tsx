@@ -18,34 +18,34 @@ const UpdateFavicon = ({
 }) => {
   return (
     <div className="w-full flex flex-col items-center justify-center">
-      <h2 className="mb-0.5 text-base lg:text-lg font-bold text-primary-text/80 flex items-center justify-start">
+      <h2 className="mb-0.5 text-base lg:text-lg font-bold text-lightprimary-text/80 dark:text-primary-text/80 flex items-center justify-start">
         Favicon Update
         <HoverCard openDelay={250}>
-          <HoverCardTrigger className="text-sm font-medium text-primary-text cursor-pointer">
+          <HoverCardTrigger className="text-sm font-medium text-lightprimary-text dark:text-primary-text cursor-pointer">
             <Info strokeWidth={1} size={16} className="ml-1" />
           </HoverCardTrigger>
-          <HoverCardContent className="bg-primary-bg border border-secondary-border rounded-md z-50">
+          <HoverCardContent className="bg-lightprimary-bg dark:bg-primary-bg border border-lightsecondary-border dark:border-secondary-border rounded-md z-50">
             <div className="flex flex-col p-2">
-              <p className="text-sm font-semibold">Recommended Favicon</p>
-              <ol className="text-xs text-primary-text/70 mt-2 list-decimal list-inside font-normal">
+              <p className="text-sm font-semibold text-lightprimary-text/80 dark:text-primary-text/80">Recommended Favicon</p>
+              <ol className="text-xs text-lightprimary-text/70 dark:text-primary-text/70 mt-2 list-decimal list-inside font-normal">
                 <li>
                   Accepted file types
-                  <a className="text-accent-text font-medium ml-1">.ico</a>
+                  <a className="text-lightaccent-text dark:text-accent-text font-medium ml-1">.ico</a>
                 </li>
                 <li>
                   Keep your favicon
-                  <a className="text-accent-text font-medium ml-1">Simple</a>
+                  <a className="text-lightaccent-text dark:text-accent-text font-medium ml-1">Simple</a>
                 </li>
                 <li>
                   Max file size{" "}
-                  <b className="text-accent-text font-medium">3 MB</b>
+                  <b className="text-lightaccent-text dark:text-accent-text font-medium">3 MB</b>
                 </li>
               </ol>
             </div>
           </HoverCardContent>
         </HoverCard>
       </h2>
-      <p className="text-xs lg:text-sm  text-primary-text/60 mb-5">
+      <p className="text-xs lg:text-sm  text-lightprimary-text/60 dark:text-primary-text/60 mb-5">
         Update the publicly visible custom favicon
       </p>
       <div className="relative inline-flex group items-center justify-center">
@@ -59,7 +59,7 @@ const UpdateFavicon = ({
             width={600}
             height={600}
             src={image || "/lf.png"}
-            className="w-[4rem] lg:w-[6rem] h-[4rem] lg:h-[6rem] rounded-full ring-2 ring-secondary-border p-1 inline-block object-cover"
+            className="w-[4rem] lg:w-[6rem] h-[4rem] lg:h-[6rem] rounded-full ring-2 ring-lightsecondary-border dark:ring-secondary-border p-1 inline-block object-cover"
             referrerPolicy="no-referrer"
           />
         )}
@@ -68,16 +68,16 @@ const UpdateFavicon = ({
             document.getElementById("faviconInput")?.click();
           }}
           type="submit"
-          className="ml-5 sm:hidden flex items-center justify-center  py-0.5 px-1.5 border text-sm rounded lg:rounded-md bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-primary-text cursor-pointer transition-all duration-200 ease-out"
+          className="ml-5 sm:hidden flex items-center justify-center  py-0.5 px-1.5 border text-sm rounded lg:rounded-md bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder text-lightprimary-text dark:text-primary-text cursor-pointer transition-all duration-200 ease-out"
         >
           <Pencil className="mr-1" strokeWidth={1} size={13} />
           edit
         </button>
         {/* desktop button */}
-        <div className="absolute inset-0 z-20 justify-center items-center rounded-full bg-transparent group-hover:bg-secondary-bg/30 duration-200 cursor-pointer hidden sm:flex">
+        <div className="absolute inset-0 z-20 justify-center items-center rounded-full bg-transparent group-hover:bg-lightsecondary-bg/30 dark:group-hover:bg-secondary-bg/30 duration-200 cursor-pointer hidden sm:flex">
           <button
             onClick={() => document.getElementById("faviconInput")?.click()}
-            className="btn btn-square btn-sm  bg-neutral/50 border-neutral/0 group-hover:bg-neutral group-hover:border-neutral "
+            className="btn btn-square btn-sm"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

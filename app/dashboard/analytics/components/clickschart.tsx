@@ -75,10 +75,10 @@ const ClicksChart = ({
     <Card className="col-span-8 lg:col-span-4 rounded-lg">
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row mb-4 lg:mb-0">
         <div className="flex w-full lg:w-[45%] flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle className="text-lg leading-none text-primary-text">
+          <CardTitle className="text-lg leading-none text-lightprimary-text dark:text-primary-text">
             Visitor Clicks
           </CardTitle>
-          <CardDescription className="text-primary-text/60">
+          <CardDescription className="text-lightprimary-text/60 dark:text-primary-text/60">
             Showing total clicks of visitors
           </CardDescription>
         </div>
@@ -108,7 +108,7 @@ const ClicksChart = ({
                 <button
                   key={chart}
                   data-active={activeChart === chart}
-                  className="relative flex flex-1 flex-col justify-center gap-1 px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection border-l border-t lg:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder lg:last:rounded-tr-lg"
+                  className="relative flex flex-1 flex-col justify-center gap-1 px-6 py-4 text-left even:border-l data-[active=true]:bg-[#c1aa89] dark:data-[active=true]:bg-secondary-selection border-l border-t lg:border-t-0 sm:px-8 sm:py-6 dark:data-[active=true]:border-secondary-strongerborder lg:last:rounded-tr-lg"
                   onClick={() => setActiveChart(chart)}
                 >
                   <span className="text-xs text-muted-foreground">

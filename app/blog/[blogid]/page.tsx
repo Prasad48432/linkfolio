@@ -75,14 +75,14 @@ export default async function BlogPage({ params }: { params: Params }) {
     );
   }
   return (
-    <div className="min-h-screen bg-primary-bg">
+    <div className="min-h-screen bg-lightprimary-bg dark:bg-primary-bg">
       <BlogNavbar />
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12 bg-primary-bg">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12 bg-lightprimary-bg dark:bg-primary-bg">
         <div className="flex flex-col lg:flex-row lg:space-x-12">
           {/* Main Articles */}
           <div className="flex-1">
             <div className="flex flex-col gap-3 items-start justify-center">
-              <h1 className="font-bold text-[25px] leading-[35px] lg:text-[35px] lg:leading-[52px] text-primary-text tracking-[-0.011em]">
+              <h1 className="font-bold text-[25px] leading-[35px] lg:text-[35px] lg:leading-[52px] text-lightprimary-text dark:text-primary-text tracking-[-0.011em]">
                 {blog.title}
               </h1>
               <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-0 justify-start lg:justify-between w-full mb-4">
@@ -92,16 +92,16 @@ export default async function BlogPage({ params }: { params: Params }) {
                     className="w-11 h-11 rounded-full object-cover"
                   />
                   <div className="flex flex-col items-start justify-center">
-                    <p className="text-primary-text font-normal flex items-center justify-center">
-                      <span className="group font-medium text-primary-text/80 transition duration-200">
+                    <p className="text-lightprimary-text dark:text-primary-text font-normal flex items-center justify-center">
+                      <span className="group font-medium text-lightprimary-text/80 dark:text-primary-text/80 transition duration-200">
                         <ProfileHoverInfo profile={blog.profiles} />
                       </span>
-                      <span className="text-primary-text/70 font-extrabold mx-2">
+                      <span className="text-lightprimary-text/70 dark:text-primary-text/70 font-extrabold mx-2">
                         &middot;
                       </span>
-                      <span className="text-primary-text/50">Follow</span>
+                      <span className="text-lightprimary-text/60 dark:text-primary-text/60">Follow</span>
                     </p>
-                    <p className="text-primary-text/70 text-sm font-extralight">
+                    <p className="text-lightprimary-text/90 dark:text-primary-text/70 text-sm font-extralight">
                       10 min read{" "}
                       <span className="font-extrabold mx-1">&middot;</span>{" "}
                       {formatDate(blog.created_at)}
@@ -111,7 +111,7 @@ export default async function BlogPage({ params }: { params: Params }) {
                 <div className="flex items-center justify-center gap-4 pl-2 lg:pl-0">
                   <div
                     title="Appreciations"
-                    className="flex items-center justify-center text-sm lg:text-base font-extralight cursor-pointer text-primary-text/80"
+                    className="flex items-center justify-center text-sm lg:text-base font-extralight cursor-pointer text-lightprimary-text dark:text-primary-text/80"
                   >
                     <UnClappedSvg />
                     2.6k
@@ -119,7 +119,7 @@ export default async function BlogPage({ params }: { params: Params }) {
                   <a
                     href="#comments"
                     title="comments"
-                    className="flex items-center justify-center text-sm lg:text-base font-extralight cursor-pointer text-primary-text/80"
+                    className="flex items-center justify-center text-sm lg:text-base font-extralight cursor-pointer text-lightprimary-text dark:text-primary-text/80"
                   >
                     <LuMessageCircleMore
                       strokeWidth={1}
@@ -127,7 +127,7 @@ export default async function BlogPage({ params }: { params: Params }) {
                     />
                     {blog.comments.length}
                   </a>
-                  <div className="flex items-center justify-center text-sm lg:text-base font-extralight cursor-pointer text-primary-text/80">
+                  <div className="flex items-center justify-center text-sm lg:text-base font-extralight cursor-pointer text-lightprimary-text dark:text-primary-text/80">
                     <LuShare strokeWidth={1} className="mr-1 text-xl" />
                     Share
                   </div>
@@ -138,7 +138,7 @@ export default async function BlogPage({ params }: { params: Params }) {
                         pathname: "/dashboard/blogs",
                         query: { edit: blog.id },
                       }}
-                      className="flex items-center justify-center text-sm lg:text-base font-extralight cursor-pointer text-primary-text/80"
+                      className="flex items-center justify-center text-sm lg:text-base font-extralight cursor-pointer text-lightprimary-text/80 dark:text-primary-text/80"
                     >
                       <LuPencil strokeWidth={1} className="mr-1 text-xl" />
                       Edit
@@ -152,10 +152,10 @@ export default async function BlogPage({ params }: { params: Params }) {
               />
               <article
                 dangerouslySetInnerHTML={{ __html: blog.content }}
-                className="blog_content_renderer px-1"
+                className="blog_content_renderer px-1 text-lightprimary-text dark:text-primary-text"
               />
               <div id="comments" className="flex flex-col gap-3 w-full">
-                <p className="text-lg font-semibold text-primary-text mb-2">
+                <p className="text-lg font-semibold text-lightprimary-text dark:text-primary-text mb-2">
                   Comments ({blog.comments.length})
                 </p>
                 {!isAuthor && (
@@ -173,13 +173,13 @@ export default async function BlogPage({ params }: { params: Params }) {
                       />
                       <div className="flex flex-col items-start justify-center w-[calc(100%-2.5rem)]">
                         <div className="flex gap-1 items-center justify-start">
-                          <span className="group font-medium text-primary-text/90 transition duration-200">
+                          <span className="group font-medium text-lightprimary-text/90 dark:text-primary-text/90 transition duration-200">
                             <ProfileHoverInfo profile={comment.profiles} />
                           </span>
-                          <span className="font-extrabold mx-0.5 text-primary-text/80">&middot;</span>{" "}
-                          <span className="text-primary-text/70 font-light text-sm">{formatDate(comment.created_at)}</span>
+                          <span className="font-extrabold mx-0.5 text-lightprimary-text/80 dark:text-primary-text/80">&middot;</span>{" "}
+                          <span className="text-lightprimary-text/70 dark:text-primary-text/70 font-light text-sm">{formatDate(comment.created_at)}</span>
                         </div>
-                        <p className="font-light text-primary-text/80 text-sm">
+                        <p className="font-light text-lightprimary-text/80 dark:text-primary-text/80 text-sm">
                           {comment.comment}
                         </p>
                       </div>
@@ -192,7 +192,7 @@ export default async function BlogPage({ params }: { params: Params }) {
           {/* sidebar */}
           <div className="w-full lg:w-80">
             <div className="relative lg:sticky top-10 lg:top-20 flex flex-col items-start justify-center">
-              <h3 className="font-semibold mb-4 text-lg">
+              <h3 className="font-semibold mb-4 text-lg text-lightprimary-text dark:text-primary-text">
                 Discover more topics
               </h3>
               <div className="flex flex-wrap gap-2 mb-8">
@@ -208,31 +208,31 @@ export default async function BlogPage({ params }: { params: Params }) {
                 ].map((topic, index) => (
                   <button
                     key={index}
-                    className="px-4 py-2 rounded-full text-primary-text border border-secondary-border text-sm bg-secondary-bg"
+                    className="px-4 py-2 rounded-full text-lightprimary-text dark:text-primary-text border border-lightsecondary-border dark:border-secondary-border text-sm bg-lightsecondary-bg dark:bg-secondary-bg"
                   >
                     {topic}
                   </button>
                 ))}
               </div>
-              <h3 className="font-semibold mb-4 text-lg">Similar blogs</h3>
+              <h3 className="font-semibold mb-4 text-lg text-lightprimary-text dark:text-primary-text">Similar blogs</h3>
               <div className="flex flex-col gap-2 mb-8">
                 <div className="w-full h-20 flex flex-col">
-                  <p className="text-primary-text font-semibold">
+                  <p className="text-lightprimary-text dark:text-primary-text font-semibold">
                     How I Tricked My Brain to Be Addicted to Coding
                   </p>
-                  <p className="text-primary-text font-light">Feb 7</p>
+                  <p className="text-lightprimary-text dark:text-primary-text font-light">Feb 7</p>
                 </div>
                 <div className="w-full h-20 flex flex-col">
-                  <p className="text-primary-text font-semibold">
+                  <p className="text-lightprimary-text dark:text-primary-text font-semibold">
                     How I Tricked My Brain to Be Addicted to Coding
                   </p>
-                  <p className="text-primary-text font-light">Feb 7</p>
+                  <p className="text-lightprimary-text dark:text-primary-text font-light">Feb 7</p>
                 </div>
                 <div className="w-full h-20 flex flex-col">
-                  <p className="text-primary-text font-semibold">
+                  <p className="text-lightprimary-text dark:text-primary-text font-semibold">
                     How I Tricked My Brain to Be Addicted to Coding
                   </p>
-                  <p className="text-primary-text font-light">Feb 7</p>
+                  <p className="text-lightprimary-text dark:text-primary-text font-light">Feb 7</p>
                 </div>
               </div>
             </div>

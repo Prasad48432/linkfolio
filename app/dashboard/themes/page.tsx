@@ -194,7 +194,7 @@ const Help = () => {
     <>
       <div
         onClick={() => setPreview(true)}
-        className="lg:hidden font-bold py-1 px-2 inline-flex items-center justify-center bg-secondary-bg rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-secondary-strongerborder w-[120px] bottom-6 fixed left-1/2 translate-x-[-50%] z-[48]"
+        className="lg:hidden font-bold py-1 px-2 inline-flex items-center justify-center bg-lightsecondary-bg dark:bg-secondary-bg rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-secondary-strongerborder w-[120px] bottom-6 fixed left-1/2 translate-x-[-50%] z-[48]"
       >
         <Eye strokeWidth={1} className="text-primarytext text-lg mr-1" />
         <p className="text-primarytext font-semibold text-base">Preview</p>
@@ -205,31 +205,31 @@ const Help = () => {
             <div className="flex flex-col items-start justify-center">
               <div className="flex flex-col items-center mb-2 mt-2 px-6 py-4 w-full h-full">
                 <div className="p-4 w-full h-full">
-                  <div className="h-8 mb-4 w-24 bg-secondary-bg rounded-lg relative overflow-hidden opacity-90">
-                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                  <div className="h-8 mb-4 w-24 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-90">
+                    <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                   </div>
                   <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 mb-6">
                     {Array.from({ length: 7 }).map((_, index) => (
                       <div
                         key={index}
-                        className="col-span-1 h-12 bg-secondary-bg rounded-lg relative overflow-hidden opacity-90"
+                        className="col-span-1 h-12 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-90"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                       </div>
                     ))}
                   </div>
                 </div>
                 <div className="p-4 w-full h-full"> 
-                  <div className="h-8 mb-4 w-24 bg-secondary-bg rounded-lg relative overflow-hidden opacity-90">
-                    <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                  <div className="h-8 mb-4 w-24 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden opacity-90">
+                    <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                   </div>
                   <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 mb-6">
                     {Array.from({ length: 7 }).map((_, index) => (
                       <div
                         key={index}
-                        className="col-span-1 h-12 bg-secondary-bg rounded-lg relative overflow-hidden"
+                        className="col-span-1 h-12 bg-lightsecondary-bg dark:bg-secondary-bg rounded-lg relative overflow-hidden"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/10 to-secondary-bg animate-shimmer" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-bg via-gray-300 to-lightsecondary-selection dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                       </div>
                     ))}
                   </div>
@@ -244,9 +244,6 @@ const Help = () => {
                   aria-describedby={`radio-text-0`}
                   type="radio"
                   name="colorPalette"
-                  style={{
-                    accentColor: "#ff5733",
-                  }}
                   value="default"
                   checked={theme.primary_bg === "#121212"}
                   onChange={() => {
@@ -265,17 +262,17 @@ const Help = () => {
                       },
                     });
                   }}
-                  className="w-4 h-4 text-red-600"
+                  className="w-4 h-4 accent-lightaccent-text dark:accent-accent-text"
                 />
                 <label
                   htmlFor="default-radio-1"
-                  className="ms-2 text-base font-medium text-gray-300 mr-2"
+                  className="ms-2 text-base font-medium text-lightprimary-text dark:text-primary-text mr-2"
                 >
                   Default Theme
                 </label>
               </div>
               <div className="p-4">
-                <h1 className="text-primarytext text-xl font-semibold mb-4">
+                <h1 className="text-lightprimary-text dark:text-primary-text text-xl font-semibold mb-4">
                   Light Palletes
                 </h1>
                 <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 mb-6">
@@ -288,19 +285,16 @@ const Help = () => {
                             aria-describedby={`radio-text-${palette.id}`}
                             type="radio"
                             name="colorPalette"
-                            style={{
-                              accentColor: "#ff5733",
-                            }}
                             value={palette.theme_type}
                             checked={theme.pallete_id === Number(palette.id)}
                             onChange={() => {
                               handleFieldChange({ palette: palette });
                             }}
-                            className="w-4 h-4 text-blue-600 bg-gray-100 mr-2"
+                            className="w-4 h-4 bg-gray-100 mr-2 accent-lightaccent-text dark:accent-accent-text"
                           />
                           <label
                             htmlFor={`radio-${palette.id}`}
-                            className="flex rounded-lg overflow-hidden w-32 h-12"
+                            className="flex rounded-lg overflow-hidden w-32 h-12  border border-lightsecondary-border dark:border-0"
                           >
                             <div
                               className="w-[45%] h-full"
@@ -335,7 +329,7 @@ const Help = () => {
                 </div>
               </div>
               <div className="p-4">
-                <h1 className="text-primarytext text-xl font-semibold mb-4">
+                <h1 className="text-lightprimary-text dark:text-primary-text text-xl font-semibold mb-4">
                   Dark Palletes
                 </h1>
                 <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 mb-6">
@@ -348,19 +342,16 @@ const Help = () => {
                             aria-describedby={`radio-text-${palette.id}`}
                             type="radio"
                             name="colorPalette"
-                            style={{
-                              accentColor: "#ff5733",
-                            }}
                             value={palette.theme_type}
                             checked={theme.pallete_id === Number(palette.id)}
                             onChange={() => {
                               handleFieldChange({ palette: palette });
                             }}
-                            className="w-4 h-4 text-blue-600 bg-gray-100 mr-2"
+                            className="w-4 h-4 bg-gray-100 mr-2 accent-lightaccent-text dark:accent-accent-text"
                           />
                           <label
                             htmlFor={`radio-${palette.id}`}
-                            className="flex rounded-lg overflow-hidden w-32 h-12"
+                            className="flex rounded-lg overflow-hidden w-32 h-12  border border-lightsecondary-border dark:border-0"
                           >
                             <div
                               className="w-[45%] h-full"
@@ -400,38 +391,38 @@ const Help = () => {
         <div
           className={`${
             preview ? "flex" : "hidden"
-          } lg:flex z-[49] bg-primary-bg lg:bg-transparent lg:z-10 w-full bg-darkbg rounded-lg p-6 lg:p-4 fixed right-1/2 top-1/2 translate-x-1/2 -translate-y-[calc(50%-31px)] lg:translate-x-0 lg:translate-y-0 lg:static lg:right-auto lg:top-auto lg:w-[45%] h-[calc(100vh-60px)] lg:h-[85vh]`}
+          } lg:flex z-[49] bg-lightprimary-bg dark:bg-primary-bg lg:bg-transparent lg:z-10 w-full bg-darkbg rounded-lg p-6 lg:p-4 fixed right-1/2 top-1/2 translate-x-1/2 -translate-y-[calc(50%-31px)] lg:translate-x-0 lg:translate-y-0 lg:static lg:right-auto lg:top-auto lg:w-[45%] h-[calc(100vh-60px)] lg:h-[85vh]`}
         >
           <p
             onClick={() => setPreview(false)}
-            className="block lg:hidden absolute top-3 right-3 text-primary-text cursor-pointer"
+            className="block lg:hidden absolute top-3 right-3 text-lightprimary-text dark:text-primary-text cursor-pointer"
           >
             <X />
           </p>
-          <div className="scale-90 md:scale-100 relative mx-auto border-black dark:border-black bg-black border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
-            <div className="w-[130px] h-[18px] bg-black top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute z-10"></div>
+          <div className="scale-90 md:scale-100 relative mx-auto border-primary-bg/60 dark:border-black bg-primary-bg/60 dark:bg-black border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
+            <div className="w-[130px] h-[18px] bg-primary-bg/60 dark:bg-black top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute z-10"></div>
             <div className="w-[90px] h-[5px] bg-gray-400 bottom-0.5 rounded-[1rem] left-1/2 -translate-x-1/2 absolute z-10"></div>
-            <div className="w-[30] h-[18px] text-primarytext text-xs top-0.5 left-[17%] -translate-x-1/2 absolute z-[11]">
+            <div className="w-[30] h-[18px] text-lightprimary-text dark:text-primary-text text-xs top-0.5 left-[17%] -translate-x-1/2 absolute z-[11]">
               9:41
             </div>
-            <div className="w-[30] h-[18px] text-primarytext text-xs top-[0.3rem] left-[85%] -translate-x-1/2 absolute z-[11]">
+            <div className="w-[30] h-[18px] text-lightprimary-text dark:text-primary-text text-xs top-[0.3rem] left-[85%] -translate-x-1/2 absolute z-[11]">
               <BatteryLow size={15} />
             </div>
-            <div className="w-[30] h-[18px] text-primarytext text-xs top-0.5 left-[78%] -translate-x-1/2 absolute z-[11]">
+            <div className="w-[30] h-[18px] text-lightprimary-text dark:text-primary-text text-xs top-0.5 left-[78%] -translate-x-1/2 absolute z-[11]">
               <SignalMedium size={15} />
             </div>
-            <div className="h-[46px] w-[5px] bg-black absolute -start-[17px] top-[124px] rounded-s-lg z-10"></div>
-            <div className="h-[46px] w-[5px] bg-black absolute -start-[17px] top-[178px] rounded-s-lg z-10"></div>
-            <div className="h-[64px] w-[5px] bg-black absolute -end-[17px] top-[142px] rounded-e-lg z-10"></div>
+            <div className="h-[46px] w-[5px] bg-primary-bg/60 dark:bg-black absolute -start-[17px] top-[124px] rounded-s-lg z-10"></div>
+            <div className="h-[46px] w-[5px] bg-primary-bg/60 dark:bg-black absolute -start-[17px] top-[178px] rounded-s-lg z-10"></div>
+            <div className="h-[64px] w-[5px] bg-primary-bg/60 dark:bg-black absolute -end-[17px] top-[142px] rounded-e-lg z-10"></div>
             <div className="h-[10px] w-[10px] bg-white/10 absolute top-0 left-[40%] -translate-x-1/2 rounded-full z-10"></div>
             <div className="h-[5px] w-[5px] bg-white/20 absolute top-[2.5px] left-[40%] -translate-x-1/2 rounded-full z-10"></div>
             <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full z-10"></div>
             {fetchLoading ? (
-              <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg flex items-center justify-center">
-                <Loader strokeWidth={1.5} size={24} className="animate-spin" />
+              <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-lightprimary-bg dark:bg-primary-bg flex items-center justify-center">
+                <Loader strokeWidth={1.5} size={24} className="animate-spin text-lightprimary-text dark:text-primary-text" />
               </div>
             ) : (
-              <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-black">
+              <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg/60 dark:bg-black">
                 <div
                   style={{
                     background: theme.primary_bg || "#121212",

@@ -69,7 +69,7 @@ const UsernameSelect = ({
   };
   return (
     <div>
-      <label className="block text-sm font-medium text-primary-text/80 px-1 mb-0.5">
+      <label className="block text-sm font-medium text-lightprimary-text/80 dark:text-primary-text/80 px-1 mb-0.5">
         Username{" "}
       </label>
       <div className="flex items-center justify-center gap-2 relative">
@@ -77,7 +77,7 @@ const UsernameSelect = ({
           <Signature
             strokeWidth={1}
             size={20}
-            className="text-primary-text/80 text-xl"
+            className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
           />
         </span>
         <input
@@ -93,12 +93,12 @@ const UsernameSelect = ({
           }
           className={`${
             isUsernameThere ? "lg:w-full cursor-not-allowed" : "lg:w-[85%]"
-          } w-full border-secondary-border focus:border-secondary-border px-3 py-2 pl-9 text-sm bg-secondary-bg border focus:outline-none rounded-md`}
+          } text-lightprimary-text dark:text-primary-text border-lightsecondary-border dark:border-secondary-border cursor-not-allowed focus:border-lightsecondary-border dark:focus:border-secondary-border w-full py-2 pl-10 text-sm bg-lightsecondary-bg dark:bg-secondary-bg border focus:outline-none rounded-md`}
         />
         {!isUsernameThere && (
           <button
             onClick={() => handleUsernameUpdate(profileData.username)}
-            className="w-[15%] flex items-center justify-center text-sm bg-accent-bg hover:bg-accent-selection border border-accent-border hover:border-accent-strongerborder transition-all duration-200 ease-out px-3 py-2 rounded-md"
+            className="w-[15%] flex items-center justify-center text-sm bg-lightaccent-bg hover:bg-lightaccent-selection border border-lightaccent-border hover:border-lightaccent-strongerborder dark:bg-accent-bg dark:hover:bg-accent-selection dark:border-accent-border dark:hover:border-accent-strongerborder transition-all duration-200 ease-out px-3 py-2 rounded-md"
           >
             {usernameUpdateLoading ? (
               <Loader className="animate-spin" strokeWidth={1} size={20} />

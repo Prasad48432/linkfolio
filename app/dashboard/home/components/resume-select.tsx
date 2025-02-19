@@ -105,15 +105,15 @@ const ResumeSection = ({
   return (
     <div className="w-full">
       <div className="flex flex-col">
-        <h1 className="text-primary-text/90 font-medium text-base lg:text-xl px-1">
+        <h1 className="text-lightprimary-text/90 dark:text-primary-text/90 font-medium text-base lg:text-xl px-1">
           Resume Section
         </h1>
-        <p className="text-primary-text/70 font-normal text-xs lg:text-sm mb-1 px-1">
+        <p className="text-lightprimary-text/70 dark:text-primary-text/70 font-normal text-xs lg:text-sm mb-1 px-1">
           Attach your resume to showcase your experience.
         </p>
       </div>
       {resumeUrl ? (
-        <div className="mt-2 w-full h-40 lg:h-36 flex items-center justify-center gap-2 rounded-md border border-dashed border-secondary-strongerborder transition-all duration-200 relative">
+        <div className="mt-2 w-full h-40 lg:h-36 flex items-center justify-center gap-2 rounded-md border border-dashed border-lightsecondary-strongerborder dark:border-secondary-strongerborder transition-all duration-200 relative">
           {!file && (
             <div className="hidden lg:flex w-28 h-24 rounded-md overflow-hidden shadow-lg scrollbar_hidden">
               <iframe
@@ -125,12 +125,12 @@ const ResumeSection = ({
           )}
           <div className="flex flex-col items-center justify-center gap-1">
             {file ? (
-              <p className="text-primary-text/80">
+              <p className="text-lightprimary-text/80 dark:text-primary-text/80">
                 Selected{" "}
-                <span className="text-accent-text/80">{file.name}</span>
+                <span className="text-lightaccent-text/80 dark:text-accent-text/80">{file.name}</span>
               </p>
             ) : (
-              <p className="text-accent-text/90 text-sm flex items-center justify-center gap-2">
+              <p className="text-lightaccent-text/90 dark:text-accent-text/90 text-sm flex items-center justify-center gap-2">
                 {resumeUrl.split("/").pop()}
                 <FaRegFilePdf size={15} />
               </p>
@@ -147,7 +147,7 @@ const ResumeSection = ({
                 />
                 <label
                   htmlFor="fileUpload"
-                  className="text-primary-text/90 transition-all duration-200 ease-out flex items-center justify-center px-1.5 font-light py-0.5 text-sm border rounded lg:rounded-md bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-primary-text cursor-pointer"
+                  className="text-lightprimary-text/90 dark:text-primary-text/90 transition-all duration-200 ease-out flex items-center justify-center px-1.5 font-light py-0.5 text-sm border rounded lg:rounded-md bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder text-lightprimary-text dark:text-primary-text cursor-pointer"
                 >
                   <Pencil className="mr-1" strokeWidth={1} size={13} /> edit
                 </label>
@@ -159,12 +159,12 @@ const ResumeSection = ({
                 onClick={() => handleFileUpload(file)}
                 className={`${
                   uploadLoading
-                    ? "bg-secondary-bg/70 border-secondary-border text-primary-text/60 cursor-not-allowed"
-                    : "bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-primary-text cursor-pointer"
+                    ? "bg-lightsecondary-bg/70 dark:bg-secondary-bg/70 border-lightsecondary-border dark:border-secondary-border text-lightprimary-text/60 dark:text-primary-text/60 cursor-not-allowed"
+                    : "bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder text-lightprimary-text dark:text-primary-text cursor-pointer"
                 } relative space-x-0.5 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] flex items-center justify-center`}
               >
                 {uploadLoading ? (
-                  <Loader className="animate-spin" strokeWidth={1} size={15} />
+                  <Loader className="animate-spin text-lightprimary-text dark:text-primary-text" strokeWidth={1} size={15} />
                 ) : (
                   <FileUp strokeWidth={1} size={15} />
                 )}{" "}
@@ -176,7 +176,7 @@ const ResumeSection = ({
         </div>
       ) : (
         <div
-          className={`mt-2 w-full h-36 flex flex-col items-center justify-center gap-2 rounded-md border border-dashed border-secondary-strongerborder transition-all duration-200 ${
+          className={`mt-2 w-full h-36 flex flex-col items-center justify-center gap-2 rounded-md border border-dashed border-lightsecondary-strongerborder dark:border-secondary-strongerborder transition-all duration-200 ${
             isDragging ? "bg-success-bg/70" : ""
           }`}
           onDragOver={handleDragOver}
@@ -194,18 +194,18 @@ const ResumeSection = ({
               />
               <label
                 htmlFor="fileUpload"
-                className="cursor-pointer text-primary-text underline"
+                className="cursor-pointer text-lightprimary-text dark:text-primary-text underline"
               >
-                <RiFileAddLine className="text-primary-text/80 text-4xl md:text-5xl hover:text-gray-400 hover:border-secondary-strongerborder cursor-pointer p-2 border border-dashed border-secondary-border duration-200 transition-all ease-out" />
+                <RiFileAddLine className="text-lightprimary-text/80 dark:text-primary-text/80 text-4xl md:text-5xl hover:text-secondary-text dark:hover:text-secondary-text hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder cursor-pointer p-2 border border-dashed border-lightsecondary-border dark:border-secondary-border duration-200 transition-all ease-out" />
               </label>{" "}
             </>
           )}
           {file ? (
-            <p className="text-primary-text/80">
+            <p className="text-lightprimary-text/80 dark:text-primary-text/80">
               Selected <span className="text-accent-text/80">{file.name}</span>
             </p>
           ) : (
-            <p className="text-primary-text/70">Drag & Drop or select</p>
+            <p className="text-lightprimary-text/70 dark:text-primary-text/70">Drag & Drop or select</p>
           )}
           {file && (
             <button
@@ -213,12 +213,12 @@ const ResumeSection = ({
               onClick={() => handleFileUpload(file)}
               className={`${
                 uploadLoading
-                  ? "bg-secondary-bg/70 border-secondary-border text-primary-text/60 cursor-not-allowed"
-                  : "bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-primary-text cursor-pointer"
+                  ? "dark:bg-lightsecondary-bg/70 dark:border-lightsecondary-border dark:text-lightprimary-text/60 bg-secondary-bg/70 border-secondary-border text-primary-text/60 cursor-not-allowed"
+                  : "dark:bg-lightsecondary-bg dark:hover:bg-lightsecondary-selection dark:border-lightsecondary-border dark:hover:border-lightsecondary-strongerborder dark:text-lightprimary-text bg-secondary-bg hover:bg-secondary-selection border-secondary-border hover:border-secondary-strongerborder text-primary-text cursor-pointer"
               } relative space-x-0.5 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] flex items-center justify-center`}
             >
               {uploadLoading ? (
-                <Loader className="animate-spin" strokeWidth={1} size={15} />
+                <Loader className="animate-spin text-lightprimary-text dark:text-primary-text" strokeWidth={1} size={15} />
               ) : (
                 <FileUp strokeWidth={1} size={15} />
               )}{" "}

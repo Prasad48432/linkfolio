@@ -10,7 +10,7 @@ const CategorySelect = ({
 }) => {
   return (
     <select
-      className="select border border-secondary-strongerborder bg-[#1a1a1a] w-full p-1 lg:p-1.5 mt-1 lg:mt-2 rounded-md text-xs lg:text-sm"
+      className="select border text-lightprimary-text dark:text-primary-text border-lightsecondary-strongerborder bg-lightprimary-bg dark:border-secondary-strongerborder dark:bg-primary-bg w-full p-1 lg:p-1.5 mt-1 lg:mt-2 rounded-md text-xs lg:text-sm"
       value={value}
       onChange={onChange}
     >
