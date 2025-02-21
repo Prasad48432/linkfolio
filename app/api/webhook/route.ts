@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   // If express returned a JSON, remove any other middleware that might have processed raw request to object
   const rawRequestBody = (await req.text()) || "";
   // Replace `WEBHOOK_SECRET_KEY` with the secret key in notifications from vendor dashboard
-  const secretKey = process.env.PUBLIC_WEBHOOK_SECRET_KEY || "";
+  const secretKey = process.env.NEXT_PUBLIC_WEBHOOK_SECRET_KEY || "";
 
   try {
     if (signature && rawRequestBody) {

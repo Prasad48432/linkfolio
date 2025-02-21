@@ -11,7 +11,7 @@ import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
 import { Loader, MoveRight } from "lucide-react";
 import Marquee from "react-fast-marquee";
-import Payment from "@/components/payment";
+// import Payment from "@/components/payment";
 import Pricing from "@/components/pricing";
 
 type profile = {
@@ -220,7 +220,7 @@ export default function Home() {
                         </a>
                       </div>
                     )}
-                    <Payment />
+                    {/* <Payment /> */}
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-2 w-full lg:w-3/4 mt-3 lg:mt-0 relative">
                       <div className="absolute h-full w-28 bg-gradient-to-r from-lightprimary-bg dark:from-primary-bg to-transparent z-10 pointer-events-none left-0 top-0"></div>
                       <div className="absolute h-full w-28 bg-gradient-to-l from-lightprimary-bg dark:from-primary-bg to-transparent z-10 pointer-events-none right-0 top-0"></div>
