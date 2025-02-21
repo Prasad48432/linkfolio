@@ -16,18 +16,18 @@ export async function POST(req: Request) {
   // Replace `WEBHOOK_SECRET_KEY` with the secret key in notifications from vendor dashboard
   const secretKey = process.env.NEXT_PUBLIC_WEBHOOK_SECRET_KEY || "";
 
-  type PaddleWebhookData = {
-    customData?: { user_id?: string };
-    id: string;
-    items: {
-      product?: { name?: string };
-      price?: {
-        name?: string;
-        unitPrice?: { amount?: number; currencyCode?: string };
-      };
-    }[];
-    createdAt: string;
-  };
+  // type PaddleWebhookData = {
+  //   customData?: { user_id?: string };
+  //   id: string;
+  //   items: {
+  //     product?: { name?: string };
+  //     price?: {
+  //       name?: string;
+  //       unitPrice?: { amount?: number; currencyCode?: string };
+  //     };
+  //   }[];
+  //   createdAt: string;
+  // };
 
   try {
     if (signature && rawRequestBody) {
@@ -36,7 +36,8 @@ export async function POST(req: Request) {
         rawRequestBody,
         secretKey,
         signature
-      )) as { eventType: EventName; data: PaddleWebhookData };
+      ));
+      // as { eventType: EventName; data: PaddleWebhookData };
 
       const { data: user, error: usererror } = await supabase.auth.getUser();
 
@@ -46,13 +47,14 @@ export async function POST(req: Request) {
           const { data: subData, error: subError } = await supabase
             .from("subscriptions")
             .insert({
-              user_id: eventData.data.customData?.user_id,
+              user_id: (eventData.data.customData as { user_id?: string })?.user_id,
               subscription_id: eventData.data.id,
-              subscription_status: true,
+              subscription_product_id: eventData.data.items[0].product?.id,
               subscription_type: eventData.data.items[0].product?.name,
               subscription_variant: eventData.data.items[0].price?.name,
               unit_price: eventData.data.items[0].price?.unitPrice?.amount,
               currency: eventData.data.items[0].price?.unitPrice?.currencyCode,
+              subscription_status: true,
               created_at: eventData.data.createdAt,
             });
           break;
@@ -60,16 +62,7 @@ export async function POST(req: Request) {
           console.log(`Subscription ${eventData.data.id} was canceled`);
           break;
         case EventName.TransactionPaid:
-          const { data: payData, error: payError } = await supabase
-            .from("transactions")
-            .insert({
-              user_id: eventData.data.customData?.user_id,
-              subscription_id: eventData.data.id,
-              subscription_variant: eventData.data.items[0].price?.name,
-              unit_price: eventData.data.items[0].price?.unitPrice?.amount,
-              currency: eventData.data.items[0].price?.unitPrice?.currencyCode,
-              created_at: eventData.data.createdAt,
-            });
+          console.log(`Payment ${eventData.data.id} was Paid`);
           break;
         case EventName.TransactionCanceled:
           console.log(`Transaction ${eventData.data.id} was Canceled`);
@@ -78,11 +71,14 @@ export async function POST(req: Request) {
           const { data: payDataComp, error: payErrorComp } = await supabase
             .from("transactions")
             .insert({
-              user_id: eventData.data.customData?.user_id,
-              subscription_id: eventData.data.id,
+              user_id: (eventData.data.customData as { user_id?: string })?.user_id,
+              transaction_id: eventData.data.id,
+              subscription_id:  eventData.data.subscriptionId,
+              subscription_product_id: eventData.data.items[0].price?.productId,
               subscription_variant: eventData.data.items[0].price?.name,
               unit_price: eventData.data.items[0].price?.unitPrice?.amount,
               currency: eventData.data.items[0].price?.unitPrice?.currencyCode,
+              transaction_status: "completed",
               created_at: eventData.data.createdAt,
             });
           console.log(`Transaction ${eventData.data.id} was Completed`);
