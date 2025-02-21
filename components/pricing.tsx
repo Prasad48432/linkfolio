@@ -4,6 +4,8 @@ import { HandCoins, TrendingUp, X } from "lucide-react";
 import Link from "next/link";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { initializePaddle, Paddle } from "@paddle/paddle-js";
+import { createClient } from "@/utils/supabase/client";
+import { ToastError } from "./toast";
 
 const Pricing = () => {
   const [paddle, setPaddle] = useState<Paddle>();
@@ -15,19 +17,29 @@ const Pricing = () => {
     }).then((paddle) => setPaddle(paddle));
   }, []);
 
-  const handleCheckout = ({priceId}:{priceId: string}) => {
+  const handleCheckout = async ({ priceId }: { priceId: string }) => {
     if (!paddle) return alert("Paddle not initialized");
+
+    const supabase = createClient();
+    const { data: user, error } = await supabase.auth.getUser();
+
+    if (error || !user?.user?.id) {
+      ToastError({message: "No user Logged in."})
+      return
+    }
 
     paddle.Checkout.open({
       items: [{ priceId: priceId, quantity: 1 }],
+      customData: {
+        user_id: user.user.id, // Pass user ID to Paddle
+      },
       settings: {
         displayMode: "overlay",
         theme: "dark",
-        successUrl: "http://localhost:3000/success",
+        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
       },
     });
   };
-
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -151,7 +163,11 @@ const Pricing = () => {
                         </ul>
                         <p
                           // href="/accounts/signin"
-                          onClick={() => handleCheckout({priceId: "pri_01jmkchaz4z34135mqy9wfbx6w"})}
+                          onClick={() =>
+                            handleCheckout({
+                              priceId: "pri_01jmkchaz4z34135mqy9wfbx6w",
+                            })
+                          }
                           className="text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                         >
                           Get started
@@ -298,7 +314,11 @@ const Pricing = () => {
 
                         <p
                           // href="/accounts/signin"
-                          onClick={() => handleCheckout({priceId: "pri_01jmkcrmhx2j7net3w3znnp0yy"})}
+                          onClick={() =>
+                            handleCheckout({
+                              priceId: "pri_01jmkcrmhx2j7net3w3znnp0yy",
+                            })
+                          }
                           className="text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                         >
                           Get started
@@ -410,7 +430,11 @@ const Pricing = () => {
 
                         <p
                           // href="/accounts/signin"
-                          onClick={() => handleCheckout({priceId: "pri_01jmkcm4qxqbkgxwgxwn818nd7"})}
+                          onClick={() =>
+                            handleCheckout({
+                              priceId: "pri_01jmkcm4qxqbkgxwgxwn818nd7",
+                            })
+                          }
                           className="text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                         >
                           Get started
@@ -557,7 +581,11 @@ const Pricing = () => {
 
                         <p
                           // href="/accounts/signin"
-                          onClick={() => handleCheckout({priceId: "pri_01jmkctc6nq4ny9k59ye4p5ndz"})}
+                          onClick={() =>
+                            handleCheckout({
+                              priceId: "pri_01jmkctc6nq4ny9k59ye4p5ndz",
+                            })
+                          }
                           className="text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                         >
                           Get started
@@ -711,7 +739,11 @@ const Pricing = () => {
 
                         <p
                           // href="/accounts/signin"
-                          onClick={() => handleCheckout({priceId: "pri_01jmkcvr46znza92js4kamddvk"})}
+                          onClick={() =>
+                            handleCheckout({
+                              priceId: "pri_01jmkcvr46znza92js4kamddvk",
+                            })
+                          }
                           className="text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                         >
                           Get started

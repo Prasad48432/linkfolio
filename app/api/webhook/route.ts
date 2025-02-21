@@ -16,14 +16,27 @@ export async function POST(req: Request) {
   // Replace `WEBHOOK_SECRET_KEY` with the secret key in notifications from vendor dashboard
   const secretKey = process.env.NEXT_PUBLIC_WEBHOOK_SECRET_KEY || "";
 
+  type PaddleWebhookData = {
+    customData?: { user_id?: string };
+    id: string;
+    items: {
+      product?: { name?: string };
+      price?: {
+        name?: string;
+        unitPrice?: { amount?: number; currencyCode?: string };
+      };
+    }[];
+    createdAt: string;
+  };
+
   try {
     if (signature && rawRequestBody) {
       // The `unmarshal` function will validate the integrity of the webhook and return an entity
-      const eventData = await paddle.webhooks.unmarshal(
+      const eventData = (await paddle.webhooks.unmarshal(
         rawRequestBody,
         secretKey,
         signature
-      );
+      )) as { eventType: EventName; data: PaddleWebhookData };
 
       const { data: user, error: usererror } = await supabase.auth.getUser();
 
@@ -33,7 +46,7 @@ export async function POST(req: Request) {
           const { data: subData, error: subError } = await supabase
             .from("subscriptions")
             .insert({
-              user_id: user.user?.id,
+              user_id: eventData.data.customData?.user_id,
               subscription_id: eventData.data.id,
               subscription_status: true,
               subscription_type: eventData.data.items[0].product?.name,
@@ -50,7 +63,7 @@ export async function POST(req: Request) {
           const { data: payData, error: payError } = await supabase
             .from("transactions")
             .insert({
-              user_id: user.user?.id,
+              user_id: eventData.data.customData?.user_id,
               subscription_id: eventData.data.id,
               subscription_variant: eventData.data.items[0].price?.name,
               unit_price: eventData.data.items[0].price?.unitPrice?.amount,
@@ -65,7 +78,7 @@ export async function POST(req: Request) {
           const { data: payDataComp, error: payErrorComp } = await supabase
             .from("transactions")
             .insert({
-              user_id: user.user?.id,
+              user_id: eventData.data.customData?.user_id,
               subscription_id: eventData.data.id,
               subscription_variant: eventData.data.items[0].price?.name,
               unit_price: eventData.data.items[0].price?.unitPrice?.amount,
