@@ -1,7 +1,7 @@
 "use client";
 import React, { ReactNode, useEffect, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { PiRocketLaunch, PiCubeLight } from "react-icons/pi";
 import { BiLink } from "react-icons/bi";
 import { MdKeyboardArrowRight } from "react-icons/md";
@@ -9,17 +9,26 @@ import { User } from "@supabase/supabase-js";
 import { Loader } from "lucide-react";
 import { Menu, X } from "lucide-react";
 import useWindowSize from "@/app/hooks/useWindowSize";
-import { logout } from "@/app/dashboard/action";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ToastError, ToastSuccess } from "./toast";
-import { HomeProfileData } from "@/types/user";
-import { createClient } from "@/utils/supabase/client";
 import type { Database } from "@/types/supabasetypes";
-import { IoMoon, IoSunny } from "react-icons/io5";
+import UserPopover from "./userpopover";
+import LogoutConfirmation from "./logoutconfirmation";
 
 type blog = Database["public"]["Tables"]["blogs"]["Row"];
+
+type Subscription = {
+  subscription_status: boolean;
+  subscription_type: string;
+};
+
+type Profile = {
+  id: string; // Assuming UUID
+  full_name: string;
+  email: string;
+  username: string;
+  subscriptions?: Subscription[]; // Can be empty if no subscription
+};
 
 const Navbar = ({
   isNavbarOpen,
@@ -27,48 +36,21 @@ const Navbar = ({
   setDropdown1Open,
   setDropdown2Open,
   loading,
-  userData,
   user,
+  profileData,
+  blogs,
 }: {
   isNavbarOpen: boolean;
   setIsNavbarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setDropdown1Open: React.Dispatch<React.SetStateAction<boolean>>;
   setDropdown2Open: React.Dispatch<React.SetStateAction<boolean>>;
   loading: boolean;
-  userData: HomeProfileData;
   user: User | null;
+  profileData: Profile | null;
+  blogs: blog[];
 }) => {
-  const [blogs, setBlogs] = useState<blog[]>(() => []);
+  const [logoutModal, setLogoutModal] = useState(false);
   const size = useWindowSize();
-  const router = useRouter();
-  const supabase = createClient();
-
-  const handleLogout = async () => {
-    try {
-      const response = await logout();
-      if (response.success) {
-        ToastSuccess({ message: "Logout successful." });
-        router.push("/login");
-      }
-    } catch (error) {
-      ToastError({ message: "An unexpected error occurred." });
-    }
-  };
-
-  const fetchBlogs = async () => {
-    const { data, error } = await supabase
-      .from("blogs")
-      .select("*")
-      .order("created_at", { ascending: true })
-      .limit(2);
-
-    if (error) {
-      ToastError({ message: "Error fetching blogs" });
-      return;
-    }
-
-    setBlogs(data ?? []);
-  };
 
   useEffect(() => {
     const topDiv = document.getElementById("topdiv");
@@ -83,7 +65,6 @@ const Navbar = ({
       topDiv?.classList.remove("z-[42]");
       topDiv?.classList.add("z-40");
     });
-    fetchBlogs();
   }, []);
 
   useEffect(() => {
@@ -100,187 +81,183 @@ const Navbar = ({
   }, [isNavbarOpen]);
 
   return (
-    <div
-      id="topdiv"
-      className="sticky top-0 transform z-40 bg-lightprimary-bg dark:bg-primary-bg/90"
-    >
-      <div className="absolute inset-0 h-full w-full bg-lightprimary-bg/70 dark:bg-primary-bg/90 !opacity-100 transition-opacity"></div>
-      <nav
-        style={
-          {
-            // background: isNavbarOpen ? "#121212" : "transparent",
-          }
-        }
-        className={`${
-          isNavbarOpen && size.width < 1024 ? "border-none" : "border-b"
-        } relative z-40 border-brdr backdrop-blur-sm transition-opacity bg-lightprimary-bg dark:bg-primary-bg  border-lightsecondary-border dark:border-secondary-border dark:shadow-lg dark:shadow-primary-bg/80`}
+    <>
+      <LogoutConfirmation modal={logoutModal} setModal={setLogoutModal} />
+      <div
+        id="topdiv"
+        className="sticky top-0 transform z-40 bg-lightprimary-bg dark:bg-primary-bg/90"
       >
-        <div className="relative flex justify-between h-16 mx-auto lg:container lg:px-16 xl:px-20">
-          <div className="flex items-center px-6 lg:px-0 flex-1 sm:items-stretch justify-between">
-            <div id="bottomdiv" className="flex items-center">
-              <div className="flex items-center flex-shrink-0">
-                <a
-                  className="flex gap-1 items-center justify-center w-auto focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-foreground-lighter focus-visible:ring-offset-4 focus-visible:ring-offset-background-alternative focus-visible:rounded-sm"
-                  type="button"
-                  id="radix-:Rlcna6:"
-                  aria-haspopup="menu"
-                  aria-expanded="false"
-                  data-state="closed"
-                  href="/"
-                >
-                  <Image
-                    className="w-[124px] h-[24px] block dark:hidden"
-                    src="/darkheaderlogo.png"
-                    alt="Header Logo"
-                    width={124}
-                    height={24}
-                    priority
-                  />
+        <div className="absolute inset-0 h-full w-full bg-lightprimary-bg/70 dark:bg-primary-bg/90 !opacity-100 transition-opacity"></div>
+        <nav
+          style={
+            {
+              // background: isNavbarOpen ? "#121212" : "transparent",
+            }
+          }
+          className={`${
+            isNavbarOpen && size.width < 1024 ? "border-none" : "border-b"
+          } relative z-40 border-brdr backdrop-blur-sm transition-opacity bg-lightprimary-bg dark:bg-primary-bg  border-lightsecondary-border dark:border-secondary-border dark:shadow-lg dark:shadow-primary-bg/80`}
+        >
+          <div className="relative flex justify-between h-16 mx-auto lg:container lg:px-16 xl:px-20">
+            <div className="flex items-center px-6 lg:px-0 flex-1 sm:items-stretch justify-between">
+              <div id="bottomdiv" className="flex items-center">
+                <div className="flex items-center flex-shrink-0">
+                  <a
+                    className="flex gap-1 items-center justify-center w-auto focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-foreground-lighter focus-visible:ring-offset-4 focus-visible:ring-offset-background-alternative focus-visible:rounded-sm"
+                    type="button"
+                    id="radix-:Rlcna6:"
+                    aria-haspopup="menu"
+                    aria-expanded="false"
+                    data-state="closed"
+                    href="/"
+                  >
+                    <Image
+                      className="w-[124px] h-[24px] block dark:hidden"
+                      src="/darkheaderlogo.png"
+                      alt="Header Logo"
+                      width={124}
+                      height={24}
+                      priority
+                    />
 
-                  {/* Dark Mode Image */}
-                  <Image
-                    className="w-[124px] h-[24px] hidden dark:block"
-                    src="/headerlogo.png"
-                    alt="Header Logo Dark"
-                    width={124}
-                    height={24}
-                    priority
-                  />
-                </a>
+                    {/* Dark Mode Image */}
+                    <Image
+                      className="w-[124px] h-[24px] hidden dark:block"
+                      src="/headerlogo.png"
+                      alt="Header Logo Dark"
+                      width={124}
+                      height={24}
+                      priority
+                    />
+                  </a>
+                </div>
+                <nav
+                  aria-label="Main"
+                  data-orientation="horizontal"
+                  dir="ltr"
+                  className="relative z-10 flex-1 items-center justify-center hidden pl-8 sm:space-x-4 lg:flex h-16"
+                >
+                  <div style={{ position: "relative" }}>
+                    <ul
+                      data-orientation="horizontal"
+                      className="group flex flex-1 list-none items-center justify-center space-x-1"
+                      dir="ltr"
+                    >
+                      <li className="text-sm font-medium">
+                        <Tabs blogs={blogs} />
+                      </li>
+                      <li className="text-sm font-medium">
+                        <a
+                          className="group/menu-item flex items-center text-sm hover:text-lightaccent-selection dark:hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-accent-text-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
+                          data-radix-collection-item=""
+                          href="/pricing"
+                        >
+                          <div className="flex flex-col justify-center">
+                            <div className="flex items-center gap-1">
+                              <p className="leading-snug text-lightprimary-text dark:text-primary-text group-hover/menu-item:text-lightaccent-selection dark:group-hover/menu-item:text-accent-text">
+                                Pricing
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                      <li className="text-sm font-medium">
+                        <a
+                          className="group/menu-item flex items-center text-sm hover:text-lightaccent-selection dark:hover:text-accent-text  select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-accent-text-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
+                          data-radix-collection-item=""
+                          href="/docs"
+                        >
+                          <div className="flex flex-col justify-center">
+                            <div className="flex items-center gap-1">
+                              <p className="leading-snug text-lightprimary-text dark:text-primary-text group-hover/menu-item:text-lightaccent-selection dark:group-hover/menu-item:text-accent-text">
+                                Docs
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                      <li className="text-sm font-medium">
+                        <a
+                          className="group/menu-item flex items-center text-sm hover:text-lightaccent-selection dark:hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-foreground-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
+                          data-radix-collection-item=""
+                          href="/blog"
+                        >
+                          <div className="flex flex-col justify-center">
+                            <div className="flex items-center gap-1">
+                              <p className="leading-snug text-lightprimary-text dark:text-primary-text group-hover/menu-item:text-lightaccent-selection dark:group-hover/menu-item:text-accent-text">
+                                Blogs
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="absolute left-0 top-full flex justify-center" />
+                </nav>
               </div>
-              <nav
-                aria-label="Main"
-                data-orientation="horizontal"
-                dir="ltr"
-                className="relative z-10 flex-1 items-center justify-center hidden pl-8 sm:space-x-4 lg:flex h-16"
-              >
-                <div style={{ position: "relative" }}>
-                  <ul
-                    data-orientation="horizontal"
-                    className="group flex flex-1 list-none items-center justify-center space-x-1"
-                    dir="ltr"
-                  >
-                    <li className="text-sm font-medium">
-                      <Tabs blogs={blogs} />
-                    </li>
-                    <li className="text-sm font-medium">
-                      <a
-                        className="group/menu-item flex items-center text-sm hover:text-lightaccent-selection dark:hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-accent-text-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
-                        data-radix-collection-item=""
-                        href="/pricing"
-                      >
-                        <div className="flex flex-col justify-center">
-                          <div className="flex items-center gap-1">
-                            <p className="leading-snug text-lightprimary-text dark:text-primary-text group-hover/menu-item:text-lightaccent-selection dark:group-hover/menu-item:text-accent-text">
-                              Pricing
-                            </p>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li className="text-sm font-medium">
-                      <a
-                        className="group/menu-item flex items-center text-sm hover:text-lightaccent-selection dark:hover:text-accent-text  select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-accent-text-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
-                        data-radix-collection-item=""
-                        href="/docs"
-                      >
-                        <div className="flex flex-col justify-center">
-                          <div className="flex items-center gap-1">
-                            <p className="leading-snug text-lightprimary-text dark:text-primary-text group-hover/menu-item:text-lightaccent-selection dark:group-hover/menu-item:text-accent-text">
-                              Docs
-                            </p>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li className="text-sm font-medium">
-                      <a
-                        className="group/menu-item flex items-center text-sm hover:text-lightaccent-selection dark:hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-foreground-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
-                        data-radix-collection-item=""
-                        href="/blog"
-                      >
-                        <div className="flex flex-col justify-center">
-                          <div className="flex items-center gap-1">
-                            <p className="leading-snug text-lightprimary-text dark:text-primary-text group-hover/menu-item:text-lightaccent-selection dark:group-hover/menu-item:text-accent-text">
-                              Blogs
-                            </p>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="absolute left-0 top-full flex justify-center" />
-              </nav>
-            </div>
-            <div className="flex items-center gap-2 select-none">
-              {loading ? (
-                <Loader className="mr-2 h-4 w-4 animate-spin text-lightprimary-text dark:text-primary-text" />
-              ) : !user ? (
-                <>
-                  <a
-                    data-size="tiny"
-                    type="button"
-                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg  dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
-                    href="/login?next=/dashboard/home"
-                  >
-                    <span className="truncate">Login</span>
-                  </a>
-                  <Link
-                    href="/register?next=/dashboard/home"
-                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightaccent-bg dark:bg-accent-bg hover:bg-lightaccent-selection dark:hover:bg-accent-selection border-lightaccent-border dark:border-accent-border hover:border-lightaccent-strongerborder dark:hover:hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
-                  >
-                    <span className="truncate">Create your page</span>
-                  </Link>
-                </>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <a
-                    data-size="tiny"
-                    type="button"
-                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightaccent-bg dark:bg-accent-bg hover:bg-lightaccent-selection dark:hover:bg-accent-selection border-lightaccent-border dark:border-accent-border hover:border-lightaccent-strongerborder dark:hover:hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
-                    href="/dashboard/home"
-                  >
-                    <span className="truncate">Dashboard</span>
-                  </a>
-                  <p
-                    onClick={() => handleLogout()}
-                    className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightdanger-bg dark:bg-danger-bg hover:bg-lightdanger-selection dark:hover:bg-danger-selection border-lightdanger-border dark:border-danger-border hover:border-lightdanger-strongerborder dark:hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
-                  >
-                    <span className="truncate">Logout</span>
-                  </p>
-                  <Image
-                    width={200}
-                    height={200}
-                    className="bg-accent-bg/20 h-8 md:h-10 w-8 md:w-10 rounded-full object-cover"
-                    referrerPolicy="no-referrer"
-                    src={user?.identities?.[0]?.identity_data?.avatar_url}
-                    alt="User Profile"
-                  />
-                </div>
-              )}
-              <motion.div
-                className="block lg:hidden cursor-pointer text-lightprimary-text dark:text-primary-text"
-                onClick={() => {
-                  setIsNavbarOpen(!isNavbarOpen);
-                  setDropdown1Open(false);
-                  setDropdown2Open(false);
-                }}
-                initial={{ opacity: 0.7 }}
-                animate={{ opacity: isNavbarOpen ? 0.7 : 1 }}
-                transition={{ duration: 1 }}
-              >
-                {isNavbarOpen ? (
-                  <X className="h-6 w-6" /> // Cross icon
+              <div className="flex items-center gap-2 select-none">
+                {loading ? (
+                  <Loader className="mr-2 h-4 w-4 animate-spin text-lightprimary-text dark:text-primary-text" />
+                ) : !user ? (
+                  <>
+                    <a
+                      data-size="tiny"
+                      type="button"
+                      className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg  dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                      href="/login?next=/dashboard/home"
+                    >
+                      <span className="truncate">Login</span>
+                    </a>
+                    <Link
+                      href="/register?next=/dashboard/home"
+                      className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightaccent-bg dark:bg-accent-bg hover:bg-lightaccent-selection dark:hover:bg-accent-selection border-lightaccent-border dark:border-accent-border hover:border-lightaccent-strongerborder dark:hover:hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                    >
+                      <span className="truncate">Create your page</span>
+                    </Link>
+                  </>
                 ) : (
-                  <Menu className="h-6 w-6" /> // Menu icon
+                  <div className="flex items-center gap-2">
+                    <a
+                      data-size="tiny"
+                      type="button"
+                      className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightaccent-bg dark:bg-accent-bg hover:bg-lightaccent-selection dark:hover:bg-accent-selection border-lightaccent-border dark:border-accent-border hover:border-lightaccent-strongerborder dark:hover:hover:border-accent-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                      href="/dashboard/home"
+                    >
+                      <span className="truncate">Dashboard</span>
+                    </a>
+                    <p
+                      onClick={() => setLogoutModal(true)}
+                      className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightdanger-bg dark:bg-danger-bg hover:bg-lightdanger-selection dark:hover:bg-danger-selection border-lightdanger-border dark:border-danger-border hover:border-lightdanger-strongerborder dark:hover:border-danger-strongerborder focus-visible:outline-brand-600 data-[state=open]:bg-selection data-[state=open]:outline-brand-600 data-[state=open]:border-button-hover text-xs px-2.5 py-1 h-[26px] hidden lg:block"
+                    >
+                      <span className="truncate">Logout</span>
+                    </p>
+                    <UserPopover user={user} profileData={profileData} />
+                  </div>
                 )}
-              </motion.div>
+                <motion.div
+                  className="block lg:hidden cursor-pointer text-lightprimary-text dark:text-primary-text"
+                  onClick={() => {
+                    setIsNavbarOpen(!isNavbarOpen);
+                    setDropdown1Open(false);
+                    setDropdown2Open(false);
+                  }}
+                  initial={{ opacity: 0.7 }}
+                  animate={{ opacity: isNavbarOpen ? 0.7 : 1 }}
+                  transition={{ duration: 1 }}
+                >
+                  {isNavbarOpen ? (
+                    <X className="h-6 w-6" /> // Cross icon
+                  ) : (
+                    <Menu className="h-6 w-6" /> // Menu icon
+                  )}
+                </motion.div>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
-    </div>
+        </nav>
+      </div>
+    </>
   );
 };
 

@@ -24,18 +24,26 @@ const Pricing = () => {
     const { data: user, error } = await supabase.auth.getUser();
 
     if (error || !user?.user?.id) {
-      ToastError({message: "No user Logged in."})
-      return
+      ToastError({ message: "No user Logged in." });
+      return;
     }
+    // Detect system theme preference
+    const prefersDarkMode = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const theme = prefersDarkMode ? "dark" : "light";
 
     paddle.Checkout.open({
       items: [{ priceId: priceId, quantity: 1 }],
       customData: {
         user_id: user.user.id, // Pass user ID to Paddle
       },
+      customer: {
+        email: user?.user?.email || "",
+      },
       settings: {
         displayMode: "overlay",
-        theme: "dark",
+        theme: theme,
         successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
       },
     });

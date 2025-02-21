@@ -2,12 +2,11 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
-import { logout } from "../action";
-import { toast } from "sonner";
+import { logout } from "@/lib/action";
 import { Loader } from "lucide-react";
 import { ToastError, ToastSuccess } from "@/components/toast";
 
-const LogoutConfiramtion = ({
+const LogoutConfirmation = ({
   modal,
   setModal,
 }: {
@@ -127,4 +126,4 @@ const LogoutConfiramtion = ({
   );
 };
 
-export default LogoutConfiramtion;
+export default LogoutConfirmation;

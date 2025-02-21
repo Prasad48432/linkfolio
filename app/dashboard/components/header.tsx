@@ -4,7 +4,7 @@ import Link from "next/link";
 import { User } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
 import { Loader, Menu, MoveUpRight, X } from "lucide-react";
-import LogoutConfiramtion from "./logout-confirmation";
+import LogoutConfirmation from "@/components/logoutconfirmation";
 import { Cycle, motion } from "motion/react";
 import Image from "next/image";
 
@@ -67,30 +67,30 @@ const Header = ({
   return (
     <div className="sticky inset-x-0 top-0 z-30 w-full transition-all bg-lightprimary-bg dark:bg-primary-bg border-b border-lightsecondary-border dark:border-secondary-border">
       <div className="flex h-[60px] items-center justify-between px-4 relative">
-        <LogoutConfiramtion modal={logoutModal} setModal={setLogoutModal} />
+        <LogoutConfirmation modal={logoutModal} setModal={setLogoutModal} />
         <div className="flex items-center space-x-4">
           <Link
             href="/"
             className="flex flex-row space-x-3 items-center justify-center md:hidden"
           >
-                      <Image
-                        className="w-[124px] h-[24px] block dark:hidden"
-                        src="/darkheaderlogo.png"
-                        alt="Header Logo"
-                        width={124}
-                        height={24}
-                        priority
-                      />
-            
-                      {/* Dark Mode Image */}
-                      <Image
-                        className="w-[124px] h-[24px] hidden dark:block"
-                        src="/headerlogo.png"
-                        alt="Header Logo Dark"
-                        width={124}
-                        height={24}
-                        priority
-                      />
+            <Image
+              className="w-[124px] h-[24px] block dark:hidden"
+              src="/darkheaderlogo.png"
+              alt="Header Logo"
+              width={124}
+              height={24}
+              priority
+            />
+
+            {/* Dark Mode Image */}
+            <Image
+              className="w-[124px] h-[24px] hidden dark:block"
+              src="/headerlogo.png"
+              alt="Header Logo Dark"
+              width={124}
+              height={24}
+              priority
+            />
           </Link>
         </div>
 

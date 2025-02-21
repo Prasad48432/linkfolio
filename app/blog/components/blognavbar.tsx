@@ -5,7 +5,7 @@ import type { User } from "@supabase/supabase-js";
 import { Loader, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { logout } from "@/app/dashboard/action";
+import { logout } from "@/lib/action";
 import { ToastError, ToastSuccess } from "@/components/toast";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
