@@ -156,12 +156,24 @@ const config: Config = {
             transform: "translateX(100%)",
           },
         },
+        shine: {
+          "0%": {
+            backgroundPosition: "0 0",
+          },
+          "33.33%": {
+            backgroundPosition: "-220% 0",
+          },
+          "100%": {
+            backgroundPosition: "-220% 0", // Maintain end state during delay
+          },
+        }
       },
       animation: {
         slideIn: "slideIn 0.3s ease-out",
         spotlight: "spotlight 2s ease .75s 1 forwards",
         pingCustom: "pingCustom 1s cubic-bezier(0, 0, 0.2, 1) infinite",
         shimmer: "shimmer 1.5s infinite",
+        shine: "shine 4s linear infinite"
       },
     },
   },

@@ -6,7 +6,6 @@ import SourcesChart from "./components/sourceschart";
 import ViewsChart from "./components/viewschart";
 import SubscribersChart from "./components/subscriberschart";
 
-
 const Component = () => {
   const supabase = createClient();
   const [fetchLoading, setFetchLoading] = useState(true);
@@ -19,7 +18,16 @@ const Component = () => {
     projects: [],
     links: [],
   });
+  const [views, setViews] = useState({
+    totalViews: 0,
+    uniqueVisitors: 0,
+    monthltyViews: {},
+  });
 
+  const [newsletterSubscribers, setNewsletterSubscribers] = useState({
+    totalSubscribers: 0,
+    monthlySubscribers: {},
+  });
 
   useEffect(() => {
     const fetchClicks = async () => {
@@ -61,15 +69,166 @@ const Component = () => {
       }
     };
 
+    const fetchViews = async () => {
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        const userId = user?.id;
+        if (!userId) return;
+
+        const { data: viewsData, error: viewsError } = await supabase
+          .from("pageviews")
+          .select("*")
+          .eq("user_id", user.id);
+
+        if (viewsError) {
+          console.log("Error fetching views:", viewsError);
+          return;
+        }
+
+        // console.log(viewsData);
+        const uniqueVisitors = viewsData.length; // Number of unique visitors (each object represents one visitor)
+        const totalViews = viewsData.reduce((sum, item) => sum + item.views, 0); // Sum up all views
+
+        // Merging monthly_views
+        const mergedMonthlyViews = viewsData.reduce((acc, item) => {
+          for (const [month, count] of Object.entries(
+            item.monthly_views || {}
+          )) {
+            acc[month] = (acc[month] || 0) + count;
+          }
+          return acc;
+        }, {});
+
+        const monthMap = {
+          Jan: 0,
+          Feb: 1,
+          Mar: 2,
+          Apr: 3,
+          May: 4,
+          Jun: 5,
+          Jul: 6,
+          Aug: 7,
+          Sep: 8,
+          Oct: 9,
+          Nov: 10,
+          Dec: 11,
+        } as const;
+
+        const formattedViewsData = Object.entries(mergedMonthlyViews)
+          .map(([month, views]) => ({ month, views }))
+          .sort((a, b) => {
+            const [aMonth, aYear] = a.month.split("-");
+            const [bMonth, bYear] = b.month.split("-");
+
+            const yearA = parseInt(aYear, 10) + 2000; // Convert "24" -> 2024
+            const yearB = parseInt(bYear, 10) + 2000;
+
+            const monthA = monthMap[aMonth as keyof typeof monthMap]; // ✅ Fix
+            const monthB = monthMap[bMonth as keyof typeof monthMap]; // ✅ Fix
+
+            return yearA === yearB ? monthA - monthB : yearA - yearB;
+          });
+
+        setViews({
+          totalViews: totalViews,
+          uniqueVisitors: uniqueVisitors,
+          monthltyViews: formattedViewsData,
+        });
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    const fetchNewsLetterSubscriber = async () => {
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        const userId = user?.id;
+        if (!userId) return;
+
+        const { data: newsletterData, error: newsletterError } = await supabase
+          .from("newsletter_subscribers")
+          .select("timestamp")
+          .eq("user_id", user.id);
+
+        if (newsletterError) {
+          console.error("Error fetching newsletter data:", newsletterError);
+          return;
+        }
+
+        const totalSubscribers = newsletterData.length;
+
+        // Group by month
+        const subscribersByMonth = newsletterData.reduce(
+          (acc, { timestamp }) => {
+            const date = new Date(timestamp);
+            const monthKey = `${date.toLocaleString("en-US", {
+              month: "short",
+            })}-${date.getFullYear().toString().slice(-2)}`;
+
+            acc[monthKey] = (acc[monthKey] || 0) + 1;
+            return acc;
+          },
+          {} as Record<string, number>
+        );
+
+        // Convert to formatted array
+        const formattedData = Object.entries(subscribersByMonth)
+          .map(([month, subscribers]) => ({ month, subscribers }))
+          .sort((a, b) => {
+            const [aMonth, aYear] = a.month.split("-");
+            const [bMonth, bYear] = b.month.split("-");
+
+            const monthMap = {
+              Jan: 0,
+              Feb: 1,
+              Mar: 2,
+              Apr: 3,
+              May: 4,
+              Jun: 5,
+              Jul: 6,
+              Aug: 7,
+              Sep: 8,
+              Oct: 9,
+              Nov: 10,
+              Dec: 11,
+            };
+
+            const yearA = parseInt(aYear, 10) + 2000;
+            const yearB = parseInt(bYear, 10) + 2000;
+            const monthA = monthMap[aMonth as keyof typeof monthMap];
+            const monthB = monthMap[bMonth as keyof typeof monthMap];
+
+            return yearA === yearB ? monthA - monthB : yearA - yearB;
+          });
+
+        setNewsletterSubscribers({
+          totalSubscribers: totalSubscribers,
+          monthlySubscribers: formattedData,
+        });
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
     fetchClicks();
+    fetchViews();
+    fetchNewsLetterSubscriber();
   }, []);
 
   return (
     <div className="grid grid-cols-8 gap-4 p-4">
       <ClicksChart fetchLoading={fetchLoading} clicks={clicks} />
       <SourcesChart fetchLoading={fetchLoading} />
-      <ViewsChart fetchLoading={fetchLoading} />
-      <SubscribersChart fetchLoading={fetchLoading} />
+      <ViewsChart
+        fetchLoading={fetchLoading}
+        views={views}
+        monthlyviews={views.monthltyViews}
+      />
+      <SubscribersChart fetchLoading={fetchLoading} newsletterSubscribers={newsletterSubscribers} monthlySubscribers={newsletterSubscribers.monthlySubscribers} />
     </div>
   );
 };

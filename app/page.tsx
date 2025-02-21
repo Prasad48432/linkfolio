@@ -11,6 +11,8 @@ import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
 import { Loader, MoveRight } from "lucide-react";
 import Marquee from "react-fast-marquee";
+import Payment from "@/components/payment";
+import Pricing from "@/components/pricing";
 
 type profile = {
   full_name: string | null;
@@ -103,6 +105,7 @@ export default function Home() {
     };
   }, [isNavbarOpen]);
 
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSpotlight(true);
@@ -172,7 +175,9 @@ export default function Home() {
                       <h1
                         className={`bricolage text-foreground font-extrabold text-herosize lg:text-7xl tracking-tight select-none`}
                       >
-                        <span className="block text-lightprimary-text dark:text-primary-text lg:mb-2">
+                        <span
+                          className="block cursor-pointer text-lightprimary-text dark:text-primary-text lg:mb-2"
+                        >
                           The spotlight your
                         </span>
                         <span className="text-lightaccent-text dark:text-accent-text block md:ml-0">
@@ -215,6 +220,7 @@ export default function Home() {
                         </a>
                       </div>
                     )}
+                    <Payment />
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-2 w-full lg:w-3/4 mt-3 lg:mt-0 relative">
                       <div className="absolute h-full w-28 bg-gradient-to-r from-lightprimary-bg dark:from-primary-bg to-transparent z-10 pointer-events-none left-0 top-0"></div>
                       <div className="absolute h-full w-28 bg-gradient-to-l from-lightprimary-bg dark:from-primary-bg to-transparent z-10 pointer-events-none right-0 top-0"></div>
@@ -263,6 +269,7 @@ export default function Home() {
               </div>
             </div>
           </div>
+          <Pricing />
           <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20 pt-8 pb-10 md:pt-16 grid grid-cols-4 gap-4 w-full">
             <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
             <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>

@@ -21,12 +21,34 @@ export const subscribeUser = async ({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data, error } = await supabase.from("newsletter_subscribers").insert({
-    user_id: user?.id,
-    email: email,
-    status: true,
-  });
+  const { data: existingSubscribers } = await supabase
+    .from("newsletter_subscribers")
+    .select("id")
+    .eq("user_id", user?.id)
+    .eq("email", email)
+    .single();
 
+  if (existingSubscribers) {
+    ToastError({ message: "You are already subscribed." });
+    return;
+  }
+
+  // Insert new subscription
+  const { error: insertError } = await supabase
+    .from("newsletter_subscribers")
+    .insert({
+      user_id: user?.id,
+      email: email,
+      status: true,
+    });
+
+  if (insertError) {
+    ToastError({ message: "Error adding subscriber." });
+    return;
+  }
+
+  ToastSuccess({ message: "Added Subscriber." });
+  setEmail("");
   // const res = await fetch("/api/mailchimp-subscribe", {
   //   method: "POST",
   //   headers: { "Content-Type": "application/json" },
@@ -34,6 +56,4 @@ export const subscribeUser = async ({
   // });
 
   // const data = await res.json();
-  ToastSuccess({ message: "Added Subscriber." });
-  setEmail("");
 };

@@ -7,6 +7,8 @@ import MobileSocialsRender from "./components/mobilesocials";
 import { Metadata } from "next";
 import { CiEdit } from "react-icons/ci";
 import removeMarkdown from "remove-markdown";
+import TrackView from "./components/trackview";
+
 
 interface Params {
   username: string;
@@ -51,7 +53,6 @@ export async function generateMetadata({
 
 const getNameBio = async (username: string) => {
   const supabase = createClient();
-
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("full_name, bio, avatar_url, favicon")
@@ -109,6 +110,7 @@ export default async function UsernamePage({ params }: { params: Params }) {
       .order("index", { ascending: true }),
   ]);
 
+
   return (
     <div
       style={{
@@ -130,6 +132,7 @@ export default async function UsernamePage({ params }: { params: Params }) {
           <CiEdit className="text-base lg:text-lg" /> <p className="hidden md:block">Edit Page</p>
         </a>
       )}
+      <TrackView username={params.username} profile={profile} />
       <div
         style={{
           borderColor: profile.theme.strongerborder || "#4d4d4d",

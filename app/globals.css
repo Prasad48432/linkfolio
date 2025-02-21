@@ -114,23 +114,29 @@ body {
   font-family: var(--font-lexend);
 }
 
-.light {
-  --scrollbar-track: rgb(201, 201, 201);
-  --scrollbar-thumb: #3c402b;
-  --scrollbar-thumb-gradient: linear-gradient(360deg,
-      #3c402b 0%,
-      #494c3c 47%,
-      #3c402b 100%);
-}
+
 
 /* Dark Theme */
-.dark {
-  --scrollbar-track: rgb(47, 47, 47);
-  --scrollbar-thumb: rgb(207, 207, 207);
-  --scrollbar-thumb-gradient: linear-gradient(360deg,
-      rgb(115, 115, 115) 0%,
-      rgb(105, 105, 105) 47%,
-      rgb(115, 115, 115) 100%);
+@media (prefers-color-scheme: dark) {
+  :root {
+    --scrollbar-track: rgb(47, 47, 47);
+    --scrollbar-thumb: rgb(207, 207, 207);
+    --scrollbar-thumb-gradient: linear-gradient(360deg,
+        rgb(115, 115, 115) 0%,
+        rgb(105, 105, 105) 47%,
+        rgb(115, 115, 115) 100%);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --scrollbar-track: rgb(201, 201, 201);
+    --scrollbar-thumb: #3c402b;
+    --scrollbar-thumb-gradient: linear-gradient(360deg,
+        #3c402b 0%,
+        #494c3c 47%,
+        #3c402b 100%);
+  }
 }
 
 /* Apply Scrollbar Styling */
@@ -265,7 +271,7 @@ body {
   }
 }
 
-.light{
+.light {
   .blog_content_renderer h1 {
     font-size: 1.75rem;
     font-weight: 600;
@@ -315,5 +321,65 @@ body {
   background-size: 4px 4px;
   backdrop-filter: blur(3px);
   mask: linear-gradient(rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+  opacity: 1;
+}
+
+
+
+.dark{
+  .card-shard:after {  
+    content: "";
+    height: 130px;
+    width: 3px;  
+    position: absolute;  
+    left: -1px;
+    top: 65%;
+    transition: top, opacity;
+    transition-duration: 600ms;
+    transition-timing-function: ease;
+    background: linear-gradient(
+      transparent,
+      #ff5733,
+      transparent
+    );
+    opacity: 0;
+  }
+
+  .card-shard{
+    border: 1px solid #363636;
+  }
+}
+
+.light{
+  .card-shard:after {  
+    content: "";
+    height: 130px;
+    width: 3px;  
+    position: absolute;  
+    left: -1px;
+    top: 65%;
+    transition: top, opacity;
+    transition-duration: 600ms;
+    transition-timing-function: ease;
+    background: linear-gradient(
+      transparent,
+      #ff8266,
+      transparent
+    );
+    opacity: 0;
+  }
+
+  .card-shard{
+    border: 1px solid rgba(60, 64, 43, 0.4);
+  }
+}
+
+.card-shard:after {  
+  top: 65%;
+  opacity: 0;
+}
+
+.card-shard:hover:after {
+  top: 25%;
   opacity: 1;
 }

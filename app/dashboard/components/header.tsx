@@ -6,7 +6,7 @@ import { createClient } from "@/utils/supabase/client";
 import { Loader, Menu, MoveUpRight, X } from "lucide-react";
 import LogoutConfiramtion from "./logout-confirmation";
 import { Cycle, motion } from "motion/react";
-import { ToastError, ToastSuccess } from "@/components/toast";
+import Image from "next/image";
 
 type Profile = {
   bio: string | null;
@@ -73,7 +73,24 @@ const Header = ({
             href="/"
             className="flex flex-row space-x-3 items-center justify-center md:hidden"
           >
-            <img className="w-[124px] h-[24px]" src="/headerlogo.png" />
+                      <Image
+                        className="w-[124px] h-[24px] block dark:hidden"
+                        src="/darkheaderlogo.png"
+                        alt="Header Logo"
+                        width={124}
+                        height={24}
+                        priority
+                      />
+            
+                      {/* Dark Mode Image */}
+                      <Image
+                        className="w-[124px] h-[24px] hidden dark:block"
+                        src="/headerlogo.png"
+                        alt="Header Logo Dark"
+                        width={124}
+                        height={24}
+                        priority
+                      />
           </Link>
         </div>
 

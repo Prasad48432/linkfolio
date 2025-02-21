@@ -260,7 +260,7 @@ const Navbar = ({
                 </div>
               )}
               <motion.div
-                className="block lg:hidden cursor-pointer text-lightprimary-text lg:text-primary-text"
+                className="block lg:hidden cursor-pointer text-lightprimary-text dark:text-primary-text"
                 onClick={() => {
                   setIsNavbarOpen(!isNavbarOpen);
                   setDropdown1Open(false);

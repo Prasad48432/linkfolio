@@ -127,8 +127,8 @@ const SocialLinks = () => {
         onClick={() => setPreview(true)}
         className="lg:hidden font-bold py-1 px-2 inline-flex items-center justify-center bg-secondary-bg rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-secondary-strongerborder w-[120px] bottom-6 fixed left-1/2 translate-x-[-50%] z-[48]"
       >
-        <Eye strokeWidth={1} className="text-primarytext text-lg mr-1" />
-        <p className="text-primarytext font-semibold text-base">Preview</p>
+        <Eye strokeWidth={1} className="text-lightprimary-text dark:text-primary-text text-lg mr-1" />
+        <p className="text-lightprimary-text dark:text-primary-text font-semibold text-base">Preview</p>
       </div>
       <div className="flex gap-2 h-auto lg:h-[calc(100vh-100px)] relative">
         <div className="lg:w-[55%] w-full lg:overflow-y-auto">

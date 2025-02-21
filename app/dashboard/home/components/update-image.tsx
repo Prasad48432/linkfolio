@@ -65,7 +65,7 @@ const UpdateImage = ({
             width={600}
             height={600}
             src={image || "/avatars/annie.png"}
-            className="w-[4rem] lg:w-[6rem] h-[4rem] lg:h-[6rem] rounded-full ring-2 ring-lightsecondary-border dark:ring-secondary-border p-1 inline-block object-cover"
+            className="w-[4rem] lg:w-[6rem] h-[4rem] lg:h-[6rem] rounded-full ring-1 ring-lightsecondary-border dark:ring-secondary-border p-1 inline-block object-cover"
             referrerPolicy="no-referrer"
           />
         )}

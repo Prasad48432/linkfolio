@@ -64,7 +64,7 @@ const HeaderMobile = ({
       ref={containerRef}
     >
       <motion.div
-        className="absolute inset-0 right-0 w-full bg-primary-bg"
+        className="absolute inset-0 right-0 w-full bg-lightprimary-bg dark:bg-primary-bg"
         variants={sidebar}
       />
       <motion.ul
@@ -82,8 +82,8 @@ const HeaderMobile = ({
                   onClick={() => toggleOpen()}
                   className={`w-full py-2 pl-3 pr-4 text-base flex items-center justify-between font-medium ${
                     item.path === pathname
-                      ? "text-accent-text"
-                      : "text-primary-text/80"
+                      ? "text-lightaccent-text dark:text-accent-text"
+                      : "text-lightprimary-text/80 dark:text-primary-text/80"
                   }`}
                 >
                   {item.title}
@@ -92,7 +92,7 @@ const HeaderMobile = ({
               </MenuItem>
 
               {!isLastItem && (
-                <MenuItem className="my-1 h-px w-full bg-secondary-border" />
+                <MenuItem className="my-1 h-px w-full bg-lightsecondary-border dark:bg-secondary-border" />
               )}
             </div>
           );

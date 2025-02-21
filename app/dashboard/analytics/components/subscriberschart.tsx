@@ -18,14 +18,10 @@ import {
 import { TrendingUp } from "lucide-react";
 import { BsFiletypeCsv } from "react-icons/bs";
 
-const subsData = [
-  { month: "January", subscribers: 195 },
-  { month: "February", subscribers: 246 },
-  { month: "March", subscribers: 265 },
-  { month: "April", subscribers: 137 },
-  { month: "May", subscribers: 187 },
-  { month: "June", subscribers: 198 },
-];
+type NewsletterSubscribers = {
+  totalSubscribers: number;
+  monthlySubscribers: {};
+};
 const subsConfig = {
   subscribers: {
     label: "Subscribers",
@@ -33,7 +29,15 @@ const subsConfig = {
   },
 } satisfies ChartConfig;
 
-const SubscribersChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
+const SubscribersChart = ({
+  fetchLoading,
+  newsletterSubscribers,
+  monthlySubscribers,
+}: {
+  fetchLoading: boolean;
+  newsletterSubscribers: NewsletterSubscribers;
+  monthlySubscribers: any;
+}) => {
   return (
     <Card className="col-span-8 lg:col-span-4 rounded-lg">
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row mb-4 lg:mb-0">
@@ -49,13 +53,13 @@ const SubscribersChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
           {fetchLoading ? (
             <div className="w-1/2 flex">
               <div className="relative w-1/2 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
-                <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                <div className="w-full h-12 bg-[#c4b59f] dark:bg-secondary-bg  relative overflow-hidden rounded-md">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#c4b59f] via-[#928878] to-[#c4b59f] dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                 </div>
               </div>
               <div className="relative w-1/2 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
-                <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                <div className="w-full h-12 bg-[#c4b59f] dark:bg-secondary-bg  relative overflow-hidden rounded-md">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#c4b59f] via-[#928878] to-[#c4b59f] dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                 </div>
               </div>
             </div>
@@ -66,7 +70,7 @@ const SubscribersChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
                   Subscribers
                 </span>
                 <span className="text-lg font-bold leading-none sm:text-xl">
-                  345
+                  {newsletterSubscribers.totalSubscribers}
                 </span>
               </div>
               <div className="w-1/2 relative  flex flex-col items-center justify-center gap-2 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
@@ -90,9 +94,9 @@ const SubscribersChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
                 style={{
                   height: `${height}px`,
                 }}
-                className="w-[40px] lg:w-[80px] bg-secondary-bg rounded-lg relative overflow-hidden"
+                className="w-[40px] lg:w-[80px] bg-[#c4b59f] dark:bg-secondary-bg rounded-lg relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#c4b59f] via-[#928878] to-[#c4b59f] dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
             ))}
           </div>
@@ -100,7 +104,7 @@ const SubscribersChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
           <ChartContainer config={subsConfig}>
             <LineChart
               accessibilityLayer
-              data={subsData}
+              data={monthlySubscribers}
               margin={{
                 top: 20,
                 left: 12,
@@ -146,8 +150,12 @@ const SubscribersChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by <span className="text-lightsuccess-border dark:text-success-border">5.2%</span>{" "}
-              this month <TrendingUp className="h-4 w-4 text-lightsuccess-border dark:text-success-border" />
+              Trending up by{" "}
+              <span className="text-lightsuccess-border dark:text-success-border">
+                5.2%
+              </span>{" "}
+              this month{" "}
+              <TrendingUp className="h-4 w-4 text-lightsuccess-border dark:text-success-border" />
             </div>
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
               January - June 2024

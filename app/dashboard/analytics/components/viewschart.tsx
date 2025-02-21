@@ -15,40 +15,49 @@ import {
 } from "@/components/ui/chart";
 import { TrendingUp } from "lucide-react";
 
-const viewsData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-];
+// const viewsData = [
+//   { month: "January", desktop: 186 },
+//   // { month: "February", desktop: 305 },
+//   // { month: "March", desktop: 237 },
+//   // { month: "April", desktop: 73 },
+//   // { month: "May", desktop: 209 },
+//   // { month: "June", desktop: 214 },
+// ];
 const viewsConfig = {
-  desktop: {
-    label: "Desktop",
+  views: {
+    label: "Views",
     color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
-const ViewsChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
+const ViewsChart = ({
+  fetchLoading,
+  views,
+  monthlyviews,
+}: {
+  fetchLoading: boolean;
+  views: any;
+  monthlyviews: any;
+}) => {
+  // console.log("got views as", monthlyviews);
   return (
     <Card className="col-span-8 lg:col-span-4 rounded-lg">
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row mb-4 lg:mb-0">
         {fetchLoading ? (
           <>
             <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
-              <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+              <div className="w-full h-12 bg-[#c4b59f] dark:bg-secondary-bg  relative overflow-hidden rounded-md">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#c4b59f] via-[#928878] to-[#c4b59f] dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
             </div>
             <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
-              <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+              <div className="w-full h-12 bg-[#c4b59f] dark:bg-secondary-bg  relative overflow-hidden rounded-md">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#c4b59f] via-[#928878] to-[#c4b59f] dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
             </div>
             <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
-              <div className="w-full h-12 bg-secondary-bg  relative overflow-hidden rounded-md">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+              <div className="w-full h-12 bg-[#c4b59f] dark:bg-secondary-bg  relative overflow-hidden rounded-md">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#c4b59f] via-[#928878] to-[#c4b59f] dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
             </div>
           </>
@@ -57,7 +66,7 @@ const ViewsChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
             <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 first:border-l-0 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
               <span className="text-xs text-muted-foreground">Page Views</span>
               <span className="text-lg font-bold leading-none sm:text-xl">
-                345
+                {views.totalViews}
               </span>
             </div>
             <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
@@ -65,7 +74,7 @@ const ViewsChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
                 Unique Visitors
               </span>
               <span className="text-lg font-bold leading-none sm:text-xl">
-                345
+                {views.uniqueVisitors}
               </span>
             </div>
             <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
@@ -73,7 +82,7 @@ const ViewsChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
                 Live Visitors
               </span>
               <span className="text-lg font-bold leading-none sm:text-xl relative">
-                345
+                3
                 <span className="absolute top-1/2 -translate-y-1/2 -right-4 w-2 h-2 flex items-center justify-center">
                   <span className="absolute w-full h-full bg-green-600 dark:bg-green-500 rounded-full"></span>
                   <span className="absolute w-full h-full bg-green-600 dark:bg-green-500 rounded-full opacity-75 animate-ping"></span>
@@ -92,9 +101,9 @@ const ViewsChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
                 style={{
                   height: `${height}px`,
                 }}
-                className="w-[40px] lg:w-[80px] bg-secondary-bg rounded-lg relative overflow-hidden"
+                className="w-[40px] lg:w-[80px] bg-[#c4b59f] dark:bg-secondary-bg rounded-lg relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary-bg via-gray-400/20 to-secondary-bg animate-shimmer" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#c4b59f] via-[#928878] to-[#c4b59f] dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
               </div>
             ))}
           </div>
@@ -102,7 +111,7 @@ const ViewsChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
           <ChartContainer config={viewsConfig}>
             <LineChart
               accessibilityLayer
-              data={viewsData}
+              data={monthlyviews}
               margin={{
                 top: 20,
                 left: 12,
@@ -122,12 +131,12 @@ const ViewsChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
                 content={<ChartTooltipContent indicator="line" />}
               />
               <Line
-                dataKey="desktop"
+                dataKey="views"
                 type="natural"
-                stroke="var(--color-desktop)"
+                stroke="var(--color-views)"
                 strokeWidth={2}
                 dot={{
-                  fill: "var(--color-desktop)",
+                  fill: "var(--color-views)",
                 }}
                 activeDot={{
                   r: 6,
@@ -148,8 +157,12 @@ const ViewsChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by <span className="text-lightsuccess-border dark:text-success-border">5.2%</span>{" "}
-              this month <TrendingUp className="h-4 w-4 text-lightsuccess-border dark:text-success-border" />
+              Trending up by{" "}
+              <span className="text-lightsuccess-border dark:text-success-border">
+                5.2%
+              </span>{" "}
+              this month{" "}
+              <TrendingUp className="h-4 w-4 text-lightsuccess-border dark:text-success-border" />
             </div>
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
               January - June 2024
