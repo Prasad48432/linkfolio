@@ -1,20 +1,17 @@
 import Navbar from "@/components/navbar";
-import { Suspense } from "react";
 import CookieConsent from "@/components/cookieconsent";
 import { createClient } from "@/utils/supabase/server";
 import { FlagIcon } from "lucide-react";
 import Pricing from "@/components/pricing";
 import Hero from "@/components/hero";
-import HeroLoader from "@/components/heroloader";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-
   return {
     title: "Linkfolio",
     description: "Your portfolio on web light and powerful",
     icons: {
-      icon: '/favicons/darkfav.ico'
+      icon: "/favicons/darkfav.ico",
     },
     openGraph: {
       title: "Linkfolio",
@@ -28,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
           alt: "Linkfolio's OpenGraph Image",
         },
       ],
-      siteName: "Linkfolio site"
+      siteName: "Linkfolio site",
     },
     twitter: {
       card: "summary",
@@ -88,9 +85,7 @@ export default async function Home() {
     <div className="w-full h-full flex flex-col antialiased">
       <Navbar user={user} profileData={profileData} blogs={blogsData} />
       <CookieConsent />
-      <Suspense fallback={<HeroLoader />}>
-        <Hero trendingProfiles={trendingProfiles} user={user} />
-      </Suspense>
+      <Hero trendingProfiles={trendingProfiles} user={user} />
       {(!user || profileData?.subscriptions?.length === 0) && (
         <Pricing user={user} />
       )}
