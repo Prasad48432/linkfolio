@@ -22,18 +22,19 @@ export async function generateMetadata(): Promise<Metadata> {
       url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
       images: [
         {
-          url: "/public/darkheader.png",
+          url: "/darkheaderlogo.png",
           width: 1200,
           height: 630,
           alt: "Linkfolio's OpenGraph Image",
         },
       ],
+      siteName: "Linkfolio site"
     },
     twitter: {
       card: "summary",
       title: "Linkfolio",
       description: "Your portfolio on web light and powerful",
-      images: ["/public/darkheader.png"],
+      images: ["/darkheaderlogo.png"],
     },
   };
 }
