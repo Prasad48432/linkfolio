@@ -61,7 +61,7 @@ const Hero = ({ trendingProfiles,user }: { trendingProfiles: any[] | null;   use
                               50% off ends soon!
                             </div>
                             <span className="text-lightprimary-text dark:text-primary-text announcement-text">
-                              Learn more
+                              Avail now
                             </span>
                             <MoveRight
                               strokeWidth={1}

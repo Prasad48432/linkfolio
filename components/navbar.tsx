@@ -15,6 +15,7 @@ import type { Database } from "@/types/supabasetypes";
 import UserPopover from "./userpopover";
 import LogoutConfirmation from "./logoutconfirmation";
 import { useNavbar } from "@/context/navbarcontext";
+import { LuScrollText } from "react-icons/lu";
 
 type blog = Database["public"]["Tables"]["blogs"]["Row"];
 
@@ -336,18 +337,18 @@ const Navbar = ({
                       </div>
                       <div className="flex items-center justify-center gap-2 cursor-pointer group/menu-item">
                         <p className="h-10 w-10 flex items-center justify-center rounded-md border bg-lightsecondary-bg dark:bg-secondary-bg border-lightsecondary-border/50 dark:border-secondary-border/50 group-hover/menu-item:border-secondary-strongerborder dark:group-hover/menu-item:border-secondary-strongerborder transition-all ease-out duration-200">
-                          <BiLink
+                          <LuScrollText
                             size={25}
                             className="text-lightprimary-text/70 dark:text-primary-text/70 group-hover/menu-item:text-lightprimary-text dark:group-hover/menu-item:text-primary-text transition-all ease-out duration-200"
                           />
                         </p>
                         <div className="flex flex-col items-start justify-center">
                           <p className="text-lightprimary-text dark:text-primary-text text-sm leading-snug flex items-center justify-center">
-                            Links{" "}
+                            Blogs{" "}
                             <MdKeyboardArrowRight className="hidden group-hover/menu-item:inline-block animate-slideIn" />
                           </p>
                           <p className="text-lightsecondary-text dark:text-secondary-text group-hover/menu-item:text-lightprimary-text/80 dark:group-hover/menu-item:text-primary-text/80 text-xs font-normal transition-all ease-out duration-200">
-                            Add important links and stuff
+                            Write blogs, connect with community
                           </p>
                         </div>
                       </div>
@@ -704,18 +705,19 @@ const Features = () => {
           </div>
           <div className="flex items-center justify-center gap-2 cursor-pointer group/menu-item">
             <p className="h-10 w-10 flex items-center justify-center rounded-md border bg-lightsecondary-bg dark:bg-secondary-bg border-lightsecondary-border dark:border-secondary-border group-hover/menu-item:border-lightsecondary-strongerborder dark:group-hover/menu-item:border-secondary-strongerborder transition-all ease-out duration-200">
-              <BiLink
+              <LuScrollText
+                strokeWidth={1}
                 size={25}
                 className="text-lightprimary-text/70 dark:text-primary-text/70 group-hover/menu-item:text-lightprimary-text dark:group-hover/menu-item:text-primary-text transition-all ease-out duration-200"
               />
             </p>
             <div className="flex flex-col items-start justify-center">
               <p className="text-lightprimary-text dark:text-primary-text text-sm leading-snug flex items-center justify-center">
-                Links{" "}
+                Blogs{" "}
                 <MdKeyboardArrowRight className="hidden group-hover/menu-item:inline-block animate-slideIn" />
               </p>
               <p className="text-lightsecondary-text dark:text-secondary-text group-hover/menu-item:text-lightprimary-text/80 dark:group-hover/menu-item:text-primary-text/80 text-xs font-normal transition-all ease-out duration-200">
-                Add important links and stuff
+                Write blogs, connect with community
               </p>
             </div>
           </div>
@@ -780,13 +782,13 @@ const Blogs = ({ blogs }: { blogs: any[] | null }) => {
                 height={72}
               />
               <div className="flex flex-col items-start justify-center">
-                <h4 className="mb-0.5 line-clamp-1 text-sm font-medium text-primary-text/80 group-hover/menu-item:text-primary-text transition-all ease-out duration-200">
+                <h4 className="mb-0.5 line-clamp-1 text-sm font-medium text-lightprimary-text/80 group-hover/menu-item:text-lightprimary-text dark:text-primary-text/80 dark:group-hover/menu-item:text-primary-text transition-all ease-out duration-200">
                   {blog.title}
                 </h4>
-                <p className="text-xs line-clamp-2 text-secondary-text group-hover/menu-item:text-primary-text/80 mb-1 transition-all ease-out duration-200">
+                <p className="text-xs line-clamp-2 text-lightprimary-text/70 group-hover/menu-item:text-lightprimary-text/80 dark:text-primary-text/70 dark:group-hover/menu-item:text-primary-text/80 mb-1 transition-all ease-out duration-200">
                   {blog.content}
                 </p>
-                <p className="text-primary-text group-hover/menu-item:text-accent-text transition-all ease-out duration-200 cursor-pointer text-xs font-extralight leading-snug flex items-center justify-center">
+                <p className="text-lightprimary-text group-hover/menu-item:text-lightaccent-text dark:text-primary-text dark:group-hover/menu-item:text-accent-text transition-all ease-out duration-200 cursor-pointer text-xs font-extralight leading-snug flex items-center justify-center">
                   Read more
                   <MdKeyboardArrowRight className="hidden group-hover/menu-item:inline-block animate-slideIn" />
                 </p>
