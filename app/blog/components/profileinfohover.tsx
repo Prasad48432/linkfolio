@@ -26,6 +26,7 @@ const ProfileHoverInfo = ({ profile }: { profile: any }) => {
         <div className="flex flex-col gap-3 p-2 w-full">
           <div className="flex items-center justify-start gap-3 w-full">
             <Image
+              referrerPolicy="no-referrer"
               width={500}
               height={500}
               alt="user profile image"
@@ -33,11 +34,17 @@ const ProfileHoverInfo = ({ profile }: { profile: any }) => {
               className="w-12 h-12 flex-shrink-0 rounded-full object-cover"
             />
             <div className="flex flex-col items-start justify-center w-[calc(100%-3rem)]">
-              <p title={profile.full_name} className="text-lightprimary-text/90 dark:text-primary-text/90 font-medium text-lg line-clamp-1">
+              <p
+                title={profile.full_name}
+                className="text-lightprimary-text/90 dark:text-primary-text/90 font-medium text-lg line-clamp-1"
+              >
                 {profile.full_name}
               </p>
               <div className="flex gap-1 items-center justify-start font-light text-sm">
-                <p title={profile.country.split("-")[0]} className="text-lightprimary-text/80 dark:text-primary-text/80 flex items-center justify-start gap-0.5 max-w-20">
+                <p
+                  title={profile.country.split("-")[0]}
+                  className="text-lightprimary-text/80 dark:text-primary-text/80 flex items-center justify-start gap-0.5 max-w-20"
+                >
                   <Image
                     src={`https://flagsapi.com/${
                       profile.country.split("-")[1]
@@ -47,7 +54,9 @@ const ProfileHoverInfo = ({ profile }: { profile: any }) => {
                     alt={profile.country.split("-")[0]}
                     className="h-4 w-4 object-cover"
                   />
-                  <span className="text-ellipsis truncate">{profile.country.split("-")[0]}</span>
+                  <span className="text-ellipsis truncate">
+                    {profile.country.split("-")[0]}
+                  </span>
                 </p>
                 <div className="h-3 w-px text-lightprimary-text/70 dark:text-primary-text/70 flex-shrink-0"></div>
                 <p className="text-lightprimary-text/80 dark:text-primary-text/80 flex items-center justify-start gap-0.5">

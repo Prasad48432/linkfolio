@@ -227,7 +227,7 @@ body {
   animation: shimmerMove 2s infinite linear;
 }
 
-.dark {
+@media (prefers-color-scheme: dark) {
   .blog_content_renderer h1 {
     font-size: 1.75rem;
     font-weight: 600;
@@ -271,7 +271,7 @@ body {
   }
 }
 
-.light {
+@media (prefers-color-scheme: light) {
   .blog_content_renderer h1 {
     font-size: 1.75rem;
     font-weight: 600;
@@ -326,55 +326,51 @@ body {
 
 
 
-.dark{
-  .card-shard:after {  
+.dark {
+  .card-shard:after {
     content: "";
     height: 130px;
-    width: 3px;  
-    position: absolute;  
+    width: 3px;
+    position: absolute;
     left: -1px;
     top: 65%;
     transition: top, opacity;
     transition-duration: 600ms;
     transition-timing-function: ease;
-    background: linear-gradient(
-      transparent,
-      #ff5733,
-      transparent
-    );
+    background: linear-gradient(transparent,
+        #ff5733,
+        transparent);
     opacity: 0;
   }
 
-  .card-shard{
+  .card-shard {
     border: 1px solid #363636;
   }
 }
 
-.light{
-  .card-shard:after {  
+.light {
+  .card-shard:after {
     content: "";
     height: 130px;
-    width: 3px;  
-    position: absolute;  
+    width: 3px;
+    position: absolute;
     left: -1px;
     top: 65%;
     transition: top, opacity;
     transition-duration: 600ms;
     transition-timing-function: ease;
-    background: linear-gradient(
-      transparent,
-      #ff8266,
-      transparent
-    );
+    background: linear-gradient(transparent,
+        #ff8266,
+        transparent);
     opacity: 0;
   }
 
-  .card-shard{
+  .card-shard {
     border: 1px solid rgba(60, 64, 43, 0.4);
   }
 }
 
-.card-shard:after {  
+.card-shard:after {
   top: 65%;
   opacity: 0;
 }

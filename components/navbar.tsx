@@ -150,7 +150,7 @@ const Navbar = ({
                         <a
                           className="group/menu-item flex items-center text-sm hover:text-lightaccent-selection dark:hover:text-accent-text select-none gap-3 rounded-md p-2 leading-none no-underline outline-none focus-visible:ring-2 focus-visible:ring-accent-text-lighter group-hover:bg-transparent text-accent-text focus-visible:text-accent-text"
                           data-radix-collection-item=""
-                          href="/pricing"
+                          href="#pricing"
                         >
                           <div className="flex flex-col justify-center">
                             <div className="flex items-center gap-1">
@@ -232,7 +232,7 @@ const Navbar = ({
                     >
                       <span className="truncate">Logout</span>
                     </p>
-                    <UserPopover user={user} profileData={profileData} />
+                    <UserPopover user={user} profileData={profileData} setLogoutModal={setLogoutModal} />
                   </div>
                 )}
                 <motion.div

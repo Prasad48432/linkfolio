@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import {
   Popover,
   PopoverContent,
@@ -24,15 +25,28 @@ type Profile = {
   subscriptions?: Subscription[]; // Can be empty if no subscription
 };
 
+function getSubscriptionText(subscriptions: Subscription[] | undefined) {
+  if (subscriptions?.[0]?.subscription_type === "LF Elite") {
+    return "Elite ✨";
+  } else if (subscriptions?.[0]?.subscription_type === "LF Core") {
+    return "Core ⚡";
+  } else {
+    return "Basic 🪶";
+  }
+}
+
 const UserPopover = ({
   user,
   profileData,
+  setLogoutModal,
 }: {
   user: User | null;
   profileData: Profile | null;
+  setLogoutModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const [open, setOpen] = useState(false);
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <div className="h-8 md:h-10 w-8 md:w-10 relative cursor-pointer">
           <Image
@@ -59,40 +73,38 @@ const UserPopover = ({
             />
 
             {/* Circular Badge with Curved Text */}
-            {profileData?.subscriptions?.[0]?.subscription_status && (
-              <svg
-                className="absolute inset-0 h-full w-full z-30"
-                viewBox="0 0 100 100"
+            <svg
+              className="absolute inset-0 h-full w-full z-30"
+              viewBox="0 0 100 100"
+            >
+              <defs>
+                <path
+                  id="curve"
+                  d="M 10,50 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0"
+                />
+              </defs>
+              <text
+                fill={
+                  profileData?.subscriptions?.[0]?.subscription_type ===
+                  "LF Elite"
+                    ? "gold"
+                    : profileData?.subscriptions?.[0]?.subscription_type ===
+                      "LF Core"
+                    ? "orange"
+                    : "#ff8000"
+                }
+                fontSize="15"
+                fontWeight="bold"
               >
-                <defs>
-                  <path
-                    id="curve"
-                    d="M 10,50 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0"
-                  />
-                </defs>
-                <text
-                  fill={
-                    profileData?.subscriptions?.[0]?.subscription_type ===
-                    "LF Elite"
-                      ? "gold"
-                      : "orange"
-                  }
-                  fontSize="15"
-                  fontWeight="bold"
+                <textPath
+                  xlinkHref="#curve"
+                  startOffset="35%"
+                  textAnchor="middle"
                 >
-                  <textPath
-                    xlinkHref="#curve"
-                    startOffset="35%"
-                    textAnchor="middle"
-                  >
-                    {profileData?.subscriptions?.[0]?.subscription_type ===
-                    "LF Elite"
-                      ? "Elite ✨"
-                      : "Core ⚡"}
-                  </textPath>
-                </text>
-              </svg>
-            )}
+                  {getSubscriptionText(profileData?.subscriptions)}
+                </textPath>
+              </text>
+            </svg>
           </div>
           <div className="flex flex-col items-center justify-center border-b pb-4">
             <p className="text-lightprimary-text font-medium dark:text-primary-text">
@@ -124,17 +136,10 @@ const UserPopover = ({
                 Claim username !
               </a>
             )}
-            {profileData?.subscriptions?.length !== 0 && (
-              <p className="cursor-pointer px-2 py-1 flex items-center justify-between text-sm max-w-48 truncate text-ellipsis rounded-md">
-                Subscription :{" "}
-                <span>
-                  {profileData?.subscriptions?.[0]?.subscription_type ===
-                  "LF Elite"
-                    ? "Elite ✨"
-                    : "Core ⚡"}
-                </span>
-              </p>
-            )}
+            <p className="cursor-pointer px-2 py-1 flex items-center justify-between text-sm max-w-48 truncate text-ellipsis rounded-md">
+              Subscription :{" "}
+              <span>{getSubscriptionText(profileData?.subscriptions)}</span>
+            </p>
             {profileData?.subscriptions?.length !== 0 && (
               <a
                 target="_blank"
@@ -144,7 +149,13 @@ const UserPopover = ({
                 Manage Subscription <LuCalendarSync size={15} />
               </a>
             )}
-            <p className="font-light cursor-pointer bg-lightdanger-bg/80 dark:bg-danger-bg/80 hover:bg-lightdanger-bg transition-all duration-200 dark:hover:bg-danger-bg px-2 py-1 gap-2 flex items-center justify-between text-sm max-w-48 truncate text-ellipsis rounded-md">
+            <p
+              onClick={() => {
+                setLogoutModal(true);
+                setOpen(false);
+              }}
+              className="font-light cursor-pointer bg-lightdanger-bg/80 dark:bg-danger-bg/80 hover:bg-lightdanger-bg transition-all duration-200 dark:hover:bg-danger-bg px-2 py-1 gap-2 flex items-center justify-between text-sm max-w-48 truncate text-ellipsis rounded-md"
+            >
               Logout <LogOut size={15} />
             </p>
           </div>

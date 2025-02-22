@@ -26,10 +26,12 @@ const config: Config = {
           bg: "#121212",
           text: "#ededed",
           foreground: "hsl(var(--primary-foreground))",
+          lighter: "#1a1a1a"
         },
         lightprimary: {
           bg: "#eeeae3",
           text: "#3c402b",
+          lighter: "#ece7df"
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

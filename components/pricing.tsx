@@ -1,13 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { HandCoins, TrendingUp, X } from "lucide-react";
+import { HandCoins, Loader, TrendingUp, X } from "lucide-react";
 import Link from "next/link";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { initializePaddle, Paddle } from "@paddle/paddle-js";
 import { createClient } from "@/utils/supabase/client";
 import { ToastError } from "./toast";
 
-const Pricing = () => {
+import type { User } from "@supabase/supabase-js";
+
+const Pricing = ({ user }: { user: User | null }) => {
   const [paddle, setPaddle] = useState<Paddle>();
 
   useEffect(() => {
@@ -17,40 +19,8 @@ const Pricing = () => {
     }).then((paddle) => setPaddle(paddle));
   }, []);
 
-  const handleCheckout = async ({ priceId }: { priceId: string }) => {
-    if (!paddle) return alert("Paddle not initialized");
-
-    const supabase = createClient();
-    const { data: user, error } = await supabase.auth.getUser();
-
-    if (error || !user?.user?.id) {
-      ToastError({ message: "No user Logged in." });
-      return;
-    }
-    // Detect system theme preference
-    const prefersDarkMode = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    const theme = prefersDarkMode ? "dark" : "light";
-
-    paddle.Checkout.open({
-      items: [{ priceId: priceId, quantity: 1 }],
-      customData: {
-        user_id: user.user.id, // Pass user ID to Paddle
-      },
-      customer: {
-        email: user?.user?.email || "",
-      },
-      settings: {
-        displayMode: "overlay",
-        theme: theme,
-        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
-      },
-    });
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div id="pricing" className="flex flex-col items-center justify-center">
       <div className="mx-auto max-w-screen-md text-center">
         <h2 className="mb-1 md:mb-2 text-lg md:text-4xl tracking-tight font-extrabold text-lightprimary-text dark:text-primary-text">
           Build your free Linkfolio page anytime!
@@ -73,12 +43,12 @@ const Pricing = () => {
         </TabList>
         <TabPanels>
           <TabPanel className="max-w-7xl px-2.5 flex flex-col  items-center justify-center mx-auto">
-            <div className="bg-lightprimary-bg dark:bg-primary-bg" id="pricing">
+            <div className="bg-lightprimary-bg dark:bg-primary-bg">
               <div>
                 <div className="py-8 px-4 mx-auto max-w-screen-xl">
                   <div className="space-y-8 flex flex-col lg:flex-row sm:gap-6 xl:gap-10 lg:space-y-0">
                     <div className="relative flex justify-center lg:scale-95">
-                      <div className="flex flex-col p-4 lg:p-6 mx-auto w-[25rem] max-w-lg text-center text-lightprimary-text dark:text-primary-text bg-darkbg rounded-lg border card-shard shadow">
+                      <div className="flex flex-col p-4 lg:p-6 mx-auto w-[25rem] bg-lightprimary-lighter dark:bg-primary-lighter max-w-lg text-center text-lightprimary-text dark:text-primary-text bg-darkbg rounded-lg border card-shard shadow">
                         <h3 className="mb-1 text-2xl font-semibold">LF Pro</h3>
                         <p className="font-light sm:text-lg text-lightprimary-text/80 dark:text-primary-text/80">
                           Best for limited Entries.
@@ -169,17 +139,12 @@ const Pricing = () => {
                             </span>
                           </li>
                         </ul>
-                        <p
-                          // href="/accounts/signin"
-                          onClick={() =>
-                            handleCheckout({
-                              priceId: "pri_01jmkchaz4z34135mqy9wfbx6w",
-                            })
-                          }
-                          className="text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                        >
-                          Get started
-                        </p>
+                        <CheckoutButton
+                          user={user}
+                          priceId="pri_01jmkchaz4z34135mqy9wfbx6w"
+                          buttonText="Subscribe"
+                          paddle={paddle}
+                        />
                       </div>
                     </div>
                     <div className="relative flex justify-center lg:scale-100">
@@ -189,7 +154,7 @@ const Pricing = () => {
                           <TrendingUp className="text-lightprimary-text dark:text-primary-text" />
                         </p>
                       </div>
-                      <div className="flex flex-col p-6 mx-auto w-[25rem] max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
+                      <div className="flex flex-col p-6 mx-auto w-[25rem] max-w-lg bg-lightprimary-lighter dark:bg-primary-lighter text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
                         <h3 className="mb-1 text-2xl font-semibold">
                           LF Pro Plus
                         </h3>
@@ -238,7 +203,7 @@ const Pricing = () => {
                             </svg>
                             <span>
                               Max size:{" "}
-                              <span className="font-semibold">6 Startups</span>
+                              <span className="font-semibold">6 Entries</span>
                             </span>
                           </li>
                           <li className="flex items-center space-x-3">
@@ -319,18 +284,12 @@ const Pricing = () => {
                             </span>
                           </li>
                         </ul>
-
-                        <p
-                          // href="/accounts/signin"
-                          onClick={() =>
-                            handleCheckout({
-                              priceId: "pri_01jmkcrmhx2j7net3w3znnp0yy",
-                            })
-                          }
-                          className="text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                        >
-                          Get started
-                        </p>
+                        <CheckoutButton
+                          user={user}
+                          priceId="pri_01jmkcrmhx2j7net3w3znnp0yy"
+                          buttonText="Subscribe"
+                          paddle={paddle}
+                        />
                       </div>
                     </div>
                   </div>
@@ -339,12 +298,12 @@ const Pricing = () => {
             </div>
           </TabPanel>
           <TabPanel className="max-w-7xl px-2.5 flex flex-col  items-center justify-center mx-auto">
-            <div className="bg-lightprimary-bg dark:bg-primary-bg" id="pricing">
+            <div className="bg-lightprimary-bg dark:bg-primary-bg">
               <div>
                 <div className="py-8 px-4 mx-auto max-w-screen-xl">
                   <div className="space-y-8 flex flex-col lg:flex-row sm:gap-6 xl:gap-10 lg:space-y-0">
                     <div className="relative flex justify-center lg:scale-95">
-                      <div className="flex flex-col p-4 lg:p-6 mx-auto w-[25rem] max-w-lg text-center text-lightprimary-text dark:text-primary-text bg-darkbg rounded-lg border card-shard shadow">
+                      <div className="flex flex-col p-4 lg:p-6 mx-auto w-[25rem] max-w-lg bg-lightprimary-lighter dark:bg-primary-lighter text-center text-lightprimary-text dark:text-primary-text bg-darkbg rounded-lg border card-shard shadow">
                         <h3 className="mb-1 text-2xl font-semibold">LF Pro</h3>
                         <p className="font-light sm:text-lg text-lightprimary-text/80 dark:text-primary-text/80">
                           (Billed yearly)
@@ -435,18 +394,12 @@ const Pricing = () => {
                             </span>
                           </li>
                         </ul>
-
-                        <p
-                          // href="/accounts/signin"
-                          onClick={() =>
-                            handleCheckout({
-                              priceId: "pri_01jmkcm4qxqbkgxwgxwn818nd7",
-                            })
-                          }
-                          className="text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                        >
-                          Get started
-                        </p>
+                        <CheckoutButton
+                          user={user}
+                          priceId="pri_01jmkcm4qxqbkgxwgxwn818nd7"
+                          buttonText="Subscribe"
+                          paddle={paddle}
+                        />
                       </div>
                     </div>
                     <div className="relative flex justify-center lg:scale-100">
@@ -456,7 +409,7 @@ const Pricing = () => {
                           <TrendingUp className="text-lightprimary-text dark:text-primary-text" />
                         </p>
                       </div>
-                      <div className="flex flex-col p-6 mx-auto w-[25rem] max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
+                      <div className="flex flex-col p-6 mx-auto w-[25rem] max-w-lg bg-lightprimary-lighter dark:bg-primary-lighter text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
                         <h3 className="mb-1 text-2xl font-semibold">
                           LF Pro Plus
                         </h3>
@@ -586,18 +539,12 @@ const Pricing = () => {
                             </span>
                           </li>
                         </ul>
-
-                        <p
-                          // href="/accounts/signin"
-                          onClick={() =>
-                            handleCheckout({
-                              priceId: "pri_01jmkctc6nq4ny9k59ye4p5ndz",
-                            })
-                          }
-                          className="text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                        >
-                          Get started
-                        </p>
+                        <CheckoutButton
+                          user={user}
+                          priceId="pri_01jmkctc6nq4ny9k59ye4p5ndz"
+                          buttonText="Subscribe"
+                          paddle={paddle}
+                        />
                       </div>
                     </div>
                   </div>
@@ -606,7 +553,7 @@ const Pricing = () => {
             </div>
           </TabPanel>
           <TabPanel className="max-w-7xl px-2.5 flex flex-col  items-center justify-center mx-auto">
-            <div className="bg-lightprimary-bg dark:bg-primary-bg" id="pricing">
+            <div className="bg-lightprimary-bg dark:bg-primary-bg">
               <div>
                 <div className="py-8 px-4 mx-auto max-w-screen-xl">
                   <div className="space-y-8 flex flex-col lg:flex-row sm:gap-6 xl:gap-10 lg:space-y-0">
@@ -617,7 +564,7 @@ const Pricing = () => {
                           <HandCoins className="text-lightprimary-text dark:text-primary-text" />
                         </p>
                       </div>
-                      <div className="flex flex-col p-6 mx-auto w-[25rem] max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
+                      <div className="flex flex-col p-6 mx-auto w-[25rem] max-w-lg bg-lightprimary-lighter dark:bg-primary-lighter text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
                         <h3 className="mb-1 text-2xl font-semibold">
                           LF Pro Plus
                         </h3>
@@ -744,18 +691,12 @@ const Pricing = () => {
                             </span>
                           </li>
                         </ul>
-
-                        <p
-                          // href="/accounts/signin"
-                          onClick={() =>
-                            handleCheckout({
-                              priceId: "pri_01jmkcvr46znza92js4kamddvk",
-                            })
-                          }
-                          className="text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                        >
-                          Get started
-                        </p>
+                        <CheckoutButton
+                          user={user}
+                          priceId="pri_01jmkcvr46znza92js4kamddvk"
+                          buttonText="Subscribe"
+                          paddle={paddle}
+                        />
                       </div>
                     </div>
                   </div>
@@ -766,6 +707,85 @@ const Pricing = () => {
         </TabPanels>
       </TabGroup>
     </div>
+  );
+};
+
+const CheckoutButton = ({
+  priceId,
+  user,
+  buttonText,
+  paddle,
+}: {
+  priceId: string;
+  user: User | null;
+  buttonText: string;
+  paddle: Paddle | undefined;
+}) => {
+  const [paymentLoading, setPaymentLoading] = useState(false);
+
+  const handleCheckout = async ({ priceId }: { priceId: string }) => {
+    if (!paddle) return alert("Paddle not initialized");
+
+    const supabase = createClient();
+    const { data: user, error } = await supabase.auth.getUser();
+
+    if (error || !user?.user?.id) {
+      ToastError({ message: "No user Logged in." });
+      return;
+    }
+
+    setPaymentLoading(true);
+
+    // Detect system theme preference
+    const prefersDarkMode = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const theme = prefersDarkMode ? "dark" : "light";
+
+    paddle.Checkout.open({
+      items: [{ priceId: priceId, quantity: 1 }],
+      customData: {
+        user_id: user.user.id, // Pass user ID to Paddle
+      },
+      customer: {
+        email: user?.user?.email || "",
+      },
+      settings: {
+        displayMode: "overlay",
+        theme: theme,
+        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
+      },
+    });
+    
+
+    
+  };
+  return (
+    <>
+      {!user ? (
+        <Link
+          href="/login?next=/#pricing"
+          className="text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        >
+          Get started
+        </Link>
+      ) : (
+        <button
+          onClick={() =>
+            handleCheckout({
+              priceId: priceId,
+            })
+          }
+          className="cursor-pointer h-[45px] flex items-center justify-center text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-normal rounded-lg px-5 py-2.5 text-center"
+        >
+          {paymentLoading ? (
+            <Loader className="animate-spin w-4 h-4 text-lightprimary-text dark:text-primary-text" />
+          ) : (
+            <>{buttonText}</>
+          )}
+        </button>
+      )}
+    </>
   );
 };
 

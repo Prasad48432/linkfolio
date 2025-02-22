@@ -7,12 +7,13 @@ import Navbar from "@/components/navbar";
 import { useState, useEffect } from "react";
 import CookieConsent from "@/components/cookieconsent";
 import UsernameCheck from "@/components/usernamecheck";
-import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
 import { Loader, MoveRight } from "lucide-react";
 import Marquee from "react-fast-marquee";
 import Pricing from "@/components/pricing";
 import { Database } from "@/types/supabasetypes";
+
+import type { User } from "@supabase/supabase-js";
 
 type TrendingProfile = {
   full_name: string | null;
@@ -317,7 +318,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          {profileData?.subscriptions?.length === 0 && <Pricing />}
+          {(!user || profileData?.subscriptions?.length === 0) && <Pricing user={user} />}
           <div className="sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20 pt-8 pb-10 md:pt-16 grid grid-cols-4 gap-4 w-full">
             <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
             <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>

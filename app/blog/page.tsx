@@ -172,7 +172,10 @@ const Blogs = () => {
                             </button>
                             <span className="font-extrabold">&middot;</span>{" "}
                             <button className="text-lightprimary-text/70 hover:text-lightprimary-text dark:text-primary-text/70 dark:hover:text-primary-text flex items-center justify-center gap-1">
-                              <Eye strokeWidth={1} className="w-5 lg:w-6 h-5 lg:h-6" />
+                              <Eye
+                                strokeWidth={1}
+                                className="w-5 lg:w-6 h-5 lg:h-6"
+                              />
                               <span className="text-sm font-light">3.6k</span>
                             </button>
                             <span className="font-extrabold">&middot;</span>{" "}
@@ -253,10 +256,13 @@ const Blogs = () => {
                       className="flex items-start justify-center gap-2"
                     >
                       <div className="w-12 h-12 rounded-full overflow-hidden relative">
-                        <img
+                        <Image
+                          referrerPolicy="no-referrer"
+                          width={500}
+                          height={500}
+                          alt="user profile image"
                           src={profile.avatar_url || ""}
-                          alt="Avatar"
-                          className="w-full h-full object-cover cursor-pointer"
+                          className="w-full h-full flex-shrink-0 rounded-full object-cover"
                         />
                       </div>
                       <div className="flex flex-col items-start justify-center w-[calc(100%-3rem)]">
@@ -281,6 +287,5 @@ const Blogs = () => {
     </div>
   );
 };
-
 
 export default Blogs;
