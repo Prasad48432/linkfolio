@@ -26,6 +26,7 @@ const LogoutConfirmation = ({
 
         setLogoutLoading(false);
         setModal(false);
+        router.refresh();
         router.push("/login");
       }
     } catch (error) {

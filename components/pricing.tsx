@@ -20,12 +20,12 @@ const Pricing = ({ user }: { user: User | null }) => {
   }, []);
 
   return (
-    <div id="pricing" className="flex flex-col items-center justify-center">
+    <div id="pricing" className="flex flex-col items-center justify-center bg-lightprimary-bg dark:bg-primary-bg">
       <div className="mx-auto max-w-screen-md text-center">
-        <h2 className="mb-1 md:mb-2 text-lg md:text-4xl tracking-tight font-extrabold text-lightprimary-text dark:text-primary-text">
-          Build your free Linkfolio page anytime!
+        <h2 className="flex items-center justify-center mb-1 md:mb-2 text-lg md:text-4xl tracking-tight font-extrabold text-lightprimary-text dark:text-primary-text">
+          Build your free Linkfolio page <span className="hidden lg:block">anytime!</span>
         </h2>
-        <p className="mb-3 font-light text-base sm:text-xl text-lightprimary-text/70 dark:text-primary-text/70">
+        <p className="mb-3 font-light text-sm sm:text-xl text-lightprimary-text/70 dark:text-primary-text/70">
           Pay only when you have a something to showcase
         </p>
       </div>
@@ -47,8 +47,8 @@ const Pricing = ({ user }: { user: User | null }) => {
               <div>
                 <div className="py-8 px-4 mx-auto max-w-screen-xl">
                   <div className="space-y-8 flex flex-col lg:flex-row sm:gap-6 xl:gap-10 lg:space-y-0">
-                    <div className="relative flex justify-center lg:scale-95">
-                      <div className="flex flex-col p-4 lg:p-6 mx-auto w-[25rem] bg-lightprimary-lighter dark:bg-primary-lighter max-w-lg text-center text-lightprimary-text dark:text-primary-text bg-darkbg rounded-lg border card-shard shadow">
+                    <div className="relative flex justify-center scale-95">
+                      <div className="flex flex-col p-6 mx-auto w-full bg-lightprimary-lighter dark:bg-primary-lighter max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
                         <h3 className="mb-1 text-2xl font-semibold">LF Pro</h3>
                         <p className="font-light sm:text-lg text-lightprimary-text/80 dark:text-primary-text/80">
                           Best for limited Entries.
@@ -61,7 +61,7 @@ const Pricing = ({ user }: { user: User | null }) => {
                             /month
                           </span>
                         </div>
-                        <ul role="list" className="mb-8 space-y-2.5 text-left">
+                        <ul role="list" className="mb-8 space-y-2.5 text-left text-sm lg:text-base">
                           <li className="flex items-center space-x-3">
                             <svg
                               className="flex-shrink-0 w-5 h-5 text-yellow-500 dark:text-yellow-400"
@@ -147,14 +147,14 @@ const Pricing = ({ user }: { user: User | null }) => {
                         />
                       </div>
                     </div>
-                    <div className="relative flex justify-center lg:scale-100">
+                    <div className="relative flex justify-center scale-100">
                       <div className="cursor-pointer absolute top-[-15px] left-1/2 transform -translate-x-1/2">
                         <p className="flex gap-1 rounded-full font-semibold animate-shine items-center justify-center border border-gray-600 bg-[linear-gradient(110deg,#ffc2b3,45%,#ff9980,55%,#ffc2b3)] dark:bg-[linear-gradient(110deg,#131313,45%,#474747,55%,#131313)] bg-[length:200%_100%] px-3 py-1 text-lightprimary-text dark:text-primary-text transition-colors">
                           Popular{" "}
                           <TrendingUp className="text-lightprimary-text dark:text-primary-text" />
                         </p>
                       </div>
-                      <div className="flex flex-col p-6 mx-auto w-[25rem] max-w-lg bg-lightprimary-lighter dark:bg-primary-lighter text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
+                      <div className="flex flex-col p-6 mx-auto w-full bg-lightprimary-lighter dark:bg-primary-lighter max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
                         <h3 className="mb-1 text-2xl font-semibold">
                           LF Pro Plus
                         </h3>
@@ -169,7 +169,7 @@ const Pricing = ({ user }: { user: User | null }) => {
                             /month
                           </span>
                         </div>
-                        <ul role="list" className="mb-8 space-y-2.5 text-left">
+                        <ul role="list" className="mb-8 space-y-2.5 text-left text-sm lg:text-base">
                           <li className="flex items-center space-x-3">
                             <svg
                               className="flex-shrink-0 w-5 h-5 text-yellow-500 dark:text-yellow-400"
@@ -302,8 +302,8 @@ const Pricing = ({ user }: { user: User | null }) => {
               <div>
                 <div className="py-8 px-4 mx-auto max-w-screen-xl">
                   <div className="space-y-8 flex flex-col lg:flex-row sm:gap-6 xl:gap-10 lg:space-y-0">
-                    <div className="relative flex justify-center lg:scale-95">
-                      <div className="flex flex-col p-4 lg:p-6 mx-auto w-[25rem] max-w-lg bg-lightprimary-lighter dark:bg-primary-lighter text-center text-lightprimary-text dark:text-primary-text bg-darkbg rounded-lg border card-shard shadow">
+                    <div className="relative flex justify-center scale-95">
+                      <div className="flex flex-col p-6 mx-auto w-full bg-lightprimary-lighter dark:bg-primary-lighter max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
                         <h3 className="mb-1 text-2xl font-semibold">LF Pro</h3>
                         <p className="font-light sm:text-lg text-lightprimary-text/80 dark:text-primary-text/80">
                           (Billed yearly)
@@ -316,7 +316,7 @@ const Pricing = ({ user }: { user: User | null }) => {
                             /month
                           </span>
                         </div>
-                        <ul role="list" className="mb-8 space-y-2.5 text-left">
+                        <ul role="list" className="mb-8 space-y-2.5 text-left text-sm lg:text-base">
                           <li className="flex items-center space-x-3">
                             <svg
                               className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
@@ -402,14 +402,14 @@ const Pricing = ({ user }: { user: User | null }) => {
                         />
                       </div>
                     </div>
-                    <div className="relative flex justify-center lg:scale-100">
+                    <div className="relative flex justify-center scale-100">
                       <div className="cursor-pointer absolute top-[-15px] left-1/2 transform -translate-x-1/2">
                         <p className="flex gap-1 rounded-full font-semibold animate-shine items-center justify-center border border-gray-600 bg-[linear-gradient(110deg,#ffc2b3,45%,#ff9980,55%,#ffc2b3)] dark:bg-[linear-gradient(110deg,#131313,45%,#474747,55%,#131313)] bg-[length:200%_100%] px-3 py-1 text-lightprimary-text dark:text-primary-text transition-colors">
                           Popular{" "}
                           <TrendingUp className="text-lightprimary-text dark:text-primary-text" />
                         </p>
                       </div>
-                      <div className="flex flex-col p-6 mx-auto w-[25rem] max-w-lg bg-lightprimary-lighter dark:bg-primary-lighter text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
+                      <div className="flex flex-col p-6 mx-auto w-full bg-lightprimary-lighter dark:bg-primary-lighter max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
                         <h3 className="mb-1 text-2xl font-semibold">
                           LF Pro Plus
                         </h3>
@@ -424,7 +424,7 @@ const Pricing = ({ user }: { user: User | null }) => {
                             /month
                           </span>
                         </div>
-                        <ul role="list" className="mb-8 space-y-2.5 text-left">
+                        <ul role="list" className="mb-8 space-y-2.5 text-left text-sm lg:text-base">
                           <li className="flex items-center space-x-3">
                             <svg
                               className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
@@ -564,7 +564,7 @@ const Pricing = ({ user }: { user: User | null }) => {
                           <HandCoins className="text-lightprimary-text dark:text-primary-text" />
                         </p>
                       </div>
-                      <div className="flex flex-col p-6 mx-auto w-[25rem] max-w-lg bg-lightprimary-lighter dark:bg-primary-lighter text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
+                      <div className="flex flex-col p-6 mx-auto w-full bg-lightprimary-lighter dark:bg-primary-lighter max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
                         <h3 className="mb-1 text-2xl font-semibold">
                           LF Pro Plus
                         </h3>
@@ -576,7 +576,7 @@ const Pricing = ({ user }: { user: User | null }) => {
                             ₹2500
                           </span>
                         </div>
-                        <ul role="list" className="mb-8 space-y-2.5 text-left">
+                        <ul role="list" className="mb-8 space-y-2.5 text-left text-sm lg:text-base">
                           <li className="flex items-center space-x-3">
                             <svg
                               className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
