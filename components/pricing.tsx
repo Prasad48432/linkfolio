@@ -747,9 +747,9 @@ const CheckoutButton = ({
       customData: {
         user_id: user.user.id, // Pass user ID to Paddle
       },
-      customer: {
-        email: user?.user?.email || "",
-      },
+      // customer: {
+      //   email: user?.user?.email || "",
+      // },
       settings: {
         displayMode: "overlay",
         theme: theme,

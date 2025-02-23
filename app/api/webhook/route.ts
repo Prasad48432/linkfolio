@@ -32,11 +32,11 @@ export async function POST(req: Request) {
   try {
     if (signature && rawRequestBody) {
       // The `unmarshal` function will validate the integrity of the webhook and return an entity
-      const eventData = (await paddle.webhooks.unmarshal(
+      const eventData = await paddle.webhooks.unmarshal(
         rawRequestBody,
         secretKey,
         signature
-      ));
+      );
       // as { eventType: EventName; data: PaddleWebhookData };
 
       const { data: user, error: usererror } = await supabase.auth.getUser();
@@ -47,20 +47,43 @@ export async function POST(req: Request) {
           const { data: subData, error: subError } = await supabase
             .from("subscriptions")
             .insert({
-              user_id: (eventData.data.customData as { user_id?: string })?.user_id,
+              user_id: (eventData.data.customData as { user_id?: string })
+                ?.user_id,
               subscription_id: eventData.data.id,
               subscription_product_id: eventData.data.items[0].product?.id,
               subscription_type: eventData.data.items[0].product?.name,
               subscription_variant: eventData.data.items[0].price?.name,
               unit_price: eventData.data.items[0].price?.unitPrice?.amount,
               currency: eventData.data.items[0].price?.unitPrice?.currencyCode,
-              subscription_status: true,
+              starts_at: eventData.data.currentBillingPeriod?.startsAt,
+              ends_at: eventData.data.currentBillingPeriod?.endsAt,
+              subscription_status: "active",
               created_at: eventData.data.createdAt,
             });
           break;
         case EventName.SubscriptionCanceled:
-          console.log(`Subscription ${eventData.data.id} was canceled`);
+          const { data: subCancelData, error: subCancelError } = await supabase
+            .from("subscriptions")
+            .update({
+              subscription_status: "cancelled",
+            })
+            .eq("subscription_id", eventData.data.id);
           break;
+        case EventName.SubscriptionPastDue:
+            const { data: subPastDueData, error: subPastDueError } = await supabase
+              .from("subscriptions")
+              .update({
+                subscription_status: "past_due",
+              })
+              .eq("subscription_id", eventData.data.id);
+            break;
+        case EventName.SubscriptionPaused:
+          const { data: subPauseData, error: subPauseError } = await supabase
+          .from("subscriptions")
+          .update({
+            subscription_status: "paused",
+          })
+          .eq("subscription_id", eventData.data.id);
         case EventName.TransactionPaid:
           console.log(`Payment ${eventData.data.id} was Paid`);
           break;
@@ -71,9 +94,10 @@ export async function POST(req: Request) {
           const { data: payDataComp, error: payErrorComp } = await supabase
             .from("transactions")
             .insert({
-              user_id: (eventData.data.customData as { user_id?: string })?.user_id,
+              user_id: (eventData.data.customData as { user_id?: string })
+                ?.user_id,
               transaction_id: eventData.data.id,
-              subscription_id:  eventData.data.subscriptionId,
+              subscription_id: eventData.data.subscriptionId,
               subscription_product_id: eventData.data.items[0].price?.productId,
               subscription_variant: eventData.data.items[0].price?.name,
               unit_price: eventData.data.items[0].price?.unitPrice?.amount,
