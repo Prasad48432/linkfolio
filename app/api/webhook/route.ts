@@ -79,7 +79,8 @@ export async function POST(req: Request) {
               .eq("subscription_id", eventData.data.id);
           break;
         case EventName.SubscriptionUpdated:
-          const subscriptionStatus = eventData.data.status; // Check the status field
+          console.log(`subscription ${eventData.data.id} updated to ${eventData.data.status}`)
+          const subscriptionStatus = eventData.data.status;
           let updatedStatus = "";
 
           if (subscriptionStatus === "canceled") {
