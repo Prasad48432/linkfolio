@@ -70,20 +70,46 @@ export async function POST(req: Request) {
             .eq("subscription_id", eventData.data.id);
           break;
         case EventName.SubscriptionPastDue:
-            const { data: subPastDueData, error: subPastDueError } = await supabase
+          const { data: subPastDueData, error: subPastDueError } =
+            await supabase
               .from("subscriptions")
               .update({
                 subscription_status: "past_due",
               })
               .eq("subscription_id", eventData.data.id);
-            break;
+          break;
+        case EventName.SubscriptionUpdated:
+          const subscriptionStatus = eventData.data.status; // Check the status field
+          let updatedStatus = "";
+
+          if (subscriptionStatus === "canceled") {
+            updatedStatus = "cancelled";
+          } else if (subscriptionStatus === "past_due") {
+            updatedStatus = "past_due";
+          } else if (subscriptionStatus === "paused") {
+            updatedStatus = "paused";
+          }
+
+          if (updatedStatus) {
+            const { data, error } = await supabase
+              .from("subscriptions")
+              .update({
+                subscription_status: updatedStatus,
+              })
+              .eq("subscription_id", eventData.data.id);
+
+            if (error) {
+              console.error("Failed to update subscription status:", error);
+            }
+          }
+          break;
         case EventName.SubscriptionPaused:
           const { data: subPauseData, error: subPauseError } = await supabase
-          .from("subscriptions")
-          .update({
-            subscription_status: "paused",
-          })
-          .eq("subscription_id", eventData.data.id);
+            .from("subscriptions")
+            .update({
+              subscription_status: "paused",
+            })
+            .eq("subscription_id", eventData.data.id);
         case EventName.TransactionPaid:
           console.log(`Payment ${eventData.data.id} was Paid`);
           break;

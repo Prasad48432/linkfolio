@@ -19,7 +19,7 @@ const ProfileHoverInfo = ({ profile }: { profile: any }) => {
     <HoverCard openDelay={200}>
       <HoverCardTrigger className="font-medium text-lightprimary-text/80 dark:text-primary-text/80 cursor-pointer">
         {profile.full_name}
-        <span className="block -mt-0.5 max-w-0 group-hover:max-w-full transition-all duration-300 h-[2px] text-lightprimary-text/80 dark:text-primary-text/80"></span>
+        <span className="block -mt-0.5 max-w-0 group-hover:max-w-full transition-all duration-300 h-[2px] bg-lightprimary-text/80 dark:bg-primary-text/80"></span>
       </HoverCardTrigger>
 
       <HoverCardContent className="bg-lightprimary-bg dark:bg-primary-bg  border border-lightsecondary-strongerborder dark:border-secondary-strongerborder rounded-md z-50 relative">

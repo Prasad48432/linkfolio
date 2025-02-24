@@ -9,7 +9,6 @@ import { CiEdit } from "react-icons/ci";
 import removeMarkdown from "remove-markdown";
 import TrackView from "./components/trackview";
 
-
 interface Params {
   username: string;
   utm_source?: string;
@@ -129,7 +128,8 @@ export default async function UsernamePage({ params }: { params: Params }) {
           }}
           className="absolute text-mx w-8 h-8 lg:w-auto lg:h-auto lg:text-sm rounded-full gap-1 px-2 py-1 border-2 border-dashed top-3 lg:top-4 left-3 lg:left-auto lg:right-8 flex items-center justify-center z-[51] cursor-pointer"
         >
-          <CiEdit className="text-base lg:text-lg" /> <p className="hidden md:block">Edit Page</p>
+          <CiEdit className="text-base lg:text-lg" />{" "}
+          <p className="hidden md:block">Edit Page</p>
         </a>
       )}
       <TrackView username={params.username} profile={profile} />

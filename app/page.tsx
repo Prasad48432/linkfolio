@@ -42,33 +42,38 @@ export default async function Home() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  let profileData = null;
-  let profileError = null;
+  // Step 2: Initialize profile fetch as a Promise (conditionally)
+  const profilePromise = user?.id
+    ? supabase
+        .from("profiles")
+        .select(
+          "*, subscriptions:subscriptions(subscription_status, subscription_type)"
+        )
+        .eq("id", user.id)
+        .single()
+    : Promise.resolve({ data: null, error: null }); // If no user, return resolved Promise
 
-  if (user?.id) {
-    const { data, error } = await supabase
-      .from("profiles")
-      .select(
-        "*, subscriptions:subscriptions(subscription_status, subscription_type)"
-      )
-      .eq("id", user.id)
-      .single();
+  // Step 3: Execute all three functions concurrently
+  const [profileResult, trendingProfilesResult, blogsDataResult] =
+    await Promise.all([
+      profilePromise,
+      supabase
+        .from("profiles")
+        .select("full_name, username, avatar_url, bio")
+        .limit(5),
+      supabase
+        .from("blogs")
+        .select("*")
+        .order("created_at", { ascending: true })
+        .limit(2),
+    ]);
 
-    profileData = data;
-    profileError = error;
-  }
+  // Step 4: Extract results
+  const { data: profileData, error: profileError } = profileResult;
 
   const { data: trendingProfiles, error: trendingProfilesError } =
-    await supabase
-      .from("profiles")
-      .select("full_name, username, avatar_url, bio")
-      .limit(5);
-
-  const { data: blogsData, error: blogsError } = await supabase
-    .from("blogs")
-    .select("*")
-    .order("created_at", { ascending: true })
-    .limit(2);
+    trendingProfilesResult;
+  const { data: blogsData, error: blogsError } = blogsDataResult;
 
   if (!blogsData || !trendingProfiles) {
     return (

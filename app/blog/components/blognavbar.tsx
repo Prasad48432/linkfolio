@@ -199,7 +199,7 @@ const BlogNavbar = () => {
                   </div>
                 )}
                 <motion.div
-                  className="block lg:hidden cursor-pointer text-primary-text"
+                  className="block lg:hidden cursor-pointer text-lightprimary-text dark:text-primary-text"
                   onClick={() => {
                     setIsNavbarOpen(!isNavbarOpen);
                   }}

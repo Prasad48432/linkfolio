@@ -6,7 +6,13 @@ import BlogNavbar from "../components/blognavbar";
 import { LuMessageCircleMore, LuShare, LuPencil } from "react-icons/lu";
 import CommentBox from "../components/blogcomment";
 import Link from "next/link";
-import { parseISO, differenceInMinutes, differenceInHours, differenceInDays, format } from "date-fns";
+import {
+  parseISO,
+  differenceInMinutes,
+  differenceInHours,
+  differenceInDays,
+  format,
+} from "date-fns";
 import ProfileHoverInfo from "../components/profileinfohover";
 
 interface Params {
@@ -15,22 +21,30 @@ interface Params {
   utm_location?: string;
 }
 
+interface Blog {
+  id: string;
+  title: string;
+  seotags: string;
+  author_id: string;
+  created_at: string;
+  profiles: {
+    id: string;
+    full_name: string;
+    username: string;
+  };
+}
+
 const formatDate = (createdAt: string) => {
-  const date = parseISO(createdAt);  // Parsed as Date object
-  console.log("Parsed Date: ", date);
+  const date = parseISO(createdAt); // Parsed as Date object
 
   // Convert now to a Date object with IST
-  const now = new Date(new Date().toLocaleString('en-US'));
-  console.log("Current IST Date: ", now);
+  const now = new Date(new Date().toLocaleString("en-US"));
 
   const minutesAgo = differenceInMinutes(now, date);
-  console.log('minutes', minutesAgo);
 
   const hoursAgo = differenceInHours(now, date);
-  console.log('hours', hoursAgo);
 
   const daysAgo = differenceInDays(now, date);
-  console.log('days', daysAgo);
 
   if (minutesAgo < 1) {
     return "just now";
@@ -62,7 +76,28 @@ export default async function BlogPage({ params }: { params: Params }) {
     )
     .eq("id", params.blogid)
     .single();
-    
+
+  let similarBlogs: Blog[] = [];
+  let similarBlogsError = null;
+
+  if (blog) {
+    const { data, error } = await supabase
+      .from("blogs")
+      .select(
+        `
+        id, title, seotags, author_id, created_at,
+        profiles:author_id (id, full_name, username)
+      `
+      )
+      .like("seotags", `%${blog.seotags}%`)
+      .neq("id", blog.id)
+      .limit(5);
+
+    // @ts-expect-error
+    similarBlogs = data ?? [];
+    similarBlogsError = error;
+  }
+
   const isAuthor = user.user?.id === blog.author_id;
 
   if (blogerror || !blog) {
@@ -100,7 +135,9 @@ export default async function BlogPage({ params }: { params: Params }) {
                       <span className="text-lightprimary-text/70 dark:text-primary-text/70 font-extrabold mx-2">
                         &middot;
                       </span>
-                      <span className="text-lightprimary-text/60 dark:text-primary-text/60">Follow</span>
+                      <span className="text-lightprimary-text/60 dark:text-primary-text/60">
+                        Follow
+                      </span>
                     </p>
                     <p className="text-lightprimary-text/90 dark:text-primary-text/70 text-sm font-extralight">
                       10 min read{" "}
@@ -162,7 +199,7 @@ export default async function BlogPage({ params }: { params: Params }) {
                 {!isAuthor && (
                   <CommentBox blogId={blog.id} authorId={blog.profiles.id} />
                 )}
-                <div className="flex flex-col items-start justify-center gap-4 w-full px-2">
+                <div className="flex flex-col items-start justify-center gap-4 w-full px-1 lg:px-2">
                   {blog.comments.map((comment: any, index: number) => (
                     <div
                       key={index}
@@ -171,14 +208,19 @@ export default async function BlogPage({ params }: { params: Params }) {
                       <img
                         className="w-10 h-10 rounded-full object-cover"
                         src={comment.profiles.avatar_url}
+                        referrerPolicy="no-referrer"
                       />
                       <div className="flex flex-col items-start justify-center w-[calc(100%-2.5rem)]">
-                        <div className="flex gap-1 items-center justify-start">
+                        <div className="flex flex-wrap mb-1 lg:mb-0 gap-0.5 lg:gap-1 items-center justify-start">
                           <span className="group font-medium text-lightprimary-text/90 dark:text-primary-text/90 transition duration-200">
                             <ProfileHoverInfo profile={comment.profiles} />
                           </span>
-                          <span className="font-extrabold mx-0.5 text-lightprimary-text/80 dark:text-primary-text/80">&middot;</span>{" "}
-                          <span className="text-lightprimary-text/70 dark:text-primary-text/70 font-light text-sm">{formatDate(comment.created_at)}</span>
+                          <span className="font-extrabold mx-0.5 text-lightprimary-text/80 dark:text-primary-text/80">
+                            &middot;
+                          </span>{" "}
+                          <span className="text-lightprimary-text/70 dark:text-primary-text/70 font-light text-sm">
+                            {formatDate(comment.created_at)}
+                          </span>
                         </div>
                         <p className="font-light text-lightprimary-text/80 dark:text-primary-text/80 text-sm">
                           {comment.comment}
@@ -196,7 +238,7 @@ export default async function BlogPage({ params }: { params: Params }) {
               <h3 className="font-semibold mb-4 text-lg text-lightprimary-text dark:text-primary-text">
                 Discover more topics
               </h3>
-              <div className="flex flex-wrap gap-2 mb-8">
+              <div className="flex flex-wrap gap-1.5 lg:gap-2 mb-8">
                 {[
                   "Programming",
                   "Data Science",
@@ -209,32 +251,47 @@ export default async function BlogPage({ params }: { params: Params }) {
                 ].map((topic, index) => (
                   <button
                     key={index}
-                    className="px-4 py-2 rounded-full text-lightprimary-text dark:text-primary-text border border-lightsecondary-border dark:border-secondary-border text-sm bg-lightsecondary-bg dark:bg-secondary-bg"
+                    className="px-3 py-1.5 lg:px-4 lg:py-2 rounded-full text-lightprimary-text dark:text-primary-text border border-lightsecondary-border dark:border-secondary-border text-sm bg-lightsecondary-bg dark:bg-secondary-bg"
                   >
                     {topic}
                   </button>
                 ))}
               </div>
-              <h3 className="font-semibold mb-4 text-lg text-lightprimary-text dark:text-primary-text">Similar blogs</h3>
-              <div className="flex flex-col gap-2 mb-8">
-                <div className="w-full h-20 flex flex-col">
-                  <p className="text-lightprimary-text dark:text-primary-text font-semibold">
-                    How I Tricked My Brain to Be Addicted to Coding
+              <h3 className="font-semibold mb-4 text-lg text-lightprimary-text dark:text-primary-text">
+                Similar blogs
+              </h3>
+              <div className="flex flex-col gap-4 mb-8">
+                {similarBlogs.length > 0 ? (
+                  similarBlogs.map((blog, index) => (
+                    <span
+                      key={index}
+                      className="w-full flex flex-col items-start justify-center gap-1.5"
+                    >
+                      <a
+                        href={`/${blog.id}`}
+                        className="text-lightprimary-text dark:text-primary-text font-semibold"
+                      >
+                        {blog.title}
+                      </a>
+                      <p className="text-sm text-lightprimary-text dark:text-primary-text font-light">
+                        {formatDate(blog.created_at)}
+                        <span className="font-extrabold mx-1">
+                          &middot;
+                        </span> by{" "}
+                        <a
+                          href={`/${blog.profiles.username}`}
+                          className="text-accent-text font-normal hover:underline"
+                        >
+                          {blog.profiles.full_name}
+                        </a>
+                      </p>
+                    </span>
+                  ))
+                ) : (
+                  <p className="text-lightprimary-text dark:text-primary-text text-center">
+                    No similar blogs found
                   </p>
-                  <p className="text-lightprimary-text dark:text-primary-text font-light">Feb 7</p>
-                </div>
-                <div className="w-full h-20 flex flex-col">
-                  <p className="text-lightprimary-text dark:text-primary-text font-semibold">
-                    How I Tricked My Brain to Be Addicted to Coding
-                  </p>
-                  <p className="text-lightprimary-text dark:text-primary-text font-light">Feb 7</p>
-                </div>
-                <div className="w-full h-20 flex flex-col">
-                  <p className="text-lightprimary-text dark:text-primary-text font-semibold">
-                    How I Tricked My Brain to Be Addicted to Coding
-                  </p>
-                  <p className="text-lightprimary-text dark:text-primary-text font-light">Feb 7</p>
-                </div>
+                )}
               </div>
             </div>
           </div>
@@ -252,12 +309,12 @@ const UnClappedSvg = () => {
       height="24"
       viewBox="0 0 24 24"
       aria-label="clap"
+      className="fill-lightprimary-text dark:fill-primary-text"
     >
       <path
         fillRule="evenodd"
         d="M11.37.828 12 3.282l.63-2.454zM13.916 3.953l1.523-2.112-1.184-.39zM8.589 1.84l1.522 2.112-.337-2.501zM18.523 18.92c-.86.86-1.75 1.246-2.62 1.33a6 6 0 0 0 .407-.372c2.388-2.389 2.86-4.951 1.399-7.623l-.912-1.603-.79-1.672c-.26-.56-.194-.98.203-1.288a.7.7 0 0 1 .546-.132c.283.046.546.231.728.5l2.363 4.157c.976 1.624 1.141 4.237-1.324 6.702m-10.999-.438L3.37 14.328a.828.828 0 0 1 .585-1.408.83.83 0 0 1 .585.242l2.158 2.157a.365.365 0 0 0 .516-.516l-2.157-2.158-1.449-1.449a.826.826 0 0 1 1.167-1.17l3.438 3.44a.363.363 0 0 0 .516 0 .364.364 0 0 0 0-.516L5.293 9.513l-.97-.97a.826.826 0 0 1 0-1.166.84.84 0 0 1 1.167 0l.97.968 3.437 3.436a.36.36 0 0 0 .517 0 .366.366 0 0 0 0-.516L6.977 7.83a.82.82 0 0 1-.241-.584.82.82 0 0 1 .824-.826c.219 0 .43.087.584.242l5.787 5.787a.366.366 0 0 0 .587-.415l-1.117-2.363c-.26-.56-.194-.98.204-1.289a.7.7 0 0 1 .546-.132c.283.046.545.232.727.501l2.193 3.86c1.302 2.38.883 4.59-1.277 6.75-1.156 1.156-2.602 1.627-4.19 1.367-1.418-.236-2.866-1.033-4.079-2.246M10.75 5.971l2.12 2.12c-.41.502-.465 1.17-.128 1.89l.22.465-3.523-3.523a.8.8 0 0 1-.097-.368c0-.22.086-.428.241-.584a.847.847 0 0 1 1.167 0m7.355 1.705c-.31-.461-.746-.758-1.23-.837a1.44 1.44 0 0 0-1.11.275c-.312.24-.505.543-.59.881a1.74 1.74 0 0 0-.906-.465 1.47 1.47 0 0 0-.82.106l-2.182-2.182a1.56 1.56 0 0 0-2.2 0 1.54 1.54 0 0 0-.396.701 1.56 1.56 0 0 0-2.21-.01 1.55 1.55 0 0 0-.416.753c-.624-.624-1.649-.624-2.237-.037a1.557 1.557 0 0 0 0 2.2c-.239.1-.501.238-.715.453a1.56 1.56 0 0 0 0 2.2l.516.515a1.556 1.556 0 0 0-.753 2.615L7.01 19c1.32 1.319 2.909 2.189 4.475 2.449q.482.08.971.08c.85 0 1.653-.198 2.393-.579.231.033.46.054.686.054 1.266 0 2.457-.52 3.505-1.567 2.763-2.763 2.552-5.734 1.439-7.586z"
         clipRule="evenodd"
-        fill="#ededed"
       ></path>
     </svg>
   );
