@@ -2,6 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+
+
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: #ededed;
+  background: #121212;
+  overflow-x: hidden;
+}
+
+.bricolage {
+  font-family: var(--font-bricolage);
+}
+
+.rubik {
+  font-family: var(--font-rubik);
+}
+
+.lexend {
+  font-family: var(--font-lexend);
+}
+
+
+
+/* Dark Theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --scrollbar-track: rgb(47, 47, 47);
+    --scrollbar-thumb: rgb(207, 207, 207);
+    --scrollbar-thumb-gradient: linear-gradient(360deg,
+        rgb(115, 115, 115) 0%,
+        rgb(105, 105, 105) 47%,
+        rgb(115, 115, 115) 100%);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --scrollbar-track: rgb(201, 201, 201);
+    --scrollbar-thumb: #ff9980;
+    --scrollbar-thumb-gradient: linear-gradient(360deg,
+        #ff9980 0%,
+        #cb6d55 47%,
+        #ff9980 100%);
+  }
+}
+
+/* Apply Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  background: var(--scrollbar-thumb-gradient);
+  border-radius: 10px;
+}
+
 /* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -16,8 +84,6 @@ select:-webkit-autofill:focus {
   -webkit-text-fill-color: #ededed;
   border: 2px solid #434343;
 }
-
-
 
 /* Ruby */
 @layer base {
@@ -85,73 +151,6 @@ select:-webkit-autofill:focus {
   body {
     @apply bg-background text-foreground;
   }
-}
-
-
-
-
-
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  color: #ededed;
-  background: #121212;
-  overflow-x: hidden;
-}
-
-.bricolage {
-  font-family: var(--font-bricolage);
-}
-
-.rubik {
-  font-family: var(--font-rubik);
-}
-
-.lexend {
-  font-family: var(--font-lexend);
-}
-
-
-
-/* Dark Theme */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --scrollbar-track: rgb(47, 47, 47);
-    --scrollbar-thumb: rgb(207, 207, 207);
-    --scrollbar-thumb-gradient: linear-gradient(360deg,
-        rgb(115, 115, 115) 0%,
-        rgb(105, 105, 105) 47%,
-        rgb(115, 115, 115) 100%);
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --scrollbar-track: rgb(201, 201, 201);
-    --scrollbar-thumb: #ff9980;
-    --scrollbar-thumb-gradient: linear-gradient(360deg,
-        #ff9980 0%,
-        #cb6d55 47%,
-        #ff9980 100%);
-  }
-}
-
-/* Apply Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  background: var(--scrollbar-thumb-gradient);
-  border-radius: 10px;
 }
 
 .avatar-group {
@@ -378,4 +377,15 @@ body {
 .card-shard:hover:after {
   top: 25%;
   opacity: 1;
+}
+
+/* ---break---*/
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

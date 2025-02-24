@@ -26,12 +26,12 @@ const config: Config = {
           bg: "#121212",
           text: "#ededed",
           foreground: "hsl(var(--primary-foreground))",
-          lighter: "#1a1a1a"
+          lighter: "#1a1a1a",
         },
         lightprimary: {
           bg: "#eeeae3",
           text: "#3c402b",
-          lighter: "#ece7df"
+          lighter: "#ece7df",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -48,7 +48,7 @@ const config: Config = {
           text: "#3c402b",
           border: "#3c402b",
           strongerborder: "#656b47",
-          loader: "#b8b8b8"
+          loader: "#b8b8b8",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
@@ -166,16 +166,34 @@ const config: Config = {
             backgroundPosition: "-220% 0",
           },
           "100%": {
-            backgroundPosition: "-220% 0", // Maintain end state during delay
+            backgroundPosition: "-220% 0",
           },
-        }
+        },
+        "accordion-down": {
+          from: {
+            height: "0",
+          },
+          to: {
+            height: "var(--radix-accordion-content-height)",
+          },
+        },
+        "accordion-up": {
+          from: {
+            height: "var(--radix-accordion-content-height)",
+          },
+          to: {
+            height: "0",
+          },
+        },
       },
       animation: {
         slideIn: "slideIn 0.3s ease-out",
         spotlight: "spotlight 2s ease .75s 1 forwards",
         pingCustom: "pingCustom 1s cubic-bezier(0, 0, 0.2, 1) infinite",
         shimmer: "shimmer 1.5s infinite",
-        shine: "shine 4s linear infinite"
+        shine: "shine 4s linear infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
