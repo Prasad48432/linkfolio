@@ -1,4 +1,5 @@
 "use client";
+import { createClient } from "@/utils/supabase/client";
 import { PriceSection } from "../components/pricesection";
 import { initializePaddle, type Paddle } from "@paddle/paddle-js";
 import type { CheckoutEventsData } from "@paddle/paddle-js/types/checkout/events";
@@ -22,6 +23,7 @@ export function CheckoutContents({ userEmail }: Props) {
   const [checkoutData, setCheckoutData] = useState<CheckoutEventsData | null>(
     null
   );
+  const supabase = createClient();
 
   const handleCheckoutEvents = (event: CheckoutEventsData) => {
     console.log(event);
@@ -63,11 +65,15 @@ export function CheckoutContents({ userEmail }: Props) {
           },
         },
       }).then(async (paddle) => {
-        if (paddle && priceId) {
+        const { data: user, error } = await supabase.auth.getUser();
+        if (paddle && priceId && user) {
           setPaddle(paddle);
           paddle.Checkout.open({
             ...(userEmail && { customer: { email: userEmail } }),
             items: [{ priceId: priceId, quantity: 1 }],
+            customData: {
+              user_id: user.user?.id, 
+            },
           });
         }
       });

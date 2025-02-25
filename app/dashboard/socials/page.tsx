@@ -156,7 +156,7 @@ const SocialLinks = () => {
                     style={{
                       opacity: value,
                     }}
-                    className="w-[70px] h-[20px] bg-lightsecondary-loader dark:bg-secondary-b rounded-md relative overflow-hidden mb-1"
+                    className="w-[70px] h-[20px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-md relative overflow-hidden mb-1"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                   </div>
@@ -164,7 +164,7 @@ const SocialLinks = () => {
                     style={{
                       opacity: value,
                     }}
-                    className="w-full h-[40px] bg-lightsecondary-loader dark:bg-secondary-b rounded-md relative overflow-hidden"
+                    className="w-full h-[40px] bg-lightsecondary-loader dark:bg-secondary-bg rounded-md relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-lightsecondary-loader via-gray-300 to-lightsecondary-loader dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
                   </div>
