@@ -39,7 +39,6 @@ export class ProcessWebhook {
         starts_at: eventData.data.currentBillingPeriod?.startsAt,
         ends_at: eventData.data.currentBillingPeriod?.endsAt,
       });
-
     } catch (e) {
       console.error(e);
     }

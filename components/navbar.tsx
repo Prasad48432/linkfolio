@@ -106,7 +106,7 @@ const Navbar = ({
         <nav
           style={
             {
-              // background: isNavbarOpen ? "#121212" : "transparent",
+              background: isNavbarOpen ? "#121212" : "transparent",
             }
           }
           className={`${

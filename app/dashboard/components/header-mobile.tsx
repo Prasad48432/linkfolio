@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { SIDENAV_ITEMS } from "@/app/dashboard/utils/constants";
 import { SideNavItem } from "@/app/dashboard/utils/types";
 import { Cycle, motion } from "motion/react";
+import { useNavbar } from "@/context/navbarcontext";
 
 type MenuItemWithSubMenuProps = {
   item: SideNavItem;
@@ -30,19 +31,14 @@ const sidebar = {
   },
 };
 
-const HeaderMobile = ({
-  isOpen,
-  toggleOpen,
-}: {
-  isOpen: boolean;
-  toggleOpen: Cycle;
-}) => {
+const HeaderMobile = () => {
   const pathname = usePathname();
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
+  const { isDashboardNavbarOpen, setIsDashboardNavbarOpen } = useNavbar();
 
   useEffect(() => {
-    if (isOpen) {
+    if (isDashboardNavbarOpen) {
       document.body.classList.add("overflow-hidden");
     } else {
       document.body.classList.remove("overflow-hidden");
@@ -51,15 +47,15 @@ const HeaderMobile = ({
     return () => {
       document.body.classList.remove("overflow-hidden");
     };
-  }, [isOpen]);
+  }, [isDashboardNavbarOpen]);
 
   return (
     <motion.nav
       initial={false}
-      animate={isOpen ? "open" : "closed"}
+      animate={isDashboardNavbarOpen ? "open" : "closed"}
       custom={height}
       className={`fixed inset-0 z-50 w-full top-[3.8rem] md:hidden ${
-        isOpen ? "" : "pointer-events-none"
+        isDashboardNavbarOpen ? "" : "pointer-events-none"
       }`}
       ref={containerRef}
     >
@@ -79,7 +75,7 @@ const HeaderMobile = ({
               <MenuItem>
                 <Link
                   href={item.path}
-                  onClick={() => toggleOpen()}
+                  onClick={() => setIsDashboardNavbarOpen(!isDashboardNavbarOpen)}
                   className={`w-full py-2 pl-3 pr-4 text-base flex items-center justify-between font-medium ${
                     item.path === pathname
                       ? "text-lightaccent-text dark:text-accent-text"
