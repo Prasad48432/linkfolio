@@ -5,6 +5,10 @@ import ClicksChart from "./components/clickschart";
 import SourcesChart from "./components/sourceschart";
 import ViewsChart from "./components/viewschart";
 import SubscribersChart from "./components/subscriberschart";
+import AnimatedLoader from "@/components/animatedloader";
+import { Button } from "@/components/ui/button";
+import { useProfile } from "@/context/profielcontext";
+import Link from "next/link";
 
 const Component = () => {
   const supabase = createClient();
@@ -28,6 +32,8 @@ const Component = () => {
     totalSubscribers: 0,
     monthlySubscribers: {},
   });
+
+    const { subscription, loading } = useProfile();
 
   useEffect(() => {
     const fetchClicks = async () => {
@@ -220,6 +226,9 @@ const Component = () => {
   }, []);
 
   return (
+    <>
+    {subscription === "elite"? (
+      <>
     <div className="grid grid-cols-8 gap-4 p-4">
       <ClicksChart fetchLoading={fetchLoading} clicks={clicks} />
       <SourcesChart fetchLoading={fetchLoading} />
@@ -229,7 +238,25 @@ const Component = () => {
         monthlyviews={views.monthltyViews}
       />
       <SubscribersChart fetchLoading={fetchLoading} newsletterSubscribers={newsletterSubscribers} monthlySubscribers={newsletterSubscribers.monthlySubscribers} />
-    </div>
+    </div></>
+      ) : loading ? (
+        <div className="flex gap-2 h-[calc(100vh-100px)] relative items-center justify-center">
+          <AnimatedLoader />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-2 h-[calc(100vh-100px)] relative items-center justify-center">
+          <p className="text-lg lg:text-xl font-bold text-lightprimary-text dark:text-primary-text">
+            🔒 Feature Locked
+          </p>
+          <p className="text-sm lg:text-lg font-normal text-lightprimary-text/80 dark:text-primary-text/80">
+            This feature is available for premium users only.
+          </p>
+          <Button className="mt-2" variant={"secondary"}>
+            <Link href={"/#pricing"}>Upgrade now</Link>
+          </Button>
+        </div>
+      )}
+    </>
   );
 };
 
