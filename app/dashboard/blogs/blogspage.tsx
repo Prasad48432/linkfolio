@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { BookText, ChevronRight, Plus, Save, Upload } from "lucide-react";
+import { BookText, ChevronRight, MoveUpRight, Plus, Save, Upload } from "lucide-react";
 import { PiHandsClappingLight } from "react-icons/pi";
 import { IoEyeOutline } from "react-icons/io5";
 import { CiEdit } from "react-icons/ci";
@@ -267,7 +267,7 @@ export default function Blogs() {
                 <div
                   key={index}
                   data-active={selectedBlog?.id === blog.id}
-                  className="p-3 group/blogcard gap-2 w-full h-32 flex items-center justify-center bg-lightsecondary-bg dark:bg-secondary-bg data-[active=true]:hover:bg-lightsecondary-bg dark:data-[active=true]:hover:bg-secondary-bg data-[active=false]:hover:bg-lightsecondary-selection/80 dark:data-[active=false]:hover:bg-secondary-selection/80 border border-lightsecondary-border dark:border-secondary-border data-[active=true]:border-lightaccent-text dark:data-[active=true]:border-primary-text/60 hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"
+                  className="px-1 py-2 lg:px-3 lg:py-3 group/blogcard gap-2 w-full h-32 flex items-center justify-center bg-lightsecondary-bg dark:bg-secondary-bg data-[active=true]:hover:bg-lightsecondary-bg dark:data-[active=true]:hover:bg-secondary-bg data-[active=false]:hover:bg-lightsecondary-selection/80 dark:data-[active=false]:hover:bg-secondary-selection/80 border border-lightsecondary-border dark:border-secondary-border data-[active=true]:border-lightaccent-text dark:data-[active=true]:border-primary-text/60 hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"
                 >
                   <div className="flex flex-col items-center justify-center w-[95%] h-full gap-2">
                     <div className="flex items-center justify-center gap-2 w-full h-2/3">
@@ -308,9 +308,10 @@ export default function Blogs() {
                         href={`/blog/${blog.id}`}
                         className="flex items-center justify-center text-xs lg:text-sm font-normal pl-1 lg:pl-2 cursor-pointer text-lightprimary-text/80 dark:text-primary-text/80"
                       >
-                        <LiaExternalLinkAltSolid
+                        <MoveUpRight
                           strokeWidth={1}
                           className="mr-1"
+                          size={15}
                         />
                         Preview
                       </a>

@@ -24,7 +24,7 @@ export function PriceSection({ checkoutData, handleQuantityChange, quantity }: P
       </div>
       <div className={'block md:hidden'}>
         <CheckoutPriceAmount checkoutData={checkoutData} />
-        <Separator className={'relative bg-border/50 mt-6 checkout-order-summary-mobile-yellow-highlight'} />
+        <Separator className={'relative bg-[#a6a6a6] mt-6 checkout-order-summary-mobile-yellow-highlight'} />
         <Accordion type="single" collapsible>
           <AccordionItem className={'border-none'} value="item-1">
             <AccordionTrigger className={'no-underline! text-lg text-lightprimary-text dark:text-primary-text'}>Order summary</AccordionTrigger>

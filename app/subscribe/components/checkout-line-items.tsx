@@ -11,7 +11,7 @@ interface LoadingTextProps {
 
 function LoadingText({ value, currencyCode }: LoadingTextProps) {
   if (value === undefined) {
-    return <Skeleton className="h-[20px] w-[75px] bg-border" />;
+    return <Skeleton className="h-[20px] w-[75px] bg-[#a6a6a6] dark:bg-secondary-selection" />;
   } else {
     return formatMoney(value, currencyCode);
   }
@@ -39,7 +39,7 @@ export function CheckoutLineItems({
         quantity={quantity}
         handleQuantityChange={handleQuantityChange}
       />
-      <Separator className={"bg-border/50 mt-6"} />
+      <Separator className={"bg-[#a6a6a6] mt-6"} />
       <div
         className={
           "pt-6 flex justify-between text-lightprimary-text dark:text-primary-text"
@@ -78,7 +78,7 @@ export function CheckoutLineItems({
           />
         </span>
       </div>
-      <Separator className={"bg-border/50 mt-6"} />
+      <Separator className={"bg-[#a6a6a6] mt-6"} />
       <div
         className={
           "pt-6 flex justify-between text-lightprimary-text dark:text-primary-text"

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { SIDENAV_ITEMS } from "@/app/dashboard/utils/constants";
 import { SideNavItem } from "@/app/dashboard/utils/types";
 import Image from "next/image";
+import { LogOutIcon } from "lucide-react";
 
 const SideNav = () => {
   return (
@@ -39,6 +40,7 @@ const SideNav = () => {
             return <MenuItem key={idx} item={item} />;
           })}
         </div>
+
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { HandCoins, TrendingUp, X } from "lucide-react";
+import React, { useState } from "react";
+import { HandCoins, Loader, Loader2, TrendingUp, X } from "lucide-react";
 import Link from "next/link";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { useRouter } from "next/navigation";
@@ -42,7 +42,9 @@ const Pricing = ({ user }: { user: User | null }) => {
                   <div className="space-y-8 flex flex-col lg:flex-row sm:gap-6 xl:gap-10 lg:space-y-0">
                     <div className="relative flex justify-center scale-100">
                       <div className="flex flex-col p-6 mx-auto w-full bg-lightprimary-lighter dark:bg-primary-lighter max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
-                        <h3 className="mb-1 text-2xl font-semibold">LF Core ⚡</h3>
+                        <h3 className="mb-1 text-2xl font-semibold">
+                          LF Core ⚡
+                        </h3>
                         <p className="font-light sm:text-lg text-lightprimary-text/80 dark:text-primary-text/80">
                           Best for limited Entries.
                         </p>
@@ -145,7 +147,10 @@ const Pricing = ({ user }: { user: User | null }) => {
                       <div className="cursor-pointer absolute top-[-15px] left-1/2 transform -translate-x-1/2">
                         <p className="text-sm flex gap-1 rounded-full font-semibold animate-shine items-center justify-center border border-gray-600 bg-[linear-gradient(110deg,#ffc2b3,45%,#ff9980,55%,#ffc2b3)] dark:bg-[linear-gradient(110deg,#131313,45%,#474747,55%,#131313)] bg-[length:200%_100%] px-3 py-1 text-lightprimary-text dark:text-primary-text transition-colors">
                           Popular{" "}
-                          <TrendingUp size={15} className="text-lightprimary-text dark:text-primary-text" />
+                          <TrendingUp
+                            size={15}
+                            className="text-lightprimary-text dark:text-primary-text"
+                          />
                         </p>
                       </div>
                       <div className="flex flex-col p-6 mx-auto w-full bg-lightprimary-lighter dark:bg-primary-lighter max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
@@ -299,7 +304,9 @@ const Pricing = ({ user }: { user: User | null }) => {
                   <div className="space-y-8 flex flex-col lg:flex-row sm:gap-6 xl:gap-10 lg:space-y-0">
                     <div className="relative flex justify-center scale-100">
                       <div className="flex flex-col p-6 mx-auto w-full bg-lightprimary-lighter dark:bg-primary-lighter max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
-                        <h3 className="mb-1 text-2xl font-semibold">LF Core ⚡</h3>
+                        <h3 className="mb-1 text-2xl font-semibold">
+                          LF Core ⚡
+                        </h3>
                         <p className="font-light sm:text-lg text-lightprimary-text/80 dark:text-primary-text/80">
                           (Billed yearly)
                         </p>
@@ -402,7 +409,10 @@ const Pricing = ({ user }: { user: User | null }) => {
                       <div className="cursor-pointer absolute top-[-15px] left-1/2 transform -translate-x-1/2">
                         <p className="text-sm flex gap-1 rounded-full font-semibold animate-shine items-center justify-center border border-gray-600 bg-[linear-gradient(110deg,#ffc2b3,45%,#ff9980,55%,#ffc2b3)] dark:bg-[linear-gradient(110deg,#131313,45%,#474747,55%,#131313)] bg-[length:200%_100%] px-3 py-1 text-lightprimary-text dark:text-primary-text transition-colors">
                           Popular{" "}
-                          <TrendingUp size={15} className="text-lightprimary-text dark:text-primary-text" />
+                          <TrendingUp
+                            size={15}
+                            className="text-lightprimary-text dark:text-primary-text"
+                          />
                         </p>
                       </div>
                       <div className="flex flex-col p-6 mx-auto w-full bg-lightprimary-lighter dark:bg-primary-lighter max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
@@ -558,7 +568,10 @@ const Pricing = ({ user }: { user: User | null }) => {
                       <div className="cursor-pointer absolute top-[-15px] left-1/2 transform -translate-x-1/2">
                         <p className="text-sm flex gap-1 rounded-full font-semibold animate-shine items-center justify-center border border-gray-600 bg-[linear-gradient(110deg,#ffc2b3,45%,#ff9980,55%,#ffc2b3)] dark:bg-[linear-gradient(110deg,#131313,45%,#474747,55%,#131313)] bg-[length:200%_100%] px-3 py-1 text-lightprimary-text dark:text-primary-text transition-colors">
                           Best Value{" "}
-                          <HandCoins size={15} className="text-lightprimary-text dark:text-primary-text" />
+                          <HandCoins
+                            size={15}
+                            className="text-lightprimary-text dark:text-primary-text"
+                          />
                         </p>
                       </div>
                       <div className="flex flex-col p-6 mx-auto w-full bg-lightprimary-lighter dark:bg-primary-lighter max-w-lg text-center text-lightprimary-text dark:text-primary-text rounded-lg border card-shard shadow xl:p-8">
@@ -694,6 +707,7 @@ const Pricing = ({ user }: { user: User | null }) => {
                         <CheckoutButton
                           user={user}
                           priceId="pri_01jmkcvr46znza92js4kamddvk"
+                          buttonText="Purchase"
                         />
                       </div>
                     </div>
@@ -711,14 +725,17 @@ const Pricing = ({ user }: { user: User | null }) => {
 const CheckoutButton = ({
   priceId,
   user,
+  buttonText,
 }: {
   priceId: string;
   user: User | null;
+  buttonText?: string;
 }) => {
   const router = useRouter();
   const handleCheckout = async ({ priceId }: { priceId: string }) => {
     router.push(`/subscribe/${priceId}`);
   };
+  const [loading, setLoading] = useState(false);
   return (
     <>
       {!user ? (
@@ -730,14 +747,17 @@ const CheckoutButton = ({
         </Link>
       ) : (
         <button
-          onClick={() =>
+          onClick={() => {
+            setLoading(true);
             handleCheckout({
               priceId: priceId,
-            })
-          }
-          className="cursor-pointer h-[45px] flex items-center justify-center text-lightprimary-text bg-lightaccent-bg border-lightaccent-border hover:bg-lightaccent-selection hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border dark:hover:bg-accent-selection dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-normal rounded-lg px-5 py-2.5 text-center"
+            });
+          }}
+          data-active={loading}
+          className="cursor-pointer h-[45px] data-[active=true]:opacity-60 flex items-center justify-center text-lightprimary-text bg-lightaccent-bg border-lightaccent-border data-[active=false]:hover:bg-lightaccent-selection data-[active=false]:hover:border-lightaccent-strongerborder dark:text-primary-text dark:bg-accent-bg border dark:border-accent-border data-[active=false]:dark:hover:bg-accent-selection data-[active=false]:dark:hover:border-accent-strongerborder transition-all duration-150 ease-in-out font-normal rounded-lg px-5 py-2.5 text-center"
         >
-          Subscribe
+          {loading && <Loader size={15} className="mr-1 animate-spin"/>}
+          {buttonText ? `${buttonText}` : "Subscribe"}
         </button>
       )}
     </>

@@ -18,7 +18,7 @@ export function CheckoutPriceContainer({ checkoutData }: Props) {
           then {formatMoney(checkoutData?.recurring_totals?.total, checkoutData?.currency_code)} monthly
         </div>
       ) : (
-        <Skeleton className="mt-4 h-[20px] w-full bg-border" />
+        <Skeleton className="mt-4 h-[20px] w-full bg-[#a6a6a6] dark:bg-secondary-selection" />
       )}
     </>
   );
