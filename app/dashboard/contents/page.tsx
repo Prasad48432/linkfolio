@@ -29,6 +29,7 @@ import { handleAdd } from "./functions/addContents";
 import StartupPreviewRender from "./components/startuppreview_render";
 import ProjectPreviewRender from "./components/projectpreview_render";
 import LinkPreviewRender from "./components/linkpreview_render";
+import AnimatedSVG from "@/components/animatedloader";
 
 type IndexConversion = "startupAdd" | "linkAdd" | "projectAdd";
 
@@ -483,8 +484,13 @@ const Projects = () => {
         onClick={() => setPreview(true)}
         className="lg:hidden font-bold py-1 px-2 inline-flex items-center justify-center bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-gray-400 w-[120px] bottom-6 fixed left-1/2 translate-x-[-50%] z-[48]"
       >
-        <Eye strokeWidth={1} className="text-lightprimary-text dark:text-primary-text text-lg mr-1" />
-        <p className="text-lightprimary-text dark:text-primary-text font-semibold text-base">Preview</p>
+        <Eye
+          strokeWidth={1}
+          className="text-lightprimary-text dark:text-primary-text text-lg mr-1"
+        />
+        <p className="text-lightprimary-text dark:text-primary-text font-semibold text-base">
+          Preview
+        </p>
       </div>
       <div className="flex gap-2 h-auto lg:h-[calc(100vh-100px)] relative">
         <div className="lg:w-[55%] w-full lg:overflow-y-auto">
@@ -1038,11 +1044,7 @@ const Projects = () => {
             <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full"></div>
             {fetchLoading ? (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-lightprimary-bg dark:bg-primary-bg flex items-center justify-center">
-                <Loader
-                  strokeWidth={1.5}
-                  size={24}
-                  className="animate-spin text-lightprimary-text dark:text-primary-text"
-                />
+                <AnimatedSVG size={80} />
               </div>
             ) : (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg/60 dark:bg-black">
@@ -1076,13 +1078,13 @@ const Projects = () => {
                       selectedIndex={tabToggles}
                     >
                       <TabList className="flex p-0.5 gap-2 rounded-full mx-0.5 items-center justify-center">
-                        <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-lightprimary-text data-[selected]:text-lightaccent-text dark:text-lightprimary-text dark:data-[selected]:text-lightaccent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2 data-[selected]:decoration-lightaccent-bg  dark:data-[selected]:decoration-accent-bg">
+                        <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-lightprimary-text data-[selected]:text-lightaccent-text dark:text-primary-text dark:data-[selected]:text-accent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2 data-[selected]:decoration-lightaccent-bg  dark:data-[selected]:decoration-accent-bg">
                           Startups
                         </Tab>
-                        <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-lightprimary-text data-[selected]:text-lightaccent-text dark:text-lightprimary-text dark:data-[selected]:text-lightaccent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2 data-[selected]:decoration-lightaccent-bg  dark:data-[selected]:decoration-accent-bg">
+                        <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-lightprimary-text data-[selected]:text-lightaccent-text dark:text-primary-text dark:data-[selected]:text-accent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2 data-[selected]:decoration-lightaccent-bg  dark:data-[selected]:decoration-accent-bg">
                           Projects
                         </Tab>
-                        <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-lightprimary-text data-[selected]:text-lightaccent-text dark:text-lightprimary-text dark:data-[selected]:text-lightaccent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2 data-[selected]:decoration-lightaccent-bg  dark:data-[selected]:decoration-accent-bg">
+                        <Tab className="transition-all ease-out duration-200 rounded-full py-0.5 px-1.5 text-[0.6rem] font-semibold text-lightprimary-text data-[selected]:text-lightaccent-text dark:text-primary-text dark:data-[selected]:text-accent-text focus:outline-none data-[selected]:underline underline-offset-2 decoration-2 data-[selected]:decoration-lightaccent-bg  dark:data-[selected]:decoration-accent-bg">
                           Links
                         </Tab>
                       </TabList>

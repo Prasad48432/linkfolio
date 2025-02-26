@@ -26,6 +26,7 @@ import { useCallback, useEffect, useState } from "react";
 import { BsFiletypeCsv } from "react-icons/bs";
 import Papa from "papaparse";
 import { saveAs } from "file-saver";
+import AnimatedSVG from "@/components/animatedloader";
 
 const NewsletterForm = () => {
   const supabase = createClient();
@@ -678,11 +679,7 @@ const NewsletterForm = () => {
             <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full"></div>
             {fetchLoading ? (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-lightprimary-bg dark:bg-primary-bg flex items-center justify-center">
-                <Loader
-                  strokeWidth={1.5}
-                  size={24}
-                  className="animate-spin text-lightprimary-text dark:text-primary-text"
-                />
+                <AnimatedSVG size={80} />
               </div>
             ) : (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg/60 dark:bg-black">

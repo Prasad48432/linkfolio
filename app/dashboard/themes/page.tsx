@@ -36,11 +36,11 @@ import {
   SiYoutube,
 } from "react-icons/si";
 import { fetchProfile, fetchThemes } from "./functions/fetchContents";
-import AnimatedLoader from "@/components/animatedloader";
 import { Button } from "@/components/ui/button";
 import { useProfile } from "@/context/profielcontext";
 import Link from "next/link";
 import { LuLink } from "react-icons/lu";
+import AnimatedSVG from "@/components/animatedloader";
 
 interface Skill {
   name: string;
@@ -94,7 +94,7 @@ const Help = () => {
   const [projects, setProjects] = useState<any[] | null>([]);
   const [tabIndex, setTabIndex] = useState(0);
   const [palettes, setPalettes] = useState<Theme[]>([]);
-  const { subscription, loading } = useProfile();
+  const { subscription, loading, subscriptionStatus } = useProfile();
 
   const [theme, setTheme] = useState({
     primary_bg: "",
@@ -197,7 +197,7 @@ const Help = () => {
 
   return (
     <>
-      {subscription === "elite"? (
+      {subscription === "elite" && subscriptionStatus === "active" ? (
         <>
           <div
             onClick={() => setPreview(true)}
@@ -444,11 +444,7 @@ const Help = () => {
                 <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full z-10"></div>
                 {fetchLoading ? (
                   <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-lightprimary-bg dark:bg-primary-bg flex items-center justify-center">
-                    <Loader
-                      strokeWidth={1.5}
-                      size={24}
-                      className="animate-spin text-lightprimary-text dark:text-primary-text"
-                    />
+                    <AnimatedSVG size={80} />
                   </div>
                 ) : (
                   <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg/60 dark:bg-black">
@@ -815,18 +811,25 @@ const Help = () => {
         </>
       ) : loading ? (
         <div className="flex gap-2 h-[calc(100vh-100px)] relative items-center justify-center">
-          <AnimatedLoader />
+          <AnimatedSVG />
         </div>
       ) : (
         <div className="flex flex-col gap-2 h-[calc(100vh-100px)] relative items-center justify-center">
           <p className="text-lg lg:text-xl font-bold text-lightprimary-text dark:text-primary-text">
-            🔒 Feature Locked
+            {subscriptionStatus === "past_due"
+              ? "⚠️ Subscription Due"
+              : "🔒 Feature Locked"}
           </p>
           <p className="text-sm lg:text-lg font-normal text-lightprimary-text/80 dark:text-primary-text/80">
-            This feature is available for premium users only.
+            {subscriptionStatus === "past_due"
+              ? "Subscription is past due update payment details"
+              : "This feature is available for premium users only."}
           </p>
           <Button className="mt-2" variant={"secondary"}>
-            <Link href={"/#pricing"}>Upgrade now</Link>
+            <Link href={"/#pricing"}>
+              {" "}
+              {subscriptionStatus === "past_due" ? "Update now" : "Upgrade now"}
+            </Link>
           </Button>
         </div>
       )}

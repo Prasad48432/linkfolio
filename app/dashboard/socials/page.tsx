@@ -4,7 +4,6 @@ import useWindowSize from "@/hooks/useWindowSize";
 import { createClient } from "@/utils/supabase/client";
 import { BatteryLow, Eye, Loader, SignalMedium, X } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
-import { MdEmail, MdOutlineEmail } from "react-icons/md";
 import {
   SiFacebook,
   SiInstagram,
@@ -13,6 +12,8 @@ import {
   SiLinkedin,
   SiYoutube,
 } from "react-icons/si";
+import Link from "next/link";
+import AnimatedSVG from "@/components/animatedloader";
 
 interface Socials {
   instagram?: string;
@@ -127,8 +128,13 @@ const SocialLinks = () => {
         onClick={() => setPreview(true)}
         className="lg:hidden font-bold py-1 px-2 inline-flex items-center justify-center bg-secondary-bg rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-secondary-strongerborder w-[120px] bottom-6 fixed left-1/2 translate-x-[-50%] z-[48]"
       >
-        <Eye strokeWidth={1} className="text-lightprimary-text dark:text-primary-text text-lg mr-1" />
-        <p className="text-lightprimary-text dark:text-primary-text font-semibold text-base">Preview</p>
+        <Eye
+          strokeWidth={1}
+          className="text-lightprimary-text dark:text-primary-text text-lg mr-1"
+        />
+        <p className="text-lightprimary-text dark:text-primary-text font-semibold text-base">
+          Preview
+        </p>
       </div>
       <div className="flex gap-2 h-auto lg:h-[calc(100vh-100px)] relative">
         <div className="lg:w-[55%] w-full lg:overflow-y-auto">
@@ -378,11 +384,7 @@ const SocialLinks = () => {
             <div className="h-[10px] w-[50px] bg-white/10 absolute top-0 left-[53%] -translate-x-1/2 rounded-full"></div>
             {fetchLoading ? (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-lightprimary-bg dark:bg-primary-bg flex items-center justify-center">
-                <Loader
-                  strokeWidth={1.5}
-                  size={24}
-                  className="animate-spin text-lightprimary-text dark:text-primary-text"
-                />
+                <AnimatedSVG size={80} />
               </div>
             ) : (
               <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-primary-bg/60 dark:bg-black">
@@ -420,34 +422,52 @@ const SocialLinks = () => {
                   </p>
                   <div className="mt-3 flex items-center justify-center gap-2">
                     {socials.facebook && (
-                      <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
+                      <Link
+                        href={`https://facebook.com/${socials.facebook}`}
+                        className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center"
+                      >
                         <SiFacebook className="text-lightprimary-text dark:text-primary-text" />
-                      </span>
+                      </Link>
                     )}
                     {socials.instagram && (
-                      <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
+                      <Link
+                        href={`https://instagram.com/${socials.instagram}`}
+                        className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center"
+                      >
                         <SiInstagram className="text-lightprimary-text dark:text-primary-text" />
-                      </span>
+                      </Link>
                     )}
                     {socials.x && (
-                      <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
+                      <Link
+                        href={`https://x.com/${socials.x}`}
+                        className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center"
+                      >
                         <SiX className="text-lightprimary-text dark:text-primary-text" />
-                      </span>
+                      </Link>
                     )}
                     {socials.github && (
-                      <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
+                      <Link
+                        href={`https://github.com/${socials.github}`}
+                        className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center"
+                      >
                         <SiGithub className="text-lightprimary-text dark:text-primary-text" />
-                      </span>
+                      </Link>
                     )}
                     {socials.linkedin && (
-                      <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
+                      <Link
+                        href={`https://linkedin.com/${socials.linkedin}`}
+                        className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center"
+                      >
                         <SiLinkedin className="text-lightprimary-text dark:text-primary-text" />
-                      </span>
+                      </Link>
                     )}
                     {socials.youtube && (
-                      <span className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center">
+                      <Link
+                        href={`https://youtube.com/@${socials.youtube}`}
+                        className="w-8 h-8 rounded-full bg-lightsecondary-bg dark:bg-secondary-bg flex items-center justify-center"
+                      >
                         <SiYoutube className="text-lightprimary-text dark:text-primary-text" />
-                      </span>
+                      </Link>
                     )}
                   </div>
                 </div>

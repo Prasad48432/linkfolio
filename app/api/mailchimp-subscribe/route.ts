@@ -8,8 +8,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "Email is required" }, { status: 400 });
     }
 
-    const API_KEY = process.env.NEXT_PUBLIC_MAILCHIMP_API_KEY!;
-    const LIST_ID = process.env.NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID!;
+    const API_KEY = process.env.MAILCHIMP_API_KEY!;
+    const LIST_ID = process.env.MAILCHIMP_AUDIENCE_ID!;
     const DATACENTER = API_KEY.split("-")[1]; // Extract datacenter from API key
 
     const url = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${LIST_ID}/members/`;

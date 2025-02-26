@@ -1,10 +1,10 @@
 import { motion } from "motion/react";
 
-const AnimatedSVG = () => {
+const AnimatedSVG = ({ size }: { size?: number }) => {
   return (
     <svg
-      width="150"
-      height="150"
+      width={size ? size : 150}
+      height={size ? size : 150}
       viewBox="0 0 300 400" // Adjusted to properly frame paths
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -21,6 +21,8 @@ const AnimatedSVG = () => {
           ease: "easeInOut",
           repeat: Infinity,
           repeatType: "loop",
+          delay: 0, // Ensures no delay
+          repeatDelay: 0, // Avoids pause between repeats
         }}
         style={{
           strokeWidth: 2,
@@ -44,6 +46,8 @@ const AnimatedSVG = () => {
           ease: "easeInOut",
           repeat: Infinity,
           repeatType: "loop",
+          delay: 0, // Ensures no delay
+          repeatDelay: 0, // Avoids pause between repeats
         }}
         style={{
           strokeWidth: 2,

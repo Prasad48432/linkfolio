@@ -12,7 +12,10 @@ export class ProcessWebhook {
   async processEvent(eventData: EventEntity) {
     switch (eventData.eventType) {
       case EventName.SubscriptionCreated:
-        await this.updateSubscriptionData(eventData);
+        await this.AddSubscriptionData(eventData);
+        break;
+      case EventName.SubscriptionUpdated:
+        await this.UpdateSubscriptionData(eventData);
         break;
       case EventName.CustomerCreated:
       case EventName.CustomerUpdated:
@@ -22,8 +25,8 @@ export class ProcessWebhook {
     }
   }
 
-  private async updateSubscriptionData(
-    eventData: SubscriptionCreatedEvent | SubscriptionUpdatedEvent
+  private async AddSubscriptionData(
+    eventData: SubscriptionCreatedEvent
   ) {
     try {
       const supabase = createClient();
@@ -39,6 +42,22 @@ export class ProcessWebhook {
         starts_at: eventData.data.currentBillingPeriod?.startsAt,
         ends_at: eventData.data.currentBillingPeriod?.endsAt,
       });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  private async UpdateSubscriptionData(
+    eventData: SubscriptionUpdatedEvent
+  ) {
+    try {
+      const supabase = createClient();
+      const response = await supabase.from("subscriptions").update({
+        subscription_status: eventData.data.status,
+        starts_at: eventData.data.currentBillingPeriod?.startsAt,
+        ends_at: eventData.data.currentBillingPeriod?.endsAt,
+      })
+      .eq("subscription_id",eventData.data.id);
     } catch (e) {
       console.error(e);
     }

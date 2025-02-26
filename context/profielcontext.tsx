@@ -19,6 +19,7 @@ interface ProfileContextType {
   subscription:string;
   profileData: Profile | null;
   loading: boolean;
+  subscriptionStatus: string;
 }
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
@@ -36,6 +37,7 @@ function getSubscriptionText(subscriptions: Subscription[] | undefined) {
 export const ProfileProvider = ({ children }: { children: React.ReactNode }) => {
   const [profileData, setProfileData] = useState<Profile | null>(null);
   const [subscription, setSubscription] = useState("");
+  const [subscriptionStatus, setSubscriptionStatus] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -59,6 +61,7 @@ export const ProfileProvider = ({ children }: { children: React.ReactNode }) => 
       
       setProfileData(profileData);
       setSubscription(getSubscriptionText(profileData?.subscriptions));
+      setSubscriptionStatus(profileData?.subscriptions?.[0]?.subscription_status);
       setLoading(false);
     };
 
@@ -66,7 +69,7 @@ export const ProfileProvider = ({ children }: { children: React.ReactNode }) => 
   }, []);
 
   return (
-    <ProfileContext.Provider value={{subscription, profileData, loading }}>
+    <ProfileContext.Provider value={{subscription, profileData, loading, subscriptionStatus }}>
       {children}
     </ProfileContext.Provider>
   );

@@ -118,7 +118,7 @@ const Header = ({ user }: { user: User | null }) => {
                       /{profileData?.username} <MoveUpRight size={14} />
                     </span>
                   </a>
-                  <p className="hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border border-lightsecondary-border dark:border-secondary-border text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg  dark:bg-secondary-bg cursor-pointer items-center justify-between text-xs px-2.5 py-1 h-[26px] hidden lg:block truncate text-ellipsis rounded-md">
+                  <p className="hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border border-lightsecondary-border dark:border-secondary-border text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg  dark:bg-secondary-bg cursor-pointer items-center justify-between text-xs px-2.5 py-1 h-[26px] hidden lg:flex truncate text-ellipsis rounded-md">
                     Subscription:{" "}
                     <span>
                       &nbsp;{getSubscriptionText(profileData?.subscriptions)}
