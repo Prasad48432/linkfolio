@@ -11,12 +11,12 @@ const LinkRenderCard = ({ link, theme }: { link: any; theme?: any }) => {
         }}
         className="w-full rounded-md mt-2 px-4 py-2 border"
       >
-        <div className="flex items-center w-full">
+        <div className="flex items-center w-full gap-2">
           <div
             style={{
               borderColor: theme ? theme.strongerborder : "#4d4d4d",
             }}
-            className="w-[3.5rem] h-[3.5rem] p-1 rounded-full border lg:border-2 border-dashed mr-2"
+            className="w-[3.5rem] h-[3.5rem] p-1 rounded-full border lg:border-2 border-dashed"
           >
             <Image
               src={`https://www.google.com/s2/favicons?sz=128&domain_url=${link.link}`}
@@ -27,7 +27,7 @@ const LinkRenderCard = ({ link, theme }: { link: any; theme?: any }) => {
               className="rounded-full w-full h-full object-cover"
             />
           </div>
-          <div className="flex flex-col justify-center w-[78%]">
+          <div className="flex flex-col justify-center w-[calc(100%-4.5rem)]">
             <a target="_blank" href={`${link.link}`}>
               <p
                 style={{

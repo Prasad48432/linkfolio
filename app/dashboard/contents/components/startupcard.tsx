@@ -89,7 +89,7 @@ const StartupCard = ({ startup, handleFieldChange }: StartupCardProps) => {
                 alt={startup.name}
                 width={600}
                 height={600}
-                className="rounded-full w-full h-full mr-4 border border-dashed p-0.5 object-cover"
+                className="rounded-full w-full h-full mr-4 border border-lightsecondary-strongerborder dark:border-primary-text/90 border-dashed p-0.5 object-cover"
               />
             </div>
             <div className="flex flex-col items-center justify-center w-[calc(100%-4rem)]">

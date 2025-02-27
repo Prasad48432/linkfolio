@@ -12,7 +12,7 @@ const LinkPreviewRender = ({ link, theme }: { link: any; theme?: any }) => {
         className="w-60 rounded-md mt-2  px-4 py-2 border-[0.5px] bg-lightsecondary-bg border-lightsecondary-strongerborder dark:bg-secondary-bg dark:border-secondary-strongerborder"
       >
         <div className="flex items-center w-full">
-          <div className="w-[2.4rem] h-[2.4rem] p-0.5 rounded-full border border-dashed mr-2">
+          <div className="w-[2.4rem] h-[2.4rem] p-0.5 rounded-full border border-lightsecondary-strongerborder dark:border-secondary-strongerborder border-dashed mr-2">
             <Image
               src={`https://www.google.com/s2/favicons?sz=128&domain_url=${link.link}`}
               title={link.title}
