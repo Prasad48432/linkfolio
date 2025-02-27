@@ -23,6 +23,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import { createClient } from "@/utils/supabase/client";
 import { subscribeUser } from "../functions/addSubscriber";
 import { BiLinkExternal } from "react-icons/bi";
+import QRCodeGenerator from "@/components/qrcodegenerator";
 
 const hexToRgba = (hex: string, opacity: number) => {
   // Remove "#" if present
@@ -111,6 +112,12 @@ const ProfileCard = ({ profile }: { profile: ProfileData }) => {
               </h2>
             </div>
             <div className="py-4 px-5 overflow-hidden">
+              <div className="p-2 flex items-center justify-center mx-auto">
+                <QRCodeGenerator
+                  link={`${process.env.NEXT_PUBLIC_BASE_URL}/${profile.username}`}
+                  color={profile.theme.primary_text || "#ededed"}
+                />
+              </div>
               <div className="space-y-4">
                 <div
                   style={{

@@ -47,6 +47,7 @@
     "motion": "^12.4.3",
     "next": "^14.2.13",
     "papaparse": "^5.5.2",
+    "qr-code-styling": "^1.9.1",
     "react": "^18",
     "react-dom": "^18",
     "react-fast-marquee": "^1.6.5",

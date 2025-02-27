@@ -5,6 +5,7 @@ import { FlagIcon } from "lucide-react";
 import Pricing from "@/components/pricing";
 import Hero from "@/components/hero";
 import type { Metadata } from "next";
+import QRCodeGenerator from "@/components/qrcodegenerator";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -108,6 +109,7 @@ export default async function Home() {
         <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
         <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
       </div>
+      {/* <QRCodeGenerator/> */}
     </div>
   );
 }
