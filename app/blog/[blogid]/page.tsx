@@ -15,6 +15,8 @@ import {
 } from "date-fns";
 import ProfileHoverInfo from "../components/profileinfohover";
 
+import type { Metadata } from "next";
+
 interface Params {
   blogid: string;
   utm_source?: string;
@@ -57,6 +59,53 @@ const formatDate = (createdAt: string) => {
   } else {
     return format(date, "MMM d, yyyy");
   }
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const results = await getBlogDetails(params.blogid);
+
+  return {
+    title: `${results?.title}`,
+    description: results?.content,
+    openGraph: {
+      title: results?.title,
+      description: results?.content,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/${params.blogid}`,
+      images: [
+        {
+          url: results?.thumbnail_url,
+          width: 1200,
+          height: 630,
+          alt: `${results?.title}'s OpenGraph Image`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary",
+      title: results?.title,
+      description: results?.content,
+      images: [results?.thumbnail_url],
+    },
+  };
+}
+
+const getBlogDetails = async (blogId: string) => {
+  const supabase = createClient();
+  const { data: blog, error: blogError } = await supabase
+    .from("blogs")
+    .select("title, content, seotags, thumbnail_url")
+    .eq("id", blogId)
+    .single();
+
+  if (blogError || !blog) {
+    return null;
+  }
+
+  return blog;
 };
 
 export default async function BlogPage({ params }: { params: Params }) {
