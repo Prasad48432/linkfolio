@@ -3,12 +3,22 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
 import Heading from "@tiptap/extension-heading";
+import BaseHeading from "@tiptap/extension-heading";
 import Highlight from "@tiptap/extension-highlight";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 import CodeBlock from "@tiptap/extension-code-block";
 import { useEffect } from "react";
 import ToolBar from "./toolbar";
+import { mergeAttributes } from '@tiptap/core'
+
+type Levels = 1 | 2 | 3
+
+const classes: Record<Levels, string> = {
+  1: 'text-4xl',
+  2: 'text-3xl',
+  3: 'text-2xl',
+}
 
 export default function RichTextEditor({ content, onChange }: { content: any; onChange: any }) {
   const editor = useEditor({
@@ -18,8 +28,19 @@ export default function RichTextEditor({ content, onChange }: { content: any; on
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
-      Heading.configure({
-        levels: [1, 2, 3],
+      BaseHeading.configure({ levels: [1, 2, 3] }).extend({
+        renderHTML({ node, HTMLAttributes }) {
+          const hasLevel = this.options.levels.includes(node.attrs.level)
+          const level: Levels = hasLevel ? node.attrs.level : this.options.levels[0]
+      
+          return [
+            `h${level}`,
+            mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
+              class: `${classes[level]}`,
+            }),
+            0,
+          ]
+        },
       }),
       OrderedList.configure({
         HTMLAttributes: {

@@ -40,10 +40,10 @@ const SharerComponent = ({ blog }: { blog: any }) => {
           <LuShare strokeWidth={1} className="mr-1 text-xl" />
           Share
         </PopoverTrigger>
-        <PopoverContent className="relative my-2 w-48 p-4 bg-secondary-bg border border-secondary-border">
-          <div className="absolute z-0 -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 bg-secondary-bg border-t border-l border-secondary-border" />
+        <PopoverContent className="z-10 relative my-2 w-48 p-4 bg-lightsecondary-selection border-lightsecondary-border dark:bg-secondary-bg border dark:border-secondary-border">
+          <div className="absolute z-0 -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 bg-lightsecondary-selection dark:bg-secondary-bg border-t border-l border-lightsecondary-border dark:border-secondary-border" />
 
-          <div className="relative z-10 flex flex-col gap-3 items-center justify-center w-full">
+          <div className="relative text-lightprimary-text dark:text-primary-text z-10 flex flex-col gap-3 items-center justify-center w-full">
             <a
               target="_blank"
               href={`https://www.linkedin.com/sharing/share-offsite/?text=${blog.title}%0Ahttps://linkfolio-dev.vercel.app/blog/${blog.id}`}

@@ -59,20 +59,17 @@ const formatDate = (createdAt: string) => {
 
 function extractTextFromHtml(html: string): string {
   let text = html
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"');
 
-  text = text.replace(/<[^>]*>/g, '');
+  text = text.replace(/<[^>]*>/g, "");
 
-  text = text
-    .replace(/\s+/g, ' ') 
-    .replace(/\n\s+/g, '\n')
-    .trim();
-  
-  return text.substring(0,300);
+  text = text.replace(/\s+/g, " ").replace(/\n\s+/g, "\n").trim();
+
+  return text.substring(0, 300);
 }
 
 export async function generateMetadata({
@@ -168,6 +165,7 @@ export default async function BlogPage({ params }: { params: Params }) {
   }
 
   const isAuthor = user.user?.id === blog.author_id;
+  // const sanitizedContent = DOMPurify.sanitize(blog.content);
 
   if (blogerror || !blog) {
     return (
