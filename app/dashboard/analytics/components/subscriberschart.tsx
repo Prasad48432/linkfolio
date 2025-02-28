@@ -40,9 +40,9 @@ const SubscribersChart = ({
 }) => {
   return (
     <Card className="col-span-8 lg:col-span-4 rounded-lg">
-      <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row mb-4 lg:mb-0">
-        <div className="flex w-full items-center justify-between">
-          <div className="w-1/2 relative flex flex-col items-start justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
+      <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 lg:flex-row mb-4 lg:mb-0">
+        <div className="flex flex-col lg:flex-row w-full items-center justify-between">
+          <div className="w-full lg:w-1/2 relative flex flex-col items-start justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
             <CardTitle className="text-lg leading-none text-lightprimary-text dark:text-primary-text">
               Newsletter Subscribers
             </CardTitle>
@@ -51,7 +51,7 @@ const SubscribersChart = ({
             </CardDescription>
           </div>
           {fetchLoading ? (
-            <div className="w-1/2 flex">
+            <div className="w-full lg:w-1/2 flex">
               <div className="relative w-1/2 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
                 <div className="w-full h-12 bg-[#c4b59f] dark:bg-secondary-bg  relative overflow-hidden rounded-md">
                   <div className="absolute inset-0 bg-gradient-to-r from-[#c4b59f] via-[#928878] to-[#c4b59f] dark:from-secondary-bg dark:via-gray-400/10 dark:to-secondary-bg animate-shimmer" />
@@ -64,7 +64,7 @@ const SubscribersChart = ({
               </div>
             </div>
           ) : (
-            <div className="w-1/2 flex items-center justify-end">
+            <div className="w-full lg:w-1/2 flex items-center justify-end">
               <div className="w-1/2 relative  flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
                 <span className="text-xs text-muted-foreground">
                   Subscribers
@@ -73,10 +73,10 @@ const SubscribersChart = ({
                   {newsletterSubscribers.totalSubscribers}
                 </span>
               </div>
-              <div className="w-1/2 relative  flex flex-col items-center justify-center gap-2 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
+              <div className="w-1/2 relative  flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
                 <span className="text-xs text-muted-foreground">Export as</span>
                 <div className="flex  items-center justify-center cursor-pointer">
-                  <p className="py-1 px-2 flex text-primarytext items-center justify-center gap-1 text-xs bg-[#c1aa89] dark:bg-secondary-bg rounded-md border border-lightsecondary-border dark:border-secondary-border">
+                  <p className="lg:py-1 px-2 flex text-primarytext items-center justify-center gap-1 text-xs bg-[#c1aa89] dark:bg-secondary-bg rounded-md border border-lightsecondary-border dark:border-secondary-border">
                     <BsFiletypeCsv size={15} /> CSV
                   </p>
                 </div>

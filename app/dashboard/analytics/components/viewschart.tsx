@@ -64,21 +64,21 @@ const ViewsChart = ({
         ) : (
           <div className="flex w-full items-center justify-between">
             <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 first:border-l-0 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
-              <span className="text-xs text-muted-foreground">Page Views</span>
+              <span className="text-xs text-muted-foreground text-center">Page Views</span>
               <span className="text-lg font-bold leading-none sm:text-xl">
                 {views.totalViews}
               </span>
             </div>
             <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
-              <span className="text-xs text-muted-foreground">
+              <span className="text-xs text-muted-foreground text-center">
                 Unique Visitors
               </span>
               <span className="text-lg font-bold leading-none sm:text-xl">
                 {views.uniqueVisitors}
               </span>
             </div>
-            <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection sm:border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
-              <span className="text-xs text-muted-foreground">
+            <div className="relative w-1/3 flex flex-col items-center justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-secondary-selection border-l sm:border-t-0 sm:px-8 sm:py-6 data-[active=true]:border-secondary-strongerborder last:rounded-tr-lg">
+              <span className="text-xs text-muted-foreground text-center">
                 Live Visitors
               </span>
               <span className="text-lg font-bold leading-none sm:text-xl relative">

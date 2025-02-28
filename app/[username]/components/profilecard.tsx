@@ -4,7 +4,7 @@ import Image from "next/image";
 import MarkdownParser from "@/components/markdown-parser";
 import { ArrowRight, Copy, FileUser, Link, Mail } from "lucide-react";
 import { formatEarnings } from "@/lib/format-earnings";
-import { FaMapMarkerAlt, FaRupeeSign } from "react-icons/fa";
+import { FaRupeeSign } from "react-icons/fa";
 import { ProfileData } from "@/types/user";
 import { ICONS_MAP_SMALL } from "@/app/dashboard/home/components/icons-map-small";
 import { ICONS_MAP } from "@/app/dashboard/home/components/icons-map";

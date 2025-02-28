@@ -6,6 +6,7 @@ import Pricing from "@/components/pricing";
 import Hero from "@/components/hero";
 import type { Metadata } from "next";
 import QRCodeGenerator from "@/components/qrcodegenerator";
+import FeatureShowcase from "@/components/featureshowcase";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -35,6 +36,21 @@ export async function generateMetadata(): Promise<Metadata> {
       images: ["/ogimage.png"],
     },
   };
+}
+
+type Subscription = {
+  subscription_status: boolean;
+  subscription_type: string;
+};
+
+function getSubscriptionText(subscriptions: Subscription[] | undefined) {
+  if (subscriptions?.[0]?.subscription_type === "LF Elite") {
+    return "elite";
+  } else if (subscriptions?.[0]?.subscription_type === "LF Core") {
+    return "core";
+  } else {
+    return "basic";
+  }
 }
 
 export default async function Home() {
@@ -88,28 +104,33 @@ export default async function Home() {
   }
 
   return (
-    <div className="w-full h-full flex flex-col antialiased">
+    <div className="w-full h-full flex flex-col antialiased bg-lightprimary-bg dark:bg-primary-bg">
       <Navbar user={user} profileData={profileData} blogs={blogsData} />
       <CookieConsent />
-      <Hero trendingProfiles={trendingProfiles} user={user} />
+      <Hero
+        trendingProfiles={trendingProfiles}
+        user={user}
+        subscription={profileData?.subscriptions?.length === 0}
+        subscriptionType={getSubscriptionText(profileData?.subscriptions)}
+      />
+      {/* <div className="bg-lightprimary-bg dark:bg-primary-bg sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20 pt-8 pb-10 md:pt-16 grid grid-cols-4 gap-4 w-full">
+        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
+      </div> */}
+      <FeatureShowcase />
       {(!user || profileData?.subscriptions?.length === 0) && (
         <Pricing user={user} />
       )}
-      <div className="bg-lightprimary-bg dark:bg-primary-bg sm:py-18 container relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20 pt-8 pb-10 md:pt-16 grid grid-cols-4 gap-4 w-full">
-        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-        <div className="col-span-2 md:col-span-1 h-48 border bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder  dark:hover:border-secondary-strongerborder rounded-lg transition-all ease-out duration-200"></div>
-      </div>
-      {/* <QRCodeGenerator/> */}
     </div>
   );
 }

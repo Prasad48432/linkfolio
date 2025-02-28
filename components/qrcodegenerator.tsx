@@ -1,7 +1,7 @@
 "use client";
 
 import QRCodeStyling from "qr-code-styling";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function QRCodeGenerator({
   link,
@@ -29,15 +29,18 @@ export default function QRCodeGenerator({
     },
   });
 
+  const [isQrLoaded, setIsQrLoaded] = useState(false);
+
   useEffect(() => {
     // @ts-expect-error
     qrCode.append(document.getElementById("qrCodeContainer"));
+    setIsQrLoaded(true);
   }, []);
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div id="qrCodeContainer" className="relative">
-        <svg
+        {isQrLoaded && <svg
           width="25"
           height="25"
           viewBox="0 0 300 400"
@@ -68,7 +71,7 @@ export default function QRCodeGenerator({
             transform="translate(-100, -50)"
             d="M 186.212906 359.000153 C 186.212906 387.308319 186.212906 415.116486 186.212906 443.215454 C 162.329514 443.215454 138.764526 443.215454 115.033585 443.215454 C 115.033585 324.924133 115.033585 206.835541 115.033585 88.456879 C 138.586517 88.456879 162.001114 88.456879 186.212906 88.456879 C 186.212906 178.421494 186.212906 268.460815 186.212906 359.000153 z"
           />
-        </svg>
+        </svg>}
       </div>
     </div>
   );

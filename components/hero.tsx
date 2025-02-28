@@ -9,7 +9,17 @@ import { Spotlight } from "./spotlight";
 import UsernameCheck from "./usernamecheck";
 import type { User } from "@supabase/supabase-js";
 
-const Hero = ({ trendingProfiles,user }: { trendingProfiles: any[] | null;   user: User | null; }) => {
+const Hero = ({
+  trendingProfiles,
+  user,
+  subscription,
+  subscriptionType,
+}: {
+  trendingProfiles: any[] | null;
+  user: User | null;
+  subscription: boolean;
+  subscriptionType: string;
+}) => {
   const { isNavbarOpen, setIsNavbarOpen } = useNavbar();
   const [showSpotlight, setShowSpotlight] = useState(false);
 
@@ -50,27 +60,29 @@ const Hero = ({ trendingProfiles,user }: { trendingProfiles: any[] | null;   use
                 <div className="mx-auto max-w-2xl lg:col-span-6 lg:flex lg:items-center justify-center text-center">
                   <div className="relative z-10 lg:h-auto pt-[90px] lg:pt-[90px] lg:min-h-[300px] flex flex-col items-center justify-center sm:mx-auto md:w-3/4 lg:mx-0 lg:w-full gap-4 lg:gap-8">
                     <div className="flex flex-col items-center">
-                      <div className="z-40 w-full flex justify-center -mt-4 lg:-mt-12 mb-8">
-                        <div className="relative w-fit max-w-xl flex justify-center">
-                          <a
-                            target="_self"
-                            className="announcement-link group/announcement relative flex flex-row items-center p-1 pr-3 text-sm w-auto gap-2 text-left rounded-full bg-opacity-20 border border-secondary-border hover:border-secondary-strongerborder shadow-md overflow-hidden focus-visible:outline-none focus-visible:ring-brand-600 focus-visible:ring-2 focus-visible:rounded-full"
-                            href="/launch-week"
-                          >
-                            <div className="inline-flex items-center bg-opacity-10 bg-accent-bg text-accent-text border border-secondary-strongerborder group-hover/announcement:border-secondary-border px-3 rounded-full text-sm py-1 announcement-badge">
-                              50% off ends soon!
-                            </div>
-                            <span className="text-lightprimary-text dark:text-primary-text announcement-text">
-                              Avail now
-                            </span>
-                            <MoveRight
-                              strokeWidth={1}
-                              className="text-lightprimary-text dark:text-primary-text ml-2 -translate-x-1 transition-transform group-hover/announcement:translate-x-0"
-                            />
-                            <div className="absolute inset-0 -z-10 bg-gradient-to-br opacity-70 group-hover/announcement:opacity-100 transition-opacity overflow-hidden rounded-full from-background-surface-100 to-background-surface-300 backdrop-blur-md " />
-                          </a>
+                      {(subscription || subscriptionType === "basic") && (
+                        <div className="z-40 w-full flex justify-center -mt-4 lg:-mt-12 mb-8">
+                          <div className="relative w-fit max-w-xl flex justify-center">
+                            <a
+                              target="_self"
+                              className="announcement-link group/announcement relative flex flex-row items-center p-1 pr-3 text-sm w-auto gap-2 text-left rounded-full bg-opacity-20 border border-secondary-border hover:border-secondary-strongerborder shadow-md overflow-hidden focus-visible:outline-none focus-visible:ring-brand-600 focus-visible:ring-2 focus-visible:rounded-full"
+                              href="/upgrade"
+                            >
+                              <div className="inline-flex items-center bg-opacity-10 bg-accent-bg text-accent-text border border-secondary-strongerborder group-hover/announcement:border-secondary-border px-3 rounded-full text-sm py-1 announcement-badge">
+                                50% off ends soon!
+                              </div>
+                              <span className="text-lightprimary-text dark:text-primary-text announcement-text">
+                                Avail now
+                              </span>
+                              <MoveRight
+                                strokeWidth={1}
+                                className="text-lightprimary-text dark:text-primary-text ml-2 -translate-x-1 transition-transform group-hover/announcement:translate-x-0"
+                              />
+                              <div className="absolute inset-0 -z-10 bg-gradient-to-br opacity-70 group-hover/announcement:opacity-100 transition-opacity overflow-hidden rounded-full from-background-surface-100 to-background-surface-300 backdrop-blur-md " />
+                            </a>
+                          </div>
                         </div>
-                      </div>
+                      )}
                       <h1
                         className={`bricolage text-foreground font-extrabold text-herosize lg:text-7xl tracking-tight select-none`}
                       >
@@ -98,29 +110,30 @@ const Hero = ({ trendingProfiles,user }: { trendingProfiles: any[] | null;   use
                 ) : !user ? (
                   <UsernameCheck />
                 ) : ( */}
-                {!user ? (
-                  <UsernameCheck />
-                ) :
-                    <div className="flex items-center gap-2">
-                      <a
-                        data-size="medium"
-                        type="button"
-                        className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightaccent-bg dark:bg-accent-bg hover:bg-lightaccent-selection dark:hover:bg-accent-selection border-lightaccent-border dark:border-accent-border hover:border-lightaccent-strongerborder dark:hover:hover:border-accent-strongerborder text-xs md:text-sm px-4 md:px-5 py-1.5"
-                        href="/dashboard/home"
-                      >
-                        <span className="truncate flex items-center justify-center">
-                          Dashboard
-                        </span>
-                      </a>
-                      <a
-                        data-size="medium"
-                        type="button"
-                        className="inline-flex relative justify-center cursor-pointer items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-foreground text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg  dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder text-xs md:text-sm px-4 md:px-5 py-1.5"
-                        href="/dashboard/analytics"
-                      >
-                        <span className="truncate">Analytics</span>
-                      </a>
-                    </div>}
+                    {!user ? (
+                      <UsernameCheck />
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <a
+                          data-size="medium"
+                          type="button"
+                          className="relative justify-center cursor-pointer inline-flex items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-lightprimary-text dark:text-primary-text bg-lightaccent-bg dark:bg-accent-bg hover:bg-lightaccent-selection dark:hover:bg-accent-selection border-lightaccent-border dark:border-accent-border hover:border-lightaccent-strongerborder dark:hover:hover:border-accent-strongerborder text-xs md:text-sm px-4 md:px-5 py-1.5"
+                          href="/dashboard/home"
+                        >
+                          <span className="truncate flex items-center justify-center">
+                            Dashboard
+                          </span>
+                        </a>
+                        <a
+                          data-size="medium"
+                          type="button"
+                          className="inline-flex relative justify-center cursor-pointer items-center space-x-2 text-center font-regular ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border text-foreground text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg  dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder text-xs md:text-sm px-4 md:px-5 py-1.5"
+                          href="/dashboard/analytics"
+                        >
+                          <span className="truncate">Analytics</span>
+                        </a>
+                      </div>
+                    )}
                     {/* )} */}
                     {/* {loading ? (
                   <div className="flex gap-4 items-center justify-center w-[504px] h-[76px] relative">

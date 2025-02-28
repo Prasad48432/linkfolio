@@ -1,11 +1,13 @@
 "use client";
-import React, { ReactNode, useEffect, useRef } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SIDENAV_ITEMS } from "@/app/dashboard/utils/constants";
 import { SideNavItem } from "@/app/dashboard/utils/types";
 import { Cycle, motion } from "motion/react";
 import { useNavbar } from "@/context/navbarcontext";
+import { LogOut } from "lucide-react";
+import LogoutConfirmation from "@/components/logoutconfirmation";
 
 type MenuItemWithSubMenuProps = {
   item: SideNavItem;
@@ -36,6 +38,7 @@ const HeaderMobile = () => {
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
   const { isDashboardNavbarOpen, setIsDashboardNavbarOpen } = useNavbar();
+  const [logoutModal, setLogoutModal] = useState(false);
 
   useEffect(() => {
     if (isDashboardNavbarOpen) {
@@ -59,6 +62,7 @@ const HeaderMobile = () => {
       }`}
       ref={containerRef}
     >
+      <LogoutConfirmation modal={logoutModal} setModal={setLogoutModal} />
       <motion.div
         className="absolute inset-0 right-0 w-full bg-lightprimary-bg dark:bg-primary-bg"
         variants={sidebar}
@@ -75,7 +79,9 @@ const HeaderMobile = () => {
               <MenuItem>
                 <Link
                   href={item.path}
-                  onClick={() => setIsDashboardNavbarOpen(!isDashboardNavbarOpen)}
+                  onClick={() =>
+                    setIsDashboardNavbarOpen(!isDashboardNavbarOpen)
+                  }
                   className={`w-full py-2 pl-3 pr-4 text-base flex items-center justify-between font-medium ${
                     item.path === pathname
                       ? "text-lightaccent-text dark:text-accent-text"
@@ -93,6 +99,17 @@ const HeaderMobile = () => {
             </div>
           );
         })}
+        <motion.li
+        onClick={() => {
+          setIsDashboardNavbarOpen(!isDashboardNavbarOpen)
+          setLogoutModal(true);
+        }}
+          variants={MenuItemVariants}
+          className="w-full mt-8 text-center bg-lightdanger-bg dark:bg-danger-bg rounded-md py-2 pl-3 pr-4 text-base flex items-center justify-between font-medium text-red-700 dark:text-red-500"
+        >
+          Logout
+          <LogOut strokeWidth={1.5} size={20} />
+        </motion.li>
       </motion.ul>
     </motion.nav>
   );
