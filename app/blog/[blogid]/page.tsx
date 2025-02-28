@@ -14,8 +14,16 @@ import {
   format,
 } from "date-fns";
 import ProfileHoverInfo from "../components/profileinfohover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 import type { Metadata } from "next";
+import { PopoverArrow } from "@radix-ui/react-popover";
+import { SiFacebook, SiLinkedin, SiX } from "react-icons/si";
+import SharerComponent from "../components/sharercomponent";
 
 interface Params {
   blogid: string;
@@ -74,7 +82,7 @@ export async function generateMetadata({
     openGraph: {
       title: results?.title,
       description: results?.content,
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/${params.blogid}`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${params.blogid}`,
       images: [
         {
           url: results?.thumbnail_url,
@@ -159,6 +167,7 @@ export default async function BlogPage({ params }: { params: Params }) {
       </div>
     );
   }
+
   return (
     <div className="min-h-screen bg-lightprimary-bg dark:bg-primary-bg">
       <BlogNavbar />
@@ -214,10 +223,7 @@ export default async function BlogPage({ params }: { params: Params }) {
                     />
                     {blog.comments.length}
                   </a>
-                  <div className="flex items-center justify-center text-sm lg:text-base font-extralight cursor-pointer text-lightprimary-text dark:text-primary-text/80">
-                    <LuShare strokeWidth={1} className="mr-1 text-xl" />
-                    Share
-                  </div>
+                  <SharerComponent blog={blog} />
                   {isAuthor && (
                     <Link
                       target="_blank"
