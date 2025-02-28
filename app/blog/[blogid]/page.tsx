@@ -1,9 +1,8 @@
 import React from "react";
-import Image from "next/image";
 import { createClient } from "@/utils/supabase/server";
 import { FlagIcon } from "lucide-react";
 import BlogNavbar from "../components/blognavbar";
-import { LuMessageCircleMore, LuShare, LuPencil } from "react-icons/lu";
+import { LuMessageCircleMore, LuPencil } from "react-icons/lu";
 import CommentBox from "../components/blogcomment";
 import Link from "next/link";
 import {
@@ -14,15 +13,7 @@ import {
   format,
 } from "date-fns";
 import ProfileHoverInfo from "../components/profileinfohover";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-
 import type { Metadata } from "next";
-import { PopoverArrow } from "@radix-ui/react-popover";
-import { SiFacebook, SiLinkedin, SiX } from "react-icons/si";
 import SharerComponent from "../components/sharercomponent";
 
 interface Params {
@@ -45,15 +36,12 @@ interface Blog {
 }
 
 const formatDate = (createdAt: string) => {
-  const date = parseISO(createdAt); // Parsed as Date object
+  const date = parseISO(createdAt);
 
-  // Convert now to a Date object with IST
   const now = new Date(new Date().toLocaleString("en-US"));
 
   const minutesAgo = differenceInMinutes(now, date);
-
   const hoursAgo = differenceInHours(now, date);
-
   const daysAgo = differenceInDays(now, date);
 
   if (minutesAgo < 1) {
@@ -69,20 +57,44 @@ const formatDate = (createdAt: string) => {
   }
 };
 
+function extractTextFromHtml(html: string): string {
+  let text = html
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"');
+
+  text = text.replace(/<[^>]*>/g, '');
+
+  text = text
+    .replace(/\s+/g, ' ') 
+    .replace(/\n\s+/g, '\n')
+    .trim();
+  
+  return text.substring(0,300);
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Params;
 }): Promise<Metadata> {
   const results = await getBlogDetails(params.blogid);
+  const fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${params.blogid}`;
+  const description = extractTextFromHtml(results?.content);
 
   return {
     title: `${results?.title}`,
-    description: results?.content,
+    description: description,
+    alternates: {
+      canonical: fullUrl,
+    },
     openGraph: {
       title: results?.title,
-      description: results?.content,
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${params.blogid}`,
+      description: description,
+      url: fullUrl,
+      siteName: "Linkfolio",
       images: [
         {
           url: results?.thumbnail_url,
@@ -95,7 +107,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary",
       title: results?.title,
-      description: results?.content,
+      description: description,
       images: [results?.thumbnail_url],
     },
   };

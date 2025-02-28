@@ -15,23 +15,33 @@ interface Params {
   utm_location?: string;
 }
 
+function RemoveMarkdown(markdown: string): string {
+  const result = removeMarkdown(markdown).replace(/\s+/g, " ").trim()
+
+  return result;
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Params;
 }): Promise<Metadata> {
   const results = await getNameBio(params.username);
+  const fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${params.username}`;
 
   return {
     title: `${results?.full_name}`,
-    description: removeMarkdown(results?.bio).replace(/\s+/g, " ").trim(),
+    description: RemoveMarkdown(results?.bio),
     icons: {
       icon: results?.favicon,
     },
+    alternates: {
+      canonical: fullUrl,
+    },
     openGraph: {
       title: results?.full_name,
-      description: removeMarkdown(results?.bio).replace(/\s+/g, " ").trim(),
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/${params.username}`,
+      description: RemoveMarkdown(results?.bio),
+      url: fullUrl,
       images: [
         {
           url: results?.avatar_url,
@@ -44,7 +54,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary",
       title: results?.full_name,
-      description: removeMarkdown(results?.bio).replace(/\s+/g, " ").trim(),
+      description: RemoveMarkdown(results?.bio),
       images: [results?.avatar_url],
     },
   };
