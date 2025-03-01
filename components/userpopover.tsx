@@ -59,7 +59,8 @@ const UserPopover = ({
           />
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-fit max-w-60 mr-1 lg:mr-3 mt-4 lg:mt-3 bg-lightprimary-bg dark:bg-primary-bg border border-lightsecondary-border dark:border-secondary-border">
+      <PopoverContent className="relative w-fit max-w-60 mr-1 lg:mr-3 mt-4 lg:mt-3 bg-lightprimary-bg dark:bg-primary-bg border border-lightsecondary-border dark:border-secondary-border">
+        <div className="absolute z-0 -top-2 left-[63%] -translate-x-1/2 w-4 h-4 rotate-45 bg-lightprimary-bg dark:bg-primary-bg border-t border-l border-lightsecondary-border dark:border-secondary-border" />
         <div className="flex flex-col items-center justify-center p-3 gap-2">
           <div className="relative h-16 w-16 md:h-20 md:w-20 mx-auto p-1">
             {/* User Profile Image */}
