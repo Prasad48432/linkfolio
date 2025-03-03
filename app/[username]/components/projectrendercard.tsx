@@ -6,6 +6,7 @@ import { IoLogoGithub } from "react-icons/io";
 import { FiLink } from "react-icons/fi";
 import Image from "next/image";
 import GithubStarBadge from "@/app/dashboard/contents/components/starbadge";
+import { handleClick } from "../functions/addClick";
 
 const ProjectRenderCard = ({
   project,
@@ -17,12 +18,15 @@ const ProjectRenderCard = ({
   return (
     <div key={project.id} className="relative col-span-2 lg:col-span-1">
       <div className="absolute top-5 right-3 flex flex-col gap-1 items-center justify-center">
-        <Link
+        <span
           style={{
             background: theme ? theme.primary_bg : "#121212",
             borderColor: theme ? theme.strongerborder : "#4d4d4d",
           }}
-          href={`${project.github_link}`}
+          onClick={() => {
+            handleClick({ table: "projects", docId: project.id });
+            window.open(project.github_link, "_blank");
+          }}
           className="cursor-pointer px-2 py-1 flex items-center justify-center gap-2 rounded-md border"
         >
           <IoLogoGithub
@@ -31,13 +35,16 @@ const ProjectRenderCard = ({
             }}
             className="text-lg"
           />
-        </Link>
-        <Link
+        </span>
+        <span
           style={{
             background: theme ? theme.primary_bg : "#121212",
             borderColor: theme ? theme.strongerborder : "#4d4d4d",
           }}
-          href={`${project.website_link}`}
+          onClick={() => {
+            handleClick({ table: "projects", docId: project.id });
+            window.open(project.website_link, "_blank");
+          }}
           className="cursor-pointer px-2 py-1 flex items-center justify-center gap-2 rounded-md border"
         >
           <FiLink
@@ -46,7 +53,7 @@ const ProjectRenderCard = ({
             }}
             className="text-lg"
           />
-        </Link>
+        </span>
       </div>
       <div
         style={{
@@ -72,16 +79,21 @@ const ProjectRenderCard = ({
             />
           </div>
           <div className="flex flex-col items-start justify-center gap-1.5">
-            <a target="_blank" href={`${project.website_link}`}>
+            <span
+              onClick={() => {
+                handleClick({ table: "projects", docId: project.id });
+                window.open(project.website_link, "_blank");
+              }}
+            >
               <p
                 style={{
                   color: theme ? theme.primary_text : "#ededed",
                 }}
-                className="hover:underline font-semibold text-base"
+                className="hover:underline font-semibold text-base cursor-pointer"
               >
                 {project.name}
               </p>
-            </a>
+            </span>
             <span className="flex items-center justify-center gap-0.5">
               <CategoryBadge object={project} size={"lg"} />
               <GithubStarBadge

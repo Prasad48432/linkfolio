@@ -66,6 +66,7 @@ const Navbar = ({
   const { isNavbarOpen, setIsNavbarOpen } = useNavbar();
   const [isDropdown1Open, setDropdown1Open] = useState(false);
   const [isDropdown2Open, setDropdown2Open] = useState(false);
+  const [navbarBackground, setNavbarBackground] = useState("");
 
   useEffect(() => {
     const topDiv = document.getElementById("topdiv");
@@ -81,6 +82,19 @@ const Navbar = ({
       topDiv?.classList.add("z-40");
     });
   }, []);
+
+  useEffect(() => {
+    const prefersDarkMode = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const navbarBackground = isNavbarOpen
+      ? prefersDarkMode
+        ? "#121212"
+        : "#eeeae3"
+      : "transparent";
+
+    setNavbarBackground(navbarBackground);
+  }, [isNavbarOpen]);
 
   useEffect(() => {
     const topDiv = document.getElementById("topdiv");
@@ -104,11 +118,9 @@ const Navbar = ({
       >
         <div className="absolute inset-0 h-full w-full bg-lightprimary-bg/70 dark:bg-primary-bg/90 !opacity-100 transition-opacity"></div>
         <nav
-          style={
-            {
-              background: isNavbarOpen ? "#121212" : "transparent",
-            }
-          }
+          style={{
+            background: navbarBackground,
+          }}
           className={`${
             isNavbarOpen && size.width < 1024 ? "border-none" : "border-b"
           } relative z-40 border-brdr backdrop-blur-sm transition-opacity bg-lightprimary-bg dark:bg-primary-bg  border-lightsecondary-border dark:border-secondary-border dark:shadow-lg dark:shadow-primary-bg/80`}

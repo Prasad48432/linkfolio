@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Spotlight } from "./spotlight";
 import UsernameCheck from "./usernamecheck";
 import type { User } from "@supabase/supabase-js";
+import { ToastError, ToastSuccess } from "./toast";
 
 const Hero = ({
   trendingProfiles,
@@ -83,6 +84,8 @@ const Hero = ({
                           </div>
                         </div>
                       )}
+                      <p className="cursor-pointer text-lightprimary-text dark:text-primary-text" onClick={() => ToastSuccess({message: "Success done!"})}>Success</p>
+                      <p className="cursor-pointer text-lightprimary-text dark:text-primary-text" onClick={() => ToastError({message: "Error done!"})}>Error</p>
                       <h1
                         className={`bricolage text-foreground font-extrabold text-herosize lg:text-7xl tracking-tight select-none`}
                       >

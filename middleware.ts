@@ -2,7 +2,24 @@ import { type NextRequest } from "next/server";
 import { updateSession } from "@/utils/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request);
+  const response = await updateSession(request);
+
+  const deviceId = request.cookies.get("deviceId")?.value;
+
+  if (!deviceId) {
+    const timestamp = Date.now().toString(36);
+    const randomPart = crypto.randomUUID();
+    const newDeviceId = `${timestamp}-${randomPart}`;
+
+    response.cookies.set("deviceId", newDeviceId, {
+      path: "/",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
+  }
+
+  return response;
 }
 
 export const config = {

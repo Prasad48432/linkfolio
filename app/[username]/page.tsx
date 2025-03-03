@@ -1,13 +1,15 @@
 import React from "react";
 import { createClient } from "@/utils/supabase/server";
-import { FlagIcon, Pencil } from "lucide-react";
 import ProfileCard from "./components/profilecard";
 import ContentsCard from "./components/contentscard";
 import MobileSocialsRender from "./components/mobilesocials";
 import { Metadata } from "next";
 import { CiEdit } from "react-icons/ci";
 import removeMarkdown from "remove-markdown";
-import TrackView from "./components/trackview";
+import { trackPageView } from "./functions/trackView";
+import { IoIosArrowRoundForward } from "react-icons/io";
+import Image from "next/image";
+import supabase from "@/utils/supabase/supabase";
 
 interface Params {
   username: string;
@@ -16,7 +18,7 @@ interface Params {
 }
 
 function RemoveMarkdown(markdown: string): string {
-  const result = removeMarkdown(markdown).replace(/\s+/g, " ").trim()
+  const result = removeMarkdown(markdown).replace(/\s+/g, " ").trim();
 
   return result;
 }
@@ -75,6 +77,22 @@ const getNameBio = async (username: string) => {
   return profile;
 };
 
+export async function generateStaticParams() {
+  const { data: profiles, error } = await supabase.from("profiles").select("username");
+
+  if (error) {
+    console.error("Error fetching usernames:", error);
+    return [];
+  }
+
+  console.log("Generated static params:", profiles);
+
+  return profiles.map((profile) => ({
+    username: profile.username,
+  }));
+}
+
+
 export default async function UsernamePage({ params }: { params: Params }) {
   const supabase = createClient();
   const {
@@ -89,14 +107,59 @@ export default async function UsernamePage({ params }: { params: Params }) {
 
   if (profileError || !profile) {
     return (
-      <div className="h-screen mx-auto grid place-items-center text-center px-8">
-        <FlagIcon className="w-20 h-20 mx-auto" />
-        <p className="mt-10 !text-3xl !leading-snug md:!text-4xl">
-          Error 404 <br /> User not found.
-        </p>
+    <div className="w-full h-screen bg-lightprimary-bg dark:bg-primary-bg">
+      <div className="sm:py-18 max-w-7xl relative mx-auto px-6 py-16 md:py-24 lg:px-16 lg:py-20 xl:px-20 pt-8 pb-10 md:pt-16 overflow-hidden">
+        <div className="flex flex-col items-center justify-center">
+          <p className="mt-10 text-5xl font-semibold">Error 404</p>
+          <p className="mt-2 mb-12 text-xl font-medium">
+            User not found, but you can still make this username yours
+          </p>
+          <div className="flex items-center justify-center gap-0 mb-8">
+            <Image
+              className="w-[248px] h-[48px] block dark:hidden"
+              src="/darkheaderlogo.png"
+              alt="Header Logo"
+              width={500}
+              height={500}
+              priority
+            />
+
+            {/* Dark Mode Image */}
+            <Image
+              className="w-[248px] h-[48px] hidden dark:block"
+              src="/headerlogo.png"
+              alt="Header Logo Dark"
+              width={500}
+              height={500}
+              priority
+            />
+            <p className="text-3xl font-semibold text-lightprimary-text dark:text-primary-text">
+              ??
+            </p>
+          </div>
+          <p className="mb-6 text-xl">
+            The username{" "}
+            <a
+              href={`/register?username=${params.username}`}
+              className="font-semibold text-lightaccent-text dark:text-accent-text underline underline-offset-1"
+            >
+              {params.username}
+            </a>{" "}
+            is still available{" "}
+          </p>
+          <a
+            href={`/register?username=${params.username}`}
+            className="flex cursor-pointer transition-all duration-200 ease-out rounded-lg gap-2 items-center justify-center bg-lightsecondary-bg border border-lightsecondary-border hover:bg-lightsecondary-selection hover:border-lightsecondary-strongerborder dark:border-secondary-border dark:bg-secondary-bg dark:hover:bg-secondary-selection dark:hover:border-secondary-strongerborder px-2 py-1"
+          >
+            Reserve now <IoIosArrowRoundForward size={20} />
+          </a>
+        </div>
       </div>
+    </div>
     );
   }
+
+  await trackPageView(params.username, profile.id);
 
   const userId = user?.id;
   const profileId = profile.id;
@@ -119,13 +182,12 @@ export default async function UsernamePage({ params }: { params: Params }) {
       .order("index", { ascending: true }),
   ]);
 
-
   return (
     <div
       style={{
         background: profile.theme.primary_bg || "#121212",
       }}
-      className="flex flex-col lg:flex-row relative"
+      className="flex flex-col lg:flex-row relative change_selection"
     >
       {userId === profileId && (
         <a
@@ -142,7 +204,6 @@ export default async function UsernamePage({ params }: { params: Params }) {
           <p className="hidden md:block">Edit Page</p>
         </a>
       )}
-      <TrackView username={params.username} profile={profile} />
       <div
         style={{
           borderColor: profile.theme.strongerborder || "#4d4d4d",

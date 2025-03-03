@@ -117,7 +117,7 @@ const SourcesChart = ({ fetchLoading }: { fetchLoading: boolean }) => {
         ) : (
           <ChartContainer
             config={sourcesConfig}
-            className="aspect-auto h-[250px] w-full"
+            className="aspect-auto h-[250px] w-full -ml-5"
           >
             <BarChart accessibilityLayer data={sourcesData}>
               <CartesianGrid vertical={false} />

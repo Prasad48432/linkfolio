@@ -2,12 +2,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
   BatteryLow,
+  Dribbble,
   Eye,
   FilePlus,
   FolderPlus,
   Link,
   Loader,
   Plus,
+  PlusCircle,
   SignalMedium,
   X,
 } from "lucide-react";
@@ -30,6 +32,7 @@ import StartupPreviewRender from "./components/startuppreview_render";
 import ProjectPreviewRender from "./components/projectpreview_render";
 import LinkPreviewRender from "./components/linkpreview_render";
 import AnimatedSVG from "@/components/animatedloader";
+import { SiArtstation, SiBehance, SiCodepen, SiDevdotto, SiDribbble, SiFigma, SiGithub, SiGumroad, SiHashnode, SiJsfiddle, SiMedium, SiProducthunt, SiYoutube } from "react-icons/si";
 
 type IndexConversion = "startupAdd" | "linkAdd" | "projectAdd";
 
@@ -512,7 +515,7 @@ const Projects = () => {
               });
             }}
           >
-            <TabList className="flex p-1.5 lg:p-2 bg-lightsecondary-bg/40 dark:bg-secondary-bg/40 gap-1 rounded-full mx-1">
+            <TabList className="flex flex-wrap p-1.5 lg:p-2 bg-lightsecondary-bg/40 dark:bg-secondary-bg/40 gap-1 rounded-full mx-1">
               <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-lightprimary-text dark:text-primary-text focus:outline-none data-[selected]:bg-lightaccent-bg dark:data-[selected]:bg-accent-bg border border-lightsecondary-border dark:border-secondary-border data-[selected]:border-lightaccent-border dark:data-[selected]:border-accent-border data-[hover]:bg-lightsecondary-selection dark:data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-lightaccent-bg/80 dark:data-[selected]:data-[hover]:bg-accent-bg/80">
                 Startups
               </Tab>
@@ -521,6 +524,9 @@ const Projects = () => {
               </Tab>
               <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-lightprimary-text dark:text-primary-text focus:outline-none data-[selected]:bg-lightaccent-bg dark:data-[selected]:bg-accent-bg border border-lightsecondary-border dark:border-secondary-border data-[selected]:border-lightaccent-border dark:data-[selected]:border-accent-border data-[hover]:bg-lightsecondary-selection dark:data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-lightaccent-bg/80 dark:data-[selected]:data-[hover]:bg-accent-bg/80">
                 Links
+              </Tab>
+              <Tab className="transition-all ease-out duration-200 rounded-full py-1 px-3 text-[0.8rem] lg:text-sm/6 font-semibold text-lightprimary-text dark:text-primary-text focus:outline-none data-[selected]:bg-lightaccent-bg dark:data-[selected]:bg-accent-bg border border-lightsecondary-border dark:border-secondary-border data-[selected]:border-lightaccent-border dark:data-[selected]:border-accent-border data-[hover]:bg-lightsecondary-selection dark:data-[hover]:bg-secondary-selection data-[selected]:data-[hover]:bg-lightaccent-bg/80 dark:data-[selected]:data-[hover]:bg-accent-bg/80">
+                Feature Work
               </Tab>
             </TabList>
             <TabPanels>
@@ -1009,6 +1015,78 @@ const Projects = () => {
                     </div>
                   </>
                 )}
+              </TabPanel>
+              <TabPanel className="max-w-2xl px-2.5 py-4 flex flex-col gap-4">
+                <h1 className="text-lightprimary-text/90 dark:text-primary-text/90 font-medium text-base lg:text-lg px-1">
+                  Feature work from
+                </h1>
+                <div className="flex flex-wrap gap-3 items-center">
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiDribbble size={15} strokeWidth={0.1} />
+                    Dribble
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiMedium size={15} strokeWidth={0.1} />
+                    Medium
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiDevdotto size={15} strokeWidth={0.1} />
+                    Dev
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiGithub size={15} strokeWidth={0.1} />
+                    Github
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiBehance size={15} strokeWidth={0.1} />
+                    Behance
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiArtstation size={15} strokeWidth={0.1} />
+                    Artstation
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiCodepen size={15} strokeWidth={0.1} />
+                    Codepen
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiJsfiddle size={15} strokeWidth={0.1} />
+                    JS Fiddle
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiHashnode size={15} strokeWidth={0.1} />
+                    Hashnode
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiProducthunt size={15} strokeWidth={0.1} />
+                    Product hunt
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiYoutube size={15} strokeWidth={0.1} />
+                    Youtube
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiFigma size={15} strokeWidth={0.1} />
+                    Figma
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                  <div className="transtiton-all duration-200 text-sm ease-out cursor-pointer flex items-center justify-center gap-2 px-2 py-1 text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg hover:bg-lightsecondary-selection dark:hover:bg-secondary-selection rounded-md border border-lightsecondary-border dark:border-secondary-border hover:border-lightsecondary-strongerborder dark:hover:border-secondary-strongerborder">
+                    <SiGumroad size={15} strokeWidth={0.1} />
+                    Gumroad
+                    <Plus strokeWidth={1} size={15} />
+                  </div>
+                </div>
               </TabPanel>
             </TabPanels>
           </TabGroup>

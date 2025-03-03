@@ -11,6 +11,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { handleClick } from "../functions/addClick";
 
 const chartData = [
   { month: "January", revenue: 26 },
@@ -70,7 +71,7 @@ const StartupRenderCard = ({
                 style={{
                   background: theme ? theme.primary_bg : "#262626",
                   color: theme ? theme.primary_text : "#ededed",
-                  borderColor: theme ? hexToRgba(theme.border,0.5) : "#4d4d4d",
+                  borderColor: theme ? hexToRgba(theme.border, 0.5) : "#4d4d4d",
                 }}
                 className="text-mx font-bold pl-1.5 pr-1 py-0.5 rounded-l-full border-r"
               >
@@ -122,17 +123,19 @@ const StartupRenderCard = ({
             />
           </div>
           <div className="">
-            <a
+            <span
               style={{
                 color: theme ? theme.primary_text : "#ededed",
               }}
-              target="_blank"
-              href={`${startup.website}`}
+              onClick={() => {
+                handleClick({ table: "startups", docId: startup.id });
+                window.open(startup.website, "_blank");
+              }}
             >
-              <p className="hover:underline font-semibold text-base">
+              <p className="hover:underline font-semibold text-base cursor-pointer">
                 {startup.name}
               </p>
-            </a>
+            </span>
             {startup.show_status && startup.status !== "discontinued" && (
               <StatusBadge startup={startup} size={"lg"} theme={theme} />
             )}

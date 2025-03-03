@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import { handleClick } from "../functions/addClick";
 
 const LinkRenderCard = ({ link, theme }: { link: any; theme?: any }) => {
   return (
@@ -28,16 +29,21 @@ const LinkRenderCard = ({ link, theme }: { link: any; theme?: any }) => {
             />
           </div>
           <div className="flex flex-col justify-center w-[calc(100%-4.5rem)]">
-            <a target="_blank" href={`${link.link}`}>
+            <span
+              onClick={() => {
+                handleClick({ table: "links", docId: link.id });
+                window.open(link.link, "_blank");
+              }}
+            >
               <p
                 style={{
                   color: theme ? theme.primary_text : "#ededed",
                 }}
-                className="hover:underline font-semibold text-base"
+                className="hover:underline font-semibold text-base cursor-pointer"
               >
                 {link.title}
               </p>
-            </a>
+            </span>
             <p
               style={{
                 color: theme ? theme.primary_text : "#ededed",

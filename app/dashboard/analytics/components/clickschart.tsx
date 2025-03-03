@@ -117,7 +117,7 @@ const ClicksChart = ({
           </div>
         )}
       </CardHeader>
-      <div className="px-2 py-4">
+      <div className="px-2 lg:py-4">
         {fetchLoading ? (
           <div className="w-full h-[250px] flex items-end gap-4 justify-center">
             {[150, 110, 170, 120, 150].map((height, index) => (
@@ -135,7 +135,7 @@ const ClicksChart = ({
         ) : (
           <ChartContainer
             config={clicksConfig}
-            className="aspect-auto h-[250px] w-full"
+            className="aspect-auto h-[250px] w-full -ml-5"
           >
             <BarChart accessibilityLayer data={clicks[activeChart]}>
               <CartesianGrid vertical={false} />
