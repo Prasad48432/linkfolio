@@ -9,7 +9,7 @@ import removeMarkdown from "remove-markdown";
 import { trackPageView } from "./functions/trackView";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Image from "next/image";
-import supabase from "@/utils/supabase/supabase";
+// import supabase from "@/utils/supabase/supabase";
 
 interface Params {
   username: string;
@@ -77,20 +77,20 @@ const getNameBio = async (username: string) => {
   return profile;
 };
 
-export async function generateStaticParams() {
-  const { data: profiles, error } = await supabase.from("profiles").select("username");
+// export async function generateStaticParams() {
+//   const { data: profiles, error } = await supabase.from("profiles").select("username");
 
-  if (error) {
-    console.error("Error fetching usernames:", error);
-    return [];
-  }
+//   if (error) {
+//     console.error("Error fetching usernames:", error);
+//     return [];
+//   }
 
-  console.log("Generated static params:", profiles);
+//   console.log("Generated static params:", profiles);
 
-  return profiles.map((profile) => ({
-    username: profile.username,
-  }));
-}
+//   return profiles.map((profile) => ({
+//     username: profile.username,
+//   }));
+// }
 
 
 export default async function UsernamePage({ params }: { params: Params }) {

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, User2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { SiLinkedin } from "react-icons/si";
 import { CiEdit } from "react-icons/ci";
@@ -24,6 +24,28 @@ const Onboarding = () => {
   };
 
   const [selectedOption, setSelectedOption] = useState("none");
+  const clientId = process.env.NEXT_PUBLIC_LINKEDIN_CLIENT_ID;
+  const redirectUri =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/api/auth/linkedin/callback`
+      : "";
+  const scope = "openid profile w_member_social email";
+
+  // State for authUrl (initialized in useEffect to avoid hydration mismatch)
+  const [authUrl, setAuthUrl] = useState("");
+
+  // Set up authUrl after component mounts
+  useEffect(() => {
+    setAuthUrl(
+      `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(
+        redirectUri
+      )}&scope=${encodeURIComponent(scope)}&state=${generateRandomState()}`
+    );
+  }, []);
+
+  function generateRandomState() {
+    return Math.random().toString(36).substring(2, 15);
+  }
 
   return (
     <div className="w-full bg-lightprimary-bg dark:bg-primary-bg min-h-screen">
@@ -104,7 +126,7 @@ const Onboarding = () => {
                     Start from scratch
                     <CiEdit />
                   </span>
-                  <span 
+                  <span
                     data-active={selectedOption === "linkedin"}
                     onClick={() => setSelectedOption("linkedin")}
                     className="text-lightprimary-text dark:text-primary-text bg-lightsecondary-bg dark:bg-secondary-bg data-[active=true]:bg-secondary-selection data-[active=true]:dark:bg-primary-text data-[active=true]:text-lightprimary-bg data-[active=true]:dark:text-primary-bg flex transition-all cursor-pointer duration-200 ease-out gap-2 items-center justify-center text-lg font-medium px-3 py-2 rounded-lg border-lightsecondary-border dark:border-secondary-border border data-[active=false]:hover:border-lightsecondary-strongerborder data-[active=false]:dark:hover:border-secondary-strongerborder data-[active=false]:hover:bg-lightsecondary-selection data-[active=false]:dark:hover:bg-secondary-selection"
@@ -133,7 +155,7 @@ const Onboarding = () => {
                       placeholder="Enter your name"
                       value={""}
                       onChange={(e) => {}}
-                      className="text-lightprimary-text dark:text-primary-text border-lightsecondary-border dark:border-secondary-border focus:border-lightsecondary-strongerborder dark:focus:border-secondary-strongerborder w-full pl-10 pr-4 py-3 bg-lisecondary-bg dark:bg-secondary-bg border focus:outline-none rounded-lg mt-1"
+                      className="text-lightprimary-text dark:text-primary-text border-lightsecondary-border dark:border-secondary-border focus:border-lightsecondary-strongerborder dark:focus:border-secondary-strongerborder w-full pl-10 pr-4 py-3 bg-lightsecondary-bg dark:bg-secondary-bg border focus:outline-none rounded-lg mt-1"
                     />
                   </div>
                 </motion.div>
@@ -141,24 +163,16 @@ const Onboarding = () => {
               {selectedOption === "linkedin" && (
                 <motion.div variants={textVariants} className="w-full">
                   <label className="block text-lg font-medium text-primary-text/80 px-1 mb-1">
-                    Enter your Linkedin profile url
+                    Access linked in with below auth button
                   </label>
-                  <div className="relative">
-                    <span className="absolute top-1/2 -translate-y-1/2 left-3 flex items-center">
-                      <SiLinkedin
-                        size={25}
-                        className="text-lightprimary-text/80 dark:text-primary-text/80 text-xl"
-                      />
-                    </span>
-                    <input
-                      type="text"
-                      name="linkedin_url"
-                      placeholder="Enter your linkedin url"
-                      value={""}
-                      onChange={(e) => {}}
-                      className="text-lightprimary-text dark:text-primary-text border-lightsecondary-border dark:border-secondary-border focus:border-lightsecondary-strongerborder dark:focus:border-secondary-strongerborder w-full pl-12 pr-4 py-3 bg-lisecondary-bg dark:bg-secondary-bg border focus:outline-none rounded-lg mt-1"
-                    />
-                  </div>
+                  <button
+                    onClick={() => {
+                      window.open(authUrl);
+                    }}
+                    className="flex gap-2 items-center justify-center px-3 py-2 w-full rounded-md text-lightprimary-text dark:text-primary-text border-lightsecondary-border dark:border-secondary-border bg-lightsecondary-bg dark:bg-secondary-bg"
+                  >
+                    Connect Linkedin <SiLinkedin />
+                  </button>
                 </motion.div>
               )}
             </motion.div>

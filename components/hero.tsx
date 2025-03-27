@@ -84,8 +84,6 @@ const Hero = ({
                           </div>
                         </div>
                       )}
-                      <p className="cursor-pointer text-lightprimary-text dark:text-primary-text" onClick={() => ToastSuccess({message: "Success done!"})}>Success</p>
-                      <p className="cursor-pointer text-lightprimary-text dark:text-primary-text" onClick={() => ToastError({message: "Error done!"})}>Error</p>
                       <h1
                         className={`bricolage text-foreground font-extrabold text-herosize lg:text-7xl tracking-tight select-none`}
                       >
