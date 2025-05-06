@@ -1,5 +1,8 @@
 # LinkFolio/
 
+![Untitled design (6)](https://github.com/user-attachments/assets/9ce8a7d2-735f-4345-a967-e1749ac0496c)
+
+
 ## your portfolio simple, powerful and lightweight on the web
 
 - showcase your **projects** and **startups**
