@@ -1,6 +1,7 @@
 # LinkFolio/
 
-![Untitled design (7) (1)](https://github.com/user-attachments/assets/54035e21-8270-40f8-a4a4-333c905e2c6d)
+<img width="796" height="383" alt="linkfolio" src="https://github.com/user-attachments/assets/b0052bcc-1d09-4a96-94c1-64773b56fb0c" />
+
 
 
 ## your portfolio simple, powerful and lightweight on the web
